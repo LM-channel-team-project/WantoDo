@@ -1,25 +1,25 @@
 # Dependency directories
 
-node_modules/
-package-lock.json
+**/node_modules/
+**/package-lock.json
 
 # Configs
-config/
+**/config/
 
 # Logs
-logs
-*.log
-npm-debug.log*
+**/logs
+**/*.log
+**/npm-debug.log*
 
 # Optional npm cache directory
-.npm
+**/.npm
 
 # Editor
-.vscode
-.idea
+**/.vscode
+**/.idea
 
 # Docs
-docs
+**/docs
 
 #
-dist/
+**/dist/
