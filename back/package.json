@@ -4,7 +4,9 @@
   "description": "",
   "main": "app.ts",
   "scripts": {
-    "back": "cross-env NODE_ENV=local nodemon app.ts"
+    "backend-local": "cross-env NODE_ENV=local nodemon app.ts",
+    "backend-dev": "cross-env NODE_ENV=develop nodemon app.ts",
+    "backend-prod": "cross-env NODE_ENV=production nodemon app.ts"
   },
   "keywords": [],
   "author": "",
@@ -12,6 +14,7 @@
   "dependencies": {
     "apidoc": "^0.27.1",
     "cors": "^2.8.5",
+    "cross-env": "^7.0.3",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "express-validator": "^6.10.0",
