@@ -1,10 +1,17 @@
 # Dependency directories
-
 **/node_modules/
 **/package-lock.json
+front/**/.pnp
+front/.pnp.js
 
 # Configs
 **/config/
+
+# testing
+front/coverage
+
+# production
+front/build
 
 # Logs
 **/logs
@@ -21,5 +28,15 @@
 # Docs
 **/docs
 
-#
+# misc
 **/dist/
+front/.DS_Store
+front/.env
+front/.env.local
+front/.env.development.local
+front/.env.test.local
+front/.env.production.local
+
+front/npm-debug.log*
+front/yarn-debug.log*
+front/yarn-error.log*
