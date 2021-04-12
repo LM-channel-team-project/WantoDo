@@ -44,6 +44,9 @@ const userSchema = new Schema({
         type: String,
         required: true,
     },
+    nickname: {
+        type: String,
+    },
     motto: {
         type: String,
     },
@@ -69,7 +72,7 @@ export interface IUser extends Document{
     name: string;
     motto: string;
     profileImageUrl: string;
-    settings: ISetting
+    settings: ISetting;
 }
 
 export const users: Model<IUser> = model('User', userSchema);

@@ -1,4 +1,4 @@
-import { model, Schema, Document, Model } from "mongoose";
+import { Document, model, Model, Schema } from "mongoose";
 
 const alarmSchema = new Schema({
     type: {
@@ -8,7 +8,7 @@ const alarmSchema = new Schema({
             'absolute',
         ]
     },
-    subType:{
+    subType: {
         type: String,
         enum: [
             'min',
@@ -37,7 +37,7 @@ const taskSchema = new Schema({
         type: String,
         required: true,
     },
-    checkedFlag: {
+    checkedFlag: {                                  // task 수행여부
         type: Boolean,
         required: true,
     },
@@ -68,8 +68,37 @@ const taskSchema = new Schema({
     }
 });
 
-export interface ITask extends Document {
+type IType = 'relative' | 'absolute';
+type ISubType = 'min' | 'hour' | 'day' | 'week' | 'month' | 'year';
 
+export interface IAlarm {
+    type: IType;
+    subType: ISubType;
+    time: number;
+}
+
+export interface ITask extends Document {
+    userId: string;
+    taskId: string;
+    contents: string;
+    checkedFlag: boolean;
+    period: {
+        start: number,
+        end: number,
+    };
+    important: number;
+    tags: [{
+        tag: string,
+        color: string,
+    }];
+    repeat: {
+        interval: number,
+        datOfWeek: [number],
+        time: number,
+    },
+    alarm: IAlarm,
+    createdTimestamp: number;
+    updatedTimestamp: number;
 }
 
 export const tasks: Model<any> = model('Task', taskSchema);
