@@ -3,6 +3,7 @@ import { model, Schema, Document, Model } from "mongoose";
 const settingSchema = new Schema({
     theme: {
         type: String,
+        default: 'default',
         enum: [
             'default',
             'dark',
@@ -10,9 +11,11 @@ const settingSchema = new Schema({
     },
     notificationFlag: {
         type: Boolean,
+        default: false,
     },
     beginningOfWeek: {
         type: String,
+        default: 'sunday',
         enum: [
             'sunday',
             'monday',
@@ -34,11 +37,11 @@ const userSchema = new Schema({
         required: true,
         enum: [
             'google',
-            'kakao',
-            'facebook',
-            'apple',
-            'naver',
         ],
+    },
+    platformId: {
+        type: String,
+        required: true,
     },
     name: {
         type: String,
@@ -46,12 +49,22 @@ const userSchema = new Schema({
     },
     nickname: {
         type: String,
+        default: '',
     },
     motto: {
         type: String,
+        default: '',
     },
     profileImageUrl: {
         type: String,
+    },
+    closeAccountFlag: {
+        type: Boolean,
+        default: false,
+    },
+    closeAccountMessage: {
+        type: String,
+        default: '',
     },
     settings: settingSchema,
 });
@@ -69,9 +82,13 @@ export interface IUser extends Document{
     userId: string;
     email: string;
     platform: string;
+    platformId: string;
     name: string;
+    nickname: string;
     motto: string;
     profileImageUrl: string;
+    closeAccountFlag: boolean;                  // 회원탈퇴 여부
+    closeAccountMessage: string;                // 회원탈퇴 메시지
     settings: ISetting;
 }
 
