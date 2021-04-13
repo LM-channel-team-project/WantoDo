@@ -6,7 +6,7 @@ const client = new OAuth2Client(Configs.googleClientId);
 
 export const googleIdTokenVerify = async (req: Request, res: Response, next: NextFunction) => {
     try {
-        const {authorization: idToken} = req.headers;
+        const { authorization: idToken } = req.headers;
 
         // idToken이 존재하지않으면 에러
         //todo: Error model 정의하기
@@ -21,7 +21,7 @@ export const googleIdTokenVerify = async (req: Request, res: Response, next: Nex
         // ticket이 존재하지않으면 에러
         // 왜 ticket이라고 할까?
         //todo: Error model 정의하기
-        if(!ticket) throw new Error();
+        if (!ticket) throw new Error();
 
         const payload: GoogleAuthLibrary.TokenPayload = ticket.getPayload()!;
 

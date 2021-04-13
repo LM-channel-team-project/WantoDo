@@ -7,7 +7,9 @@ export const loginUser = async (req: Request, res: Response, next: NextFunction)
         const user = res.locals.user;
         const result = await accountService.loginUser(user);
         res.status(200).send(result);
-    }catch (error) {
+    } catch (error) {
         next(error);
     }
 }
+
+
