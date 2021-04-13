@@ -36,6 +36,7 @@ front/.env.local
 front/.env.development.local
 front/.env.test.local
 front/.env.production.local
+front/yarn.lock
 
 front/npm-debug.log*
 front/yarn-debug.log*

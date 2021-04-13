@@ -1,0 +1,21 @@
+body {
+  padding: 0;
+}
+
+ul,
+ol,
+li {
+  padding: 0;
+  list-style: none;
+}
+
+a {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+button {
+  padding: 0;
+  cursor: pointer;
+}
