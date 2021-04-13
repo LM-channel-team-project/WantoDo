@@ -3,6 +3,7 @@ import cors from 'cors';
 
 import configs from './src/config';
 import router from './src/routes';
+import './src/lib/wantodoMongoose';
 
 const app = express();
 
@@ -13,6 +14,11 @@ app.use(express.urlencoded({extended: true}));
 
 // router
 app.use('/api', router);
+
+// catch 404 and forward to error handler
+app.use(function (req, res, next) {
+    next(new Error('404 Error'));
+});
 
 // start
 app.listen(configs.port, () => {
