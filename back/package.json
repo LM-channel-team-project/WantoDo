@@ -4,9 +4,9 @@
   "description": "",
   "main": "app.ts",
   "scripts": {
-    "backend-local": "cross-env NODE_ENV=local nodemon app.ts",
-    "backend-dev": "cross-env NODE_ENV=develop nodemon app.ts",
-    "backend-prod": "cross-env NODE_ENV=production nodemon app.ts"
+    "local": "cross-env NODE_ENV=local nodemon app.ts",
+    "dev": "cross-env NODE_ENV=develop nodemon app.ts",
+    "prod": "cross-env NODE_ENV=production nodemon app.ts"
   },
   "keywords": [],
   "author": "",
@@ -18,6 +18,7 @@
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "express-validator": "^6.10.0",
+    "google-auth-library": "^7.0.4",
     "mongoose": "^5.12.3",
     "uuid": "^8.3.2"
   },
