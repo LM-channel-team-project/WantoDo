@@ -1,17 +1,36 @@
 /* 아래와 같이 프리셋을 불러와 사용할 수 있습니다 */
 @value colors: './common/color.css';
 @value size: './common/size.css';
-@value colorGray from colors;
-@value space-regular as regular, space-narrow as narrow  from size;
+@value colorGray, colorLightGray, colorDarkGray, colorWhite, colorLightBlack from colors;
+@value space-regular as regular, space-narrow as narrow, space-narrower as narrower  from size;
 
 .inputBox {
   border: 1px solid colorGray;
   padding: narrow;
+  display: inline-flex;
 }
 
 .name {
-  margin-left: regular;
+  margin-right: narrower;
+  font-size: large;
 }
 
 .input {
+  margin-left: narrower;
+  padding: 0 narrower;
+  border-radius: 3px;
+  height: 23px;
+  border: none;
+  background-color: colorLightGray;
+  color: colorLightBlack;
+}
+
+.input:focus {
+  outline: none;
+  background-color: colorGray;
+  transition: all 300ms ease-in;
+}
+
+.input:focus::placeholder {
+  color: transparent;
 }
