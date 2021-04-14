@@ -1,28 +1,5 @@
 import { model, Schema, Document, Model } from "mongoose";
 
-const settingSchema = new Schema({
-    theme: {
-        type: String,
-        default: 'default',
-        enum: [
-            'default',
-            'dark',
-        ],
-    },
-    notificationFlag: {
-        type: Boolean,
-        default: false,
-    },
-    beginningOfWeek: {
-        type: String,
-        default: 'sunday',
-        enum: [
-            'sunday',
-            'monday',
-        ],
-    }
-});
-
 const userSchema = new Schema({
     userId: {
         type: String,
@@ -66,16 +43,45 @@ const userSchema = new Schema({
         type: String,
         default: '',
     },
-    settings: settingSchema,
+    createdTimestamp: {
+        type: Number,
+        default: () => Math.floor(+new Date()),
+    },
+    updatedTimestamp: {
+        type: Number,
+        default: 0,
+    },
+    settings: {
+        theme: {
+            type: String,
+            default: 'default',
+            enum: [
+                'default',
+                'dark',
+            ],
+        },
+        notificationFlag: {
+            type: Boolean,
+            default: false,
+        },
+        beginningOfWeek: {
+            type: String,
+            default: 'sunday',
+            enum: [
+                'sunday',
+                'monday',
+            ],
+        }
+    },
 });
 
-type theme = 'default' | 'dark';
-type beginningOfWeek = 'monday' | 'sunday';
+export type theme = 'default' | 'dark';
+export type beginningOfWeek = 'monday' | 'sunday';
 
 interface ISetting {
-    theme: theme;
-    notificationFlag: boolean;
-    beginningOfWeek: beginningOfWeek;
+    theme: theme | undefined;
+    notificationFlag: boolean | undefined;
+    beginningOfWeek: beginningOfWeek | undefined;
 }
 
 export interface IUser extends Document{
@@ -87,6 +93,8 @@ export interface IUser extends Document{
     nickname: string;
     motto: string;
     profileImageUrl: string;
+    createdTimestamp: number,
+    updatedTimestamp: number,
     closeAccountFlag: boolean;                  // 회원탈퇴 여부
     closeAccountMessage: string;                // 회원탈퇴 메시지
     settings: ISetting;

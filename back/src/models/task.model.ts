@@ -1,29 +1,5 @@
 import { Document, model, Model, Schema } from "mongoose";
 
-const alarmSchema = new Schema({
-    type: {
-        type: String,
-        enum: [
-            'relative',
-            'absolute',
-        ]
-    },
-    subType: {
-        type: String,
-        enum: [
-            'min',
-            'hour',
-            'day',
-            'week',
-            'month',
-            'year',
-        ],
-    },
-    time: {
-        type: Number,
-    }
-});
-
 const taskSchema = new Schema({
     userId: {
         type: String,
@@ -57,7 +33,29 @@ const taskSchema = new Schema({
         datOfWeek: [Number],
         time: Number,
     },
-    alarm: alarmSchema,
+    alarm: {
+        type: {
+            type: String,
+            enum: [
+                'relative',
+                'absolute',
+            ]
+        },
+        subType: {
+            type: String,
+            enum: [
+                'min',
+                'hour',
+                'day',
+                'week',
+                'month',
+                'year',
+            ],
+        },
+        time: {
+            type: Number,
+        }
+    },
     createdTimestamp: {
         type: Number,
         default: () => Math.floor(+new Date()),
