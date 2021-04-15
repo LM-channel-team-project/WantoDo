@@ -6,10 +6,12 @@ import Button from './components/Button';
 import IconButton from './components/IconButton';
 import InputBox from './components/InputBox';
 import MenuSelector from './components/MenuSelector';
+import Navbar from './container/Navbar';
 
 function App() {
   return (
     <div className="app">
+      <Navbar />
       <InputBox labelText="시작" name="start" type="text" />
       <Button type="submit" styleName="calendar">
         일반 버튼1
