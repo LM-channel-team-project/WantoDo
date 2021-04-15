@@ -4,9 +4,10 @@ import Configs from '../config';
 
 const client = new OAuth2Client(Configs.googleClientId);
 
+//  Created by 강성모(castleMo) on 2021/04/14
 export const googleIdTokenVerify = async (req: Request, res: Response, next: NextFunction) => {
     try {
-        const { authorization: idToken } = req.headers;
+        const idToken: string | undefined = req.headers.authorization;
 
         // idToken이 존재하지않으면 에러
         //todo: Error model 정의하기
