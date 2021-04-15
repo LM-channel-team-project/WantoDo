@@ -1,7 +1,35 @@
+@value colors: './common/color.css';
+@value size: './common/size.css';
+@value colorWhite, colorLightSkyblue, colorSkyblue from './common/color.css';
+@value font-regular, font-small, font-medium from './common/size.css';
+
 .button {
-  font-size: 1rem;
+  display: flex;
+  margin: 15px;
+  padding: 9px 15px;
+  border: none;
+  /* 둥근 모서리 40px */
+  border-radius: 10px;
+  transition: 0.3s;
+  background-color: colorLightSkyblue;
+  font-size: 1em;
+  font-weight: 500;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.button:focus {
+  outline: none;
+  transform: scale(1.05);
+  background-color: colorSkyblue;
 }
 
 .calendar {
   font-size: 1.5em;
+}
+
+.button:hover {
+  background-color: colorSkyblue;
+  cursor: pointer;
+  transform: scale(1.05);
+  /* translateY(-5px); */
 }
