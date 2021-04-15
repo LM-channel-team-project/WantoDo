@@ -1,0 +1,5 @@
+@value space-narrower as narrower from './common/size.css';
+
+.icon {
+  margin-right: narrower;
+}
