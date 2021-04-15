@@ -5,7 +5,6 @@
 @value space-regular as regular, space-narrow as narrow, space-narrower as narrower  from size;
 
 .inputBox {
-  border: 1px solid colorGray;
   padding: narrow;
   display: inline-flex;
 }
