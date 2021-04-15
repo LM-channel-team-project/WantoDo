@@ -5,6 +5,7 @@ import { UserInfo } from "../../common/types";
 import { beginningOfWeek, theme, users } from '../../models/user.model';
 
 
+//  Created by 강성모 on 2021/04/13
 export const loginUser = async (user: {
     platformId: string,
     email: string,
@@ -15,7 +16,7 @@ export const loginUser = async (user: {
     try {
 
         // 신규유저인지 로그인유저인지 확인을 위한 쿼리
-        const count: number = await users.count({
+        const count: number = await users.countDocuments({
             platformId: user.platformId,
             platform: user.platform,
             closeAccountFlag: false,
@@ -81,14 +82,13 @@ export const loginUser = async (user: {
     }
 }
 
+//  Created by 강성모 on 2021/04/14
 export const updateUserSettings = async (user: UserInfo, theme: theme, notificationFlag: boolean | undefined, beginningOfWeek: beginningOfWeek | undefined) => {
     try {
 
-        const updateThemeObj = {'settings.theme': theme}
-        const updateNotificationFlagObj = {'settings.notificationFlag': notificationFlag}
-        const updateBeginningOfWeekObj = {'settings.beginningOfWeek': beginningOfWeek}
-
-        const updateObj = theme !== undefined ? updateThemeObj : notificationFlag !== undefined ? updateNotificationFlagObj : updateBeginningOfWeekObj;
+        const updateObj = theme !== undefined ?
+            {'settings.theme': theme} : notificationFlag !== undefined ?
+                {'settings.notificationFlag': notificationFlag} : {'settings.beginningOfWeek': beginningOfWeek};
 
         await users.updateOne({
                 platformId: user.platformId,
@@ -103,6 +103,29 @@ export const updateUserSettings = async (user: UserInfo, theme: theme, notificat
 
         return {
             msg: 'test'
+        }
+    } catch (err) {
+        throw err;
+    }
+}
+
+//  Created by 강성모(castleMo) on 2021/04/15
+export const withdrawalUser = async (user: UserInfo) => {
+    try {
+
+        await users.updateOne({
+                platformId: user.platformId,
+                platform: user.platform,
+                closeAccountFlag: false,
+            },
+            {
+                updatedTimestamp: Math.floor(+new Date()),
+                closeAccountFlag: true,
+            }
+        ).exec();
+
+        return {
+            user
         }
     } catch (err) {
         throw err;

@@ -3,8 +3,20 @@ import { body, header, param, query, validationResult } from "express-validator"
 import * as accountService from '../../services/v1/account.service';
 import { UserInfo } from "../../common/types";
 
+//  Created by 강성모(castleMo) on 2021/04/13
 export const loginUser = async (req: Request, res: Response, next: NextFunction) => {
     try {
+        await Promise.all([
+            header('Authorization').trim().notEmpty().withMessage('is empty').bail().isJWT().withMessage('is not JWT value').run(req),
+        ]);
+
+        // validation Error
+        //todo: Error model 정의하기
+        const validationErrors = validationResult(req);
+        if (!validationErrors.isEmpty()) {
+            throw new Error('updateUserSettings validationError');
+        }
+
         const user: UserInfo = res.locals.user;
         const result = await accountService.loginUser(user);
         res.status(200).send(result);
@@ -13,6 +25,7 @@ export const loginUser = async (req: Request, res: Response, next: NextFunction)
     }
 }
 
+//  Created by 강성모(castleMo) on 2021/04/14
 export const updateUserSettings = async (req: Request, res: Response, next: NextFunction) => {
     try {
         await Promise.all([
@@ -21,7 +34,7 @@ export const updateUserSettings = async (req: Request, res: Response, next: Next
             body('notificationFlag').optional({checkFalsy: true}).trim().notEmpty().withMessage('is empty').bail().isBoolean().withMessage('is not Boolean value').bail().run(req),
             body('beginningOfWeek').optional({checkFalsy: true}).trim().notEmpty().withMessage('is empty').bail().isString().withMessage('is not Boolean value').bail()
                 .isIn(['monday', 'sunday']).withMessage('must be one of monday or sunday').run(req),
-            header('authorization').trim().notEmpty().withMessage('is empty').bail().isJWT().withMessage('is not JWT value').run(req),
+            header('Authorization').trim().notEmpty().withMessage('is empty').bail().isJWT().withMessage('is not JWT value').run(req),
         ]);
 
         // validation Error
@@ -34,6 +47,28 @@ export const updateUserSettings = async (req: Request, res: Response, next: Next
         const user: UserInfo = res.locals.user;
         const {theme, notificationFlag, beginningOfWeek} = req.body;
         const result = await accountService.updateUserSettings(user, theme, notificationFlag, beginningOfWeek);
+        res.status(200).send(result);
+    }catch (error) {
+        next(error);
+    }
+}
+
+//  Created by 강성모(castleMo) on 2021/04/15
+export const withdrawalUser = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+        await Promise.all([
+            header('Authorization').trim().notEmpty().withMessage('is empty').bail().isJWT().withMessage('is not JWT value').run(req),
+        ]);
+
+        // validation Error
+        //todo: Error model 정의하기
+        const validationErrors = validationResult(req);
+        if (!validationErrors.isEmpty()) {
+            throw new Error('updateUserSettings validationError');
+        }
+
+        const user: UserInfo = res.locals.user;
+        const result = await accountService.withdrawalUser(user);
         res.status(200).send(result);
     }catch (error) {
         next(error);

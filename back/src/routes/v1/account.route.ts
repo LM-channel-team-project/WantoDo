@@ -7,6 +7,8 @@ const accountRouter = Router();
 
 accountRouter.post('/login', accountController.loginUser);
 
-accountRouter.patch('/settings', accountController.updateUserSettings)
+accountRouter.patch('/settings', accountController.updateUserSettings);
+
+accountRouter.delete('/', accountController.withdrawalUser);
 
 export default accountRouter;
