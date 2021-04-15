@@ -1,5 +1,6 @@
 import { Document, model, Model, Schema } from "mongoose";
 
+//  Created by 강성모(castleMo) on 2021/04/11
 const taskSchema = new Schema({
     userId: {
         type: String,
