@@ -1,0 +1,6 @@
+/* Animation */
+@value animation-duration-slower: 500ms;
+@value animation-duration-slow: 400ms;
+@value animation-duration-regular: 300ms;
+@value animation-duration-fast: 250ms;
+@value animation-duration-faster: 200ms;

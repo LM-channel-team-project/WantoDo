@@ -1,8 +1,10 @@
 /* 아래와 같이 프리셋을 불러와 사용할 수 있습니다 */
 @value colors: './common/color.css';
 @value size: './common/size.css';
+@value effect: './common/effect.css';
 @value colorGray, colorLightGray, colorDarkGray, colorWhite, colorLightBlack from colors;
-@value space-regular as regular, space-narrow as narrow, space-narrower as narrower  from size;
+@value space-regular as regular, space-narrow as narrow, space-narrower as narrower, border-radius as radius from size;
+@value animation-duration-regular as duration-regular from effect;
 
 .inputBox {
   padding: narrow;
@@ -19,7 +21,7 @@
   padding: 0 narrower;
   height: 24px;
   border: none;
-  border-radius: 3px;
+  border-radius: radius;
   background-color: colorLightGray;
   color: colorLightBlack;
 }
@@ -27,7 +29,7 @@
 .input:focus {
   outline: none;
   background-color: colorGray;
-  transition: all 300ms ease-in;
+  transition: all duration-regular ease-in;
 }
 
 .input:focus::placeholder {
