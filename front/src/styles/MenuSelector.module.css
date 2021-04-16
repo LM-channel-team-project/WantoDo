@@ -1,0 +1,33 @@
+@value colorGray from './common/color.css';
+
+.selector {
+  display: inline-block;
+}
+
+.container {
+  position: relative;
+  display: flex;
+  border: 1px solid colorGray;
+}
+
+.selected {
+  z-index: 1;
+}
+
+.hidden {
+  position: absolute;
+  right: 0;
+  top: 0;
+  display: flex;
+  margin: 0;
+  transform: translateX(0);
+  opacity: 0;
+  visibility: hidden;
+  transition: 500ms ease;
+}
+
+.selector:hover .hidden {
+  transform: translateX(100%);
+  opacity: 1;
+  visibility: visible;
+}

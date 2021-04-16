@@ -20,7 +20,7 @@ export const loginUser = async (req: Request, res: Response, next: NextFunction)
         const user: UserInfo = res.locals.user;
         const result = await accountService.loginUser(user);
         res.status(200).send(result);
-    }catch (error) {
+    } catch (error) {
         next(error);
     }
 }
@@ -48,7 +48,7 @@ export const updateUserSettings = async (req: Request, res: Response, next: Next
         const {theme, notificationFlag, beginningOfWeek} = req.body;
         const result = await accountService.updateUserSettings(user, theme, notificationFlag, beginningOfWeek);
         res.status(200).send(result);
-    }catch (error) {
+    } catch (error) {
         next(error);
     }
 }
@@ -70,7 +70,7 @@ export const withdrawalUser = async (req: Request, res: Response, next: NextFunc
         const user: UserInfo = res.locals.user;
         const result = await accountService.withdrawalUser(user);
         res.status(200).send(result);
-    }catch (error) {
+    } catch (error) {
         next(error);
     }
 }
