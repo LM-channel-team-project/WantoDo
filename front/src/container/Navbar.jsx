@@ -9,7 +9,7 @@ import MenuSelector from '../components/MenuSelector';
 import IconButton from '../components/IconButton';
 import styles from '../styles/Navbar.module.css';
 
-const Sidebar = ({ profileURL }) => {
+const Navbar = ({ profileURL }) => {
   const onSettingClick = () => {
     // 여기서 설정 컴포넌트 표시
   };
@@ -51,4 +51,4 @@ const Sidebar = ({ profileURL }) => {
   );
 };
 
-export default Sidebar;
+export default Navbar;
