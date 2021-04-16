@@ -9,6 +9,10 @@ import MenuSelector from '../components/MenuSelector';
 import IconButton from '../components/IconButton';
 import styles from '../styles/Navbar.module.css';
 
+/**
+ * 사이드 네비게이션 바
+ * @param {string | undefined} profileURL - 사용자의 프로필 이미지 URL, 없을 경우 기본 이미지 표시
+ */
 const Navbar = ({ profileURL }) => {
   const onSettingClick = () => {
     // 여기서 설정 컴포넌트 표시
