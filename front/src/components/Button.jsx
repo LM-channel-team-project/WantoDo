@@ -9,6 +9,10 @@ import styles from '../styles/Button.module.css';
  * @param {Function} props.onClick - function, 버튼에서 클릭 이벤트가 발생하면 호출될 함수
  */
 const Button = ({ children: content, type, styleName, onClick }) => {
+  if (content == null) {
+    throw new Error('Not exist content on Button!');
+  }
+
   const onButtonClick = event => {
     event.preventDefault();
     if (onClick instanceof Function) onClick(event);
