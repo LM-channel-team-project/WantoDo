@@ -35,8 +35,14 @@ export const getProfile = async (user: {
 
         return {
             msg: "Success",
-            data: { nickname: returnToUser.nickname }
-            // data: {nickname: "sungmo"} 라고 해야되나요? - 유저 반환으로 하면 되는건가용..?
+            data: {
+                nickname: returnToUser.nickname,
+                email: returnToUser.email,
+                motto: returnToUser.motto,
+                profileImgUrl: returnToUser.profileImageUrl,
+                platform: returnToUser.platform,
+            }
+            // or data: {returnToUser}만 넣어도 되나요?
         }
     } catch (err) {
         throw err;
