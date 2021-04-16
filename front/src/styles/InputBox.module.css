@@ -17,9 +17,9 @@
 .input {
   margin-left: narrower;
   padding: 0 narrower;
-  border-radius: 3px;
-  height: 23px;
+  height: 24px;
   border: none;
+  border-radius: 3px;
   background-color: colorLightGray;
   color: colorLightBlack;
 }

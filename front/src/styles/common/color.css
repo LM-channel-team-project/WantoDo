@@ -1,3 +1,4 @@
+/*무채색 계열*/
 @value colorWhite: #fff;
 @value colorLightWhite: #eeeeee;
 @value colorBlack: #000;
@@ -6,3 +7,7 @@
 @value colorLightGray: #DFDFDF;
 @value colorDarkGray: #474747;
 @value colorShadow: 3px 3px 10px 2px rgba(56, 56, 56, 0.7);
+
+/* 파란색 계열 */
+@value colorLightSkyblue: #C3D8FF;
+@value colorSkyblue: #A7BEEE;

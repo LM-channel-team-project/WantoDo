@@ -1,7 +1,32 @@
+@value colors: './common/color.css';
+@value size: './common/size.css';
+@value colorWhite, colorLightSkyblue, colorSkyblue from colors;
+
 .button {
-  font-size: 1rem;
+  display: inline-block;
+  margin: 1em;
+  padding: 0.5em 1em;
+  border: none;
+  border-radius: 8px;
+  transition: all 250ms ease-in;
+  background-color: colorLightSkyblue;
+  font-size: 1em;
+  font-weight: 500;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.button:focus {
+  outline: none;
+  transform: scale(1.05);
+  background-color: colorSkyblue;
 }
 
 .calendar {
   font-size: 1.5em;
+}
+
+.button:hover {
+  background-color: colorSkyblue;
+  cursor: pointer;
+  transform: scale(1.05);
 }
