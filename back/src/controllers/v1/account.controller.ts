@@ -54,7 +54,7 @@ export const updateUserSettings = async (req: Request, res: Response, next: Next
 }
 
 //  Created by 강성모(castleMo) on 2021/04/15
-export const withdrawalUser = async (req: Request, res: Response, next: NextFunction) => {
+export const withdrawUser = async (req: Request, res: Response, next: NextFunction) => {
     try {
         await Promise.all([
             header('Authorization').trim().notEmpty().withMessage('is empty').bail().isJWT().withMessage('is not JWT value').run(req),
@@ -68,7 +68,7 @@ export const withdrawalUser = async (req: Request, res: Response, next: NextFunc
         }
 
         const user: UserInfo = res.locals.user;
-        const result = await accountService.withdrawalUser(user);
+        const result = await accountService.withdrawUser(user);
         res.status(200).send(result);
     } catch (error) {
         next(error);
