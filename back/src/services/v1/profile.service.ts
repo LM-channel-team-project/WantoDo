@@ -15,16 +15,6 @@ export const getProfile = async (user: {
     name: string,
 }) => {
     try {
-        // 21/4/16 유저에게 보내줄 데이터들 함수 정의 by 현빈
-        let returnToUser = {
-            email: '',
-            platform: '',
-            nickname: '',
-            motto: '',
-            profileImageUrl: '',
-        };
-
-
 
         // 21/4/16 Db에서 유저 찾기 + 정보 가져오기 by 현빈
         const findDatabaseUser = await users.findOne({
@@ -35,7 +25,7 @@ export const getProfile = async (user: {
 
         if (!findDatabaseUser) throw new Error('');
 
-        returnToUser = {
+        const returnToUser = {
             email: findDatabaseUser.email,
             platform: findDatabaseUser.platform,
             motto: findDatabaseUser.motto,
@@ -44,8 +34,9 @@ export const getProfile = async (user: {
         }
 
         return {
-            message: '유저정보가 표시되었습니다.',
-            user: returnToUser,
+            msg: "Success",
+            data: { nickname: returnToUser.nickname }
+            // data: {nickname: "sungmo"} 라고 해야되나요? - 유저 반환으로 하면 되는건가용..?
         }
     } catch (err) {
         throw err;
