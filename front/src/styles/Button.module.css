@@ -1,20 +1,18 @@
 @value colors: './common/color.css';
 @value size: './common/size.css';
-@value colorWhite, colorLightSkyblue, colorSkyblue from './common/color.css';
-@value font-regular, font-small, font-medium from './common/size.css';
+@value colorWhite, colorLightSkyblue, colorSkyblue from colors;
 
 .button {
   display: flex;
-  margin: 15px;
-  padding: 9px 15px;
+  margin: 1rem;
+  padding: 0.5rem 0.9rem;
   border: none;
-  /* 둥근 모서리 40px */
-  border-radius: 10px;
-  transition: 0.3s;
+  border-radius: 0.5rem;
+  transition: 0.2s;
   background-color: colorLightSkyblue;
-  font-size: 1em;
+  font-size: 1rem;
   font-weight: 500;
-  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: 0rem 0.25rem 0.5rem rgba(0, 0, 0, 0.1);
 }
 
 .button:focus {
@@ -24,12 +22,11 @@
 }
 
 .calendar {
-  font-size: 1.5em;
+  font-size: 1.5rem;
 }
 
 .button:hover {
   background-color: colorSkyblue;
   cursor: pointer;
   transform: scale(1.05);
-  /* translateY(-5px); */
 }

@@ -3,8 +3,8 @@
 @value space-narrower: 0.5em;
 
 /* Font size */
-@value font-large:48px;
-@value font-medium:28px;
-@value font-regular:18px;
-@value font-small:16px;
-@value font-micro:14px;
+@value font-large: 3rem;
+@value font-medium: 2rem;
+@value font-regular: 1rem;
+@value font-small: 0.5rem;
+@value font-micro: 0.25rem;
