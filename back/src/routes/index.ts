@@ -13,3 +13,10 @@ router.use('/v1/profiles', googleIdTokenVerify, V1ProfileRouter);
 
 
 export default router;
+
+// apidoc 공통 부분 정의
+
+/**
+ * @apiDefine HeaderToken
+ * @apiHeader {JWT} Authorization OAuth Token (Google: IdToken)
+ */
