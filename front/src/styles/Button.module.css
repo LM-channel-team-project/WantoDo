@@ -1,18 +1,21 @@
 @value colors: './common/color.css';
 @value size: './common/size.css';
+@value effect: './common/effect.css';
 @value colorWhite, colorLightSkyblue, colorSkyblue from colors;
+@value animation-duration-fast as fast from effect;
+@value box-shadow, border-radius, weight-regular, weight-regular from size;
 
 .button {
   display: inline-block;
   margin: 1em;
   padding: 0.5em 1em;
   border: none;
-  border-radius: 8px;
-  transition: all 250ms ease-in;
+  border-radius: border-radius;
+  transition: all fast ease-in;
   background-color: colorLightSkyblue;
   font-size: 1em;
-  font-weight: 500;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  font-weight: weight-regular;
+  box-shadow: box-shadow;
 }
 
 .button:focus {
