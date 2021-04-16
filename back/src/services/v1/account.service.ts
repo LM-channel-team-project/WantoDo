@@ -1,18 +1,10 @@
 import { v4 as uuidV4 } from 'uuid';
 
-import * as Types from "../../common/types";
 import { UserInfo } from "../../common/types";
 import { beginningOfWeek, theme, users } from '../../models/user.model';
 
-
 //  Created by 강성모 on 2021/04/13
-export const loginUser = async (user: {
-    platformId: string,
-    email: string,
-    profileImageUrl: string,
-    platform: Types.platform,
-    name: string,
-}) => {
+export const loginUser = async (user: UserInfo) => {
     try {
 
         // 신규유저인지 로그인유저인지 확인을 위한 쿼리
@@ -22,7 +14,7 @@ export const loginUser = async (user: {
             closeAccountFlag: false,
         });
 
-        let returnUser = {
+        let returnToUser = {
             email: '',
             platform: '',
             nickname: '',
@@ -46,7 +38,7 @@ export const loginUser = async (user: {
                 name: user.name,
                 profileImageUrl: user.profileImageUrl
             });
-            returnUser = {
+            returnToUser = {
                 email,
                 platform,
                 nickname: name,
@@ -64,7 +56,7 @@ export const loginUser = async (user: {
             // 존재하지않으면 에러를 던져줌
             if (!dbUser) throw new Error('');
 
-            returnUser = {
+            returnToUser = {
                 email: dbUser.email,
                 platform: dbUser.platform,
                 nickname: dbUser.nickname || dbUser.name,
@@ -74,8 +66,8 @@ export const loginUser = async (user: {
         }
 
         return {
-            message: 'testing',
-            user: returnUser,
+            msg: 'success',
+            data: returnToUser,
         }
     } catch (e) {
         throw e;
@@ -102,7 +94,7 @@ export const updateUserSettings = async (user: UserInfo, theme: theme, notificat
         ).exec();
 
         return {
-            msg: 'test'
+            msg: 'success',
         }
     } catch (err) {
         throw err;
@@ -110,7 +102,7 @@ export const updateUserSettings = async (user: UserInfo, theme: theme, notificat
 }
 
 //  Created by 강성모(castleMo) on 2021/04/15
-export const withdrawalUser = async (user: UserInfo) => {
+export const withdrawUser = async (user: UserInfo) => {
     try {
 
         await users.updateOne({
@@ -125,7 +117,7 @@ export const withdrawalUser = async (user: UserInfo) => {
         ).exec();
 
         return {
-            user
+            msg: 'success',
         }
     } catch (err) {
         throw err;

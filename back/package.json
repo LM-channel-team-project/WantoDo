@@ -1,12 +1,46 @@
 {
   "name": "back",
   "version": "1.0.0",
-  "description": "",
+  "description": "wantodo backend",
+  "apidoc": {
+    "name": "Wantodo",
+    "version": "1.0.0",
+    "title": "Wantodo API",
+    "description": "Wantodo API documentation",
+    "url": "http://localhost:9090",
+    "sampleUrl": "http://localhost:9090",
+    "template": {
+      "forceLanguage": "en",
+      "withCompare": true,
+      "withGenerator": false,
+      "aloneDisplay": false
+    },
+    "order": [
+      "Users",
+      "Friends",
+      "Pools",
+      "Blind",
+      "PostProFile",
+      "InterestProfile",
+      "PostFeed",
+      "PostComment",
+      "PostReComment",
+      "InterestFeed",
+      "InterestComment",
+      "InterestRecomment",
+      "InterestKeyword",
+      "Notification",
+      "Manage",
+      "Upload",
+      "SMS"
+    ]
+  },
   "main": "app.ts",
   "scripts": {
-    "local": "cross-env NODE_ENV=local nodemon app.ts",
+    "local": "npm run apidoc-generate:local && cross-env NODE_ENV=local nodemon app.ts",
     "dev": "cross-env NODE_ENV=develop nodemon app.ts",
-    "prod": "cross-env NODE_ENV=production nodemon app.ts"
+    "prod": "cross-env NODE_ENV=production nodemon app.ts",
+    "apidoc-generate:local": "apidoc -i src/ -o ./docs"
   },
   "keywords": [],
   "author": "",
