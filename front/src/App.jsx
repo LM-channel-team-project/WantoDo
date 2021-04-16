@@ -7,8 +7,17 @@ import IconButton from './components/IconButton';
 import InputBox from './components/InputBox';
 import MenuSelector from './components/MenuSelector';
 import Navbar from './container/Navbar';
+import ProfileModal from './components/ProfileModal';
 
 function App() {
+  const dumyProfile = {
+    userName: 'WantoDo',
+    email: 'WantoDo.@gmail.com',
+    imageURL: '',
+    motto: '고생 끝엔 치킨이 기다린다',
+    goal: '프로젝트 끝나고 치킨 먹기🍗',
+  };
+
   return (
     <div className="app">
       <Navbar />
@@ -26,6 +35,7 @@ function App() {
           iconList={{ FiCalendar, RiShieldCheckLine, BsListCheck }}
         />
       </div>
+      <ProfileModal profile={dumyProfile} />
     </div>
   );
 }
