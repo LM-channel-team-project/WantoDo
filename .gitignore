@@ -1,6 +1,5 @@
 # Dependency directories
 **/node_modules/
-**/package-lock.json
 front/**/.pnp
 front/.pnp.js
 
@@ -36,7 +35,6 @@ front/.env.local
 front/.env.development.local
 front/.env.test.local
 front/.env.production.local
-front/yarn.lock
 
 front/npm-debug.log*
 front/yarn-debug.log*
