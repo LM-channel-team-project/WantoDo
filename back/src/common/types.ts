@@ -1,9 +1,9 @@
-export type platform = 'google';
+export type platform = "google";
 
 export interface UserInfo {
-    platformId: string;
-    email: string;
-    profileImageUrl: string;
-    platform: platform;
-    name: string;
+  platformId: string;
+  email: string;
+  profileImageUrl: string;
+  platform: platform;
+  name: string;
 }
