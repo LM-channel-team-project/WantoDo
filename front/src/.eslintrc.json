@@ -1,0 +1,25 @@
+{
+  "env": {
+    "browser": true,
+    "es6": true
+  },
+  "plugins": ["react", "prettier"],
+  "extends": [
+    "react-app",
+    "react-app/jest",
+    "airbnb",
+    "prettier",
+    "plugin:prettier/recommended",
+    "plugin:react/recommended"
+  ],
+  "rules": {
+    "prettier/prettier": "error",
+    "react/prefer-stateless-function": 0,
+    "react/jsx-filename-extension": 0,
+    "react/jsx-one-expression-per-line": 0,
+    "react/prop-types": 0,
+    "no-useless-catch": "off",
+    "no-nested-ternary": "off"
+  },
+  "ignorePatterns": ["node_modules/", "build/"]
+}
