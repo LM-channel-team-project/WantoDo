@@ -13,7 +13,7 @@ const Button = ({ children: content, type, styleName, onClick }) => {
     throw new Error('Not exist content on Button!');
   }
 
-  const onButtonClick = event => {
+  const onButtonClick = (event) => {
     event.preventDefault();
     if (onClick instanceof Function) onClick(event);
   };
