@@ -12,22 +12,6 @@
     "aloneDisplay": false
   },
   "order": [
-    "Users",
-    "Friends",
-    "Pools",
-    "Blind",
-    "PostProFile",
-    "InterestProfile",
-    "PostFeed",
-    "PostComment",
-    "PostReComment",
-    "InterestFeed",
-    "InterestComment",
-    "InterestRecomment",
-    "InterestKeyword",
-    "Notification",
-    "Manage",
-    "Upload",
-    "SMS"
+    "Accounts"
   ]
 }
