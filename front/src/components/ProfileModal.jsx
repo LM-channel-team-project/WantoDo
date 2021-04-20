@@ -35,11 +35,15 @@ const ProfileModal = ({ profile }) => {
       </header>
       <ul className={styles.intros}>
         <li className={styles.intro}>
-          좌우명:
+        <span className={styles.mottoTitle}>
+          MOTTO
+          </span>
           <span className={styles.text}>{motto}</span>
         </li>
         <li className={styles.intro}>
-          목표:
+        <span className={styles.goalTitle}>
+          GOAL
+          </span>
           <span className={styles.text}>{goal}</span>
         </li>
       </ul>
