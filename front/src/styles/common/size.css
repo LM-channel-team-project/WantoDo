@@ -5,6 +5,7 @@
 
 /* Radius size */
 @value border-radius: 7px;
+@value modal-radius: 15px;
 
 /* Box shadow size */
 @value box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);

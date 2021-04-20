@@ -1,3 +1,13 @@
+@value colors: './common/color.css';
+@value size: './common/size.css';
+@value box-shadow, modal-radius from size;
+
 .modal {
   position: absolute;
+  margin: 30px;
+  background-color: colorWhite;
+  width: 340px;
+  height: 400px;
+  box-shadow: box-shadow;
+  border-radius: modal-radius;
 }
