@@ -1,3 +1,14 @@
+@value colors: './common/color.css';
+@value size: './common/size.css';
+@value box-shadow, modal-radius from size;
+
 .modal {
   position: absolute;
+  display: flex;
+  flex-direction: column;
+  /* 편의로 설정해 둔 것이므로 나중에 삭제 */
+  margin: 30px;
+  width: 340px;
+  box-shadow: box-shadow;
+  border-radius: modal-radius;
 }
