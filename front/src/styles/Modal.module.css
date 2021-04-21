@@ -4,11 +4,10 @@
 
 .modal {
   position: absolute;
-  display: flex;
-  flex-direction: column;
-  /* 편의로 설정해 둔 것이므로 나중에 삭제 */
   margin: 30px;
+  background-color: colorWhite;
   width: 340px;
+  height: 400px;
   box-shadow: box-shadow;
   border-radius: modal-radius;
 }

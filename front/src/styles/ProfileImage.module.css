@@ -4,6 +4,7 @@
 @value colorPurple from colors;
 
 .image {
+  display: inline-block;
   border-radius: 50%;
 }
 
