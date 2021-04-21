@@ -43,6 +43,8 @@
   padding: 0;
   background: none;
 }
+
+/* Created by 오영롱(youngrongoh) on 2021/04/19 */
 /* 추후에 .button의 가상 클래스 설정을 조정한 뒤 수정해야 할 듯  */
 .checkbox:focus {
   transform: none;

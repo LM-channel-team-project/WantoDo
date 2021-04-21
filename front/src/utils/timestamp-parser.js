@@ -1,3 +1,4 @@
+// Created by 오영롱(youngrongoh) on 2021/04/20
 class TimestampParser {
   parseDayNum = (num) => {
     switch (Number(num)) {

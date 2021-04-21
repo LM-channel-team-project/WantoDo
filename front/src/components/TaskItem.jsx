@@ -6,7 +6,7 @@ import PriorityIcon from './PriorityIcon';
 import styles from '../styles/TaskItem.module.css';
 import timeparser from '../utils/timestamp-parser';
 
-/**
+/** Created by 오영롱(youngrongoh) on 2021/04/20
  * 전단받은 사용자의 태스크 정보를 투두 형식으로 보여주는 아이템
  * @param {Object} props.task -
  * @param {'basic' | 'daily'} props.type - 태스크 아이템에서 기간(period)에 대한 표시 여부를 결정하는 문자열

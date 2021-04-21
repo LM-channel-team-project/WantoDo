@@ -3,6 +3,7 @@ import { AiOutlineCheck } from 'react-icons/ai';
 import styles from '../styles/CheckButton.module.css';
 import Button from './Button';
 
+// Created by 오영롱(youngrongoh) on 2021/04/19
 const useCheckbox = (initialState) => {
   const [checked, setChecked] = useState(initialState || false);
 
