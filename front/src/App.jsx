@@ -8,6 +8,7 @@ import InputBox from './components/InputBox';
 import MenuSelector from './components/MenuSelector';
 import Navbar from './container/Navbar';
 import ProfileModal from './components/ProfileModal';
+import CheckButton from './components/CheckButton';
 
 function App() {
   const dumyProfile = {
@@ -20,6 +21,10 @@ function App() {
 
   return (
     <div className="app">
+      <div>
+        <CheckButton />
+      </div>
+
       <Navbar />
       <InputBox labelText="시작" name="start" type="text" />
       <Button type="submit" styleName="calendar">
@@ -31,9 +36,7 @@ function App() {
         텍스트 있는 아이콘버튼
       </IconButton>
       <div>
-        <MenuSelector
-          iconList={{ FiCalendar, RiShieldCheckLine, BsListCheck }}
-        />
+        <MenuSelector iconList={{ FiCalendar, RiShieldCheckLine, BsListCheck }} />
       </div>
       <ProfileModal profile={dumyProfile} />
     </div>

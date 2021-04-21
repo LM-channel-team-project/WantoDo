@@ -1,0 +1,15 @@
+#input-check {
+  display: none;
+}
+
+#input-check:checked ~ button .checkmark {
+  opacity: 1;
+}
+
+.checkmark {
+  position: absolute;
+  font-size: 1.2em;
+  top: -0.3em;
+  right: -0.25em;
+  opacity: 0;
+}

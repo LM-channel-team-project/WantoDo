@@ -33,3 +33,23 @@
   cursor: pointer;
   transform: scale(1.05);
 }
+
+.checkbox {
+  position: relative;
+  width: 1em;
+  height: 1em;
+  border: 1px solid #000;
+  border-radius: 50%;
+  padding: 0;
+  background: none;
+}
+/* 추후에 .button의 가상 클래스 설정을 조정한 뒤 수정해야 할 듯  */
+.checkbox:focus {
+  transform: none;
+  background-color: transparent;
+}
+
+.checkbox:hover {
+  transform: none;
+  background-color: transparent;
+}
