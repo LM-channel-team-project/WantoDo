@@ -1,7 +1,7 @@
 @value colors: './common/color.css';
 @value size: './common/size.css';
 @value effect: './common/effect.css';
-@value colorWhite, colorLightSkyblue, colorSkyblue from colors;
+@value colorWhite, colorLightSkyblue, colorSkyblue, colorPurple from colors;
 @value animation-duration-fast as fast from effect;
 @value box-shadow, border-radius, weight-regular, weight-regular from size;
 
@@ -24,14 +24,28 @@
   background-color: colorSkyblue;
 }
 
-.calendar {
-  font-size: 1.5em;
-}
-
 .button:hover {
   background-color: colorSkyblue;
   cursor: pointer;
   transform: scale(1.05);
+}
+
+.calendar {
+  font-size: 1.5em;
+}
+
+.profile {
+  padding: 5px;
+  border-radius: 50%;
+  box-shadow: none;
+}
+
+.sideMenu {
+  box-shadow: none;
+}
+
+.setting {
+  box-shadow: none;
 }
 
 .checkbox {

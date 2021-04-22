@@ -1,10 +1,13 @@
 /* Space size */
+@value space-wider: 4em;
+@value space-wide: 3em;
 @value space-regular: 2em;
 @value space-narrow: 0.8em;
 @value space-narrower: 0.5em;
 
 /* Radius size */
 @value border-radius: 7px;
+@value modal-radius: 15px;
 
 /* Box shadow size */
 @value box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
