@@ -3,17 +3,17 @@ import styles from '../styles/Button.module.css';
 
 /**
  * 일반적인 버튼 컴포넌트
- * @param {ReactElement | string} props.children으로 - 버튼에 들어갈 내용 컴포넌트 혹은 문자열
+ * @param {ReactElement | string} props.children - 버튼에 들어갈 내용 컴포넌트 혹은 문자열
  * @param {string} props.type - string, 버튼 타입을 지정하는 문자열 ('button' 또는 'submit')
  * @param {string} props.styleName - string, 기본 버튼 스타일을 변형할 클래스 이름 문자열
  * @param {Function} props.onClick - function, 버튼에서 클릭 이벤트가 발생하면 호출될 함수
  */
-const Button = ({ children: content, type, styleName, onClick }) => {
-  if (content == null) {
+const Button = ({ children, type, styleName, onClick }) => {
+  if (children == null) {
     throw new Error('Not exist content on Button!');
   }
 
-  const onButtonClick = event => {
+  const onButtonClick = (event) => {
     event.preventDefault();
     if (onClick instanceof Function) onClick(event);
   };
@@ -25,7 +25,7 @@ const Button = ({ children: content, type, styleName, onClick }) => {
       type={type === 'submit' ? 'submit' : 'button'}
       onClick={onButtonClick}
     >
-      {content}
+      {children}
     </button>
   );
 };

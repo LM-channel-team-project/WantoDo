@@ -6,6 +6,6 @@ module.exports = {
   trailingComma: 'all',
   printWidth: 100,
   arrowParens: 'always',
-  quoteProps: 'as-needed;',
+  quoteProps: 'as-needed',
   endOfLine: 'lf'
 };

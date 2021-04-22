@@ -10,15 +10,15 @@ import styles from '../styles/IconButton.module.css';
  * @param {string} styleName - 공통 스타일링에 변형을 줄 클래스 이름 문자열, Button과 Icon에 적용
  * @param {Function} onClick - 버튼에서 클릭 이벤트가 발생하면 호출될 함수
  */
-const IconButton = ({ Icon, children: text, type, styleName, onClick }) => {
-  const iconState = text ? 'icon' : 'onlyIcon';
+const IconButton = ({ Icon, children, type, styleName, onClick }) => {
+  const iconState = children ? 'icon' : 'onlyIcon';
 
   return (
     // Button.module.css에서 styleName은 버튼 전체 스타일에 변형을 줄 클래스명
     <Button type={type} styleName={styleName} onClick={onClick}>
       {/* IconButton.module.css에서 styleName은 버튼 안에 들어간 아이콘의 스타일을 개별적으로 변형하는 클래스명 */}
       {Icon && <Icon className={`${styles[iconState]} ${styles[styleName]}`} />}
-      {text || ''}
+      {children || ''}
     </Button>
   );
 };

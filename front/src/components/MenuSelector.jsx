@@ -7,7 +7,7 @@ import IconButton from './IconButton';
  * @param {Object} iconList - react-icons에서 제공하는 아이콘 컴포넌트로 이루어진 리스트 객체 ( 같은 아이콘 중복 불가 )
  * @returns {{icons: Object, switchMenuPlace: Function}} 아이콘 이름이 담긴 객체와 클릭 이벤트 핸들링 함수가 담긴 객체
  */
-const useSelector = iconList => {
+const useSelector = (iconList) => {
   const initial = Object.keys(iconList).reduce(
     (icons, iconName, index) => {
       const updated = { ...icons };
@@ -24,9 +24,9 @@ const useSelector = iconList => {
 
   const [menu, setMenu] = useState(initial);
 
-  const switchMenuPlace = iconName => {
+  const switchMenuPlace = (iconName) => {
     if (iconName === menu.active) return;
-    const iconIndex = menu.others.findIndex(icon => icon === iconName);
+    const iconIndex = menu.others.findIndex((icon) => icon === iconName);
 
     const others = [...menu.others];
     others[iconIndex] = menu.active;
@@ -54,7 +54,7 @@ const useSelector = iconList => {
 const MenuSelector = ({ iconList, styleName }) => {
   const { menu, switchMenuPlace } = useSelector(iconList);
 
-  const onMenuClick = menuName => {
+  const onMenuClick = (menuName) => {
     // 여기에 클릭 이벤트 핸들링 로직 추가
     switchMenuPlace(menuName);
   };
@@ -70,7 +70,7 @@ const MenuSelector = ({ iconList, styleName }) => {
           />
         </div>
         <ul className={styles.hidden}>
-          {menu.others.map(icon => (
+          {menu.others.map((icon) => (
             <li key={icon}>
               <IconButton
                 Icon={iconList[icon]}

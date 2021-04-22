@@ -6,9 +6,9 @@ import styles from '../styles/Modal.module.css';
  * @param {ReactElement} props.children - 여닫는 태그 사이에 기입하는 방식으로 주입 받아 표시할 컴포넌트
  * @param {string} props.styleName - 공통 스타일링에 대한 변형에 사용될 클래스명 문자열
  */
-const Modal = ({ children: InnerModal, styleName }) => (
+const Modal = ({ children, styleName }) => (
   <section className={`${styles.modal} ${styles[styleName]}`}>
-    {InnerModal}
+    {children}
   </section>
 );
 

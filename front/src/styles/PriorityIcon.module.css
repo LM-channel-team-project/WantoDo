@@ -1,0 +1,15 @@
+/* Created by 오영롱(youngrongoh) on 2021/04/20 */
+.icon {
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+}
+
+.star {
+  color: yellow;
+}
+
+.hidden {
+  visibility: hidden;
+  opacity: 0;
+}
