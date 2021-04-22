@@ -26,11 +26,7 @@ const Navbar = ({ profileURL }) => {
     <nav className={styles.navbar}>
       <div className={styles.top}>
         <div>
-          <ProfileButon
-            imageURL={profileURL}
-            styleName="profile"
-            onClick={onProfileClick}
-          />
+          <ProfileButon imageURL={profileURL} styleName="profile" onClick={onProfileClick} />
         </div>
         <ul className={styles.menu}>
           <li className={styles.menuItem}>
@@ -45,11 +41,7 @@ const Navbar = ({ profileURL }) => {
         </ul>
       </div>
       <div className={styles.setting}>
-        <IconButton
-          Icon={AiFillSetting}
-          styleName="setting"
-          onClick={onSettingClick}
-        />
+        <IconButton Icon={AiFillSetting} styleName="setting" onClick={onSettingClick} />
       </div>
     </nav>
   );
