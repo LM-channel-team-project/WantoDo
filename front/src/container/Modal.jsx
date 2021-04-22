@@ -7,9 +7,7 @@ import styles from '../styles/Modal.module.css';
  * @param {string} props.styleName - 공통 스타일링에 대한 변형에 사용될 클래스명 문자열
  */
 const Modal = ({ children, styleName }) => (
-  <section className={`${styles.modal} ${styles[styleName]}`}>
-    {children}
-  </section>
+  <section className={`${styles.modal} ${styles[styleName]}`}>{children}</section>
 );
 
 export default Modal;

@@ -8,7 +8,6 @@ import InputBox from './components/InputBox';
 import MenuSelector from './components/MenuSelector';
 import Navbar from './container/Navbar';
 import ProfileModal from './components/ProfileModal';
-import PrioritySelctor from './components/PrioritySelctor';
 import TaskList from './components/TaskList';
 
 function App() {
@@ -51,9 +50,6 @@ function App() {
     <div className="app">
       <div>
         <TaskList tasks={dumyTasks} />
-      </div>
-      <div>
-        <PrioritySelctor />
       </div>
 
       <Navbar />
