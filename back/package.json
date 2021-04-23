@@ -6,14 +6,16 @@
     "type": "git",
     "url": "https://github.com/LM-channel-team-project/WantoDo"
   },
-  "main": "app.ts",
+  "main": "src/app.ts",
   "scripts": {
-    "local": "npm run apidoc-generate:local && cross-env NODE_ENV=local nodemon app.ts",
-    "dev": "cross-env NODE_ENV=develop nodemon app.ts",
-    "prod": "cross-env NODE_ENV=production nodemon app.ts",
+    "local": "npm run apidoc-generate:local && cross-env NODE_ENV=local nodemon src/app.ts",
+    "dev": "cross-env NODE_ENV=develop nodemon src/app.ts",
+    "prod": "cross-env NODE_ENV=production nodemon src/app.ts",
     "apidoc-generate:local": "apidoc -i src/ -o ./docs"
   },
-  "keywords": [],
+  "keywords": [
+    "wantodo"
+  ],
   "author": "",
   "license": "ISC",
   "dependencies": {
