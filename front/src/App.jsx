@@ -7,6 +7,7 @@ import IconButton from './components/IconButton';
 import InputBox from './components/InputBox';
 import MenuSelector from './components/MenuSelector';
 import Navbar from './container/Navbar';
+import QuickButton from "./components/QuickButton";
 
 function App() {
   return (
@@ -26,6 +27,7 @@ function App() {
           iconList={{ FiCalendar, RiShieldCheckLine, BsListCheck }}
         />
       </div>
+        <QuickButton />
     </div>
   );
 }
