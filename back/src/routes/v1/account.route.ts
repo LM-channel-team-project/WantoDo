@@ -1,6 +1,6 @@
-import { Router } from "express";
+import { Router } from 'express';
 
-import accountController from "../../controllers/v1/account.controller";
+import accountController from '../../controllers/v1/account.controller';
 
 const accountRouter = Router();
 
@@ -33,7 +33,7 @@ const accountRouter = Router();
  *     }
  * }
  */
-accountRouter.post("/login", accountController.loginUser);
+accountRouter.post('/login', accountController.loginUser);
 
 /**
  * @api {patch} /v1/accounts/settings 회원 설정 수정
@@ -68,7 +68,7 @@ accountRouter.post("/login", accountController.loginUser);
  *     "msg": "success"
  * }
  */
-accountRouter.patch("/settings", accountController.updateUserSettings);
+accountRouter.patch('/settings', accountController.updateUserSettings);
 
 /**
  * @api {delete} /v1/accounts 회원탈퇴
@@ -85,6 +85,6 @@ accountRouter.patch("/settings", accountController.updateUserSettings);
  *     "msg": "success"
  * }
  */
-accountRouter.delete("/", accountController.withdrawUser);
+accountRouter.delete('/', accountController.withdrawUser);
 
 export default accountRouter;
