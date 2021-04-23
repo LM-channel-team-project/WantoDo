@@ -1,0 +1,27 @@
+.tag {
+  display: inline-block;
+  font-size: 1em;
+  align-items: center;
+  background-color: gray;
+  padding: 0.3em 0.8em;
+  border-radius: 3em;
+  transition: width 300ms ease;
+}
+
+.tag + .tag {
+  margin-left: 0.5em;
+}
+
+.blue {
+  color: white;
+  background-color: blue;
+}
+
+.tag:hover span[data-hover="show"] {
+  width: 0.8em;
+  opacity: 1;
+}
+
+.name {
+  vertical-align: text-bottom;
+}

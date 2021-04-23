@@ -1,18 +1,21 @@
 @value colors: './common/color.css';
 @value size: './common/size.css';
-@value colorWhite, colorLightSkyblue, colorSkyblue from colors;
+@value effect: './common/effect.css';
+@value colorWhite, colorLightSkyblue, colorSkyblue, colorPurple from colors;
+@value animation-duration-fast as fast from effect;
+@value box-shadow, border-radius, weight-regular, weight-regular from size;
 
 .button {
   display: inline-block;
   margin: 1em;
   padding: 0.5em 1em;
   border: none;
-  border-radius: 8px;
-  transition: all 250ms ease-in;
+  border-radius: border-radius;
+  transition: all fast ease-in;
   background-color: colorLightSkyblue;
   font-size: 1em;
-  font-weight: 500;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  font-weight: weight-regular;
+  box-shadow: box-shadow;
 }
 
 .button:focus {
@@ -21,12 +24,73 @@
   background-color: colorSkyblue;
 }
 
-.calendar {
-  font-size: 1.5em;
-}
-
 .button:hover {
   background-color: colorSkyblue;
   cursor: pointer;
   transform: scale(1.05);
 }
+
+.calendar {
+  font-size: 1.5em;
+}
+
+.profile {
+  padding: 5px;
+  border-radius: 50%;
+  box-shadow: none;
+}
+
+.sideMenu {
+  box-shadow: none;
+}
+
+.setting {
+  box-shadow: none;
+}
+
+.checkbox {
+  position: relative;
+  width: 1em;
+  height: 1em;
+  border: 1px solid #000;
+  border-radius: 50%;
+  padding: 0;
+  background: none;
+}
+
+/* Created by 오영롱(youngrongoh) on 2021/04/23 */
+.tag,
+.tagDelete {
+  margin: 0;
+  padding: 0;
+  border: none;
+  transition: none;
+  background-color: transparent;
+  box-shadow: none;
+}
+
+.tag + .tag {
+  margin-left: 0.5em;
+}
+
+.tagDelete {
+  display: flex;
+  line-height: 1;
+}
+
+/* Created by 오영롱(youngrongoh) on 2021/04/19 */
+/* 추후에 .button의 가상 클래스 설정을 조정한 뒤 수정해야 할 듯  */
+.checkbox:focus,
+.tag:focus,
+.tagDelete:focus {
+  transform: none;
+  background-color: transparent;
+}
+
+.checkbox:hover,
+.tag:hover,
+.tagDelete:hover {
+  transform: none;
+  background-color: transparent;
+}
+

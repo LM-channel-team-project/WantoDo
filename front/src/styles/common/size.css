@@ -1,6 +1,16 @@
+/* Space size */
+@value space-wider: 4em;
+@value space-wide: 3em;
 @value space-regular: 2em;
 @value space-narrow: 0.8em;
 @value space-narrower: 0.5em;
+
+/* Radius size */
+@value border-radius: 7px;
+@value modal-radius: 15px;
+
+/* Box shadow size */
+@value box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 
 /* Font size */
 @value font-large: 32px;
@@ -8,3 +18,8 @@
 @value font-regular: 18px;
 @value font-small: 16px;
 @value font-micro: 14px;
+
+/* Font weight */
+@value weight-bold: 700;
+@value weight-semibold: 600;
+@value weight-regular: 500;
