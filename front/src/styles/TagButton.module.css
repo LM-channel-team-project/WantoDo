@@ -1,0 +1,10 @@
+/* Created by 오영롱(youngrongoh) on 2021/04/23 */
+.delete {
+  display: inline-block;
+  vertical-align: sub;
+  font-size: 1.3em;
+  line-height: 0.8;
+  width: 0;
+  opacity: 0;
+  transition: 300ms ease;
+}

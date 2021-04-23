@@ -1,12 +1,9 @@
 /* 아래와 같이 프리셋을 불러와 사용할 수 있습니다 */
-@value colors: './common/color.css';
-@value size: './common/size.css';
-@value effect: './common/effect.css';
-@value colorGray, colorLightGray, colorDarkGray, colorWhite, colorLightBlack from colors;
-@value space-regular as regular, space-narrow as narrow, space-narrower as narrower, border-radius as radius from size;
-@value animation-duration-regular as duration-regular from effect;
+@value space-narrow as narrow, space-narrower as narrower, font-large as large from './common/size.css';
 
 .inputBox {
+  display: flex;
+  align-items: center;
   padding: narrow;
   display: inline-flex;
 }
@@ -16,22 +13,11 @@
   font-size: large;
 }
 
-.input {
-  margin-left: narrower;
-  padding: 0 narrower;
-  height: 24px;
-  border: none;
-  border-radius: radius;
-  background-color: colorLightGray;
-  color: colorLightBlack;
+.tagItem {
+  display: inline-block;
+
 }
 
-.input:focus {
-  outline: none;
-  background-color: colorGray;
-  transition: all duration-regular ease-in;
-}
-
-.input:focus::placeholder {
-  color: transparent;
+.tagItem + .tagItem {
+  margin-left: 0.5em;
 }

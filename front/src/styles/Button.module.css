@@ -58,14 +58,39 @@
   background: none;
 }
 
+/* Created by 오영롱(youngrongoh) on 2021/04/23 */
+.tag,
+.tagDelete {
+  margin: 0;
+  padding: 0;
+  border: none;
+  transition: none;
+  background-color: transparent;
+  box-shadow: none;
+}
+
+.tag + .tag {
+  margin-left: 0.5em;
+}
+
+.tagDelete {
+  display: flex;
+  line-height: 1;
+}
+
 /* Created by 오영롱(youngrongoh) on 2021/04/19 */
 /* 추후에 .button의 가상 클래스 설정을 조정한 뒤 수정해야 할 듯  */
-.checkbox:focus {
+.checkbox:focus,
+.tag:focus,
+.tagDelete:focus {
   transform: none;
   background-color: transparent;
 }
 
-.checkbox:hover {
+.checkbox:hover,
+.tag:hover,
+.tagDelete:hover {
   transform: none;
   background-color: transparent;
 }
+

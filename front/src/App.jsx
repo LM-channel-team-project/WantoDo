@@ -9,6 +9,9 @@ import MenuSelector from './components/MenuSelector';
 import Navbar from './container/Navbar';
 import ProfileModal from './components/ProfileModal';
 import TaskList from './components/TaskList';
+import TagButton from './components/TagButton';
+import Tag from './components/Tag';
+import TagInputBox from './components/TagInputBox';
 
 function App() {
   const dumyProfile = {
@@ -46,8 +49,36 @@ function App() {
     },
   };
 
+  const dumyTags = [
+    {
+      name: '개발',
+      color: 'blue',
+    },
+    {
+      name: '취미',
+      color: 'yellow',
+    },
+    {
+      name: '중요',
+      color: 'pink',
+    },
+  ];
+
   return (
     <div className="app">
+      <div>
+        <TagInputBox tags={dumyTags} />
+      </div>
+      <div>
+        <TagButton name="tag1" />
+        <TagButton name="tag2" />
+        <TagButton name="tag3" />
+      </div>
+      <div>
+        <Tag name="tag4" color="blue" />
+        <Tag name="tag5" color="gree" />
+        <Tag name="tag6" color="pink" />
+      </div>
       <div>
         <TaskList tasks={dumyTasks} />
       </div>
