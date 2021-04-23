@@ -12,7 +12,7 @@ import styles from '../styles/InputBox.module.css';
 const InputBox = ({ labelText, name, type, placeholder, validator }) => {
   const [value, setValue] = useState('');
 
-  const onChange = event => {
+  const onChange = (event) => {
     const text = String(event.target.value);
 
     let validFlag = true;
