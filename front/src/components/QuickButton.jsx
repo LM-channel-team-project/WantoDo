@@ -1,18 +1,21 @@
-import React, {useState} from "react";
+import React from "react";
 import {FaPlusCircle} from "react-icons/fa";
+import IconButton from "./IconButton";
 
+/** Create by 이승진(dltmdwls154@gmail.com)
+ * 항상 우측 하단에 표시되고 클릭시 input 보이게
+ * @param {변수타입} props.styleName - 커스텀 스타일을 위한 스타일 네임
+ *
+ */
 
-const QuickButton = ({ children: styleName}) => {
-    const [openInput, setCloseInput] = useState(false);
-    const toggleInput = () => {
-        setCloseInput(!openInput);
+const QuickButton = () => {
+    const onInputToggle = () => {
+        // 인풋 토글 로직 작성
     }
     return(
-        <button type='button' onClick={toggleInput} styleName={styleName}
-                onInputToggle={() => {/* 태스크 등록 창 토글 로직 작성 */}} >
-            {/* QuickButton.module.css 에서 styleName은 아이콘 크기와 위치 스타일 */}
+        <IconButton type='button' onClick={onInputToggle} styleName='quickButton'>
             <FaPlusCircle/>
-        </button>
+        </IconButton>
     );
 };
 
