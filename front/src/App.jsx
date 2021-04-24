@@ -7,6 +7,7 @@ import IconButton from './components/IconButton';
 import InputBox from './components/InputBox';
 import MenuSelector from './components/MenuSelector';
 import Navbar from './container/Navbar';
+import QuickButton from "./components/QuickButton";
 import ProfileModal from './components/ProfileModal';
 import TaskList from './components/TaskList';
 import TagButton from './components/TagButton';
@@ -96,6 +97,7 @@ function App() {
       <div>
         <MenuSelector iconList={{ FiCalendar, RiShieldCheckLine, BsListCheck }} />
       </div>
+        <QuickButton />
       <ProfileModal profile={dumyProfile} />
     </div>
   );
