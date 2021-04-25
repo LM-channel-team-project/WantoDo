@@ -18,4 +18,5 @@ a {
 button {
   padding: 0;
   cursor: pointer;
+  border: none;
 }
