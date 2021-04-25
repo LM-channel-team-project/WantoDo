@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { AiOutlineClose } from 'react-icons/ai';
+import { FaPlus } from 'react-icons/fa';
 import PriorityIcon from './PriorityIcon';
 import IconButton from './IconButton';
 import styles from '../styles/PrioritySelector.module.css';
@@ -26,7 +26,7 @@ const PrioritySelector = ({ priority, inputName }) => {
       <ul className={styles.list}>
         <li className={styles.item}>
           <IconButton styleName="priorityInput" onClick={() => onButtonClick(0)}>
-            <AiOutlineClose className={`${styles.close} ${value > 0 && styles.lightOff}`} />
+            <FaPlus className={`${styles.close} ${value > 0 && styles.lightOff}`} />
           </IconButton>
         </li>
         <li className={styles.item}>
