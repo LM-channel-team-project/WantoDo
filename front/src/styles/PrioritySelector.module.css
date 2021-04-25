@@ -1,0 +1,33 @@
+@value space-narrow as narrow, space-narrower as narrower, font-large as large from './common/size.css';
+
+.selector {
+  display: flex;
+  align-items: center;
+  padding: narrow;
+  display: inline-flex;
+}
+
+.name {
+  margin-right: narrower;
+  font-size: large;
+}
+
+.item {
+  display: inline-block;
+}
+
+.item + .item {
+  margin-left: 0.5em;
+}
+
+.close {
+  color: yellow;
+}
+
+.close.lightOff {
+  color: black;
+}
+
+.select {
+  display: none;
+} 

@@ -9,6 +9,10 @@
   color: yellow;
 }
 
+.starLightOff {
+  color: black;
+}
+
 .hidden {
   visibility: hidden;
   opacity: 0;
