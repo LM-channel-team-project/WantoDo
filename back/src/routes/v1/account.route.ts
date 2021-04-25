@@ -7,28 +7,6 @@ const accountRouter = Router();
 // todo: Error example 추가해야함
 
 /**
- * @api {get} /v1/accounts/signed 회원가입 여부 확인
- * @apiName isExistUser
- * @apiGroup Accounts
- * @apiVersion 1.0.0
- *
- * @apiUse HeaderToken
- *
- * @apiSampleRequest /v1/accounts/signed
- * @apiSuccess (SUCCESS) {Object} data Response Data
- * @apiSuccess (SUCCESS) {Boolean} data.existUserFlag 유저 회원 여부 (true: 회원가입 됨 | false: 회원가입 필요함)
- * @apiSuccess (SUCCESS) {String} msg 성공메시지
- * @apiSuccessExample {json} SuccessResponse
- * {
- *     "msg": "success",
- *     "data": {
- *         "existUserFlag": true
- *     }
- * }
- */
-accountRouter.get('/signed', accountController.isExistUser);
-
-/**
  * @api {post} /v1/accounts/login 로그인
  * @apiName loginUser
  * @apiGroup Accounts
@@ -37,13 +15,12 @@ accountRouter.get('/signed', accountController.isExistUser);
  * @apiUse HeaderToken
  *
  * @apiSampleRequest /v1/accounts/login
- * @apiSuccess (SUCCESS) {Object} data Response Data
- * @apiSuccess (SUCCESS) {String} data.nickname 닉네임
- * @apiSuccess (SUCCESS) {String} data.email 성공메시지
- * @apiSuccess (SUCCESS) {String} data.platform 플랫폼
- * @apiSuccess (SUCCESS) {String} data.motto motto
- * @apiSuccess (SUCCESS) {String} data.profileImageUrl 이미지 URL
  * @apiSuccess (SUCCESS) {String} msg 성공메시지
+ * @apiSuccess (SUCCESS) {String} nickname 닉네임
+ * @apiSuccess (SUCCESS) {String} email 성공메시지
+ * @apiSuccess (SUCCESS) {String} platform 플랫폼
+ * @apiSuccess (SUCCESS) {String} motto motto
+ * @apiSuccess (SUCCESS) {String} profileImageUrl 이미지 URL
  * @apiSuccessExample {json} SuccessResponse
  * {
  *     "msg": "success",

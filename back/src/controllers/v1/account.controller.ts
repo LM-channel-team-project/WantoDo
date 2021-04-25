@@ -1,35 +1,6 @@
 import { NextFunction, Request, Response } from 'express';
 import { body, header, validationResult } from 'express-validator';
-import accountService from '../../services/v1/account.service';
-
-// Created by 강성모(castleMo) on 2021/04/25
-export const isExistUser = async (req: Request, res: Response, next: NextFunction) => {
-	try {
-		await Promise.all([
-			header('Authorization')
-				.trim()
-				.notEmpty()
-				.withMessage('is empty')
-				.bail()
-				.isJWT()
-				.withMessage('is not JWT value')
-				.run(req),
-		]);
-
-		// validation Error
-		// todo: Error model 정의하기
-		const validationErrors = validationResult(req);
-		if (!validationErrors.isEmpty()) {
-			throw new Error('updateUserSettings validationError');
-		}
-
-		const { user } = res.locals;
-		const result = await accountService.isExistUser(user);
-		res.status(200).send(result);
-	} catch (err) {
-		next(err);
-	}
-};
+import * as accountService from '../../services/v1/account.service';
 
 // Created by 강성모(castleMo) on 2021/04/13
 export const loginUser = async (req: Request, res: Response, next: NextFunction) => {
@@ -162,5 +133,4 @@ export default {
 	loginUser,
 	updateUserSettings,
 	withdrawUser,
-	isExistUser,
 };
