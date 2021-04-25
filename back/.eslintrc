@@ -5,12 +5,11 @@
   },
   "extends": [
     "airbnb-base",
-    "prettier",
     "plugin:prettier/recommended"
   ],
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
-    "project": "./tsconfig.json",
+    "project": "tsconfig.json",
     "ecmaVersion": 12,
     "sourceType": "module"
   },

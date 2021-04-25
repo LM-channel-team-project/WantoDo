@@ -1,0 +1,26 @@
+@value colors: './common/color.css';
+@value size: './common/size.css';
+@value effect: './common/effect.css';
+@value colorGray, colorLightGray, colorLightBlack from colors;
+@value space-regular as regular, space-narrower as narrower, border-radius as radius from size;
+@value animation-duration-regular as duration-regular from effect;
+
+.input {
+  margin-left: narrower;
+  padding: 0 narrower;
+  height: 24px;
+  border: none;
+  border-radius: radius;
+  background-color: colorLightGray;
+  color: colorLightBlack;
+}
+
+.input:focus {
+  outline: none;
+  background-color: colorGray;
+  transition: all duration-regular ease-in;
+}
+
+.input:focus::placeholder {
+  color: transparent;
+}

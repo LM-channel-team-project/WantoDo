@@ -14,7 +14,6 @@ const Button = ({ children, type, styleName, onClick }) => {
   }
 
   const onButtonClick = (event) => {
-    event.preventDefault();
     if (onClick instanceof Function) onClick(event);
   };
 
