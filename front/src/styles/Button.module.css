@@ -1,53 +1,51 @@
 @value colors: './common/color.css';
 @value size: './common/size.css';
 @value effect: './common/effect.css';
-@value colorWhite, colorLightSkyblue, colorSkyblue, colorPurple from colors;
+@value colorWhite, colorLightSkyblue, colorSkyblue, colorPurple,colorDarkPurple from colors;
 @value animation-duration-fast as fast from effect;
-@value box-shadow, border-radius, weight-regular, weight-regular from size;
+@value box-shadow, button-radius, border-radius, weight-regular, weight-regular from size;
 
 .button {
-  display: inline-block;
-  margin: 1em;
+  font-size: 1em;
   padding: 0.5em 1em;
-  border: none;
   border-radius: border-radius;
   transition: all fast ease-in;
   background-color: colorLightSkyblue;
-  font-size: 1em;
-  font-weight: weight-regular;
-  box-shadow: box-shadow;
-}
-
-.button:focus {
-  outline: none;
-  transform: scale(1.05);
-  background-color: colorSkyblue;
 }
 
 .button:hover {
-  background-color: colorSkyblue;
-  cursor: pointer;
+  background-color: colorSkyblue; 
   transform: scale(1.05);
 }
 
+/* dumy button */
 .calendar {
   font-size: 1.5em;
 }
 
-.profile {
+/* navbar button */
+.profile { 
   padding: 5px;
   border-radius: 50%;
-  box-shadow: none;
 }
 
-.sideMenu {
-  box-shadow: none;
+/* profile modal button */
+.profileModal{
+  margin: 1em;
+  width:120px;
+  height:40px;
+  border-radius: button-radius;
+  background-color: colorPurple;
+  color: colorWhite;
+  font-weight: weight-regular;
+  box-shadow: box-shadow;
 }
 
-.setting {
-  box-shadow: none;
+.profileModal:hover{
+  background-color: colorDarkPurple;
 }
 
+/* checkbox button */
 .checkbox {
   position: relative;
   width: 1em;
@@ -80,12 +78,6 @@
 
 /* Created by 오영롱(youngrongoh) on 2021/04/19 */
 /* 추후에 .button의 가상 클래스 설정을 조정한 뒤 수정해야 할 듯  */
-.checkbox:focus,
-.tag:focus,
-.tagDelete:focus {
-  transform: none;
-  background-color: transparent;
-}
 
 .checkbox:hover,
 .tag:hover,
