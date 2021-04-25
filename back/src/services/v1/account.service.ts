@@ -3,6 +3,30 @@ import { v4 as uuidV4 } from 'uuid';
 import { UserInfo } from '../../common/types';
 import { BeginningOfWeek, Theme, users } from '../../models/user.model';
 
+export const isExistUser = async (user: UserInfo) => {
+	try {
+		// 유저 존재여부 체크를 위한 쿼리
+		const count: number = await users.countDocuments({
+			platformId: user.platformId,
+			platform: user.platform,
+			closeAccountFlag: false,
+		});
+
+		// true : 유저 존재함
+		// false : 유저 존재하지 않음
+		const existUserFlag: boolean = count > 0;
+
+		return {
+			msg: 'success',
+			data: {
+				existUserFlag,
+			},
+		};
+	} catch (e) {
+		throw e;
+	}
+};
+
 //  Created by 강성모 on 2021/04/13
 export const loginUser = async (user: UserInfo) => {
 	try {
@@ -129,4 +153,11 @@ export const withdrawUser = async (user: UserInfo) => {
 	} catch (err) {
 		throw err;
 	}
+};
+
+export default {
+	isExistUser,
+	loginUser,
+	updateUserSettings,
+	withdrawUser,
 };
