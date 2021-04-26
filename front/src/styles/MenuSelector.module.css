@@ -1,4 +1,4 @@
-@value colorGray from './common/color.css';
+@value colorLightSkyblue, colorSkyblue from './common/color.css';
 
 .selector {
   display: inline-block;
@@ -7,7 +7,6 @@
 .container {
   position: relative;
   display: flex;
-  border: 1px solid colorGray;
 }
 
 .selected {
@@ -15,6 +14,7 @@
 }
 
 .hidden {
+  background-color: colorLightSkyblue;
   position: absolute;
   right: 0;
   top: 0;
@@ -24,6 +24,10 @@
   opacity: 0;
   visibility: hidden;
   transition: 500ms ease;
+}
+
+.hidden:hover {
+  background-color: colorLightSkyblue;
 }
 
 .selector:hover .hidden {

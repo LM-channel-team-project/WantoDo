@@ -7,7 +7,7 @@ import IconButton from './components/IconButton';
 import InputBox from './components/InputBox';
 import MenuSelector from './components/MenuSelector';
 import Navbar from './container/Navbar';
-import QuickButton from "./components/QuickButton";
+import QuickButton from './components/QuickButton';
 import ProfileModal from './components/ProfileModal';
 import TaskList from './components/TaskList';
 import TagButton from './components/TagButton';
@@ -84,7 +84,14 @@ function App() {
         <TaskList tasks={dumyTasks} />
       </div>
 
-      <Navbar />
+      <div
+        style={{
+          width: '54px',
+          height: '100vh',
+        }}
+      >
+        <Navbar />
+      </div>
       <InputBox labelText="시작" name="start" type="text" />
       <Button type="submit" styleName="calendar">
         일반 버튼1
@@ -97,7 +104,7 @@ function App() {
       <div>
         <MenuSelector iconList={{ FiCalendar, RiShieldCheckLine, BsListCheck }} />
       </div>
-        <QuickButton />
+      <QuickButton />
       <ProfileModal profile={dumyProfile} />
     </div>
   );
