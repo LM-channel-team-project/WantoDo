@@ -65,6 +65,16 @@ const userSchema = new Schema({
 			enum: ['sunday', 'monday'],
 		},
 	},
+	notifications: [
+		{
+			endpoint: String,
+			expirationTime: Number,
+			keys: {
+				p256dh: String,
+				auth: String,
+			},
+		},
+	],
 });
 
 export type Theme = 'default' | 'dark';
@@ -74,6 +84,15 @@ interface ISetting {
 	theme: Theme | undefined;
 	notificationFlag: boolean | undefined;
 	beginningOfWeek: BeginningOfWeek | undefined;
+}
+
+interface INotification {
+	endpoint: string;
+	expirationTime: number;
+	keys: {
+		p256dh: string;
+		auth: string;
+	};
 }
 
 export interface IUser extends Document {
@@ -89,6 +108,7 @@ export interface IUser extends Document {
 	updatedTimestamp: number;
 	closeAccountFlag: boolean; // 회원탈퇴 여부
 	closeAccountMessage: string; // 회원탈퇴 메시지
+	notifications: [INotification];
 	settings: ISetting;
 }
 

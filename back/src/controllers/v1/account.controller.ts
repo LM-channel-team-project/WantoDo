@@ -3,7 +3,7 @@ import { body, header, validationResult } from 'express-validator';
 import accountService from '../../services/v1/account.service';
 
 // Created by 강성모(castleMo) on 2021/04/25
-export const isExistUser = async (req: Request, res: Response, next: NextFunction) => {
+export const isUserExist = async (req: Request, res: Response, next: NextFunction) => {
 	try {
 		await Promise.all([
 			header('Authorization')
@@ -24,7 +24,7 @@ export const isExistUser = async (req: Request, res: Response, next: NextFunctio
 		}
 
 		const { user } = res.locals;
-		const result = await accountService.isExistUser(user);
+		const result = await accountService.isUserExist(user);
 		res.status(200).send(result);
 	} catch (err) {
 		next(err);
@@ -59,6 +59,44 @@ export const loginUser = async (req: Request, res: Response, next: NextFunction)
 		next(error);
 	}
 };
+
+// Created by 강성모(castleMo) on 2021/04/26
+// export const registerUser = async (req: Request, res: Response, next: NextFunction) => {
+// 	try {
+// 		await Promise.all([
+// 			header('Authorization')
+// 				.trim()
+// 				.notEmpty()
+// 				.withMessage('is empty')
+// 				.bail()
+// 				.isJWT()
+// 				.withMessage('is not JWT value')
+// 				.run(req),
+// 			body('subscription')
+// 				.notEmpty()
+// 				.withMessage('is empty')
+// 				.bail()
+// 				.isJSON()
+// 				.withMessage('is not JSON value')
+// 				.bail()
+// 				.run(req),
+// 			body('subscription.endpoint').notEmpty().withMessage('is empty').run(req),
+// 		]);
+//
+// 		// validation Error
+// 		// todo: Error model 정의하기
+// 		const validationErrors = validationResult(req);
+// 		if (!validationErrors.isEmpty()) {
+// 			throw new Error('updateUserSettings validationError');
+// 		}
+//
+// 		const { user } = res.locals;
+// 		const result = await accountService.registerUser(user);
+// 		res.status(200).send(result);
+// 	} catch (error) {
+// 		next(error);
+// 	}
+// };
 
 //  Created by 강성모(castleMo) on 2021/04/14
 export const updateUserSettings = async (req: Request, res: Response, next: NextFunction) => {
@@ -162,5 +200,5 @@ export default {
 	loginUser,
 	updateUserSettings,
 	withdrawUser,
-	isExistUser,
+	isUserExist,
 };
