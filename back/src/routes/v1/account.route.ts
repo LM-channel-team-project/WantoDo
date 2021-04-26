@@ -8,7 +8,7 @@ const accountRouter = Router();
 
 /**
  * @api {get} /v1/accounts/signed 회원가입 여부 확인
- * @apiName isExistUser
+ * @apiName isUserExist
  * @apiGroup Accounts
  * @apiVersion 1.0.0
  *
@@ -26,7 +26,7 @@ const accountRouter = Router();
  *     }
  * }
  */
-accountRouter.get('/signed', accountController.isExistUser);
+accountRouter.get('/signed', accountController.isUserExist);
 
 /**
  * @api {post} /v1/accounts/login 로그인
@@ -57,6 +57,8 @@ accountRouter.get('/signed', accountController.isExistUser);
  * }
  */
 accountRouter.post('/login', accountController.loginUser);
+
+// accountRouter.post('/register', accountController.registerUser);
 
 /**
  * @api {patch} /v1/accounts/settings 회원 설정 수정

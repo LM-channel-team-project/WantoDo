@@ -3,7 +3,8 @@ import { v4 as uuidV4 } from 'uuid';
 import { UserInfo } from '../../common/types';
 import { BeginningOfWeek, Theme, users } from '../../models/user.model';
 
-export const isExistUser = async (user: UserInfo) => {
+// Created by 강성모 on 2021/04/25
+export const isUserExist = async (user: UserInfo) => {
 	try {
 		// 유저 존재여부 체크를 위한 쿼리
 		const count: number = await users.countDocuments({
@@ -27,7 +28,7 @@ export const isExistUser = async (user: UserInfo) => {
 	}
 };
 
-//  Created by 강성모 on 2021/04/13
+// Created by 강성모 on 2021/04/13
 export const loginUser = async (user: UserInfo) => {
 	try {
 		// 신규유저인지 로그인유저인지 확인을 위한 쿼리
@@ -93,7 +94,16 @@ export const loginUser = async (user: UserInfo) => {
 	}
 };
 
-//  Created by 강성모 on 2021/04/14
+// Created by 강성모 on 2021/04/26
+// export const registerUser = (user: UserInfo) => {
+// 	try {
+// 		console.log(user);
+// 	} catch (err) {
+// 		throw err;
+// 	}
+// };
+
+// Created by 강성모 on 2021/04/14
 export const updateUserSettings = async (
 	user: UserInfo,
 	theme: Theme,
@@ -130,7 +140,7 @@ export const updateUserSettings = async (
 	}
 };
 
-//  Created by 강성모(castleMo) on 2021/04/15
+// Created by 강성모(castleMo) on 2021/04/15
 export const withdrawUser = async (user: UserInfo) => {
 	try {
 		await users
@@ -156,7 +166,7 @@ export const withdrawUser = async (user: UserInfo) => {
 };
 
 export default {
-	isExistUser,
+	isUserExist,
 	loginUser,
 	updateUserSettings,
 	withdrawUser,
