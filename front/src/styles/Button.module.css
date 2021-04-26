@@ -3,7 +3,7 @@
 @value effect: './common/effect.css';
 @value colorWhite, colorLightSkyblue, colorSkyblue, colorPurple,colorDarkPurple from colors;
 @value animation-duration-fast as fast from effect;
-@value box-shadow, button-radius, border-radius, weight-regular, weight-regular from size;
+@value box-shadow, button-radius, border-radius, weight-regular, weight-regular, font-regular from size;
 
 .button {
   font-size: 1em;
@@ -14,7 +14,7 @@
 }
 
 .button:hover {
-  background-color: colorSkyblue; 
+  background-color: colorSkyblue;
   transform: scale(1.05);
 }
 
@@ -24,16 +24,34 @@
 }
 
 /* navbar button */
-.profile { 
+.profile {
+  background-color: transparent;
   padding: 5px;
   border-radius: 50%;
 }
 
+.sideMenu:hover {
+  background-color: colorSkyblue;
+}
+
+.sideMenu,
+.setting {
+  background-color: transparent;
+  color: colorWhite;
+  border-radius: 0;
+}
+
+.profile:hover,
+.sideMenu:hover,
+.setting:hover {
+  transform: none;
+}
+
 /* profile modal button */
-.profileModal{
+.profileModal {
   margin: 1em;
-  width:120px;
-  height:40px;
+  width: 120px;
+  height: 40px;
   border-radius: button-radius;
   background-color: colorPurple;
   color: colorWhite;
@@ -41,7 +59,7 @@
   box-shadow: box-shadow;
 }
 
-.profileModal:hover{
+.profileModal:hover {
   background-color: colorDarkPurple;
 }
 
@@ -85,4 +103,3 @@
   transform: none;
   background-color: transparent;
 }
-
