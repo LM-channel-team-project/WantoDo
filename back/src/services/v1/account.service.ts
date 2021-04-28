@@ -44,11 +44,12 @@ export const loginUser = async (user: UserInfo) => {
 			nickname: '',
 			motto: '',
 			profileImageUrl: '',
+			settings: {},
 		};
 
 		if (count < 1) {
 			// create
-			const { email, platform, name, motto, profileImageUrl } = await users.create({
+			const { email, platform, name, motto, profileImageUrl, settings } = await users.create({
 				userId: uuidV4(),
 				email: user.email,
 				platform: user.platform,
@@ -62,6 +63,7 @@ export const loginUser = async (user: UserInfo) => {
 				nickname: name,
 				motto,
 				profileImageUrl,
+				settings,
 			};
 		} else {
 			// find
@@ -82,6 +84,7 @@ export const loginUser = async (user: UserInfo) => {
 				nickname: dbUser.nickname || dbUser.name,
 				motto: dbUser.motto,
 				profileImageUrl: dbUser.profileImageUrl,
+				settings: dbUser.settings,
 			};
 		}
 
@@ -94,15 +97,6 @@ export const loginUser = async (user: UserInfo) => {
 	}
 };
 
-// Created by 강성모 on 2021/04/26
-// export const registerUser = (user: UserInfo) => {
-// 	try {
-// 		console.log(user);
-// 	} catch (err) {
-// 		throw err;
-// 	}
-// };
-
 // Created by 강성모 on 2021/04/14
 export const updateUserSettings = async (
 	user: UserInfo,
@@ -111,12 +105,19 @@ export const updateUserSettings = async (
 	beginningOfWeek: BeginningOfWeek | undefined,
 ) => {
 	try {
-		const updateObj =
-			theme !== undefined
-				? { 'settings.theme': theme }
-				: notificationFlag !== undefined
-				? { 'settings.notificationFlag': notificationFlag }
-				: { 'settings.beginningOfWeek': beginningOfWeek };
+		if (theme === undefined && notificationFlag === undefined && beginningOfWeek === undefined) {
+			throw new Error('theme, notificationFlag, beginningOfWeek 모두 값이없습니다.');
+		}
+
+		let updateObj = {};
+
+		if (theme !== undefined) {
+			updateObj = { 'settings.theme': theme };
+		} else if (notificationFlag !== undefined) {
+			updateObj = { 'settings.notificationFlag': notificationFlag };
+		} else {
+			updateObj = { 'settings.beginningOfWeek': beginningOfWeek };
+		}
 
 		await users
 			.updateOne(
