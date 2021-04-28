@@ -20,9 +20,6 @@ app.use((req, res, next) => {
 	next(new Error('404 Error'));
 });
 
-const str: string = 'test';
-console.log(str);
-
 // start
 app.listen(configs.port, () => {
 	console.log(`backend start!! port: ${configs.port}`);
