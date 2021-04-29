@@ -16,13 +16,13 @@ const accountRouter = Router();
  *
  * @apiSampleRequest /v1/accounts/signed
  * @apiSuccess (SUCCESS) {Object} data Response Data Object
- * @apiSuccess (SUCCESS) {Boolean} data.existUserFlag 유저 회원 여부 (true: 회원가입 됨 | false: 회원가입 필요함)
+ * @apiSuccess (SUCCESS) {Boolean} data.isUserExist 유저 회원 여부 (true: 회원가입 됨 | false: 회원가입 필요함)
  * @apiSuccess (SUCCESS) {String} msg 성공메시지
  * @apiSuccessExample {json} SuccessResponse
  * {
  *     "msg": "success",
  *     "data": {
- *         "existUserFlag": true
+ *         "isUserExist": true
  *     }
  * }
  */
@@ -56,7 +56,7 @@ accountRouter.get('/signed', accountController.isUserExist);
  *         "profileImageUrl": "https://image.com",
  *         "settings": {
  *           "theme": "default",
- *           "notificationFlag": false,
+ *           "isNotification": false,
  *           "beginningOfWeek": "sunday"
  *         }
  *     }
@@ -73,16 +73,16 @@ accountRouter.post('/login', accountController.loginUser);
  * @apiUse HeaderToken
  *
  * @apiParam (Body) {String} [theme] 테마 (default | dark)
- * @apiParam (Body) {Boolean} [notificationFlag] 알림설정 여부
+ * @apiParam (Body) {Boolean} [isNotification] 알림설정 여부
  * @apiParam (Body) {String} [beginningOfWeek] 한주의 시작 요일 (monday | sunday)
  * @apiParamExample {json} RequestBodyExample (theme)
  * {
  *     "theme": "dark"
  * }
  *
- * @apiParamExample {json} RequestBodyExample (notificationFlag)
+ * @apiParamExample {json} RequestBodyExample (isNotification)
  * {
- *     "notificationFlag": true
+ *     "isNotification": true
  * }
  *
  * @apiParamExample {json} RequestBodyExample (beginningOfWeek)
