@@ -45,7 +45,7 @@ const tagSchema = new Schema({
 
 
     // 삭제 여부
-    whetherDeleteTag: {
+    isDeleted: {
         type: Boolean,
         default: false,
     },
@@ -67,7 +67,7 @@ export interface Tag extends Document {
     createdTimestamp: number;
     updatedTimestamp: number;
     representativeTag: boolean;
-    whetherDeleteTag: boolean;
+    isDeleted: boolean;
     color: string;
     deleteTagMessage: string;
 }
