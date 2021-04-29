@@ -1,6 +1,6 @@
 import React from 'react';
 import { AiFillStar, AiOutlineStar } from 'react-icons/ai';
-import BrightStarIcon from './BrightStarIcon';
+import BrightStar from './BrightStar';
 import styles from '../styles/PriorityIcon.module.css';
 
 /** Created by 오영롱(youngrongoh) on 2021/04/20
@@ -18,7 +18,7 @@ const PriorityIcon = ({ level: _level, lightOff }) => {
         <AiOutlineStar className={`${starClassName} ${level === 0 && styles.hidden}`} />
       )}
       {level === 2 && <AiFillStar className={starClassName} />}
-      {level === 3 && <BrightStarIcon className={starClassName} />}
+      {level === 3 && <BrightStar className={starClassName} />}
     </div>
   );
 };

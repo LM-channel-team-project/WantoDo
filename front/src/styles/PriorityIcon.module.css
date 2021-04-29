@@ -3,6 +3,12 @@
   display: inline-block;
   width: 1em;
   height: 1em;
+  font-size: 1em;
+}
+
+svg.star {
+  width: 1em;
+  height: 1em;
 }
 
 .star {
@@ -11,6 +17,14 @@
 
 .starLightOff {
   color: black;
+}
+
+path.star {
+  fill: yellow;
+}
+
+path.starLightOff {
+  fill: black;
 }
 
 .hidden {
