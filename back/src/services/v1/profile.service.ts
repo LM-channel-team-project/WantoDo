@@ -17,7 +17,7 @@ export const getProfile = async (user: {
 			.findOne({
 				platform: user.platform,
 				platformId: user.platformId,
-				closeAccountFlag: false,
+				isCloseAccount: false,
 			})
 			.exec();
 

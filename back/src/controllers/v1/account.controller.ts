@@ -76,7 +76,7 @@ export const updateUserSettings = async (req: Request, res: Response, next: Next
 				.isIn(['default', 'dark'])
 				.withMessage('must be one of default or dark')
 				.run(req),
-			body('notificationFlag')
+			body('isNotification')
 				.optional({ checkFalsy: true })
 				.trim()
 				.notEmpty()
@@ -116,13 +116,8 @@ export const updateUserSettings = async (req: Request, res: Response, next: Next
 		}
 
 		const { user } = res.locals;
-		const { theme, notificationFlag, beginningOfWeek } = req.body;
-		const result = await accountService.updateUserSettings(
-			user,
-			theme,
-			notificationFlag,
-			beginningOfWeek,
-		);
+		const { theme, isNotification, beginningOfWeek } = req.body;
+		const result = await accountService.updateUserSettings(user, theme, isNotification, beginningOfWeek);
 		res.status(200).send(result);
 	} catch (error) {
 		next(error);
