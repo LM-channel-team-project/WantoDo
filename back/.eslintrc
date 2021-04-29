@@ -19,6 +19,14 @@
   "rules": {
     "prettier/prettier": "error",
     "no-console": "off", // console객체를 사용여부
+
+    // ----------
+    // 참고 : https://github.com/typescript-eslint/typescript-eslint/blob/master/packages/eslint-plugin/docs/rules/no-unused-vars.md
+    // 참고 : https://stackoverflow.com/questions/57802057/eslint-configuring-no-unused-vars-for-typescript
+    "no-unused-vars": "off",
+    "@typescript-eslint/no-unused-vars": ["error"],
+    // ----------
+
     "import/extensions": [
       "error",
       "ignorePackages",
