@@ -7,20 +7,26 @@
 
 .input {
   margin-left: narrower;
-  padding: 0 narrower;
-  height: 24px;
-  border: none;
+  padding: 0.2em narrower;
   border-radius: radius;
   background-color: colorLightGray;
   color: colorLightBlack;
 }
 
 .input:focus {
-  outline: none;
   background-color: colorGray;
   transition: all duration-regular ease-in;
 }
 
-.input:focus::placeholder {
-  color: transparent;
+.QuickAddForm {
+  line-height: 1.8;
+  font-size: 1.2em;
+  padding: 0;
+  flex-basis: 100%;
+  background-color: transparent;
+}
+
+.QuickAddForm:focus {
+  background-color: transparent;
+  transition: all duration-regular ease-in;
 }
