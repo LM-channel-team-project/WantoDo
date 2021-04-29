@@ -2,6 +2,7 @@ import React from 'react';
 import { FiCalendar } from 'react-icons/fi';
 import { RiShieldCheckLine } from 'react-icons/ri';
 import { BsListCheck } from 'react-icons/bs';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
 import Button from './components/Button';
 import IconButton from './components/IconButton';
 import InputBox from './components/InputBox';
@@ -15,7 +16,22 @@ import Tag from './components/Tag';
 import TagInputBox from './components/TagInputBox';
 import Calendar from './components/Calendar';
 
+const ROOT_PATH = process.env.PUBLIC_URL;
+
 function App() {
+  return (
+    <Router>
+      <Route path={`${ROOT_PATH}/`} exact>
+        <TestPage />
+      </Route>
+      <Route path={`${ROOT_PATH}/login`}>
+        <h1>LoginPage</h1>
+      </Route>
+    </Router>
+  );
+}
+
+const TestPage = () => {
   const dumyProfile = {
     userName: 'WantoDo',
     email: 'WantoDo.@gmail.com',
@@ -53,14 +69,17 @@ function App() {
 
   const dumyTags = [
     {
+      id: 'jhd84hjg7dhe234',
       name: '개발',
       color: 'blue',
     },
     {
+      id: 'f8rj489rheof9we',
       name: '취미',
       color: 'yellow',
     },
     {
+      id: 'j4832843enbhfi2',
       name: '중요',
       color: 'pink',
     },
@@ -121,6 +140,6 @@ function App() {
       </div>
     </div>
   );
-}
+};
 
 export default App;
