@@ -27,13 +27,13 @@ const googleIdTokenVerify = async (req: Request, res: Response, next: NextFuncti
 		const payload: GoogleAuthLibrary.TokenPayload = ticket.getPayload()!;
 
 		/*  혹시 모를 api
-			const {data} = await axios.get('https://www.googleapis.com/oauth2/v3/userinfo',
-				{
-					headers: {
-					Authorization: 'Bearer' + accessToken,
-				}
-			});
-		*/
+      const {data} = await axios.get('https://www.googleapis.com/oauth2/v3/userinfo',
+        {
+          headers: {
+          Authorization: 'Bearer' + accessToken,
+        }
+      });
+    */
 
 		// payload data 없을시 에러
 		// todo: Error model 정의하기

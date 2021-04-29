@@ -15,7 +15,7 @@ const accountRouter = Router();
  * @apiUse HeaderToken
  *
  * @apiSampleRequest /v1/accounts/signed
- * @apiSuccess (SUCCESS) {Object} data Response Data
+ * @apiSuccess (SUCCESS) {Object} data Response Data Object
  * @apiSuccess (SUCCESS) {Boolean} data.existUserFlag 유저 회원 여부 (true: 회원가입 됨 | false: 회원가입 필요함)
  * @apiSuccess (SUCCESS) {String} msg 성공메시지
  * @apiSuccessExample {json} SuccessResponse
@@ -32,17 +32,18 @@ accountRouter.get('/signed', accountController.isUserExist);
  * @api {post} /v1/accounts/login 로그인
  * @apiName loginUser
  * @apiGroup Accounts
- * @apiVersion 1.0.0
+ * @apiVersion 1.0.1
  *
  * @apiUse HeaderToken
  *
  * @apiSampleRequest /v1/accounts/login
- * @apiSuccess (SUCCESS) {Object} data Response Data
+ * @apiSuccess (SUCCESS) {Object} data Response Data Object
  * @apiSuccess (SUCCESS) {String} data.nickname 닉네임
  * @apiSuccess (SUCCESS) {String} data.email 성공메시지
  * @apiSuccess (SUCCESS) {String} data.platform 플랫폼
  * @apiSuccess (SUCCESS) {String} data.motto motto
  * @apiSuccess (SUCCESS) {String} data.profileImageUrl 이미지 URL
+ * @apiSuccess (SUCCESS) {String} data.settings 유저 settings
  * @apiSuccess (SUCCESS) {String} msg 성공메시지
  * @apiSuccessExample {json} SuccessResponse
  * {
@@ -52,13 +53,16 @@ accountRouter.get('/signed', accountController.isUserExist);
  *         "email": "eodah4115@gmail.com",
  *         "platform": "google",
  *         "motto": "착하게 살자",
- *         "profileImageUrl": "https://image.com"
+ *         "profileImageUrl": "https://image.com",
+ *         "settings": {
+ *           "theme": "default",
+ *           "notificationFlag": false,
+ *           "beginningOfWeek": "sunday"
+ *         }
  *     }
  * }
  */
 accountRouter.post('/login', accountController.loginUser);
-
-// accountRouter.post('/register', accountController.registerUser);
 
 /**
  * @api {patch} /v1/accounts/settings 회원 설정 수정
