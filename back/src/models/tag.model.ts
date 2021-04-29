@@ -29,7 +29,7 @@ const tagSchema = new Schema({
     // 업데이트 시간
     updatedTimestamp: {
         type: Number,
-        default: () => Math.floor(+new Date() / 1000),
+        default: 0,
     },
 
     // 대표태그 여부
