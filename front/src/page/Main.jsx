@@ -1,6 +1,6 @@
 import React from 'react';
 import Calendar from '../components/Calendar';
-import Input from '../components/Input';
+import QuickAddForm from '../components/QuickAddForm';
 import TaskList from '../components/TaskList';
 import Layout from '../container/Layout';
 import Navbar from '../container/Navbar';
@@ -16,7 +16,7 @@ const Left = ({ tasks }) => {
         <TaskList tasks={tasks} />
       </div>
       <footer className={styles.left__footer}>
-        <Input />
+        <QuickAddForm />
       </footer>
     </div>
   );
