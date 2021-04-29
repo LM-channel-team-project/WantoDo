@@ -14,42 +14,47 @@ const taskSchema = new Schema({
 		type: String,
 		required: true,
 	},
-	checkedFlag: {
-		// task 수행여부
+	// task 수행여부
+	isChecked: {
 		type: Boolean,
-		required: true,
+		default: false,
 	},
 	period: {
-		start: Number,
-		end: Number,
+		start: {
+			type: Number,
+			default: 0,
+		},
+		end: {
+			type: Number,
+			default: 0,
+		},
 	},
 	important: {
 		type: Number,
+		default: 0,
 	},
-	tags: [
-		{
-			tag: String,
-			color: String,
-		},
-	],
-	repeat: {
-		interval: Number,
-		datOfWeek: [Number],
-		time: Number,
+	tags: {
+		type: [String],
+		default: [],
 	},
-	alarm: {
-		type: {
-			type: String,
-			enum: ['relative', 'absolute'],
-		},
-		subType: {
-			type: String,
-			enum: ['min', 'hour', 'day', 'week', 'month', 'year'],
-		},
-		time: {
-			type: Number,
-		},
-	},
+	// repeat: {
+	// 	interval: Number,
+	// 	dayOfWeek: [Number],
+	// 	time: Number,
+	// },
+	// alarm: {
+	// 	type: {
+	// 		type: String,
+	// 		enum: ['relative', 'absolute'],
+	// 	},
+	// 	subType: {
+	// 		type: String,
+	// 		enum: ['min', 'hour', 'day', 'week', 'month', 'year'],
+	// 	},
+	// 	time: {
+	// 		type: Number,
+	// 	},
+	// },
 	createdTimestamp: {
 		type: Number,
 		default: () => Math.floor(+new Date()),
@@ -57,6 +62,10 @@ const taskSchema = new Schema({
 	updatedTimestamp: {
 		type: Number,
 		default: 0,
+	},
+	isDeleted: {
+		type: Boolean,
+		default: false,
 	},
 });
 
@@ -73,18 +82,13 @@ export interface ITask extends Document {
 	userId: string;
 	taskId: string;
 	contents: string;
-	checkedFlag: boolean;
+	isChecked: boolean;
 	period: {
 		start: number;
 		end: number;
 	};
 	important: number;
-	tags: [
-		{
-			tag: string;
-			color: string;
-		},
-	];
+	tags: string[];
 	repeat: {
 		interval: number;
 		datOfWeek: [number];
@@ -93,6 +97,7 @@ export interface ITask extends Document {
 	alarm: IAlarm;
 	createdTimestamp: number;
 	updatedTimestamp: number;
+	isDeleted: boolean;
 }
 
-export const tasks: Model<any> = model('Task', taskSchema);
+export const tasks: Model<ITask> = model('Task', taskSchema);
