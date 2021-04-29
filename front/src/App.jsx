@@ -13,6 +13,7 @@ import TaskList from './components/TaskList';
 import TagButton from './components/TagButton';
 import Tag from './components/Tag';
 import TagInputBox from './components/TagInputBox';
+import Calendar from './components/Calendar';
 
 function App() {
   const dumyProfile = {
@@ -106,6 +107,18 @@ function App() {
       </div>
       <QuickButton />
       <ProfileModal profile={dumyProfile} />
+      <div>
+        <section className="hero is-primary">
+          <div className="hero-body">
+            <div className="Container">
+              <h1 className="CalendarTitle">Calendar</h1>
+            </div>
+          </div>
+        </section>
+        <div className="CalendarContainer">
+          <Calendar />
+        </div>
+      </div>
     </div>
   );
 }
