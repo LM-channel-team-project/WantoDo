@@ -9,6 +9,7 @@ import Tag from './components/Tag';
 import TagInputBox from './components/TagInputBox';
 import Calendar from './components/Calendar';
 import Login from './page/Login';
+import Main from './page/Main';
 
 const ROOT_PATH = process.env.PUBLIC_URL;
 
@@ -71,10 +72,13 @@ function App() {
       <Router>
         <Switch>
           <Route path={`${ROOT_PATH}/`} exact>
-            <TestPage />
+            <Main profile={dumyProfile} tasks={dumyTasks} />
           </Route>
           <Route path={`${ROOT_PATH}/login`}>
             <Login />
+          </Route>
+          <Route path={`${ROOT_PATH}/test`}>
+            <TestPage />
           </Route>
         </Switch>
       </Router>
