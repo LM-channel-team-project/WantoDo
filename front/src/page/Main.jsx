@@ -8,16 +8,29 @@ import styles from '../styles/page/Main.module.css';
 
 const Left = ({ tasks }) => {
   return (
-    <div className={styles.left}>
-      <header className={styles.left__header}>
-        <h2>Todo</h2>
+    <div className={styles.container}>
+      <header className={styles.header}>
+        <h2 className={styles.title}>Todo</h2>
       </header>
-      <div className={styles.left__content}>
+      <div className={styles.content}>
         <TaskList tasks={tasks} />
       </div>
-      <footer className={styles.left__footer}>
+      <footer className={styles.footer}>
         <QuickAddForm />
       </footer>
+    </div>
+  );
+};
+
+const Right = () => {
+  return (
+    <div className={styles.container}>
+      <header className={styles.header}>
+        <h2 className={styles.title}>Monthly</h2>
+      </header>
+      <div className={styles.content}>
+        <Calendar />
+      </div>
     </div>
   );
 };
@@ -26,7 +39,7 @@ const Main = ({ profile, tasks }) => (
   <Layout
     Side={() => <Navbar profileURL={profile.imageURL} />}
     Left={() => <Left tasks={tasks} />}
-    Right={() => <Calendar />}
+    Right={() => <Right />}
   />
 );
 

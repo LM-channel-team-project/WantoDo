@@ -19,10 +19,10 @@
 }
 
 .QuickAddForm {
+  width: 100%;
   line-height: 1.8;
   font-size: 1.2em;
   padding: 0;
-  flex-basis: 100%;
   background-color: transparent;
 }
 
