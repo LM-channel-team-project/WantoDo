@@ -1,0 +1,19 @@
+.left {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.left__header {
+  padding: 1em;
+  font-size: 1.5em;
+}
+
+.left__content {
+  height: 100%;
+}
+
+.left__footer {
+  margin: 1em;
+}
