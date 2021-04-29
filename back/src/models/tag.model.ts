@@ -60,7 +60,7 @@ const tagSchema = new Schema({
 })
 // interface 관련 정보 참조: https://jaeyeophan.github.io/2017/12/28/TS-4-Interface-in-TypeScript/
 // Tag 객체 틀 만들어주기
-export interface UserTag extends Document {
+export interface Tag extends Document {
     userId: string;
     tagId: string;
     tagContents: string;
@@ -72,4 +72,4 @@ export interface UserTag extends Document {
     deleteTagMessage: string;
 }
 
-export const userTags: Model<UserTag> = model('userTag', tagSchema);
+export const Tags: Model<Tag> = model('Tag', tagSchema);
