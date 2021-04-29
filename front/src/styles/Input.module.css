@@ -6,10 +6,10 @@
 @value animation-duration-regular as duration-regular from effect;
 
 .input {
-  margin-left: narrower;
   padding: 0.2em narrower;
   border-radius: radius;
   background-color: colorLightGray;
+  font-size: 1em;
   color: colorLightBlack;
 }
 
@@ -29,4 +29,15 @@
 .QuickAddForm:focus {
   background-color: transparent;
   transition: all duration-regular ease-in;
+}
+
+.registerPage {
+  display: block;
+  width: 100%;
+  font-size: 1.5em;
+  background-color: transparent;
+  border-bottom: 1px solid #000;
+  border-radius: 0;
+  margin-top: 0.3em;
+  margin-bottom: 0.8em;
 }

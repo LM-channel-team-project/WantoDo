@@ -32,3 +32,27 @@
   display: flex;
   flex-direction: column;
 }
+
+/* Register Page */
+.form {
+}
+
+.list {
+  display: flex;
+  justify-content: center;
+  align-items: start;
+  margin-bottom: 3em;
+}
+
+.profile {
+  position: relative;
+  margin-right: 4em;
+}
+
+.textBox {
+  display: flex;
+  flex-direction: column;
+}
+
+.buttons {
+}

@@ -122,3 +122,23 @@
   padding: 0.8em;
   line-height: 0.8;
 }
+
+.registerPage,
+.registerPage__cancel {
+  padding: 1em 3em;
+  margin-right: 1em;
+}
+
+.registerPage__cancel {
+  background-color: lightgray;
+}
+
+.registerPage__image {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  font-size: 1.2em;
+  line-height: 0.5;
+  padding: 1em;
+  border-radius: 50%;
+}

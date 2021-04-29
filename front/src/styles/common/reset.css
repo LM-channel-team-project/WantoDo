@@ -34,7 +34,13 @@ p {
   margin: 0;
 }
 
-input {
+input,
+textarea {
   outline: none;
   border: none;
+}
+
+textarea {
+  margin: 0;
+  resize: none;
 }
