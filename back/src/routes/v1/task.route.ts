@@ -74,4 +74,10 @@ const taskRouter = Router();
  */
 taskRouter.post('/', taskController.createTask);
 
+taskRouter.get('/', taskController.getTasks);
+
+taskRouter.patch('/:taskId', taskController.updateTask);
+
+taskRouter.delete('/:taskId', taskController.deleteTask);
+
 export default taskRouter;

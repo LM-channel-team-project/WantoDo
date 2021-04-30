@@ -1,7 +1,15 @@
 import { NextFunction, Request, Response } from 'express';
-import { body, header, validationResult } from 'express-validator';
+import { body, header, param, validationResult } from 'express-validator';
 import taskService from '../../services/v1/task.service';
 
+/**
+ * @author 강성모(castleMo)
+ * @since 2021/04/29
+ *
+ * @param req
+ * @param res
+ * @param next
+ */
 export const createTask = async (req: Request, res: Response, next: NextFunction) => {
 	try {
 		await Promise.all([
@@ -38,7 +46,7 @@ export const createTask = async (req: Request, res: Response, next: NextFunction
 				.withMessage('is not String value')
 				.bail()
 				.isUUID('4')
-				.withMessage('is not UUID value')
+				.withMessage('is not UUID version4 value')
 				.run(req),
 			body('period')
 				.optional({ checkFalsy: true })
@@ -86,6 +94,89 @@ export const createTask = async (req: Request, res: Response, next: NextFunction
 	}
 };
 
+/**
+ * @author 강성모(castleMo)
+ * @since
+ *
+ * @param req
+ * @param res
+ * @param next
+ */
+export const getTasks = (req: Request, res: Response, next: NextFunction) => {
+	try {
+		res.status(200).send('get Tasks');
+	} catch (err) {
+		next(err);
+	}
+};
+
+/**
+ * @author 강성모(castleMo)
+ * @since
+ *
+ * @param req
+ * @param res
+ * @param next
+ */
+export const updateTask = (req: Request, res: Response, next: NextFunction) => {
+	try {
+		res.status(200).send('update Task');
+	} catch (err) {
+		next(err);
+	}
+};
+
+/**
+ * @author 강성모(castleMo)
+ * @since 21/04/30
+ *
+ * @param req
+ * @param res
+ * @param next
+ */
+export const deleteTask = async (req: Request, res: Response, next: NextFunction) => {
+	try {
+		await Promise.all([
+			header('Authorization')
+				.trim()
+				.notEmpty()
+				.withMessage('is empty')
+				.bail()
+				.isJWT()
+				.withMessage('is not JWT value')
+				.run(req),
+			param('taskId')
+				.trim()
+				.notEmpty()
+				.withMessage('is empty')
+				.bail()
+				.isUUID('4')
+				.withMessage('is not UUID version4 value')
+				.run(req),
+		]);
+
+		// validation Error
+		// todo: Error model 정의하기
+		const validationErrors = validationResult(req);
+		if (!validationErrors.isEmpty()) {
+			validationErrors.array().forEach((value) => {
+				console.log(value);
+			});
+			throw new Error('error');
+		}
+
+		const { user } = res.locals;
+		const { taskId } = req.params;
+		const result = await taskService.deleteTask(user, taskId);
+		res.status(200).send(result);
+	} catch (err) {
+		next(err);
+	}
+};
+
 export default {
 	createTask,
+	getTasks,
+	updateTask,
+	deleteTask,
 };

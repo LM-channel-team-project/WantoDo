@@ -77,7 +77,7 @@ const userSchema = new Schema({
 	],
 });
 
-userSchema.statics.findByPlatformId = async function (platformId: string, platform: string) {
+userSchema.statics.findByPlatformIdAndPlatform = async function (platformId: string, platform: string) {
 	const user = await this.findOne({
 		platformId,
 		platform,
@@ -124,7 +124,7 @@ export interface IUserDocument extends Document {
 
 interface IUserModel extends Model<IUserDocument> {
 	// statics
-	findByPlatformId(platformId: string, platform: string): Promise<IUserDocument>;
+	findByPlatformIdAndPlatform(platformId: string, platform: string): Promise<IUserDocument>;
 }
 
 export const users: IUserModel = model<IUserDocument, IUserModel>('User', userSchema);
