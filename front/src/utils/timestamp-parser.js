@@ -23,6 +23,8 @@ class TimestampParser {
   };
 
   parseDate = (timestamp, { seperator, isDay, isZeroAdded } = {}) => {
+    if (!timestamp) return '';
+
     const dateObj = new Date(Number(timestamp));
 
     const year = dateObj.getFullYear();
