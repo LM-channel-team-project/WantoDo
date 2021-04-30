@@ -16,7 +16,7 @@ const tagSchema = new Schema({
     },
 
     // 태그 내용
-    tagContents: {
+    name: {
         type: String,
         required: true
     },
@@ -33,7 +33,7 @@ const tagSchema = new Schema({
     },
 
     // 대표태그 여부
-    representativeTag: {
+    isTagRepresent: {
         type: Boolean,
         reuired: true,
     },
@@ -50,12 +50,6 @@ const tagSchema = new Schema({
         default: false,
     },
 
-    // 삭제 메세지
-    deleteTagMessage: {
-        type: String,
-        default: '',
-    }
-
 
 })
 // interface 관련 정보 참조: https://jaeyeophan.github.io/2017/12/28/TS-4-Interface-in-TypeScript/
@@ -63,10 +57,10 @@ const tagSchema = new Schema({
 export interface Tag extends Document {
     userId: string;
     tagId: string;
-    tagContents: string;
+    name: string;
     createdTimestamp: number;
     updatedTimestamp: number;
-    representativeTag: boolean;
+    isTagRepresent: boolean;
     isDeleted: boolean;
     color: string;
     deleteTagMessage: string;
