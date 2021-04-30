@@ -25,7 +25,7 @@ const ProfileModal = ({ profile }) => {
   };
 
   return (
-    <Modal styleName="profile">
+    <Modal styleName="profileModal">
       <header className={styles.header}>
         <div className={styles.profile}>
           <ProfileImage imageURL={imageURL} styleName="profileModal" />

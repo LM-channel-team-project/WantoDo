@@ -4,6 +4,8 @@ import QuickAddForm from '../components/QuickAddForm';
 import TaskList from '../components/TaskList';
 import Layout from '../container/Layout';
 import Navbar from '../container/Navbar';
+import TaskModal from '../container/TaskModal';
+import ProfileModal from '../components/ProfileModal';
 import styles from '../styles/page/Main.module.css';
 
 const Left = ({ tasks }) => {
@@ -36,11 +38,16 @@ const Right = () => {
 };
 
 const Main = ({ profile, tasks }) => (
-  <Layout
-    Side={() => <Navbar profileURL={profile.imageURL} />}
-    Left={() => <Left tasks={tasks} />}
-    Right={() => <Right />}
-  />
+  <>
+    <Layout
+      Side={() => <Navbar profileURL={profile.imageURL} />}
+      Left={() => <Left tasks={tasks} />}
+      Right={() => <Right />}
+    >
+      <ProfileModal profile={profile} />
+      <TaskModal />
+    </Layout>
+  </>
 );
 
 export default Main;
