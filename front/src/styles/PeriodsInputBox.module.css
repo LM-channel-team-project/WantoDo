@@ -1,0 +1,12 @@
+.box {
+  display: flex;
+}
+
+.label {
+  font-size: 2em;
+}
+
+.periods {
+  display: flex;
+  flex-direction: column;
+}
