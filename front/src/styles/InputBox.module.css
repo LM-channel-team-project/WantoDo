@@ -2,10 +2,8 @@
 @value space-narrow as narrow, space-narrower as narrower, font-large as large from './common/size.css';
 
 .inputBox {
-  display: flex;
-  align-items: center;
+  text-align: left;
   padding: narrow;
-  display: inline-flex;
 }
 
 .name {
@@ -15,7 +13,6 @@
 
 .tagItem {
   display: inline-block;
-
 }
 
 .tagItem + .tagItem {

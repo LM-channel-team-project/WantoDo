@@ -22,11 +22,11 @@ const useFlexInputSize = (intialSize) => {
  * @param {string} props.placeholder - input의 placeholder 속성 값
  * @param {Function} props.validator - input의 유효성 검사를 수행할 콜백 함수, 반환하는 boolean 값에 따라 상태 변화 여부 결정
  */
-const Input = ({ id, name, type, placeholder, validator, styleName }) => {
+const Input = ({ id, name, type, placeholder, validator, styleName, rows, cols, onChange }) => {
   const [value, setValue] = useState('');
   const { inputSize, flexInputSize } = useFlexInputSize(3);
 
-  const onChange = (event) => {
+  const onValueChange = (event) => {
     const text = String(event.target.value);
 
     let validFlag = true;
@@ -41,20 +41,24 @@ const Input = ({ id, name, type, placeholder, validator, styleName }) => {
     }
 
     setValue(text);
+    if (onChange instanceof Function) onChange(event);
   };
 
-  return (
-    <input
-      id={id}
-      className={`${styles.input} ${styles[styleName]}`}
-      type={type || 'text'}
-      name={name || 'input'}
-      placeholder={placeholder || ''}
-      value={value}
-      size={styleName === 'tagInput' ? inputSize : ''}
-      onChange={onChange}
-    />
-  );
+  const props = {
+    id,
+    value,
+    className: `${styles.input} ${styles[styleName]}`,
+    type: type || 'text',
+    name: name || 'input',
+    placeholder: placeholder || '',
+    autocomplete: 'off',
+    size: styleName === 'tagInput' && inputSize,
+    rows: type === 'textarea' && rows,
+    cols: type === 'textarea' && cols,
+    onChange: onValueChange,
+  };
+
+  return type === 'textarea' ? <textarea {...props} /> : <input {...props} />;
 };
 
 export default Input;

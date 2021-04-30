@@ -24,3 +24,23 @@ button {
   cursor: pointer;
   border: none;
 }
+
+h1,
+h2,
+h3,
+h4,
+h5,
+p {
+  margin: 0;
+}
+
+input,
+textarea {
+  outline: none;
+  border: none;
+}
+
+textarea {
+  margin: 0;
+  resize: none;
+}

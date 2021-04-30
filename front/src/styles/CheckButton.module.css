@@ -14,3 +14,7 @@
   right: -0.25em;
   opacity: 0;
 }
+
+.box {
+  line-height: 0;
+}

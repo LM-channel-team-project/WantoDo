@@ -1,0 +1,10 @@
+.form {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  background: lightgray;
+  border-radius: 2em;
+  padding: 0.3em;
+  overflow: hidden;
+}

@@ -94,12 +94,51 @@
   line-height: 1;
 }
 
-/* Created by 오영롱(youngrongoh) on 2021/04/19 */
-/* 추후에 .button의 가상 클래스 설정을 조정한 뒤 수정해야 할 듯  */
-
 .checkbox:hover,
 .tag:hover,
 .tagDelete:hover {
   transform: none;
   background-color: transparent;
+}
+
+.QuickAddForm,
+.QuickAddForm__icon {
+  height: 100%;
+  border-radius: 50%;
+  padding: 0.8em 0.6em;
+  font-weight: bold;
+  white-space: nowrap;
+  background-color: transparent;
+}
+
+.QuickAddForm:hover,
+.QuickAddForm__icon:hover {
+  transform: none;
+  color: white;
+  background-color: gray;
+}
+
+.QuickAddForm__icon {
+  padding: 0.8em;
+  line-height: 0.8;
+}
+
+.registerPage,
+.registerPage__cancel {
+  padding: 1em 3em;
+  margin-right: 1em;
+}
+
+.registerPage__cancel {
+  background-color: lightgray;
+}
+
+.registerPage__image {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  font-size: 1.2em;
+  line-height: 0.5;
+  padding: 1em;
+  border-radius: 50%;
 }
