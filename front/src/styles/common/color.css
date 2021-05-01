@@ -14,3 +14,10 @@
 @value colorSkyblue: #A7BEEE;
 @value colorPurple: #622BFF;
 @value colorDarkPurple: #3900CB;
+
+/* tag 색 */
+@value tagColorRed: #FF566D;
+@value tagColorYellow: #FFF47F;
+@value tagColorBlue: #ACE8FF;
+@value tagColorGreen: #BEFFA3;
+@value tagColorPurple: #D4B4FF;
