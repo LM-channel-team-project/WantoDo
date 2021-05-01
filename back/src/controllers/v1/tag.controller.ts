@@ -2,7 +2,7 @@ import { NextFunction, Request, Response } from 'express';
 import { body, header, validationResult } from 'express-validator';
 import tagService from '../../services/v1/tag.service';
 
-//  21/4/29 by 현빈 - 임시코드 - createTag
+//  21/4/29 by 현빈 - 임시코드 - createTag  
 
 export const createTag = async (req: Request, res: Response, next: NextFunction) => {
     try {
@@ -23,9 +23,11 @@ export const createTag = async (req: Request, res: Response, next: NextFunction)
         if (!validationErrors.isEmpty()) {
             throw new Error('updateUserSettings validationError');
         }
+        // 유저가 작성한 내용 받기
+        const { name, color } = req.body;
 
-        const { tag } = res.locals;
-        const result = await tagService.createTag(tag);
+
+        const result = await tagService.createTag(name, color);
         res.status(200).send(result);
     } catch (err) {
         next(err);
@@ -36,6 +38,6 @@ export const createTag = async (req: Request, res: Response, next: NextFunction)
 
 
 export default {
-
+    createTag
 };
 

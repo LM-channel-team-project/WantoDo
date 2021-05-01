@@ -32,11 +32,6 @@ const tagSchema = new Schema({
         default: 0,
     },
 
-    // 대표태그 여부
-    isTagRepresent: {
-        type: Boolean,
-        reuired: true,
-    },
 
     // 컬러
     color: {
@@ -60,10 +55,8 @@ export interface Tag extends Document {
     name: string;
     createdTimestamp: number;
     updatedTimestamp: number;
-    isTagRepresent: boolean;
     isDeleted: boolean;
     color: string;
-    deleteTagMessage: string;
 }
 
 export const Tags: Model<Tag> = model('Tag', tagSchema);
