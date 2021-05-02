@@ -77,15 +77,6 @@ const userSchema = new Schema({
 	],
 });
 
-userSchema.statics.findByPlatformIdAndPlatform = async function (platformId: string, platform: string) {
-	const user = await this.findOne({
-		platformId,
-		platform,
-		isCloseAccount: false,
-	});
-	return user;
-};
-
 export type Theme = 'default' | 'dark';
 export type BeginningOfWeek = 'monday' | 'sunday';
 
@@ -126,5 +117,17 @@ interface IUserModel extends Model<IUserDocument> {
 	// statics
 	findByPlatformIdAndPlatform(platformId: string, platform: string): Promise<IUserDocument>;
 }
+
+userSchema.statics.findByPlatformIdAndPlatform = async function findByPlatformIdAndPlatform(
+	platformId: string,
+	platform: string,
+) {
+	const user: IUserDocument = await this.findOne({
+		platformId,
+		platform,
+		isCloseAccount: false,
+	});
+	return user;
+};
 
 export const users: IUserModel = model<IUserDocument, IUserModel>('User', userSchema);
