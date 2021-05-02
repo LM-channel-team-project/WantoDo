@@ -1,4 +1,5 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import { IoCalendarOutline } from 'react-icons/io5';
 import { MdViewWeek } from 'react-icons/md';
 import { CgToday } from 'react-icons/cg';
@@ -47,4 +48,8 @@ const Navbar = ({ profileURL }) => {
   );
 };
 
-export default Navbar;
+const mapStateToProps = ({ profile: { imageURL } }) => {
+  return { profileURL: imageURL };
+};
+
+export default connect(mapStateToProps)(Navbar);

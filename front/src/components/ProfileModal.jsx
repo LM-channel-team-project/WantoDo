@@ -1,4 +1,5 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import Modal from '../container/Modal';
 import ProfileImage from './ProfileImage';
 import Button from './Button';
@@ -6,16 +7,14 @@ import styles from '../styles/ProfileModal.module.css';
 
 /**
  * 모달 프레임에 들어갈 프로필 모달
- * @param {Object} props.profile - 사용자의 프로필 정보를 담고있는 객체
- * @param {string} props.profile.imageURL - 사용자 프로필 이미지 URL 문자열
- * @param {string} props.profile.userName - 사용자 이름 문자열
- * @param {string} props.profile.email - 사용자 email 문자열
- * @param {string} props.profile.motto - 사용자의 좌우명 문자열
- * @param {string} props.profile.goal - 사용자의 목표 문자열
+ * @param {Object} props - 사용자의 프로필 정보를 담고있는 객체
+ * @param {string} props.imageURL - 사용자 프로필 이미지 URL 문자열
+ * @param {string} props.userName - 사용자 이름 문자열
+ * @param {string} props.email - 사용자 email 문자열
+ * @param {string} props.motto - 사용자의 좌우명 문자열
+ * @param {string} props.goal - 사용자의 목표 문자열
  */
-const ProfileModal = ({ profile }) => {
-  const { imageURL, userName, email, motto, goal } = profile;
-
+const ProfileModal = ({ imageURL, userName, email, motto, goal }) => {
   const onEditClick = () => {
     // 프로필 수정 폼으로 모달 변경
   };
@@ -55,4 +54,8 @@ const ProfileModal = ({ profile }) => {
   );
 };
 
-export default ProfileModal;
+const mapStateToProps = ({ profile: { imageURL, userName, email, motto, goal } }) => {
+  return { imageURL, userName, email, motto, goal };
+};
+
+export default connect(mapStateToProps)(ProfileModal);
