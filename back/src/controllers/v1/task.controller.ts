@@ -6,9 +6,9 @@ import taskService from '../../services/v1/task.service';
  * @author 강성모(castleMo)
  * @since 2021/04/29
  *
- * @param req
- * @param res
- * @param next
+ * @param req		Request
+ * @param res		Response
+ * @param next	NextFunction
  */
 export const createTask = async (req: Request, res: Response, next: NextFunction) => {
 	try {
@@ -98,9 +98,9 @@ export const createTask = async (req: Request, res: Response, next: NextFunction
  * @author 강성모(castleMo)
  * @since
  *
- * @param req
- * @param res
- * @param next
+ * @param req		Request
+ * @param res		Response
+ * @param next	NextFunction
  */
 export const getTasks = (req: Request, res: Response, next: NextFunction) => {
 	try {
@@ -112,11 +112,11 @@ export const getTasks = (req: Request, res: Response, next: NextFunction) => {
 
 /**
  * @author 강성모(castleMo)
- * @since 21/05/01
+ * @since 2021/05/01
  *
- * @param req
- * @param res
- * @param next
+ * @param req		Request
+ * @param res		Response
+ * @param next	NextFunction
  */
 export const updateTask = async (req: Request, res: Response, next: NextFunction) => {
 	try {
@@ -207,11 +207,11 @@ export const updateTask = async (req: Request, res: Response, next: NextFunction
 
 /**
  * @author 강성모(castleMo)
- * @since 21/04/30
+ * @since 2021/04/30
  *
- * @param req
- * @param res
- * @param next
+ * @param req		Request
+ * @param res		Response
+ * @param next	NextFunction
  */
 export const deleteTask = async (req: Request, res: Response, next: NextFunction) => {
 	try {
