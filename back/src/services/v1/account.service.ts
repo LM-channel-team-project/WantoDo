@@ -10,17 +10,15 @@ export const isUserExist = async (user: UserInfo) => {
 		const count: number = await users.countDocuments({
 			platformId: user.platformId,
 			platform: user.platform,
-			closeAccountFlag: false,
+			isCloseAccount: false,
 		});
-
-		// true : 유저 존재함
-		// false : 유저 존재하지 않음
-		const existUserFlag: boolean = count > 0;
 
 		return {
 			msg: 'success',
 			data: {
-				existUserFlag,
+				// true : 유저 존재함
+				// false : 유저 존재하지 않음
+				isUserExist: count > 0,
 			},
 		};
 	} catch (e) {
@@ -35,7 +33,7 @@ export const loginUser = async (user: UserInfo) => {
 		const count: number = await users.countDocuments({
 			platformId: user.platformId,
 			platform: user.platform,
-			closeAccountFlag: false,
+			isCloseAccount: false,
 		});
 
 		let returnToUser = {
@@ -71,7 +69,7 @@ export const loginUser = async (user: UserInfo) => {
 				.findOne({
 					platform: user.platform,
 					platformId: user.platformId,
-					closeAccountFlag: false,
+					isCloseAccount: false,
 				})
 				.exec();
 
@@ -101,20 +99,20 @@ export const loginUser = async (user: UserInfo) => {
 export const updateUserSettings = async (
 	user: UserInfo,
 	theme: Theme,
-	notificationFlag: boolean | undefined,
+	isNotification: boolean | undefined,
 	beginningOfWeek: BeginningOfWeek | undefined,
 ) => {
 	try {
-		if (theme === undefined && notificationFlag === undefined && beginningOfWeek === undefined) {
-			throw new Error('theme, notificationFlag, beginningOfWeek 모두 값이없습니다.');
+		if (theme === undefined && isNotification === undefined && beginningOfWeek === undefined) {
+			throw new Error('theme, isNotification, beginningOfWeek 모두 값이없습니다.');
 		}
 
 		let updateObj = {};
 
 		if (theme !== undefined) {
 			updateObj = { 'settings.theme': theme };
-		} else if (notificationFlag !== undefined) {
-			updateObj = { 'settings.notificationFlag': notificationFlag };
+		} else if (isNotification !== undefined) {
+			updateObj = { 'settings.isNotification': isNotification };
 		} else {
 			updateObj = { 'settings.beginningOfWeek': beginningOfWeek };
 		}
@@ -124,7 +122,7 @@ export const updateUserSettings = async (
 				{
 					platformId: user.platformId,
 					platform: user.platform,
-					closeAccountFlag: false,
+					isCloseAccount: false,
 				},
 				{
 					$set: updateObj,
@@ -149,11 +147,11 @@ export const withdrawUser = async (user: UserInfo) => {
 				{
 					platformId: user.platformId,
 					platform: user.platform,
-					closeAccountFlag: false,
+					isCloseAccount: false,
 				},
 				{
 					updatedTimestamp: Math.floor(+new Date()),
-					closeAccountFlag: true,
+					isCloseAccount: true,
 				},
 			)
 			.exec();
