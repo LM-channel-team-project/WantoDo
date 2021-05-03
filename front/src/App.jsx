@@ -13,6 +13,29 @@ import Main from './page/Main';
 
 const ROOT_PATH = process.env.PUBLIC_URL;
 
+function App() {
+  return (
+    <div className="container">
+      <Router>
+        <Switch>
+          <Route path={`${ROOT_PATH}/`} exact>
+            <Main />
+          </Route>
+          <Route path={`${ROOT_PATH}/login`}>
+            <Login />
+          </Route>
+          <Route path={`${ROOT_PATH}/test`}>
+            <TestPage />
+          </Route>
+        </Switch>
+      </Router>
+    </div>
+  );
+}
+
+export default App;
+
+// 테스트 및 스타일링 위한 임시 코드
 const dumyProfile = {
   userName: 'WantoDo',
   email: 'WantoDo.@gmail.com',
@@ -66,26 +89,6 @@ const dumyTags = [
   },
 ];
 
-function App() {
-  return (
-    <div className="container">
-      <Router>
-        <Switch>
-          <Route path={`${ROOT_PATH}/`} exact>
-            <Main profile={dumyProfile} tasks={dumyTasks} />
-          </Route>
-          <Route path={`${ROOT_PATH}/login`}>
-            <Login />
-          </Route>
-          <Route path={`${ROOT_PATH}/test`}>
-            <TestPage />
-          </Route>
-        </Switch>
-      </Router>
-    </div>
-  );
-}
-
 const TestPage = () => {
   return (
     <div className="app">
@@ -131,5 +134,3 @@ const TestPage = () => {
     </div>
   );
 };
-
-export default App;

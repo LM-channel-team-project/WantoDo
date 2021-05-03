@@ -1,43 +1,48 @@
+// Created by 오영롱(youngrongoh) on 2021/04/30
+function getDays(style) {
+  const days = {
+    kor: ['일', '월', '화', '수', '목', '금', '토'],
+    eng: ['Sun', 'Mon', 'Wed', 'Thu', 'Fri', 'Sat'],
+  };
+
+  return days[style];
+}
+
+function addZero(num) {
+  return num < 10 ? `0${num}` : num;
+}
+
 // Created by 오영롱(youngrongoh) on 2021/04/20
 class TimestampParser {
   parseDayNum = (num) => {
-    switch (Number(num)) {
-      case 0:
-        return '일';
-      case 1:
-        return '월';
-      case 2:
-        return '화';
-      case 3:
-        return '수';
-      case 4:
-        return '목';
-      case 5:
-        return '금';
-      case 6:
-        return '토';
-      default:
-        throw new Error(`A number of days must be one of 0 to 6: ${num}`);
-    }
+    if (num > 6) throw new Error(`A number of days must be one of 0 to 6: ${num}`);
+
+    const days = getDays('kor');
+
+    return days[Number(num)];
   };
 
-  parseDate = (timestamp) => {
+  parseDate = (timestamp, { seperator, isDay, isZeroAdded } = {}) => {
+    if (!timestamp) return '';
+
     const dateObj = new Date(Number(timestamp));
 
     const year = dateObj.getFullYear();
-    const month = dateObj.getMonth();
-    const date = dateObj.getDate();
+    const month = isZeroAdded ? addZero(dateObj.getMonth()) : dateObj.getMonth();
+    const date = isZeroAdded ? addZero(dateObj.getDate()) : dateObj.getDate();
     const day = this.parseDayNum(dateObj.getDay());
 
-    return `${year}. ${month}. ${date} (${day})`;
+    const dateArr = isDay ? [year, month, date, day] : [year, month, date];
+
+    return dateArr.join(seperator || '-');
   };
 
-  parsePeriods = (periods) => {
+  parsePeriods = (periods, options) => {
     const start = periods[0];
     const end = periods[1];
 
-    const parsedStart = start ? this.parseDate(start) : '';
-    const parsedEnd = end ? this.parseDate(end) : '';
+    const parsedStart = start ? this.parseDate(start, options) : '';
+    const parsedEnd = end ? this.parseDate(end, options) : '';
 
     return parsedEnd ? `${parsedStart} - ${parsedEnd}` : parsedStart;
   };

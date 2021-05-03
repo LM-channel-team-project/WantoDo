@@ -5,6 +5,9 @@ import taskController from '../../controllers/v1/task.controller';
 const taskRouter = Router();
 
 /**
+ * @author 강성모(castleMo)
+ * @since 2021/04/29
+ *
  * @api {post} /v1/tasks task 생성
  * @apiName createTask
  * @apiGroup Tasks
@@ -76,6 +79,9 @@ taskRouter.post('/', taskController.createTask);
 taskRouter.get('/', taskController.getTasks);
 
 /**
+ * @author 강성모(castleMo)
+ * @since 2021/05/01
+ *
  * @api {patch} /v1/tasks/:taskId task 수정
  * @apiName updateTask
  * @apiGroup Tasks
@@ -146,6 +152,9 @@ taskRouter.get('/', taskController.getTasks);
 taskRouter.patch('/:taskId', taskController.updateTask);
 
 /**
+ * @author 강성모(castleMo)
+ * @since 2021/04/30
+ *
  * @api {delete} /v1/tasks/:taskId task 삭제
  * @apiName deleteTask
  * @apiGroup Tasks

@@ -2,7 +2,14 @@ import { NextFunction, Request, Response } from 'express';
 import { body, header, validationResult } from 'express-validator';
 import accountService from '../../services/v1/account.service';
 
-// Created by 강성모(castleMo) on 2021/04/25
+/**
+ * @author 강성모(castleMo)
+ * @since 2021/04/25
+ *
+ * @param req		Request
+ * @param res		Response
+ * @param next	NextFunction
+ */
 export const isUserExist = async (req: Request, res: Response, next: NextFunction) => {
 	try {
 		await Promise.all([
@@ -31,7 +38,14 @@ export const isUserExist = async (req: Request, res: Response, next: NextFunctio
 	}
 };
 
-// Created by 강성모(castleMo) on 2021/04/13
+/**
+ * @author 강성모(castleMo)
+ * @since 2021/04/13
+ *
+ * @param req		Request
+ * @param res		Response
+ * @param next	NextFunction
+ */
 export const loginUser = async (req: Request, res: Response, next: NextFunction) => {
 	try {
 		await Promise.all([
@@ -60,7 +74,14 @@ export const loginUser = async (req: Request, res: Response, next: NextFunction)
 	}
 };
 
-//  Created by 강성모(castleMo) on 2021/04/14
+/**
+ * @author 강성모(castleMo)
+ * @since 2021/04/14
+ *
+ * @param req		Request
+ * @param res		Response
+ * @param next	NextFunction
+ */
 export const updateUserSettings = async (req: Request, res: Response, next: NextFunction) => {
 	try {
 		await Promise.all([
@@ -124,7 +145,14 @@ export const updateUserSettings = async (req: Request, res: Response, next: Next
 	}
 };
 
-//  Created by 강성모(castleMo) on 2021/04/15
+/**
+ * @author 강성모(castleMo)
+ * @since 2021/04/15
+ *
+ * @param req		Request
+ * @param res		Response
+ * @param next	NextFunction
+ */
 export const withdrawUser = async (req: Request, res: Response, next: NextFunction) => {
 	try {
 		await Promise.all([
