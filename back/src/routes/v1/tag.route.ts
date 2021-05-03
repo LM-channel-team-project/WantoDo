@@ -79,7 +79,44 @@ tagRouter.post('/', tagController.createTag);
 tagRouter.get('/', tagController.getTags);
 
 // tag 수정
-tagRouter.patch('/');
+/**
+ * @author 강성모(castleMo)
+ * @since 21/05/03
+ */
+/**
+ * @api {patch} /v1/tags Tag 수정
+ * @apiName updateTag
+ * @apiGroup Tags
+ * @apiVersion 1.0.0
+ *
+ * @apiUse HeaderToken
+ *
+ * @apiParam (Body) {String} [name] 태그 이름
+ * @apiParam (Body) {String} [color] 태그 색
+ * @apiParamExample {json} RequestBodyExample (name)
+ * {
+ *   "name": "tag1"
+ * }
+ *
+ * @apiParamExample {json} RequestBodyExample (color)
+ * {
+ *   "color": "#000000"
+ * }
+ *
+ * @apiParamExample {json} RequestBodyExample (All)
+ * {
+ *   "name": "tag1",
+ *   "color": "#000000"
+ * }
+ *
+ * @apiSampleRequest /v1/tags
+ * @apiSuccess (SUCCESS) {String} msg 성공메시지
+ * @apiSuccessExample {json} SuccessResponse
+ * {
+ *     "msg": "success"
+ * }
+ */
+tagRouter.patch('/:tagId', tagController.updateTag);
 
 // tag 삭제
 tagRouter.delete('/');

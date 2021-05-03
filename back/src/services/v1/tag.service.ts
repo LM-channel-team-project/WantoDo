@@ -1,7 +1,7 @@
 import { v4 as uuidV4 } from 'uuid';
 import { UserInfo } from '../../common/types';
 import { users } from '../../models/user.model';
-import { ITagDocument, tags } from '../../models/tag.model';
+import { tags } from '../../models/tag.model';
 
 /**
  * @author 강성모(castleMo)
@@ -93,8 +93,42 @@ export const deleteTag = async () => {
 	}
 };
 
+export const updateTag = async (user: UserInfo, tagId: string, name: string, color: string) => {
+	try {
+		// todo: Error model 정의하기
+		if (name === undefined && color === undefined) throw new Error('둘다 비어있음');
+
+		const wantodoUser = await users.findByPlatformIdAndPlatform(user.platformId, user.platform);
+
+		const updateTagDoc: any = {
+			updatedTimestamp: Math.floor(+new Date()),
+		};
+
+		if (name !== undefined) updateTagDoc.name = name;
+		if (color !== undefined) updateTagDoc.color = color;
+
+		await tags
+			.updateOne(
+				{
+					userId: wantodoUser.userId,
+					tagId,
+					isDeleted: false,
+				},
+				updateTagDoc,
+			)
+			.exec();
+
+		return {
+			msg: 'success',
+		};
+	} catch (err) {
+		throw err;
+	}
+};
+
 export default {
 	createTag,
 	getTags,
+	updateTag,
 	deleteTag,
 };

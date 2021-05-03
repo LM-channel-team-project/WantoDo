@@ -8,9 +8,9 @@ import tagService from '../../services/v1/tag.service';
  * @author 강성모(castleMo)
  * @since 21/05/03
  *
- * @param req 	Request
- * @param res 	Response
- * @param next	NextFunction
+ * @param req  Request
+ * @param res  Response
+ * @param next  NextFunction
  */
 export const createTag = async (req: Request, res: Response, next: NextFunction) => {
 	try {
@@ -87,7 +87,57 @@ export const getTags = async (req: Request, res: Response, next: NextFunction) =
 	}
 };
 
+export const updateTag = async (req: Request, res: Response, next: NextFunction) => {
+	try {
+		await Promise.all([
+			header('Authorization')
+				.trim()
+				.notEmpty()
+				.withMessage('is empty')
+				.bail()
+				.isJWT()
+				.withMessage('is not JWT value')
+				.run(req),
+			body('name')
+				.optional({ checkFalsy: true })
+				.trim()
+				.notEmpty()
+				.withMessage('is empty')
+				.bail()
+				.isString()
+				.withMessage('is not String value')
+				.run(req),
+			body('color')
+				.optional({ checkFalsy: true })
+				.trim()
+				.notEmpty()
+				.withMessage('is empty')
+				.bail()
+				.isHexColor()
+				.withMessage('is not HexColor value')
+				.run(req),
+		]);
+
+		// validation Error
+		// todo: Error model 정의하기
+		const validationErrors = validationResult(req);
+		if (!validationErrors.isEmpty()) {
+			throw new Error('updateUserSettings validationError');
+		}
+
+		const { user } = res.locals;
+		const { tagId } = req.params;
+		const { name, color } = req.body;
+
+		const result = await tagService.updateTag(user, tagId, name, color);
+		res.status(200).send(result);
+	} catch (err) {
+		next(err);
+	}
+};
+
 export default {
 	createTag,
 	getTags,
+	updateTag,
 };
