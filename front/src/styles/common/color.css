@@ -6,7 +6,7 @@
 @value colorLightBlack: #232323;
 @value colorGray: #bdbdbd;
 @value colorLightGray: #DFDFDF;
-@value colorDarkGray: #474747;
+@value colorDarkGray: #525153;
 @value colorShadow: 3px 3px 10px 2px rgba(56, 56, 56, 0.7);
 
 /* 파란색 계열 */
@@ -14,3 +14,11 @@
 @value colorSkyblue: #A7BEEE;
 @value colorPurple: #622BFF;
 @value colorDarkPurple: #3900CB;
+
+/* tag 색 */
+@value tagColorRed: #FF98A5;
+@value tagColorOrenge: #FFC8A8;
+@value tagColorYellow: #FEFF84;
+@value tagColorBlue: #ACE8FF;
+@value tagColorGreen: #B9FFBD;
+@value tagColorPurple: #D4B4FF;

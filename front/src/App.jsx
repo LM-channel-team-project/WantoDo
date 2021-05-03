@@ -96,14 +96,14 @@ const TestPage = () => {
         <TagInputBox tags={dumyTags} />
       </div>
       <div>
-        <TagButton name="tag1" />
-        <TagButton name="tag2" />
-        <TagButton name="tag3" />
+        <TagButton name="tag1" color="red" />
+        <TagButton name="tag2" color="orenge" />
+        <TagButton name="tag3" color="yellow" />
       </div>
       <div>
-        <Tag name="tag4" color="blue" />
-        <Tag name="tag5" color="gree" />
-        <Tag name="tag6" color="pink" />
+        <Tag name="tag4" color="green" />
+        <Tag name="tag5" color="blue" />
+        <Tag name="tag6" color="purple" />
       </div>
       <div>
         <TaskList tasks={dumyTasks} />

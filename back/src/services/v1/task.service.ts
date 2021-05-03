@@ -6,21 +6,21 @@ import { tasks } from '../../models/task.model';
 
 interface ReqCreateTaskOptions {
 	tags: string[];
-	important: number;
-	period: { start: number; end: number };
+	important: number | undefined;
+	period: { start: number; end: number } | undefined;
 }
 
 interface ReqUpdateTaskOptions extends ReqCreateTaskOptions {
-	contents: string;
+	contents: string | undefined;
 }
 
 /**
  * @author 강성모(castleMo)
  * @since 2021/04/29
  *
- * @param user      platform 유저 객체
- * @param contents  투두 내용
- * @param options    태그, 중요도, 시작 및 종료 기간
+ * @param user				platform 유저 객체
+ * @param contents  	투두 내용
+ * @param options			태그, 중요도, 시작 및 종료 기간
  */
 export const createTask = async (user: UserInfo, contents: string, options: ReqCreateTaskOptions) => {
 	try {
@@ -45,13 +45,13 @@ export const createTask = async (user: UserInfo, contents: string, options: ReqC
  * @author 강성모(castleMo)
  * @since 2021/05/02
  *
- * @param user							platform 유저 객체
- * @param taskId						task Id
- * @param options						업데이트될 항목
- * @param options.contents	task 내용
- * @param options.important	중요도
- * @param options.period		시작 & 종료 기간
- * @param options.tags			태그
+ * @param user              	platform 유저 객체
+ * @param taskId            	task Id
+ * @param options            	투두의 내용, 중요도, 시작 & 종료 기간, 태그 객체
+ * @param options.contents		task 내용
+ * @param options.important		중요도
+ * @param options.period			시작 & 종료 기간
+ * @param options.tags				태그
  */
 export const updateTask = async (user: UserInfo, taskId: string, options: ReqUpdateTaskOptions) => {
 	try {

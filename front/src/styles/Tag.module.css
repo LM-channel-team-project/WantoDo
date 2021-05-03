@@ -1,8 +1,14 @@
+@value colors: './common/color.css';
+@value size: './common/size.css';
+@value colorWhite,colorLightGray,tagColorRed,tagColorOrenge,tagColorYellow,tagColorGreen,tagColorBlue,tagColorPurple from colors;
+@value weight-regular from size;
+
 .tag {
   display: inline-block;
   font-size: 1em;
+  font-weight: weight-regular;
   align-items: center;
-  background-color: gray;
+  background-color: colorLightGray;
   padding: 0.3em 0.8em;
   border-radius: 3em;
   transition: width 300ms ease;
@@ -12,12 +18,32 @@
   margin-left: 0.5em;
 }
 
-.blue {
-  color: white;
-  background-color: blue;
+/* tag color */
+.red {
+  background-color: tagColorRed;
 }
 
-.tag:hover span[data-hover="show"] {
+.orenge {
+  background-color: tagColorOrenge;
+}
+
+.yellow {
+  background-color: tagColorYellow;
+}
+
+.blue {
+  background-color: tagColorBlue;
+}
+
+.green {
+  background-color: tagColorGreen;
+}
+
+.purple {
+  background-color: tagColorPurple;
+}
+
+.tag:hover span[data-hover='show'] {
   width: 0.8em;
   opacity: 1;
 }
