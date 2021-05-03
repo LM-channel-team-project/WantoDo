@@ -78,18 +78,18 @@ tagRouter.post('/', tagController.createTag);
  */
 tagRouter.get('/', tagController.getTags);
 
-// tag 수정
 /**
  * @author 강성모(castleMo)
  * @since 21/05/03
  */
 /**
- * @api {patch} /v1/tags Tag 수정
+ * @api {patch} /v1/tags/:tagId Tag 수정
  * @apiName updateTag
  * @apiGroup Tags
  * @apiVersion 1.0.0
  *
  * @apiUse HeaderToken
+ * @apiParam (Path Variable) {String} tagId 태그 id
  *
  * @apiParam (Body) {String} [name] 태그 이름
  * @apiParam (Body) {String} [color] 태그 색
@@ -109,7 +109,7 @@ tagRouter.get('/', tagController.getTags);
  *   "color": "#000000"
  * }
  *
- * @apiSampleRequest /v1/tags
+ * @apiSampleRequest /v1/tags/:tagId
  * @apiSuccess (SUCCESS) {String} msg 성공메시지
  * @apiSuccessExample {json} SuccessResponse
  * {
@@ -118,7 +118,26 @@ tagRouter.get('/', tagController.getTags);
  */
 tagRouter.patch('/:tagId', tagController.updateTag);
 
-// tag 삭제
-tagRouter.delete('/');
+/**
+ * @author 강성모(castleMo)
+ * @since 21/05/03
+ */
+/**
+ * @api {delete} /v1/tags/:tagId Tag 삭제
+ * @apiName deleteTag
+ * @apiGroup Tags
+ * @apiVersion 1.0.0
+ *
+ * @apiUse HeaderToken
+ * @apiParam (Path Variable) {String} tagId 태그 id
+ *
+ * @apiSampleRequest /v1/tags/:tagId
+ * @apiSuccess (SUCCESS) {String} msg 성공메시지
+ * @apiSuccessExample {json} SuccessResponse
+ * {
+ *     "msg": "success"
+ * }
+ */
+tagRouter.delete('/:tagId', tagController.deleteTag);
 
 export default tagRouter;

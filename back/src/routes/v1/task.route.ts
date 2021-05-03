@@ -93,7 +93,7 @@ taskRouter.get('/', taskController.getTasks);
  * @apiVersion 1.0.0
  *
  * @apiUse HeaderToken
- * @apiParam (Path Parameter) {String} taskId task Id
+ * @apiParam (Path Variable) {String} taskId task Id
  *
  * @apiParam (Body) {Object} [period] 기간
  * @apiParam (Body) {Object} period.start 시작 시간
@@ -167,7 +167,7 @@ taskRouter.patch('/:taskId', taskController.updateTask);
  * @apiVersion 1.0.0
  *
  * @apiUse HeaderToken
- * @apiParam (Path Parameter) {String} taskId task Id
+ * @apiParam (Path Variable) {String} taskId task Id
  *
  * @apiSampleRequest /v1/tasks/:taskId
  * @apiSuccess (SUCCESS) {String} msg 성공메시지

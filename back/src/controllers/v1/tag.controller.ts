@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from 'express';
-import { body, header, validationResult } from 'express-validator';
+import { body, header, param, validationResult } from 'express-validator';
 import tagService from '../../services/v1/tag.service';
 
 //  21/4/29 by 현빈 - 임시코드 - createTag
@@ -58,6 +58,14 @@ export const createTag = async (req: Request, res: Response, next: NextFunction)
 	}
 };
 
+/**
+ * @author 강성모(castleMo)
+ * @since 21/05/03
+ *
+ * @param req  Request
+ * @param res  Response
+ * @param next  NextFunction
+ */
 export const getTags = async (req: Request, res: Response, next: NextFunction) => {
 	try {
 		await Promise.all([
@@ -87,6 +95,14 @@ export const getTags = async (req: Request, res: Response, next: NextFunction) =
 	}
 };
 
+/**
+ * @author 강성모(castleMo)
+ * @since 21/05/03
+ *
+ * @param req  Request
+ * @param res  Response
+ * @param next  NextFunction
+ */
 export const updateTag = async (req: Request, res: Response, next: NextFunction) => {
 	try {
 		await Promise.all([
@@ -98,6 +114,7 @@ export const updateTag = async (req: Request, res: Response, next: NextFunction)
 				.isJWT()
 				.withMessage('is not JWT value')
 				.run(req),
+			param('tagId').isUUID('4').withMessage('is not UUID version4 value ').run(req),
 			body('name')
 				.optional({ checkFalsy: true })
 				.trim()
@@ -136,8 +153,48 @@ export const updateTag = async (req: Request, res: Response, next: NextFunction)
 	}
 };
 
+/**
+ * @author 강성모(castleMo)
+ * @since 21/05/03
+ *
+ * @param req  Request
+ * @param res  Response
+ * @param next  NextFunction
+ */
+export const deleteTag = async (req: Request, res: Response, next: NextFunction) => {
+	try {
+		await Promise.all([
+			header('Authorization')
+				.trim()
+				.notEmpty()
+				.withMessage('is empty')
+				.bail()
+				.isJWT()
+				.withMessage('is not JWT value')
+				.run(req),
+			param('tagId').isUUID('4').withMessage('is not UUID version4 value ').run(req),
+		]);
+
+		// validation Error
+		// todo: Error model 정의하기
+		const validationErrors = validationResult(req);
+		if (!validationErrors.isEmpty()) {
+			throw new Error('updateUserSettings validationError');
+		}
+
+		const { user } = res.locals;
+		const { tagId } = req.params;
+
+		const result = await tagService.deleteTag(user, tagId);
+		res.status(200).send(result);
+	} catch (err) {
+		next(err);
+	}
+};
+
 export default {
 	createTag,
 	getTags,
 	updateTag,
+	deleteTag,
 };

@@ -64,35 +64,15 @@ export const getTags = async (user: UserInfo) => {
 	}
 };
 
-// 태그 수정
-
-// 태그 삭제
-export const deleteTag = async () => {
-	try {
-		// await users
-		// 	.updateOne(
-		// 		// filter
-		// 		{
-		// 			userId: user.name,
-		// 			tagId: {},
-		// 			isDeleted: false,
-		// 		},
-		// 		// update 내용
-		// 		{
-		// 			updatedTimestamp: Math.floor(+new Date()),
-		// 			isDeleted: true,
-		// 		},
-		// 	)
-		// 	.exec();
-
-		return {
-			msg: 'deleteTag',
-		};
-	} catch (err) {
-		throw err;
-	}
-};
-
+/**
+ * @author 강성모(castleMo)
+ * @since 21/05/03
+ *
+ * @param user  platform 유저 객체
+ * @param tagId  태그 id
+ * @param name  태그 이름
+ * @param color  태그 색
+ */
 export const updateTag = async (user: UserInfo, tagId: string, name: string, color: string) => {
 	try {
 		// todo: Error model 정의하기
@@ -115,6 +95,39 @@ export const updateTag = async (user: UserInfo, tagId: string, name: string, col
 					isDeleted: false,
 				},
 				updateTagDoc,
+			)
+			.exec();
+
+		return {
+			msg: 'success',
+		};
+	} catch (err) {
+		throw err;
+	}
+};
+
+/**
+ * @author 강성모(castleMo)
+ * @since 21/05/03
+ *
+ * @param user	platform 유저 객체
+ * @param tagId	태그 id
+ */
+export const deleteTag = async (user: UserInfo, tagId: string) => {
+	try {
+		const wantodoUser = await users.findByPlatformIdAndPlatform(user.platformId, user.platform);
+
+		await tags
+			.updateOne(
+				{
+					userId: wantodoUser.userId,
+					tagId,
+					isDeleted: false,
+				},
+				{
+					updatedTimestamp: Math.floor(+new Date()),
+					isDeleted: true,
+				},
 			)
 			.exec();
 
