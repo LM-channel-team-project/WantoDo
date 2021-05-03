@@ -1,9 +1,9 @@
 @value colors: './common/color.css';
 @value size: './common/size.css';
 @value effect: './common/effect.css';
-@value colorWhite, colorLightSkyblue, colorSkyblue, colorPurple,colorDarkPurple from colors;
+@value colorWhite,colorLightGray,colorGray, colorDarkGray, colorLightSkyblue, colorSkyblue, colorPurple,colorDarkPurple from colors;
 @value animation-duration-fast as fast from effect;
-@value box-shadow, button-radius, border-radius, weight-regular, weight-regular, font-regular from size;
+@value box-shadow, button-radius, border-radius, weight-regular, weight-regular, font-regular,space-narrow, space-narrower from size;
 
 .button {
   font-size: 1em;
@@ -66,12 +66,17 @@
 /* checkbox button */
 .checkbox {
   position: relative;
+  display: flex;
   width: 1em;
   height: 1em;
-  border: 1px solid #000;
+  border: 1px solid colorDarkGray;
   border-radius: 50%;
+  margin-right: space-narrower;
+  margin-left: space-narrower;
+  bottom: -0.1em;
   padding: 0;
   background: none;
+  color: red;
 }
 
 /* Created by 오영롱(youngrongoh) on 2021/04/23 */
@@ -114,7 +119,7 @@
 .QuickAddForm:hover,
 .QuickAddForm__icon:hover {
   transform: none;
-  color: white;
+  color: colorWhite;
   background-color: gray;
 }
 
@@ -130,7 +135,7 @@
 }
 
 .registerPage__cancel {
-  background-color: lightgray;
+  background-color: colorLightGray;
 }
 
 .registerPage__image {
@@ -162,4 +167,18 @@
 
 .quickButton:hover {
   background-color: transparent;
+}
+
+/* todolist delete button */
+.todoDeleteButton {
+  background-color: transparent;
+  color: colorDarkGray;
+  padding: 0;
+  margin-left: space-narrow;
+  margin-right: space-narrow;
+}
+
+.todoDeleteButton:hover {
+  background-color: transparent;
+  transform: scale(1.2);
 }

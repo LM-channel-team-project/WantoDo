@@ -1,6 +1,6 @@
 @value colors: './common/color.css';
 @value size: './common/size.css';
-@value colorWhite,colorLightGray,tagColorRed,tagColorYellow,tagColorGreen,tagColorBlue,tagColorPurple from colors;
+@value colorWhite,colorLightGray,tagColorRed,tagColorOrenge,tagColorYellow,tagColorGreen,tagColorBlue,tagColorPurple from colors;
 @value weight-regular from size;
 
 .tag {
@@ -21,6 +21,10 @@
 /* tag color */
 .red {
   background-color: tagColorRed;
+}
+
+.orenge {
+  background-color: tagColorOrenge;
 }
 
 .yellow {
