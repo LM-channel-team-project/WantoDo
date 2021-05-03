@@ -32,7 +32,7 @@ const TaskItem = ({ taskId, task, type, updateTask, deleteTask }) => {
       <div className={styles.elements}>
         <div className={styles.checkcontent}>
           <CheckButton checked={checked} onClick={onCheckClick} />
-          <span className={styles.content}>{content}</span>
+          <span className={`${styles.content} ${checked && styles.checked}`}>{content}</span>
         </div>
         <div className={styles.iconbuttons}>
           <PriorityIcon level={level} />
