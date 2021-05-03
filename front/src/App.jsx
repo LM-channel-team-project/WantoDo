@@ -85,7 +85,7 @@ const dumyTags = [
   {
     id: 'j4832843enbhfi2',
     name: '중요',
-    color: 'pink',
+    color: 'red',
   },
 ];
 
