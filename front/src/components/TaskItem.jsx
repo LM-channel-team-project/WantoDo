@@ -20,13 +20,17 @@ const TaskItem = ({ task, type }) => {
 
   return (
     <li className={styles.task}>
-      <div className={styles.checkzone}>
-        <PriorityIcon level={level} />
-        <CheckButton checked={checked} onClick={onCheckClick} />
-        <span>{content}</span>
+      <div className={styles.elements}>
+        <div className={styles.checkcontent}>
+          <CheckButton checked={checked} onClick={onCheckClick} />
+          <span className={styles.content}>{content}</span>
+        </div>
+        <div className={styles.iconbuttons}>
+          <PriorityIcon level={level} />
+          <IconButton Icon={AiFillDelete} styleName="todoDeleteButton" onClick={onDeleteClick} />
+        </div>
       </div>
-      {isPeriodsRender && <span>{timeparser.parsePeriods(periods)}</span>}
-      <IconButton Icon={AiFillDelete} onClick={onDeleteClick} />
+      {isPeriodsRender && <span className={styles.period}>{timeparser.parsePeriods(periods)}</span>}
     </li>
   );
 };

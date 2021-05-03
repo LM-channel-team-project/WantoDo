@@ -1,12 +1,43 @@
+@value colors: './common/color.css';
+@value size: './common/size.css';
+@value colorGray, colorDarkGray from colors;
+
 /* Created by 오영롱(youngrongoh) on 2021/04/20 */
 .task {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+  margin-bottom: 1.3em;
+  position: relative;
 }
 
-.checkzone {
+.task::before {
+  content: '';
+  position: absolute;
+  left: 3%;
+  top: 120%;
+  width: 94%;
+  border-bottom: 1px solid colorGray;
+}
+
+.elements {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin-bottom: 0.1em;
+}
+
+.checkcontent {
+  display: flex;
+}
+
+.period {
+  font-size: 0.8em;
+  margin-left: 2.5em;
+  color: colorDarkGray;
+}
+
+.iconbuttons {
+  display: flex;
+}
+
+#input-check:checked + .content {
+  background-color: blue;
 }
