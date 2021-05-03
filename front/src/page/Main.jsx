@@ -14,8 +14,8 @@ const Main = () => {
         Left={() => <TasksContainer />}
         Right={() => <CalenderContainer />}
       >
-        <ProfileModal />
-        <TaskModal />
+        {false && <ProfileModal />}
+        {false && <TaskModal />}
       </Layout>
     </>
   );

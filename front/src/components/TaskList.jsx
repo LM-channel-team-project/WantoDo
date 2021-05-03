@@ -8,7 +8,7 @@ import styles from '../styles/TaskList.module.css';
 const TaskList = ({ tasks = {}, type }) => (
   <ol className={styles.list}>
     {Object.keys(tasks).map((key) => (
-      <TaskItem key={key} task={tasks[key]} type={type} />
+      <TaskItem key={key} taskId={key} task={tasks[key]} type={type} />
     ))}
   </ol>
 );

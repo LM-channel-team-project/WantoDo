@@ -39,6 +39,7 @@ const reducer = (state = initialTask, action) => {
     case ADD_TASK:
       break;
     case UPDATE_TASK:
+      newState[action.task.id] = action.task.content;
       break;
     case DELETE_TASK:
       break;
