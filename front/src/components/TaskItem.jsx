@@ -32,7 +32,7 @@ const TaskItem = ({ taskId, task, type, updateTask, deleteTask }) => {
       <div className={styles.checkzone}>
         <PriorityIcon level={level} />
         <CheckButton checked={checked} onClick={onCheckClick} />
-        <span className={styles.checked}>{content}</span>
+        <span className={`${styles.content} ${checked && styles.checked}`}>{content}</span>
       </div>
       {isPeriodsRender && <span>{timeparser.parsePeriods(periods)}</span>}
       <IconButton Icon={AiFillDelete} onClick={onDeleteClick} />
