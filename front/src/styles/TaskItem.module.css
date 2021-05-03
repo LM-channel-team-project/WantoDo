@@ -38,6 +38,18 @@
   display: flex;
 }
 
-#input-check:checked + .content {
-  background-color: blue;
+/* check에 따른 상태변화 */
+.checked {
+  color: colorGray;
+  position: relative;
+}
+
+.checked::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  width: 100%;
+  left: 0;
+  height: 1px;
+  background-color: red;
 }
