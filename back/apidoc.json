@@ -12,6 +12,9 @@
     "aloneDisplay": false
   },
   "order": [
-    "Accounts"
+    "Accounts",
+    "Profiles",
+    "Tasks",
+    "Tags"
   ]
 }
