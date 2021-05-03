@@ -13,7 +13,7 @@ import timeparser from '../utils/timestamp-parser';
  * @param {Object} props.task -
  * @param {'basic' | 'daily'} props.type - 태스크 아이템에서 기간(period)에 대한 표시 여부를 결정하는 문자열
  */
-const TaskItem = ({ taskId, task, type, updateTask }) => {
+const TaskItem = ({ taskId, task, type, updateTask, deleteTask }) => {
   const { level, checked, content, periods } = task;
   const isPeriodsRender = periods && type === 'daily';
 
@@ -23,14 +23,16 @@ const TaskItem = ({ taskId, task, type, updateTask }) => {
     updateTask(taskId, updated);
   };
 
-  const onDeleteClick = () => {};
+  const onDeleteClick = () => {
+    deleteTask(taskId);
+  };
 
   return (
     <li className={styles.task}>
       <div className={styles.elements}>
         <div className={styles.checkcontent}>
           <CheckButton checked={checked} onClick={onCheckClick} />
-          <span className={styles.content}>{content}</span>
+          <span className={`${styles.content} ${checked && styles.checked}`}>{content}</span>
         </div>
         <div className={styles.iconbuttons}>
           <PriorityIcon level={level} />
@@ -45,6 +47,7 @@ const TaskItem = ({ taskId, task, type, updateTask }) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     updateTask: (id, task) => dispatch(actionCreators.updateTask({ id, content: task })),
+    deleteTask: (id) => dispatch(actionCreators.deleteTask(id)),
   };
 };
 
