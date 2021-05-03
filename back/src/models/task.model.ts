@@ -78,7 +78,7 @@ export interface IAlarm {
 	time: number;
 }
 
-export interface ITask extends Document {
+export interface ITaskDocument extends Document {
 	userId: string;
 	taskId: string;
 	contents: string;
@@ -100,4 +100,4 @@ export interface ITask extends Document {
 	isDeleted: boolean;
 }
 
-export const tasks: Model<ITask> = model('Task', taskSchema);
+export const tasks: Model<ITaskDocument> = model('Task', taskSchema);

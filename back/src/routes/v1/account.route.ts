@@ -9,7 +9,8 @@ const accountRouter = Router();
 /**
  * @author 강성모(castleMo)
  * @since 2021/04/25
- *
+ */
+/**
  * @api {get} /v1/accounts/signed 회원가입 여부 확인
  * @apiName isUserExist
  * @apiGroup Accounts
@@ -34,7 +35,8 @@ accountRouter.get('/signed', accountController.isUserExist);
 /**
  * @author 강성모(castleMo)
  * @since 2021/04/13
- *
+ */
+/**
  * @api {post} /v1/accounts/login 로그인
  * @apiName loginUser
  * @apiGroup Accounts
@@ -73,7 +75,8 @@ accountRouter.post('/login', accountController.loginUser);
 /**
  * @author 강성모(castleMo)
  * @since 2021/04/14
- *
+ */
+/**
  * @api {patch} /v1/accounts/settings 회원 설정 수정
  * @apiName updateUserSettings
  * @apiGroup Accounts
@@ -111,7 +114,8 @@ accountRouter.patch('/settings', accountController.updateUserSettings);
 /**
  * @author 강성모(castleMo)
  * @since 2021/04/15
- *
+ */
+/**
  * @api {delete} /v1/accounts 회원탈퇴
  * @apiName withdrawUser
  * @apiGroup Accounts
