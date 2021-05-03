@@ -3,7 +3,12 @@ import { v4 as uuidV4 } from 'uuid';
 import { UserInfo } from '../../common/types';
 import { BeginningOfWeek, Theme, users } from '../../models/user.model';
 
-// Created by 강성모 on 2021/04/25
+/**
+ * @author 강성모(castleMo)
+ * @since 2021/04/25
+ *
+ * @param user	platform 유저 객체
+ */
 export const isUserExist = async (user: UserInfo) => {
 	try {
 		// 유저 존재여부 체크를 위한 쿼리
@@ -26,7 +31,12 @@ export const isUserExist = async (user: UserInfo) => {
 	}
 };
 
-// Created by 강성모 on 2021/04/13
+/**
+ * @author 강성모(castleMo)
+ * @since 2021/04/13
+ *
+ * @param user platform 유저 객체
+ */
 export const loginUser = async (user: UserInfo) => {
 	try {
 		// 신규유저인지 로그인유저인지 확인을 위한 쿼리
@@ -95,7 +105,15 @@ export const loginUser = async (user: UserInfo) => {
 	}
 };
 
-// Created by 강성모 on 2021/04/14
+/**
+ * @author 강성모(castleMo)
+ * @since 2021/04/14
+ *
+ * @param user							platform 유저 객체
+ * @param theme							테마
+ * @param isNotification		알림받기 여부
+ * @param beginningOfWeek		한주의 시작 설정
+ */
 export const updateUserSettings = async (
 	user: UserInfo,
 	theme: Theme,
@@ -139,7 +157,12 @@ export const updateUserSettings = async (
 	}
 };
 
-// Created by 강성모(castleMo) on 2021/04/15
+/**
+ * @author 강성모(castleMo)
+ * @since 2021/04/15
+ *
+ * @param user	platform 유저 객체
+ */
 export const withdrawUser = async (user: UserInfo) => {
 	try {
 		await users
