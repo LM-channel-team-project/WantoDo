@@ -7,9 +7,9 @@ import { tags } from '../../models/tag.model';
  * @author 강성모(castleMo)
  * @since 21/05/03
  *
- * @param user	platform 유저 객체
- * @param name	태그 이름
- * @param color	태그 색
+ * @param user  platform 유저 객체
+ * @param name  태그 이름
+ * @param color  태그 색
  */
 export const createTag = async (user: UserInfo, name: string, color: string) => {
 	try {
@@ -30,29 +30,109 @@ export const createTag = async (user: UserInfo, name: string, color: string) => 
 	}
 };
 
-// 태그 수정
-
-// 태그 삭제
-export const deleteTag = async () => {
+/**
+ * @author 강성모(castleMo)
+ * @since 21/05/03
+ *
+ * @param user platform 유저 객체
+ */
+export const getTags = async (user: UserInfo) => {
 	try {
-		// await users
-		// 	.updateOne(
-		// 		// filter
-		// 		{
-		// 			userId: user.name,
-		// 			tagId: {},
-		// 			isDeleted: false,
-		// 		},
-		// 		// update 내용
-		// 		{
-		// 			updatedTimestamp: Math.floor(+new Date()),
-		// 			isDeleted: true,
-		// 		},
-		// 	)
-		// 	.exec();
+		const wantodoUser = await users.findByPlatformIdAndPlatform(user.platformId, user.platform);
+
+		const returnTags = await tags.find(
+			{
+				userId: wantodoUser.userId,
+				isDeleted: false,
+			},
+			{
+				_id: 0,
+				tagId: 1,
+				name: 1,
+				color: 1,
+			},
+		);
 
 		return {
-			msg: 'deleteTag',
+			msg: 'success',
+			data: {
+				tags: returnTags,
+			},
+		};
+	} catch (err) {
+		throw err;
+	}
+};
+
+/**
+ * @author 강성모(castleMo)
+ * @since 21/05/03
+ *
+ * @param user  platform 유저 객체
+ * @param tagId  태그 id
+ * @param name  태그 이름
+ * @param color  태그 색
+ */
+export const updateTag = async (user: UserInfo, tagId: string, name: string, color: string) => {
+	try {
+		// todo: Error model 정의하기
+		if (name === undefined && color === undefined) throw new Error('둘다 비어있음');
+
+		const wantodoUser = await users.findByPlatformIdAndPlatform(user.platformId, user.platform);
+
+		const updateTagDoc: any = {
+			updatedTimestamp: Math.floor(+new Date()),
+		};
+
+		if (name !== undefined) updateTagDoc.name = name;
+		if (color !== undefined) updateTagDoc.color = color;
+
+		await tags
+			.updateOne(
+				{
+					userId: wantodoUser.userId,
+					tagId,
+					isDeleted: false,
+				},
+				updateTagDoc,
+			)
+			.exec();
+
+		return {
+			msg: 'success',
+		};
+	} catch (err) {
+		throw err;
+	}
+};
+
+/**
+ * @author 강성모(castleMo)
+ * @since 21/05/03
+ *
+ * @param user	platform 유저 객체
+ * @param tagId	태그 id
+ */
+export const deleteTag = async (user: UserInfo, tagId: string) => {
+	try {
+		const wantodoUser = await users.findByPlatformIdAndPlatform(user.platformId, user.platform);
+
+		await tags
+			.updateOne(
+				{
+					userId: wantodoUser.userId,
+					tagId,
+					isDeleted: false,
+				},
+				{
+					updatedTimestamp: Math.floor(+new Date()),
+					isDeleted: true,
+				},
+			)
+			.exec();
+
+		return {
+			msg: 'success',
 		};
 	} catch (err) {
 		throw err;
@@ -61,5 +141,7 @@ export const deleteTag = async () => {
 
 export default {
 	createTag,
+	getTags,
+	updateTag,
 	deleteTag,
 };
