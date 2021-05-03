@@ -9,7 +9,7 @@ const taskRouter = Router();
  * @since 2021/04/29
  */
 /**
- * @api {post} /v1/tasks task 생성
+ * @api {post} /v1/tasks Task 생성
  * @apiName createTask
  * @apiGroup Tasks
  * @apiVersion 1.0.0
@@ -87,7 +87,7 @@ taskRouter.get('/', taskController.getTasks);
  * @since 2021/05/01
  */
 /**
- * @api {patch} /v1/tasks/:taskId task 수정
+ * @api {patch} /v1/tasks/:taskId Task 수정
  * @apiName updateTask
  * @apiGroup Tasks
  * @apiVersion 1.0.0
@@ -161,7 +161,7 @@ taskRouter.patch('/:taskId', taskController.updateTask);
  * @since 2021/04/30
  */
 /**
- * @api {delete} /v1/tasks/:taskId task 삭제
+ * @api {delete} /v1/tasks/:taskId Task 삭제
  * @apiName deleteTask
  * @apiGroup Tasks
  * @apiVersion 1.0.0
