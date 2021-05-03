@@ -7,8 +7,34 @@
   display: flex;
   flex-direction: column;
   /* 편의로 설정해 둔 것이므로 나중에 삭제 */
-  margin: 30px;
-  width: 340px;
+  /* margin: 30px; */
+  /* width: 340px; */
+  font-size: 1rem;
   box-shadow: box-shadow;
   border-radius: modal-radius;
+}
+
+.profileModal {
+  top: 4em;
+  left: 4.2em;
+  background: #fff;
+}
+
+.profileModal:before {
+  content: '';
+  position: absolute;
+  top: 1.3em;
+  left: -1.6em;
+  width: 0;
+  height: 0;
+  border: 0.8em solid;
+  border-color: transparent #fff transparent transparent;
+}
+
+.taskModal {
+  bottom: 20%;
+  left: 50%;
+  padding: 1em;
+  transform: translateX(-50%);
+  background-color: #fff;
 }

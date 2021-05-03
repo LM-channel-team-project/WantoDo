@@ -33,13 +33,14 @@ const RegisterPage = () => {
           <IconButton Icon={FaPlus} styleName="registerPage__image" />
         </li>
         <li className={styles.textBox}>
-          <InputBox labelText="이름" inputName="name" styleName="registerPage" />
+          <InputBox labelText="이름" inputName="name" styleName="registerPage" maxLength="10" />
           <InputBox
             inputType="textarea"
             labelText="좌우명"
             inputName="motto"
             rows="3"
             cols="15"
+            maxLength="30"
             styleName="registerPage"
           />
         </li>

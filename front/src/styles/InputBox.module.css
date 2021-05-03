@@ -11,6 +11,10 @@
   font-size: large;
 }
 
+.list {
+  display: inline-block;
+}
+
 .tagItem {
   display: inline-block;
 }

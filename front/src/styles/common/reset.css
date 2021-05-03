@@ -44,3 +44,8 @@ textarea {
   margin: 0;
   resize: none;
 }
+
+svg {
+  width: 1em;
+  height: 1em;
+}
