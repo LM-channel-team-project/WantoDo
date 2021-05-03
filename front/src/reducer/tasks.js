@@ -37,6 +37,7 @@ const reducer = (state = initialTask, action) => {
   const newState = { ...state };
   switch (action.type) {
     case ADD_TASK:
+      console.log('add', action.task);
       break;
     case UPDATE_TASK:
       newState[action.task.id] = action.task.content;
@@ -47,7 +48,6 @@ const reducer = (state = initialTask, action) => {
     default:
       break;
   }
-  console.log(newState, 'task reducer');
   return newState;
 };
 
