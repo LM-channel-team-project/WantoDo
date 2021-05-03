@@ -13,6 +13,29 @@ import Main from './page/Main';
 
 const ROOT_PATH = process.env.PUBLIC_URL;
 
+function App() {
+  return (
+    <div className="container">
+      <Router>
+        <Switch>
+          <Route path={`${ROOT_PATH}/`} exact>
+            <Main />
+          </Route>
+          <Route path={`${ROOT_PATH}/login`}>
+            <Login />
+          </Route>
+          <Route path={`${ROOT_PATH}/test`}>
+            <TestPage />
+          </Route>
+        </Switch>
+      </Router>
+    </div>
+  );
+}
+
+export default App;
+
+// 테스트 및 스타일링 위한 임시 코드
 const dumyProfile = {
   userName: 'WantoDo',
   email: 'WantoDo.@gmail.com',
@@ -66,26 +89,6 @@ const dumyTags = [
   },
 ];
 
-function App() {
-  return (
-    <div className="container">
-      <Router>
-        <Switch>
-          <Route path={`${ROOT_PATH}/`} exact>
-            <Main profile={dumyProfile} tasks={dumyTasks} />
-          </Route>
-          <Route path={`${ROOT_PATH}/login`}>
-            <Login />
-          </Route>
-          <Route path={`${ROOT_PATH}/test`}>
-            <TestPage />
-          </Route>
-        </Switch>
-      </Router>
-    </div>
-  );
-}
-
 const TestPage = () => {
   return (
     <div className="app">
@@ -93,14 +96,14 @@ const TestPage = () => {
         <TagInputBox tags={dumyTags} />
       </div>
       <div>
-        <TagButton name="tag1" />
-        <TagButton name="tag2" />
-        <TagButton name="tag3" />
+        <TagButton name="tag1" color="red" />
+        <TagButton name="tag2" color="orenge" />
+        <TagButton name="tag3" color="yellow" />
       </div>
       <div>
-        <Tag name="tag4" color="blue" />
-        <Tag name="tag5" color="gree" />
-        <Tag name="tag6" color="pink" />
+        <Tag name="tag4" color="green" />
+        <Tag name="tag5" color="blue" />
+        <Tag name="tag6" color="purple" />
       </div>
       <div>
         <TaskList tasks={dumyTasks} />
@@ -131,5 +134,3 @@ const TestPage = () => {
     </div>
   );
 };
-
-export default App;

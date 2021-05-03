@@ -143,6 +143,16 @@
   border-radius: 50%;
 }
 
+.taskForm__cancel {
+  margin-right: 0.3em;
+  color: gray;
+}
+
+.taskForm__cancel,
+.taskForm__done {
+  padding: 0.3em 0.5em;
+}
+
 /* quick button */
 .quickButton {
   background-color: transparent;
