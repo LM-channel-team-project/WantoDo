@@ -9,10 +9,8 @@ import styles from '../styles/ProfileImage.module.css';
 const ProfileImage = ({ imageURL, styleName }) => (
   <img
     className={`${styles.image} ${styles[styleName]}`}
-    src={
-      imageURL instanceof String || `${process.env.PUBLIC_URL}/assets/images/default_profile.png`
-    }
-    alt="기본 프로필"
+    src={imageURL || `${process.env.PUBLIC_URL}/assets/images/default_profile.png`}
+    alt="사용자 프로필"
   />
 );
 
