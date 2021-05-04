@@ -1,6 +1,7 @@
 @value colors: './common/color.css';
 @value size: './common/size.css';
 @value box-shadow, modal-radius from size;
+@value colorDarkGray from colors;
 
 .modal {
   position: absolute;
@@ -34,7 +35,9 @@
 .taskModal {
   bottom: 20%;
   left: 50%;
+  width: 450px;
+  height: 280px;
   padding: 1em;
   transform: translateX(-50%);
-  background-color: #fff;
+  background-color: colorDarkGray;
 }

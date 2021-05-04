@@ -39,12 +39,14 @@ const TaskForm = ({ content, tags, priority, periods, onCancel }) => {
   return (
     <form onSubmit={onTaskSubmit} className={styles.form}>
       <div className={styles.header}>
-        <Input
-          value={content}
-          inputName="content"
-          placeholder="오늘의 할 일을 적어주세요 (최대 50자)"
-          maxLength="50"
-        />
+        <div className={styles.content}>
+          <Input
+            value={content}
+            inputName="content"
+            placeholder="오늘의 할 일을 적어주세요 (최대 50자)"
+            maxLength="50"
+          />
+        </div>
         <div className={styles.buttons}>
           <Button styleName="taskForm__cancel" onClick={onCancel}>
             취소

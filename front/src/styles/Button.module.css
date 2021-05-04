@@ -148,14 +148,32 @@
   border-radius: 50%;
 }
 
+/* taskform modal button */
 .taskForm__cancel {
   margin-right: 0.3em;
-  color: gray;
 }
 
 .taskForm__cancel,
 .taskForm__done {
   padding: 0.3em 0.5em;
+  background-color: transparent;
+  color: colorGray;
+}
+
+.taskForm__cancel:hover,
+.taskForm__done:hover {
+  background-color: transparent;
+  color: colorWhite;
+}
+
+.priorityInput {
+  background-color: transparent;
+  padding: 0;
+}
+
+.priorityInput:hover {
+  background-color: transparent;
+  transform: scale(1.2);
 }
 
 /* quick button */

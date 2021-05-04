@@ -1,14 +1,20 @@
 /* 아래와 같이 프리셋을 불러와 사용할 수 있습니다 */
-@value space-narrow as narrow, space-narrower as narrower, font-large as large from './common/size.css';
+@value space-narrow as narrow, space-narrower as narrower, weight-semibold as semibold from './common/size.css';
+@value colorWhite from './common/color.css';
 
 .inputBox {
+  position: relative;
+  top: 130px;
   text-align: left;
-  padding: narrow;
+  padding: narrower;
+  top: -15px;
 }
 
 .name {
-  margin-right: narrower;
-  font-size: large;
+  margin-right: narrow;
+  font-size: 1em;
+  color: colorWhite;
+  font-weight: semibold;
 }
 
 .list {

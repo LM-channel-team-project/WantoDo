@@ -1,12 +1,20 @@
+@value space-narrower as narrower, font-small as small,  weight-semibold as semibold from './common/size.css';
+@value colorWhite from './common/color.css';
+
 .box {
   display: flex;
 }
 
 .label {
-  font-size: 2em;
+  font-size: 1em;
+  color: colorWhite;
+  font-weight: semibold;
+  margin-left: narrower;
+  margin-right: narrower;
 }
 
 .periods {
   display: flex;
   flex-direction: column;
+  font-size: small;
 }
