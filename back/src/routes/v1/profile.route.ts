@@ -50,7 +50,50 @@ const profileRouter = Router();
  */
 profileRouter.get('/', profileController.getProfile);
 
-// Update One
-profileRouter.put('/', profileController.updateProfile);
+/**
+ * @author 강성모(castleMo)
+ * @since 21/05/04
+ */
+/**
+ * @api {patch} /v1/profiles profile 수정
+ * @apiName updateProfile
+ * @apiGroup Profiles
+ * @apiVersion 1.0.0
+ *
+ * @apiUse HeaderToken
+ *
+ * @apiParam (Body) {String} [nickname] 닉네임
+ * @apiParam (Body) {String} [motto] 좌우명
+ * @apiParam (Body) {String} [profileImageUrl] 이미지 URL
+ * @apiParamExample {json} RequestBodyExample (nickname)
+ * {
+ *     "nickname": "castleMo"
+ * }
+ *
+ * @apiParamExample {json} RequestBodyExample (motto)
+ * {
+ *     "motto": "No pain, no gain"
+ * }
+ *
+ * @apiParamExample {json} RequestBodyExample (profileImageUrl)
+ * {
+ *     "profileImageUrl": "https://image.com"
+ * }
+ *
+ * @apiParamExample {json} RequestBodyExample (All)
+ * {
+ *     "nickname": "castleMo",
+ *     "motto": "No pain, no gain",
+ *     "profileImageUrl": "https://image.com"
+ * }
+ *
+ * @apiSampleRequest /v1/profiles
+ * @apiSuccess (SUCCESS) {String} msg 성공메시지
+ * @apiSuccessExample {json} SuccessResponse
+ * {
+ *     "msg": "success"
+ * }
+ */
+profileRouter.patch('/', profileController.updateProfile);
 
 export default profileRouter;
