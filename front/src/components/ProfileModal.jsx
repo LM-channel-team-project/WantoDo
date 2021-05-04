@@ -16,7 +16,7 @@ import GoogleLogoutButton from './GoogleLogoutButton';
  * @param {string} props.motto - 사용자의 좌우명 문자열
  * @param {string} props.goal - 사용자의 목표 문자열
  */
-const ProfileModal = ({ imageURL, userName, email, motto, goal }) => {
+const ProfileModal = ({ imageURL, userName, email, motto }) => {
   const history = useHistory();
 
   const onEditClick = () => {
@@ -35,17 +35,13 @@ const ProfileModal = ({ imageURL, userName, email, motto, goal }) => {
         <div className={styles.profile}>
           <ProfileImage imageURL={imageURL} styleName="profileModal" />
         </div>
-        <h3 className={styles.name}>{userName}</h3>
-        <p className={styles.email}>{email}</p>
+        <h3 className={styles.name}>{userName || 'anonymous'}</h3>
+        <p className={styles.email}>{email || '이메일 정보를 찾을 수 없습니다.'}</p>
       </header>
       <ul className={styles.intros}>
         <li className={styles.intro}>
           <span className={styles.mottoTitle}>MOTTO</span>
-          <span className={styles.text}>{motto}</span>
-        </li>
-        <li className={styles.intro}>
-          <span className={styles.goalTitle}>GOAL</span>
-          <span className={styles.text}>{goal}</span>
+          <span className={styles.text}>{motto || '좌우명을 등록해보세요.'}</span>
         </li>
       </ul>
       <footer className={styles.footer}>
