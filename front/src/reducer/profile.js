@@ -6,37 +6,29 @@ const initialProfile = {
 };
 
 const CREATE_PROFILE = 'CREATE_PROFILE';
-const GET_PROFILE = 'GET_PROFILE';
 const EDIT_PROFILE = 'EDIT_PROFILE';
 const DELETE_PROFILE = 'DELETE_PROFILE';
 
 export const createProfile = (profile) => ({ type: CREATE_PROFILE, profile });
-export const getProfile = () => ({ type: GET_PROFILE });
 export const editProfile = (profile) => ({ type: EDIT_PROFILE, profile });
 export const deleteProfile = (userId) => ({ type: DELETE_PROFILE, userId });
 
 const reducer = (state = initialProfile, action) => {
-  let newState;
+  let profile = { ...state };
 
   switch (action.type) {
     case CREATE_PROFILE:
-      newState = { ...state, ...action.profile };
-      break;
-    case GET_PROFILE:
-      newState = { ...state };
+      profile = { ...state, ...action.profile };
       break;
     case EDIT_PROFILE:
-      newState = { ...state };
       break;
     case DELETE_PROFILE:
-      newState = { ...state };
       break;
     default:
-      newState = { ...state };
       break;
   }
 
-  return newState;
+  return profile;
 };
 
 export default reducer;
