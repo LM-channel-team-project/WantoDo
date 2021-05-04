@@ -47,7 +47,7 @@ accountRouter.get('/signed', accountController.isUserExist);
  * @apiSampleRequest /v1/accounts/login
  * @apiSuccess (SUCCESS) {Object} data Response Data Object
  * @apiSuccess (SUCCESS) {String} data.nickname 닉네임
- * @apiSuccess (SUCCESS) {String} data.email 성공메시지
+ * @apiSuccess (SUCCESS) {String} data.email 이메일
  * @apiSuccess (SUCCESS) {String} data.platform 플랫폼
  * @apiSuccess (SUCCESS) {String} data.motto motto
  * @apiSuccess (SUCCESS) {String} data.profileImageUrl 이미지 URL
