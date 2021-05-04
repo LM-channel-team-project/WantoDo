@@ -17,7 +17,7 @@ import { modals } from '../reducer/modal';
  * @param {string | undefined} profileURL - 사용자의 프로필 이미지 URL, 없을 경우 기본 이미지 표시
  * @param {Function} toggleProfileModal - 전역 모달 상태를 변경하여 프로필 모달 토글하는 함수
  */
-const Navbar = ({ profileURL, toggleProfileModal }) => {
+const Navbar = ({ imageURL, toggleProfileModal }) => {
   const onSettingClick = () => {
     // 여기서 설정 컴포넌트 표시
   };
@@ -30,7 +30,7 @@ const Navbar = ({ profileURL, toggleProfileModal }) => {
     <nav className={styles.navbar}>
       <div className={styles.top}>
         <div>
-          <ProfileButon imageURL={profileURL} styleName="profile" onClick={onProfileClick} />
+          <ProfileButon imageURL={imageURL} styleName="profile" onClick={onProfileClick} />
         </div>
         <ul className={styles.menu}>
           <li className={styles.menuItem}>
@@ -52,7 +52,7 @@ const Navbar = ({ profileURL, toggleProfileModal }) => {
 };
 
 const mapStateToProps = ({ profile: { imageURL } }) => {
-  return { profileURL: imageURL };
+  return { imageURL };
 };
 
 const mapDispatchToProps = (dispatch) => {

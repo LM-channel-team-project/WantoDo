@@ -128,17 +128,18 @@
   line-height: 0.8;
 }
 
-.registerPage,
-.registerPage__cancel {
+/* 회원가입 페이지 버튼 */
+.tutorial,
+.tutorial__cancel {
   padding: 1em 3em;
   margin-right: 1em;
 }
 
-.registerPage__cancel {
+.tutorial__cancel {
   background-color: colorLightGray;
 }
 
-.registerPage__image {
+.tutorial__image {
   position: absolute;
   bottom: 0;
   right: 0;

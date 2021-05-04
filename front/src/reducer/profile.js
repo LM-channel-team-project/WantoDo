@@ -1,9 +1,8 @@
 const initialProfile = {
-  userName: 'WantoDo',
-  email: 'WantoDo.@gmail.com',
+  userName: '',
+  email: '',
   imageURL: '',
-  motto: '고생 끝엔 치킨이 기다린다',
-  goal: '프로젝트 끝나고 치킨 먹기🍗',
+  motto: '',
 };
 
 const CREATE_PROFILE = 'CREATE_PROFILE';
@@ -11,26 +10,32 @@ const GET_PROFILE = 'GET_PROFILE';
 const EDIT_PROFILE = 'EDIT_PROFILE';
 const DELETE_PROFILE = 'DELETE_PROFILE';
 
-export const createProfile = (profile) => ({ type: EDIT_PROFILE, profile });
+export const createProfile = (profile) => ({ type: CREATE_PROFILE, profile });
 export const getProfile = () => ({ type: GET_PROFILE });
 export const editProfile = (profile) => ({ type: EDIT_PROFILE, profile });
-export const deleteProfile = (userId) => ({ type: EDIT_PROFILE, userId });
+export const deleteProfile = (userId) => ({ type: DELETE_PROFILE, userId });
 
 const reducer = (state = initialProfile, action) => {
-  const newState = { ...state };
+  let newState;
+
   switch (action.type) {
     case CREATE_PROFILE:
+      newState = { ...state, ...action.profile };
       break;
     case GET_PROFILE:
+      newState = { ...state };
       break;
     case EDIT_PROFILE:
+      newState = { ...state };
       break;
     case DELETE_PROFILE:
+      newState = { ...state };
       break;
     default:
+      newState = { ...state };
       break;
   }
-  console.log(newState, 'profile reducer');
+
   return newState;
 };
 

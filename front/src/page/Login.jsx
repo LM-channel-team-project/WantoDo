@@ -1,14 +1,12 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import { FaPlus } from 'react-icons/fa';
+import { connect } from 'react-redux';
+import { actionCreators } from '../store/store';
 import GoogleLoginButton from '../components/GoogleLoginButton';
-import ProfileImage from '../components/ProfileImage';
-import InputBox from '../components/InputBox';
-import Button from '../components/Button';
-import IconButton from '../components/IconButton';
+import Tutorial from './Tutorial';
 import styles from '../styles/page/Login.module.css';
 
-const LoginPage = ({ onLogin }) => {
+const LoginRender = ({ onLogin }) => {
   return (
     <>
       <div className={styles.title}>
@@ -23,56 +21,36 @@ const LoginPage = ({ onLogin }) => {
   );
 };
 
-const RegisterPage = () => {
-  const [imageUrl] = useState('');
-  return (
-    <form className={styles.form}>
-      <ul className={styles.list}>
-        <li className={styles.profile}>
-          <ProfileImage imageURL={imageUrl} styleName="registerPage" />
-          <IconButton Icon={FaPlus} styleName="registerPage__image" />
-        </li>
-        <li className={styles.textBox}>
-          <InputBox labelText="이름" inputName="name" styleName="registerPage" maxLength="10" />
-          <InputBox
-            inputType="textarea"
-            labelText="좌우명"
-            inputName="motto"
-            rows="3"
-            cols="15"
-            maxLength="30"
-            styleName="registerPage"
-          />
-        </li>
-      </ul>
-      <div className={styles.buttons}>
-        <Button styleName="registerPage__cancel">취소</Button>
-        <Button type="submit" styleName="registerPage">
-          가입
-        </Button>
-      </div>
-    </form>
-  );
-};
-
-const Login = () => {
-  const [registerPage, setRegisterPage] = useState(true);
-
+const Login = ({ createProfile }) => {
+  const [tutorialDisplay, setTutorialDisplay] = useState(false);
+  const [defaultProfile, setDefaultProfile] = useState({});
   const history = useHistory();
-  const onLogin = (registerFlag) => {
-    if (registerFlag) {
-      setRegisterPage(true);
-      return;
-    }
 
-    history.push('/');
+  // 로그인 하면 사용자 등록 여부에 따라 렌더링할 페이지 변경
+  const onLogin = (profile, isTutorial) => {
+    // 튜토리얼(프로필 등록) 했는지 여부 확인
+    if (isTutorial) {
+      createProfile(profile);
+      history.push('/');
+    } else {
+      setDefaultProfile(profile);
+      setTutorialDisplay(true);
+    }
   };
 
   return (
     <section className={styles.container}>
-      {registerPage ? <RegisterPage /> : <LoginPage onLogin={onLogin} />}
+      {tutorialDisplay ? <Tutorial profile={defaultProfile} /> : <LoginRender onLogin={onLogin} />}
     </section>
   );
 };
 
-export default Login;
+const mapDispatchToProps = (dispatch) => {
+  return {
+    createProfile: (profile) => {
+      dispatch(actionCreators.createProfile(profile));
+    },
+  };
+};
+
+export default connect(undefined, mapDispatchToProps)(Login);

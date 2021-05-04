@@ -1,9 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 import Modal from '../container/Modal';
 import ProfileImage from './ProfileImage';
 import Button from './Button';
 import styles from '../styles/ProfileModal.module.css';
+import GoogleLogoutButton from './GoogleLogoutButton';
 
 /**
  * 모달 프레임에 들어갈 프로필 모달
@@ -15,12 +17,16 @@ import styles from '../styles/ProfileModal.module.css';
  * @param {string} props.goal - 사용자의 목표 문자열
  */
 const ProfileModal = ({ imageURL, userName, email, motto, goal }) => {
+  const history = useHistory();
+
   const onEditClick = () => {
     // 프로필 수정 폼으로 모달 변경
   };
 
-  const onLogoutClick = () => {
+  const onLogout = () => {
     // 로그아웃 처리
+    history.push('/login');
+    console.log('logout');
   };
 
   return (
@@ -46,9 +52,7 @@ const ProfileModal = ({ imageURL, userName, email, motto, goal }) => {
         <Button styleName="profileModal" onClick={onEditClick}>
           프로필 수정
         </Button>
-        <Button styleName="profileModal" onClick={onLogoutClick}>
-          로그아웃
-        </Button>
+        <GoogleLogoutButton onLogout={onLogout} />
       </footer>
     </Modal>
   );
