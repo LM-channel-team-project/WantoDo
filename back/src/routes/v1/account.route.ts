@@ -51,7 +51,7 @@ accountRouter.get('/signed', accountController.isUserExist);
  * @apiSuccess (SUCCESS) {String} data.platform 플랫폼
  * @apiSuccess (SUCCESS) {String} data.motto motto
  * @apiSuccess (SUCCESS) {String} data.profileImageUrl 이미지 URL
- * @apiSuccess (SUCCESS) {Boolean} data.isTutorial 이미지 URL
+ * @apiSuccess (SUCCESS) {Boolean} data.isTutorial 튜토리얼 진행 여부
  * @apiSuccess (SUCCESS) {Array} data.notifications 유저 notification tokens
  * @apiSuccess (SUCCESS) {Object} data.settings 유저 settings
  * @apiSuccess (SUCCESS) {Object} data.settings.theme 테마 설정 (default | dark)
