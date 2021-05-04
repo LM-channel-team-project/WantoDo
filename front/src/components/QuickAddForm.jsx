@@ -19,10 +19,13 @@ const QuickAddForm = ({ toggleTaskFormModal, addTask }) => {
   const onSubmit = (event) => {
     event.preventDefault();
 
+    if (inputRef.current.value === '') return;
+
     const form = new FormData(formRef.current);
 
     const task = Array.from(form.keys()).reduce((obj, key) => {
       const copied = { ...obj };
+      if (!form.get(key)) return {};
       copied[key] = form.get(key);
       return copied;
     }, {});
