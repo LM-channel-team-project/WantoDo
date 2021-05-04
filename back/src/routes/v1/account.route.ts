@@ -139,4 +139,25 @@ accountRouter.patch('/settings', accountController.updateUserSettings);
  */
 accountRouter.delete('/', accountController.withdrawUser);
 
+/**
+ * @author 강성모(castleMo)
+ * @since 2021/05/04
+ */
+/**
+ * @api {post} /v1/accounts/tutorial 튜툐리얼 완료
+ * @apiName successTutorial
+ * @apiGroup Accounts
+ * @apiVersion 1.0.0
+ *
+ * @apiUse HeaderToken
+ *
+ * @apiSampleRequest /v1/accounts/tutorial
+ * @apiSuccess (SUCCESS) {String} msg 성공메시지
+ * @apiSuccessExample {json} SuccessResponse
+ * {
+ *     "msg": "success"
+ * }
+ */
+accountRouter.post('/tutorial', accountController.successTutorial);
+
 export default accountRouter;

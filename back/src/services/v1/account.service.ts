@@ -202,9 +202,40 @@ export const withdrawUser = async (user: UserInfo) => {
 	}
 };
 
+/**
+ * @author 강성모(castleMo)
+ * @since 2021/05/04
+ *
+ * @param user        platform 유저 객체
+ */
+export const successTutorial = async (user: UserInfo) => {
+	try {
+		await users
+			.updateOne(
+				{
+					platformId: user.platformId,
+					platform: user.platform,
+					isCloseAccount: false,
+				},
+				{
+					updatedTimestamp: Math.floor(+new Date()),
+					isTutorial: true,
+				},
+			)
+			.exec();
+
+		return {
+			msg: 'success',
+		};
+	} catch (err) {
+		throw err;
+	}
+};
+
 export default {
 	isUserExist,
 	loginUser,
 	updateUserSettings,
 	withdrawUser,
+	successTutorial,
 };

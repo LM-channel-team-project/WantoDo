@@ -6,9 +6,9 @@ import accountService from '../../services/v1/account.service';
  * @author 강성모(castleMo)
  * @since 2021/04/25
  *
- * @param req		Request
- * @param res		Response
- * @param next	NextFunction
+ * @param req    Request
+ * @param res    Response
+ * @param next  NextFunction
  */
 export const isUserExist = async (req: Request, res: Response, next: NextFunction) => {
 	try {
@@ -42,9 +42,9 @@ export const isUserExist = async (req: Request, res: Response, next: NextFunctio
  * @author 강성모(castleMo)
  * @since 2021/04/13
  *
- * @param req		Request
- * @param res		Response
- * @param next	NextFunction
+ * @param req    Request
+ * @param res    Response
+ * @param next  NextFunction
  */
 export const loginUser = async (req: Request, res: Response, next: NextFunction) => {
 	try {
@@ -78,9 +78,9 @@ export const loginUser = async (req: Request, res: Response, next: NextFunction)
  * @author 강성모(castleMo)
  * @since 2021/04/14
  *
- * @param req		Request
- * @param res		Response
- * @param next	NextFunction
+ * @param req    Request
+ * @param res    Response
+ * @param next  NextFunction
  */
 export const updateUserSettings = async (req: Request, res: Response, next: NextFunction) => {
 	try {
@@ -149,9 +149,9 @@ export const updateUserSettings = async (req: Request, res: Response, next: Next
  * @author 강성모(castleMo)
  * @since 2021/04/15
  *
- * @param req		Request
- * @param res		Response
- * @param next	NextFunction
+ * @param req    Request
+ * @param res    Response
+ * @param next  NextFunction
  */
 export const withdrawUser = async (req: Request, res: Response, next: NextFunction) => {
 	try {
@@ -181,9 +181,46 @@ export const withdrawUser = async (req: Request, res: Response, next: NextFuncti
 	}
 };
 
+/**
+ * @author 강성모(castleMo)
+ * @since 2021/05/04
+ *
+ * @param req    Request
+ * @param res    Response
+ * @param next  NextFunction
+ */
+export const successTutorial = async (req: Request, res: Response, next: NextFunction) => {
+	try {
+		await Promise.all([
+			header('Authorization')
+				.trim()
+				.notEmpty()
+				.withMessage('is empty')
+				.bail()
+				.isJWT()
+				.withMessage('is not JWT value')
+				.run(req),
+		]);
+
+		// validation Error
+		// todo: Error model 정의하기
+		const validationErrors = validationResult(req);
+		if (!validationErrors.isEmpty()) {
+			throw new Error('successTutorial validationError');
+		}
+
+		const { user } = res.locals;
+		const result = await accountService.successTutorial(user);
+		res.status(200).send(result);
+	} catch (error) {
+		next(error);
+	}
+};
+
 export default {
 	loginUser,
 	updateUserSettings,
 	withdrawUser,
 	isUserExist,
+	successTutorial,
 };
