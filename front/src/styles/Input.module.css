@@ -31,7 +31,7 @@
   transition: all duration-regular ease-in;
 }
 
-.registerPage {
+.tutorial {
   display: block;
   width: 100%;
   font-size: 1.5em;

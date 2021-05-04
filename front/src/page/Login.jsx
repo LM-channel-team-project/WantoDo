@@ -1,24 +1,12 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import { FaPlus } from 'react-icons/fa';
 import { connect } from 'react-redux';
 import { actionCreators } from '../store/store';
 import GoogleLoginButton from '../components/GoogleLoginButton';
-import ProfileImage from '../components/ProfileImage';
-import InputBox from '../components/InputBox';
-import Button from '../components/Button';
-import IconButton from '../components/IconButton';
+import Tutorial from './Tutorial';
 import styles from '../styles/page/Login.module.css';
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    createProfile: (profile) => {
-      dispatch(actionCreators.createProfile(profile));
-    },
-  };
-};
-
-const LoginPage = ({ onLogin }) => {
+const LoginRender = ({ onLogin }) => {
   return (
     <>
       <div className={styles.title}>
@@ -32,46 +20,6 @@ const LoginPage = ({ onLogin }) => {
     </>
   );
 };
-
-const TutorialPage = connect(
-  undefined,
-  mapDispatchToProps,
-)(({ profile }) => {
-  return (
-    <form className={styles.form}>
-      <ul className={styles.list}>
-        <li className={styles.profile}>
-          <ProfileImage imageURL={profile.imageURL} styleName="tutorial" />
-          <IconButton Icon={FaPlus} styleName="tutorial__image" />
-        </li>
-        <li className={styles.textBox}>
-          <InputBox
-            value={profile.userName}
-            labelText="이름"
-            inputName="name"
-            styleName="tutorial"
-            maxLength="10"
-          />
-          <InputBox
-            inputType="textarea"
-            labelText="좌우명"
-            inputName="motto"
-            rows="3"
-            cols="15"
-            maxLength="30"
-            styleName="tutorial"
-          />
-        </li>
-      </ul>
-      <div className={styles.buttons}>
-        <Button styleName="tutorial__cancel">취소</Button>
-        <Button type="submit" styleName="tutorial">
-          가입
-        </Button>
-      </div>
-    </form>
-  );
-});
 
 const Login = ({ createProfile }) => {
   const [tutorialDisplay, setTutorialDisplay] = useState(false);
@@ -92,13 +40,17 @@ const Login = ({ createProfile }) => {
 
   return (
     <section className={styles.container}>
-      {tutorialDisplay ? (
-        <TutorialPage profile={defaultProfile} />
-      ) : (
-        <LoginPage onLogin={onLogin} />
-      )}
+      {tutorialDisplay ? <Tutorial profile={defaultProfile} /> : <LoginRender onLogin={onLogin} />}
     </section>
   );
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    createProfile: (profile) => {
+      dispatch(actionCreators.createProfile(profile));
+    },
+  };
 };
 
 export default connect(undefined, mapDispatchToProps)(Login);
