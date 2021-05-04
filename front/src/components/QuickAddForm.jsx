@@ -12,11 +12,24 @@ import styles from '../styles/QuickAddForm.module.css';
  * @param {Fucntion} toggleTaskFormModal - 전역 모달 상태를 변경하여 태스크 폼을 토글하는 함수
  */
 
-const QuickAddForm = ({ toggleTaskFormModal }) => {
+const QuickAddForm = ({ toggleTaskFormModal, addTask }) => {
   const formRef = useRef();
+  const inputRef = useRef();
 
   const onSubmit = (event) => {
     event.preventDefault();
+
+    const form = new FormData(formRef.current);
+
+    const task = Array.from(form.keys()).reduce((obj, key) => {
+      const copied = { ...obj };
+      copied[key] = form.get(key);
+      return copied;
+    }, {});
+
+    addTask(task);
+
+    inputRef.current.value = '';
   };
 
   const onDetailClick = () => {
@@ -28,7 +41,12 @@ const QuickAddForm = ({ toggleTaskFormModal }) => {
   return (
     <form ref={formRef} className={styles.form} onSubmit={onSubmit}>
       <IconButton Icon={FaPlus} styleName="QuickAddForm__icon" onClick={onDetailClick} />
-      <Input name="content" styleName="QuickAddForm" placeholder="나의 할 일 작성하기" />
+      <Input
+        inputRef={inputRef}
+        name="content"
+        styleName="QuickAddForm"
+        placeholder="나의 할 일 작성하기"
+      />
       <Button styleName="QuickAddForm" type="submit">
         등록
       </Button>
@@ -39,6 +57,7 @@ const QuickAddForm = ({ toggleTaskFormModal }) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     toggleTaskFormModal: (content) => dispatch(actionCreators.toggleTaskFormModal(content)),
+    addTask: (task) => dispatch(actionCreators.addTask(task)),
   };
 };
 
