@@ -7,7 +7,7 @@ import ProfileModal from '../components/ProfileModal';
 import TasksContainer from '../container/TasksContainer';
 import CalenderContainer from '../container/CalenderContainer';
 
-const Main = ({ isProfileShow, isTaskFormShow, taskContent }) => {
+const Main = ({ isProfileShow, isTaskFormShow, content }) => {
   return (
     <>
       <Layout
@@ -16,17 +16,18 @@ const Main = ({ isProfileShow, isTaskFormShow, taskContent }) => {
         Right={() => <CalenderContainer />}
       >
         {isProfileShow && <ProfileModal />}
-        {isTaskFormShow && <TaskModal content={taskContent} />}
+        {isTaskFormShow && <TaskModal content={content} />}
       </Layout>
     </>
   );
 };
 
 const mapStateToProps = ({ modal: { profile, taskForm } }) => {
+  console.dir(taskForm.input);
   return {
     isProfileShow: profile,
     isTaskFormShow: taskForm.display,
-    taskContent: taskForm.content,
+    content: taskForm.content,
   };
 };
 

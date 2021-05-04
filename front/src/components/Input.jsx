@@ -36,7 +36,7 @@ const Input = ({
   maxLength,
   onChange,
 }) => {
-  const [value, setValue] = useState(initialValue);
+  const [value, setValue] = useState(initialValue || '');
   const { inputSize, flexInputSize } = useFlexInputSize(3);
 
   const onValueChange = (event) => {

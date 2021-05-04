@@ -1,4 +1,6 @@
-import React from 'react';
+import React, { useRef } from 'react';
+import { connect } from 'react-redux';
+import { actionCreators } from '../store/store';
 import Button from './Button';
 import PeriodInputBox from './PeriodInputBox';
 import PrioritySelector from './PrioritySelector';
@@ -6,13 +8,20 @@ import TagInputBox from './TagInputBox';
 import styles from '../styles/TaskForm.module.css';
 import Input from './Input';
 
-const TaskForm = ({ content, tags, priority, periods, onCancel }) => {
+const TaskForm = ({ content, tags, priority, periods, addTask, toggleTaskFormModal }) => {
+  const inputRef = useRef();
+
   const onTaskSubmit = (event) => {
     event.preventDefault();
 
+    if (inputRef.current.value === '') {
+      alert('할 일을 입력해주세요.');
+      return;
+    }
+
     const form = new FormData(event.target);
 
-    const data = Array.from(form.keys()).reduce((obj, key) => {
+    const task = Array.from(form.keys()).reduce((obj, key) => {
       const copied = { ...obj };
 
       if (key.includes('date')) {
@@ -30,23 +39,27 @@ const TaskForm = ({ content, tags, priority, periods, onCancel }) => {
       return copied;
     }, {});
 
-    console.log(data);
-    // 테스크 상태 업데이트
-
+    addTask(task);
     // 백엔드로 테스크 데이터 전송
+    toggleTaskFormModal();
+  };
+
+  const onCancelClick = () => {
+    toggleTaskFormModal();
   };
 
   return (
     <form onSubmit={onTaskSubmit} className={styles.form}>
       <div className={styles.header}>
         <Input
+          inputRef={inputRef}
           value={content}
-          inputName="content"
+          name="content"
           placeholder="오늘의 할 일을 적어주세요 (최대 50자)"
           maxLength="50"
         />
         <div className={styles.buttons}>
-          <Button styleName="taskForm__cancel" onClick={onCancel}>
+          <Button styleName="taskForm__cancel" onClick={onCancelClick}>
             취소
           </Button>
           <Button type="submit" styleName="taskForm__done">
@@ -54,11 +67,18 @@ const TaskForm = ({ content, tags, priority, periods, onCancel }) => {
           </Button>
         </div>
       </div>
-      <PrioritySelector priority={priority} inputName="priority" />
+      <PrioritySelector priority={priority} inputName="level" />
       <PeriodInputBox periods={periods} />
       <TagInputBox tags={tags} inputName="tags" />
     </form>
   );
 };
 
-export default TaskForm;
+const mapDispatchToProps = (dispatch) => {
+  return {
+    addTask: (task) => dispatch(actionCreators.addTask(task)),
+    toggleTaskFormModal: () => dispatch(actionCreators.toggleTaskFormModal()),
+  };
+};
+
+export default connect(undefined, mapDispatchToProps)(TaskForm);

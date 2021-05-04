@@ -36,9 +36,9 @@ const QuickAddForm = ({ toggleTaskFormModal, addTask }) => {
   };
 
   const onDetailClick = () => {
-    const form = new FormData(formRef.current);
-    const content = form.get('content');
-    toggleTaskFormModal(content);
+    // QuickAddForm 입력을 TaskModal로 전달하고 초기화
+    toggleTaskFormModal(inputRef.current.value);
+    inputRef.current.value = '';
   };
 
   return (
@@ -59,7 +59,7 @@ const QuickAddForm = ({ toggleTaskFormModal, addTask }) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    toggleTaskFormModal: (content) => dispatch(actionCreators.toggleTaskFormModal(content)),
+    toggleTaskFormModal: (quickInput) => dispatch(actionCreators.toggleTaskFormModal(quickInput)),
     addTask: (task) => dispatch(actionCreators.addTask(task)),
   };
 };
