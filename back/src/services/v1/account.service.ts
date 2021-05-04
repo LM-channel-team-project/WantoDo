@@ -7,7 +7,7 @@ import { BeginningOfWeek, Theme, users } from '../../models/user.model';
  * @author 강성모(castleMo)
  * @since 2021/04/25
  *
- * @param user	platform 유저 객체
+ * @param user  platform 유저 객체
  */
 export const isUserExist = async (user: UserInfo) => {
 	try {
@@ -46,18 +46,29 @@ export const loginUser = async (user: UserInfo) => {
 			isCloseAccount: false,
 		});
 
-		let returnToUser = {
+		let returnToUser: any = {
 			email: '',
 			platform: '',
 			nickname: '',
 			motto: '',
 			profileImageUrl: '',
 			settings: {},
+			notifications: [],
+			isTutorial: false,
 		};
 
 		if (count < 1) {
 			// create
-			const { email, platform, name, motto, profileImageUrl, settings } = await users.create({
+			const {
+				email,
+				platform,
+				name,
+				motto,
+				profileImageUrl,
+				settings,
+				notifications,
+				isTutorial,
+			} = await users.create({
 				userId: uuidV4(),
 				email: user.email,
 				platform: user.platform,
@@ -72,6 +83,8 @@ export const loginUser = async (user: UserInfo) => {
 				motto,
 				profileImageUrl,
 				settings,
+				notifications,
+				isTutorial,
 			};
 		} else {
 			// find
@@ -93,6 +106,8 @@ export const loginUser = async (user: UserInfo) => {
 				motto: dbUser.motto,
 				profileImageUrl: dbUser.profileImageUrl,
 				settings: dbUser.settings,
+				notifications: dbUser.notifications,
+				isTutorial: dbUser.isTutorial,
 			};
 		}
 
@@ -109,10 +124,10 @@ export const loginUser = async (user: UserInfo) => {
  * @author 강성모(castleMo)
  * @since 2021/04/14
  *
- * @param user							platform 유저 객체
- * @param theme							테마
- * @param isNotification		알림받기 여부
- * @param beginningOfWeek		한주의 시작 설정
+ * @param user              platform 유저 객체
+ * @param theme              테마
+ * @param isNotification    알림받기 여부
+ * @param beginningOfWeek    한주의 시작 설정
  */
 export const updateUserSettings = async (
 	user: UserInfo,
@@ -161,7 +176,7 @@ export const updateUserSettings = async (
  * @author 강성모(castleMo)
  * @since 2021/04/15
  *
- * @param user	platform 유저 객체
+ * @param user  platform 유저 객체
  */
 export const withdrawUser = async (user: UserInfo) => {
 	try {
