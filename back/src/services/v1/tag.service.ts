@@ -13,7 +13,10 @@ import { tags } from '../../models/tag.model';
  */
 export const createTag = async (user: UserInfo, name: string, color: string) => {
 	try {
-		const wantodoUser = await users.findByPlatformIdAndPlatform(user.platformId, user.platform);
+		const wantodoUser = await users.findByPlatformIdAndPlatform({
+			platformId: user.platformId,
+			platform: user.platform,
+		});
 
 		await tags.create({
 			userId: wantodoUser.userId,
@@ -38,7 +41,10 @@ export const createTag = async (user: UserInfo, name: string, color: string) => 
  */
 export const getTags = async (user: UserInfo) => {
 	try {
-		const wantodoUser = await users.findByPlatformIdAndPlatform(user.platformId, user.platform);
+		const wantodoUser = await users.findByPlatformIdAndPlatform({
+			platformId: user.platformId,
+			platform: user.platform,
+		});
 
 		const returnTags = await tags.find(
 			{
@@ -78,7 +84,10 @@ export const updateTag = async (user: UserInfo, tagId: string, name: string, col
 		// todo: Error model 정의하기
 		if (name === undefined && color === undefined) throw new Error('둘다 비어있음');
 
-		const wantodoUser = await users.findByPlatformIdAndPlatform(user.platformId, user.platform);
+		const wantodoUser = await users.findByPlatformIdAndPlatform({
+			platformId: user.platformId,
+			platform: user.platform,
+		});
 
 		const updateTagDoc: any = {
 			updatedTimestamp: Math.floor(+new Date()),
@@ -110,12 +119,15 @@ export const updateTag = async (user: UserInfo, tagId: string, name: string, col
  * @author 강성모(castleMo)
  * @since 21/05/03
  *
- * @param user	platform 유저 객체
- * @param tagId	태그 id
+ * @param user  platform 유저 객체
+ * @param tagId  태그 id
  */
 export const deleteTag = async (user: UserInfo, tagId: string) => {
 	try {
-		const wantodoUser = await users.findByPlatformIdAndPlatform(user.platformId, user.platform);
+		const wantodoUser = await users.findByPlatformIdAndPlatform({
+			platformId: user.platformId,
+			platform: user.platform,
+		});
 
 		await tags
 			.updateOne(
