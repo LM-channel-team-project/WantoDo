@@ -51,7 +51,12 @@ accountRouter.get('/signed', accountController.isUserExist);
  * @apiSuccess (SUCCESS) {String} data.platform 플랫폼
  * @apiSuccess (SUCCESS) {String} data.motto motto
  * @apiSuccess (SUCCESS) {String} data.profileImageUrl 이미지 URL
- * @apiSuccess (SUCCESS) {String} data.settings 유저 settings
+ * @apiSuccess (SUCCESS) {Boolean} data.isTutorial 이미지 URL
+ * @apiSuccess (SUCCESS) {Array} data.notifications 유저 notification tokens
+ * @apiSuccess (SUCCESS) {Object} data.settings 유저 settings
+ * @apiSuccess (SUCCESS) {Object} data.settings.theme 테마 설정 (default | dark)
+ * @apiSuccess (SUCCESS) {Object} data.settings.isNotification 알림 받을 여부
+ * @apiSuccess (SUCCESS) {Object} data.settings.beginningOfWeek 한주의 시작 설정 (sunday | monday)
  * @apiSuccess (SUCCESS) {String} msg 성공메시지
  * @apiSuccessExample {json} SuccessResponse
  * {
@@ -62,11 +67,13 @@ accountRouter.get('/signed', accountController.isUserExist);
  *         "platform": "google",
  *         "motto": "착하게 살자",
  *         "profileImageUrl": "https://image.com",
+ *         "isTutorial": false,
  *         "settings": {
  *           "theme": "default",
  *           "isNotification": false,
  *           "beginningOfWeek": "sunday"
- *         }
+ *         },
+ *         "notifications": [],
  *     }
  * }
  */
