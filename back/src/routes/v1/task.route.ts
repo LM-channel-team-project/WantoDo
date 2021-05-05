@@ -31,9 +31,18 @@ const taskRouter = Router();
  * {
  *     "contents": "Hello world",
  *     "tags": [
- *       "5eae854a-6379-4151-9d20-6d7ac8e89b32",
- *       "5eae854a-6379-4151-9d20-6d7ac8e89b33",
- *       "5eae854a-6379-4151-9d20-6d7ac8e89b34"
+ *       {
+ *         "tagId": "5eae854a-6379-4151-9d20-6d7ac8e89b32",
+ *         "isMainTag": true,
+ *       },
+ *       {
+ *         "tagId": "5eae854a-6379-4151-9d20-6d7ac8e89b34",
+ *         "isMainTag": false,
+ *       },
+ *       {
+ *         "tagId": "5eae854a-6379-4151-9d20-6d7ac8e89b33",
+ *         "isMainTag": false,
+ *       }
  *     ]
  * }
  *
@@ -56,9 +65,18 @@ const taskRouter = Router();
  * {
  *     "contents": "Hello world",
  *     "tags": [
- *       "5eae854a-6379-4151-9d20-6d7ac8e89b32",
- *       "5eae854a-6379-4151-9d20-6d7ac8e89b33",
- *       "5eae854a-6379-4151-9d20-6d7ac8e89b34"
+ *       {
+ *         "tagId": "5eae854a-6379-4151-9d20-6d7ac8e89b32",
+ *         "isMainTag": true,
+ *       },
+ *       {
+ *         "tagId": "5eae854a-6379-4151-9d20-6d7ac8e89b34",
+ *         "isMainTag": false,
+ *       },
+ *       {
+ *         "tagId": "5eae854a-6379-4151-9d20-6d7ac8e89b33",
+ *         "isMainTag": false,
+ *       }
  *     ],
  *     "period": {
  *       "start": 21039210,
@@ -110,9 +128,18 @@ taskRouter.get('/', taskController.getTasks);
  * {
  *     "contents": "Hello world",
  *     "tags": [
- *       "5eae854a-6379-4151-9d20-6d7ac8e89b32",
- *       "5eae854a-6379-4151-9d20-6d7ac8e89b33",
- *       "5eae854a-6379-4151-9d20-6d7ac8e89b34"
+ *       {
+ *         "tagId": "5eae854a-6379-4151-9d20-6d7ac8e89b32",
+ *         "isMainTag": true,
+ *       },
+ *       {
+ *         "tagId": "5eae854a-6379-4151-9d20-6d7ac8e89b34",
+ *         "isMainTag": false,
+ *       },
+ *       {
+ *         "tagId": "5eae854a-6379-4151-9d20-6d7ac8e89b33",
+ *         "isMainTag": false,
+ *       }
  *     ]
  * }
  *
@@ -135,9 +162,18 @@ taskRouter.get('/', taskController.getTasks);
  * {
  *     "contents": "Hello world",
  *     "tags": [
- *       "5eae854a-6379-4151-9d20-6d7ac8e89b32",
- *       "5eae854a-6379-4151-9d20-6d7ac8e89b33",
- *       "5eae854a-6379-4151-9d20-6d7ac8e89b34"
+ *       {
+ *         "tagId": "5eae854a-6379-4151-9d20-6d7ac8e89b32",
+ *         "isMainTag": true,
+ *       },
+ *       {
+ *         "tagId": "5eae854a-6379-4151-9d20-6d7ac8e89b34",
+ *         "isMainTag": false,
+ *       },
+ *       {
+ *         "tagId": "5eae854a-6379-4151-9d20-6d7ac8e89b33",
+ *         "isMainTag": false,
+ *       }
  *     ],
  *     "period": {
  *       "start": 21039210,
