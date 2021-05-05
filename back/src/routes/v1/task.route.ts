@@ -9,7 +9,7 @@ const taskRouter = Router();
  * @since 2021/04/29
  */
 /**
- * @api {post} /v1/tasks task 생성
+ * @api {post} /v1/tasks Task 생성
  * @apiName createTask
  * @apiGroup Tasks
  * @apiVersion 1.0.0
@@ -87,13 +87,13 @@ taskRouter.get('/', taskController.getTasks);
  * @since 2021/05/01
  */
 /**
- * @api {patch} /v1/tasks/:taskId task 수정
+ * @api {patch} /v1/tasks/:taskId Task 수정
  * @apiName updateTask
  * @apiGroup Tasks
  * @apiVersion 1.0.0
  *
  * @apiUse HeaderToken
- * @apiParam (Path Parameter) {String} taskId task Id
+ * @apiParam (Path Variable) {String} taskId task Id
  *
  * @apiParam (Body) {Object} [period] 기간
  * @apiParam (Body) {Object} period.start 시작 시간
@@ -161,13 +161,13 @@ taskRouter.patch('/:taskId', taskController.updateTask);
  * @since 2021/04/30
  */
 /**
- * @api {delete} /v1/tasks/:taskId task 삭제
+ * @api {delete} /v1/tasks/:taskId Task 삭제
  * @apiName deleteTask
  * @apiGroup Tasks
  * @apiVersion 1.0.0
  *
  * @apiUse HeaderToken
- * @apiParam (Path Parameter) {String} taskId task Id
+ * @apiParam (Path Variable) {String} taskId task Id
  *
  * @apiSampleRequest /v1/tasks/:taskId
  * @apiSuccess (SUCCESS) {String} msg 성공메시지

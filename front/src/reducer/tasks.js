@@ -33,22 +33,29 @@ export const addTask = (task) => ({ type: ADD_TASK, task });
 export const updateTask = (task) => ({ type: UPDATE_TASK, task });
 export const deleteTask = (id) => ({ type: DELETE_TASK, id });
 
+function generateId() {
+  const randomNumber = Date.now() * Math.floor(Math.random() * 100);
+  return randomNumber.toString(16);
+}
+
 const reducer = (state = initialTask, action) => {
-  const newState = { ...state };
+  const tasks = { ...state };
+
   switch (action.type) {
     case ADD_TASK:
-      console.log('add', action.task);
+      tasks[generateId()] = action.task;
       break;
     case UPDATE_TASK:
-      newState[action.task.id] = action.task.content;
+      tasks[action.task.id] = action.task.content;
       break;
     case DELETE_TASK:
-      delete newState[action.id];
+      delete tasks[action.id];
       break;
     default:
       break;
   }
-  return newState;
+
+  return tasks;
 };
 
 export default reducer;

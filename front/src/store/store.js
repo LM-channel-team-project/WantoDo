@@ -1,10 +1,5 @@
 import { combineReducers, createStore } from 'redux';
-import profileReducer, {
-  createProfile,
-  deleteProfile,
-  editProfile,
-  getProfile,
-} from '../reducer/profile';
+import profileReducer, { createProfile, deleteProfile, editProfile } from '../reducer/profile';
 import tasksReducer, { addTask, deleteTask, updateTask } from '../reducer/tasks';
 import modalReducer, { toggleModal, toggleTaskFormModal } from '../reducer/modal';
 
@@ -18,7 +13,6 @@ const store = createStore(rootReducer);
 
 export const actionCreators = {
   createProfile,
-  getProfile,
   editProfile,
   deleteProfile,
   addTask,

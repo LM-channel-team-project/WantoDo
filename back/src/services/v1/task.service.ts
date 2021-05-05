@@ -10,6 +10,12 @@ interface ReqCreateTaskOptions {
 	period: { start: number; end: number } | undefined;
 }
 
+interface ReqGetTasksOptions {
+	year: number;
+	month: number;
+	day: number | undefined;
+}
+
 interface ReqUpdateTaskOptions extends ReqCreateTaskOptions {
 	contents: string | undefined;
 }
@@ -18,13 +24,16 @@ interface ReqUpdateTaskOptions extends ReqCreateTaskOptions {
  * @author 강성모(castleMo)
  * @since 2021/04/29
  *
- * @param user				platform 유저 객체
- * @param contents  	투두 내용
- * @param options			태그, 중요도, 시작 및 종료 기간
+ * @param user        platform 유저 객체
+ * @param contents    투두 내용
+ * @param options      태그, 중요도, 시작 및 종료 기간
  */
 export const createTask = async (user: UserInfo, contents: string, options: ReqCreateTaskOptions) => {
 	try {
-		const wantodoUser = await users.findByPlatformIdAndPlatform(user.platformId, user.platform);
+		const wantodoUser = await users.findByPlatformIdAndPlatform({
+			platformId: user.platformId,
+			platform: user.platform,
+		});
 
 		await tasks.create({
 			userId: wantodoUser.userId,
@@ -41,21 +50,40 @@ export const createTask = async (user: UserInfo, contents: string, options: ReqC
 	}
 };
 
+export const getTasks = async (user: UserInfo, options: ReqGetTasksOptions) => {
+	try {
+		// const wantodoUser = await users.findByPlatformIdAndPlatform({
+		// 	platformId: user.platformId,
+		// 	platform: user.platform,
+		// });
+
+		return {
+			msg: 'getTasks',
+		};
+	} catch (err) {
+		throw err;
+	}
+};
+
 /**
  * @author 강성모(castleMo)
  * @since 2021/05/02
  *
- * @param user              	platform 유저 객체
- * @param taskId            	task Id
- * @param options            	투두의 내용, 중요도, 시작 & 종료 기간, 태그 객체
- * @param options.contents		task 내용
- * @param options.important		중요도
- * @param options.period			시작 & 종료 기간
- * @param options.tags				태그
+ * @param user                platform 유저 객체
+ * @param taskId              task Id
+ * @param options              투두의 내용, 중요도, 시작 & 종료 기간, 태그 객체
+ * @param options.contents    task 내용
+ * @param options.important    중요도
+ * @param options.period      시작 & 종료 기간
+ * @param options.tags        태그
  */
 export const updateTask = async (user: UserInfo, taskId: string, options: ReqUpdateTaskOptions) => {
 	try {
-		const wantodoUser = await users.findByPlatformIdAndPlatform(user.platformId, user.platform);
+		const wantodoUser = await users.findByPlatformIdAndPlatform({
+			platformId: user.platformId,
+			platform: user.platform,
+		});
+
 		const { contents, important, period, tags } = options;
 
 		const updateDoc: any = {
@@ -95,7 +123,10 @@ export const updateTask = async (user: UserInfo, taskId: string, options: ReqUpd
  */
 export const deleteTask = async (user: UserInfo, taskId: string) => {
 	try {
-		const wantodoUser = await users.findByPlatformIdAndPlatform(user.platformId, user.platform);
+		const wantodoUser = await users.findByPlatformIdAndPlatform({
+			platformId: user.platformId,
+			platform: user.platform,
+		});
 
 		await tasks
 			.updateOne(
@@ -121,6 +152,7 @@ export const deleteTask = async (user: UserInfo, taskId: string) => {
 
 export default {
 	createTask,
-	deleteTask,
+	getTasks,
 	updateTask,
+	deleteTask,
 };

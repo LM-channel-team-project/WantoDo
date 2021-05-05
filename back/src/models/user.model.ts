@@ -41,6 +41,10 @@ const userSchema = new Schema({
 		type: String,
 		default: '',
 	},
+	isTutorial: {
+		type: Boolean,
+		default: false,
+	},
 	createdTimestamp: {
 		type: Number,
 		default: () => Math.floor(+new Date()),
@@ -105,28 +109,36 @@ export interface IUserDocument extends Document {
 	nickname: string;
 	motto: string;
 	profileImageUrl: string;
+	isTutorial: boolean; // tutorial 여부
 	createdTimestamp: number;
 	updatedTimestamp: number;
 	isCloseAccount: boolean; // 회원탈퇴 여부
 	closeAccountMessage: string; // 회원탈퇴 메시지
-	notifications: [INotification];
+	notifications: INotification[];
 	settings: ISetting;
+}
+
+interface findByPlatformIdAndPlatformFilter {
+	platformId: string;
+	platform: string;
 }
 
 interface IUserModel extends Model<IUserDocument> {
 	// statics
-	findByPlatformIdAndPlatform(platformId: string, platform: string): Promise<IUserDocument>;
+	findByPlatformIdAndPlatform(filter: findByPlatformIdAndPlatformFilter, projection?: any): Promise<IUserDocument>;
 }
 
 userSchema.statics.findByPlatformIdAndPlatform = async function findByPlatformIdAndPlatform(
-	platformId: string,
-	platform: string,
+	filter: findByPlatformIdAndPlatformFilter,
+	projection?: any,
 ) {
-	const user: IUserDocument = await this.findOne({
-		platformId,
-		platform,
-		isCloseAccount: false,
-	});
+	const user: IUserDocument = await this.findOne(
+		{
+			...filter,
+			isCloseAccount: false,
+		},
+		projection,
+	);
 	return user;
 };
 
