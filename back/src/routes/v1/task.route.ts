@@ -16,20 +16,28 @@ const taskRouter = Router();
  *
  * @apiUse HeaderToken
  *
- * @apiParam (Body) {Object} [period] 기간
+ * @apiParam (Body) {Object} period 기간
  * @apiParam (Body) {Object} period.start 시작 시간
  * @apiParam (Body) {Object} period.end 종료 시간
  * @apiParam (Body) {String} contents 내용
  * @apiParam (Body) {Array} [tags] 태그 Id
  * @apiParam (Body) {Number} [important] 중요도
- * @apiParamExample {json} RequestBodyExample (contents)
- * {
- *     "contents": "Hello world"
- * }
- *
- * @apiParamExample {json} RequestBodyExample (contents + tags)
+ * @apiParamExample {json} RequestBodyExample (default)
  * {
  *     "contents": "Hello world",
+ *     "period": {
+ *       "start": 1621473199000,
+ *       "end": 1621473199000
+ *     }
+ * }
+ *
+ * @apiParamExample {json} RequestBodyExample (default + tags)
+ * {
+ *     "contents": "Hello world",
+ *     "period": {
+ *       "start": 1621473199000,
+ *       "end": 1621473199000
+ *     },
  *     "tags": [
  *       {
  *         "tagId": "5eae854a-6379-4151-9d20-6d7ac8e89b32",
@@ -46,18 +54,15 @@ const taskRouter = Router();
  *     ]
  * }
  *
- * @apiParamExample {json} RequestBodyExample (contents + period)
+ *
+ *
+ * @apiParamExample {json} RequestBodyExample (default + important)
  * {
  *     "contents": "Hello world",
  *     "period": {
- *       "start": 21039210,
- *       "end": 31820938
- *     }
- * }
- *
- * @apiParamExample {json} RequestBodyExample (contents + important)
- * {
- *     "contents": "Hello world",
+ *       "start": 1621473199000,
+ *       "end": 1621473199000
+ *     },
  *     "important": 2
  * }
  *
@@ -79,8 +84,8 @@ const taskRouter = Router();
  *       }
  *     ],
  *     "period": {
- *       "start": 21039210,
- *       "end": 31820938
+ *       "start": 1621473199000,
+ *       "end": 1621473199000
  *     },
  *     "important": 2
  * }
@@ -91,12 +96,80 @@ const taskRouter = Router();
  * {
  *     "msg": "success"
  * }
- *
  */
 taskRouter.post('/', taskController.createTask);
 
 /**
+ * @author 강성모(castleMo)
+ * @since 2021/05/05
+ */
+/**
+ * @api {get} /v1/tasks Task 조회
+ * @apiName getTasks
+ * @apiGroup Tasks
+ * @apiVersion 1.0.0
  *
+ * @apiUse HeaderToken
+ *
+ * @apiParam (Query Parameter) {String} year 년
+ * @apiParam (Query Parameter) {String} month 월
+ * @apiParam (Query Parameter) {String} [day] 일
+ *
+ * @apiSampleRequest /v1/tasks
+ * @apiSuccess (SUCCESS) {Object} data Response Data Object
+ * @apiSuccess (SUCCESS) {Array} data.tasks Task 배열
+ * @apiSuccess (SUCCESS) {Array} data.tasks.taskId Task id
+ * @apiSuccess (SUCCESS) {Array} data.tasks.contents 내용
+ * @apiSuccess (SUCCESS) {Array} data.tasks.important 중요도
+ * @apiSuccess (SUCCESS) {Array} data.tasks.isChecked 수행 여부
+ * @apiSuccess (SUCCESS) {Array} data.tasks.tags 태그 배열
+ * @apiSuccess (SUCCESS) {Array} data.tasks.tags.tagId 태그 id
+ * @apiSuccess (SUCCESS) {Array} data.tasks.tags.isMainTag 메인 태그 여부
+ * @apiSuccess (SUCCESS) {Array} data.tasks.period 시작 종료 기간 객체
+ * @apiSuccess (SUCCESS) {Array} data.tasks.period.start 시작
+ * @apiSuccess (SUCCESS) {Array} data.tasks.period.end 종료
+ * @apiSuccess (SUCCESS) {Array} data.tasks.createdTimestamp 생성 일자
+ * @apiSuccess (SUCCESS) {Array} data.tasks.updatedTimestamp 업데이트 일자
+ * @apiSuccess (SUCCESS) {String} msg 성공메시지
+ * @apiSuccessExample {json} SuccessResponse
+ * {
+ *     "msg": "success",
+ *     "data": {
+ *       "tasks": [
+ *         {
+ *           "period": {
+ *            "start": 1620201453000,
+ *            "end": 1620201453000
+ *           },
+ *           "isChecked": false,
+ *           "important": 0,
+ *           "updatedTimestamp": 0,
+ *           "taskId": "958c10bd-c946-4170-9d92-33eead88eea1",
+ *           "contents": "test3",
+ *           "tags": [
+ *             {
+ *               "tagId": "958c10bd-c946-4170-9d92-33eead88eea2",
+ *               "isMainTag": true
+ *             }
+ *           ],
+ *           "createdTimestamp": 1620201587228
+ *          },
+ *          {
+ *            "period": {
+ *              "start": 1621473199000,
+ *              "end": 1621473199000
+ *            },
+ *            "isChecked": false,
+ *            "important": 0,
+ *            "updatedTimestamp": 0,
+ *            "taskId": "86c2b5c9-5242-49b3-b79a-c72f4942d7d9",
+ *            "contents": "test3",
+ *            "tags": [],
+ *            "createdTimestamp": 1620201877457
+ *          }
+ *       ]
+ *     }
+ * }
  */
 taskRouter.get('/', taskController.getTasks);
 

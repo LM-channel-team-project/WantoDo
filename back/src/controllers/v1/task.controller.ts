@@ -57,7 +57,6 @@ export const createTask = async (req: Request, res: Response, next: NextFunction
 				.withMessage('is not Boolean value')
 				.run(req),
 			body('period')
-				.optional({ checkFalsy: true })
 				.notEmpty()
 				.withMessage('is empty')
 				.bail()
@@ -104,7 +103,7 @@ export const createTask = async (req: Request, res: Response, next: NextFunction
 
 /**
  * @author 강성모(castleMo)
- * @since
+ * @since 2021/05/05
  *
  * @param req    Request
  * @param res    Response
@@ -121,9 +120,35 @@ export const getTasks = async (req: Request, res: Response, next: NextFunction) 
 				.isJWT()
 				.withMessage('is not JWT value')
 				.run(req),
-			query('year').run(req),
-			query('month').run(req),
-			query('day').run(req),
+			query('year')
+				.trim()
+				.notEmpty()
+				.withMessage('is empty')
+				.bail()
+				.isInt()
+				.withMessage('is not Number value')
+				.run(req),
+			query('month')
+				.trim()
+				.notEmpty()
+				.withMessage('is empty')
+				.bail()
+				.isInt()
+				.withMessage('is not Number value')
+				.isInt({ min: 1, max: 12 })
+				.withMessage('month size must be greater than 1 or less than 12')
+				.run(req),
+			query('day')
+				.optional({ checkFalsy: true })
+				.trim()
+				.notEmpty()
+				.withMessage('is empty')
+				.bail()
+				.isInt()
+				.withMessage('is not Number value')
+				.isInt({ min: 1, max: 31 })
+				.withMessage('day size must be greater than 1 or less than 31')
+				.run(req),
 		]);
 
 		// validation Error
@@ -138,6 +163,7 @@ export const getTasks = async (req: Request, res: Response, next: NextFunction) 
 
 		const { user } = res.locals;
 		const { year, month, day } = req.query;
+
 		const result = await taskService.getTasks(user, {
 			year: Number(year),
 			month: Number(month),
