@@ -33,10 +33,12 @@ const taskSchema = new Schema({
 		type: Number,
 		default: 0,
 	},
-	tags: {
-		type: [String],
-		default: [],
-	},
+	tags: [
+		{
+			tagId: String,
+			isMainTag: Boolean,
+		},
+	],
 	// repeat: {
 	// 	interval: Number,
 	// 	dayOfWeek: [Number],
