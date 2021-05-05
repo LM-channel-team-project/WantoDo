@@ -15,12 +15,20 @@
   color: black;
 }
 
+.starLightOff:hover {
+  color: yellow;
+}
+
 path.star {
   fill: yellow;
 }
 
 path.starLightOff {
   fill: black;
+}
+
+path.starLightOff:hover {
+  fill: yellow;
 }
 
 .hidden {

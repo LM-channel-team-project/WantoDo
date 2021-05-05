@@ -1,15 +1,18 @@
-@value space-narrow as narrow, space-narrower as narrower, font-large as large from './common/size.css';
+@value colorWhite from './common/color.css';
+@value space-narrow as narrow, space-narrower as narrower, font-regular as regular, weight-semibold as semibold from './common/size.css';
 
 .selector {
   display: flex;
   align-items: center;
-  padding: narrow;
+  padding: narrower;
   display: inline-flex;
 }
 
 .name {
-  margin-right: narrower;
-  font-size: large;
+  margin-right: narrow;
+  font-size: 1em;
+  font-weight: semibold;
+  color: colorWhite;
 }
 
 .item {
@@ -23,12 +26,18 @@
 .close {
   color: yellow;
   transform: rotate(45deg);
+  width: 23px;
+  height: 23px;
 }
 
 .close.lightOff {
   color: black;
 }
 
+.close.lightOff:hover {
+  color: yellow;
+}
+
 .select {
   display: none;
-} 
+}

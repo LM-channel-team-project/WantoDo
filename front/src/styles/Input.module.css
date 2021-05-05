@@ -1,21 +1,24 @@
 @value colors: './common/color.css';
 @value size: './common/size.css';
 @value effect: './common/effect.css';
-@value colorGray, colorLightGray, colorLightBlack from colors;
-@value space-regular as regular, space-narrower as narrower, border-radius as radius from size;
+@value colorWhite, colorGray, colorLightGray, colorLightBlack, colorBlack from colors;
+@value space-regular as regular, space-narrower as narrower, button-radius as radius from size;
 @value animation-duration-regular as duration-regular from effect;
 
 .input {
-  padding: 0.2em narrower;
+  position: relative;
+  left: -5px;
+  padding: 0.4em 1em;
   border-radius: radius;
-  background-color: colorLightGray;
+  background-color: transparent;
   font-size: 1em;
-  color: colorLightBlack;
+  color: colorWhite;
 }
 
 .input:focus {
-  background-color: colorGray;
+  background-color: colorLightBlack;
   transition: all duration-regular ease-in;
+  color: colorWhite;
 }
 
 .QuickAddForm {
@@ -36,7 +39,7 @@
   width: 100%;
   font-size: 1.5em;
   background-color: transparent;
-  border-bottom: 1px solid #000;
+  border-bottom: 1px solid colorBlack;
   border-radius: 0;
   margin-top: 0.3em;
   margin-bottom: 0.8em;
