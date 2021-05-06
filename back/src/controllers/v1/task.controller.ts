@@ -1,14 +1,14 @@
 import { NextFunction, Request, Response } from 'express';
-import { body, header, param, validationResult } from 'express-validator';
+import { body, header, param, query, validationResult } from 'express-validator';
 import taskService from '../../services/v1/task.service';
 
 /**
  * @author 강성모(castleMo)
  * @since 2021/04/29
  *
- * @param req		Request
- * @param res		Response
- * @param next	NextFunction
+ * @param req    Request
+ * @param res    Response
+ * @param next  NextFunction
  */
 export const createTask = async (req: Request, res: Response, next: NextFunction) => {
 	try {
@@ -37,7 +37,7 @@ export const createTask = async (req: Request, res: Response, next: NextFunction
 				.isArray({ min: 1 })
 				.withMessage('Array length must be greater than 1')
 				.run(req),
-			body('tags.*')
+			body('tags.*.tagId')
 				.trim()
 				.notEmpty()
 				.withMessage('is empty')
@@ -48,8 +48,15 @@ export const createTask = async (req: Request, res: Response, next: NextFunction
 				.isUUID('4')
 				.withMessage('is not UUID version4 value')
 				.run(req),
+			body('tags.*.isMainTag')
+				.trim()
+				.notEmpty()
+				.withMessage('is empty')
+				.bail()
+				.isBoolean()
+				.withMessage('is not Boolean value')
+				.run(req),
 			body('period')
-				.optional({ checkFalsy: true })
 				.notEmpty()
 				.withMessage('is empty')
 				.bail()
@@ -96,15 +103,73 @@ export const createTask = async (req: Request, res: Response, next: NextFunction
 
 /**
  * @author 강성모(castleMo)
- * @since
+ * @since 2021/05/05
  *
- * @param req		Request
- * @param res		Response
- * @param next	NextFunction
+ * @param req    Request
+ * @param res    Response
+ * @param next  NextFunction
  */
-export const getTasks = (req: Request, res: Response, next: NextFunction) => {
+export const getTasks = async (req: Request, res: Response, next: NextFunction) => {
 	try {
-		res.status(200).send('get Tasks');
+		await Promise.all([
+			header('Authorization')
+				.trim()
+				.notEmpty()
+				.withMessage('is empty')
+				.bail()
+				.isJWT()
+				.withMessage('is not JWT value')
+				.run(req),
+			query('year')
+				.trim()
+				.notEmpty()
+				.withMessage('is empty')
+				.bail()
+				.isInt()
+				.withMessage('is not Number value')
+				.run(req),
+			query('month')
+				.trim()
+				.notEmpty()
+				.withMessage('is empty')
+				.bail()
+				.isInt()
+				.withMessage('is not Number value')
+				.isInt({ min: 1, max: 12 })
+				.withMessage('month size must be greater than 1 or less than 12')
+				.run(req),
+			query('day')
+				.optional({ checkFalsy: true })
+				.trim()
+				.notEmpty()
+				.withMessage('is empty')
+				.bail()
+				.isInt()
+				.withMessage('is not Number value')
+				.isInt({ min: 1, max: 31 })
+				.withMessage('day size must be greater than 1 or less than 31')
+				.run(req),
+		]);
+
+		// validation Error
+		// todo: Error model 정의하기
+		const validationErrors = validationResult(req);
+		if (!validationErrors.isEmpty()) {
+			validationErrors.array().forEach((value) => {
+				console.log(value);
+			});
+			throw new Error('error');
+		}
+
+		const { user } = res.locals;
+		const { year, month, day } = req.query;
+
+		const result = await taskService.getTasks(user, {
+			year: Number(year),
+			month: Number(month),
+			day: Number(day),
+		});
+		res.status(200).send(result);
 	} catch (err) {
 		next(err);
 	}
@@ -114,9 +179,9 @@ export const getTasks = (req: Request, res: Response, next: NextFunction) => {
  * @author 강성모(castleMo)
  * @since 2021/05/01
  *
- * @param req		Request
- * @param res		Response
- * @param next	NextFunction
+ * @param req    Request
+ * @param res    Response
+ * @param next  NextFunction
  */
 export const updateTask = async (req: Request, res: Response, next: NextFunction) => {
 	try {
@@ -146,7 +211,7 @@ export const updateTask = async (req: Request, res: Response, next: NextFunction
 				.isArray({ min: 1 })
 				.withMessage('Array length must be greater than 1')
 				.run(req),
-			body('tags.*')
+			body('tags.*.tagId')
 				.trim()
 				.notEmpty()
 				.withMessage('is empty')
@@ -156,6 +221,14 @@ export const updateTask = async (req: Request, res: Response, next: NextFunction
 				.bail()
 				.isUUID('4')
 				.withMessage('is not UUID version4 value')
+				.run(req),
+			body('tags.*.isMainTag')
+				.trim()
+				.notEmpty()
+				.withMessage('is empty')
+				.bail()
+				.isBoolean()
+				.withMessage('is not Boolean value')
 				.run(req),
 			body('period')
 				.optional({ checkFalsy: true })
@@ -209,9 +282,9 @@ export const updateTask = async (req: Request, res: Response, next: NextFunction
  * @author 강성모(castleMo)
  * @since 2021/04/30
  *
- * @param req		Request
- * @param res		Response
- * @param next	NextFunction
+ * @param req    Request
+ * @param res    Response
+ * @param next  NextFunction
  */
 export const deleteTask = async (req: Request, res: Response, next: NextFunction) => {
 	try {

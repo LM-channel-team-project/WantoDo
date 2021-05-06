@@ -33,10 +33,12 @@ const taskSchema = new Schema({
 		type: Number,
 		default: 0,
 	},
-	tags: {
-		type: [String],
-		default: [],
-	},
+	tags: [
+		{
+			tagId: String,
+			isMainTag: Boolean,
+		},
+	],
 	// repeat: {
 	// 	interval: Number,
 	// 	dayOfWeek: [Number],
@@ -78,6 +80,11 @@ export interface IAlarm {
 	time: number;
 }
 
+export interface ITag {
+	tagId: string;
+	isMainTag: boolean;
+}
+
 export interface ITaskDocument extends Document {
 	userId: string;
 	taskId: string;
@@ -88,7 +95,7 @@ export interface ITaskDocument extends Document {
 		end: number;
 	};
 	important: number;
-	tags: string[];
+	tags: ITag[];
 	repeat: {
 		interval: number;
 		datOfWeek: [number];

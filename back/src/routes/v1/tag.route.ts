@@ -18,7 +18,7 @@ const tagRouter = Router();
  *
  * @apiParam (Body) {String} name 태그 이름
  * @apiParam (Body) {String} color 태그 색
- * @apiParamExample {json} RequestBodyExample
+ * @apiParamExample {json} RequestBodyExample (default)
  * {
  *   "name": "tag1",
  *   "color": "#000000"
