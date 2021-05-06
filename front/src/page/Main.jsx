@@ -23,7 +23,6 @@ const Main = ({ isProfileShow, isTaskFormShow, content }) => {
 };
 
 const mapStateToProps = ({ modal: { profile, taskForm } }) => {
-  console.dir(taskForm.input);
   return {
     isProfileShow: profile,
     isTaskFormShow: taskForm.display,

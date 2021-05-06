@@ -9,12 +9,11 @@ const GoogleLoginButton = ({ onLogin }) => {
     // 서버에 사용자 정보 전송, 가입 상태 및 프로필 정보 응답 받음
     const idToken = response.tokenObj.id_token;
 
-    const { name, email, imageUrl } = response.profileObj;
+    const { name, email } = response.profileObj;
 
     const defaultProfile = {
       userName: name.length > 10 ? name.slice(0, 10) : name,
       email,
-      imageURL: imageUrl,
     };
 
     const userData = await accountManager.getUserData(idToken);

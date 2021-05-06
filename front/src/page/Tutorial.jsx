@@ -16,7 +16,7 @@ const Tutorial = ({ profile, createProfile }) => {
 
   const [imageURL, setImageURL] = useState(profile.imageURL);
 
-  const onImageChange = (url) => {
+  const onImageChange = (url = '') => {
     setImageURL(url);
   };
 
@@ -34,7 +34,6 @@ const Tutorial = ({ profile, createProfile }) => {
 
     // 임시 처리
     newProfile.email = profile.email;
-    newProfile.imageURL = profile.imageURL;
 
     createProfile(newProfile);
     history.push('/');
@@ -45,7 +44,7 @@ const Tutorial = ({ profile, createProfile }) => {
       <ul className={styles.list}>
         <li className={styles.profile}>
           <ProfileImage imageURL={imageURL} styleName="tutorial" />
-          <IconButton Icon={FaPlus} styleName="tutorial__image" onClick={onImageChange} />
+          <IconButton Icon={FaPlus} styleName="tutorial__image" onClick={() => onImageChange()} />
         </li>
         <li className={styles.textBox}>
           <InputBox
