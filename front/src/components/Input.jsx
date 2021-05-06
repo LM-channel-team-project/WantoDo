@@ -33,15 +33,17 @@ const Input = ({
   styleName,
   rows,
   cols,
+  size,
   maxLength,
   onChange,
+  ...props
 }) => {
   const [value, setValue] = useState(initialValue || '');
-  const { inputSize, flexInputSize } = useFlexInputSize(3);
+  const { inputSize, flexInputSize } = useFlexInputSize(size);
 
   const onValueChange = (event) => {
     const inputValue = event.target.value;
-
+    console.log(inputRef.current.value);
     let validFlag = true;
     if (validator instanceof Function) {
       validFlag = validator(inputValue);
@@ -54,11 +56,14 @@ const Input = ({
       flexInputSize(length >= 3 ? length * 1.8 : 3);
     }
 
-    setValue(inputValue);
-    if (onChange instanceof Function) onChange(event);
+    if (onChange instanceof Function) {
+      onChange(event, setValue);
+    } else {
+      setValue(inputValue);
+    }
   };
 
-  const props = {
+  const initialProps = {
     ref: inputRef,
     id,
     value,
@@ -68,13 +73,17 @@ const Input = ({
     name: name || 'input',
     placeholder: placeholder || '',
     autoComplete: 'off',
-    size: styleName === 'tagInput' ? inputSize : '',
+    size: inputSize || '',
     rows: type === 'textarea' ? rows : '',
     cols: type === 'textarea' ? cols : '',
     onChange: onValueChange,
   };
 
-  return type === 'textarea' ? <textarea {...props} /> : <input {...props} />;
+  return type === 'textarea' ? (
+    <textarea {...initialProps} {...props} />
+  ) : (
+    <input {...initialProps} {...props} />
+  );
 };
 
 export default Input;

@@ -9,7 +9,7 @@ import styles from '../styles/PrioritySelector.module.css';
  * @param {0 | 1 | 2 | 3} priority - 중요도를 나타내는 숫자
  * @param {string} inpuName - 폼에서 사용될 키 이름을 설정하는 문자열
  */
-const PrioritySelector = ({ priority, inputName }) => {
+const PrioritySelector = ({ inputRef, priority, inputName }) => {
   const [value, setValue] = useState(Number(priority) || 0);
   const onButtonClick = (level) => {
     setValue(level);
@@ -46,6 +46,7 @@ const PrioritySelector = ({ priority, inputName }) => {
         </li>
       </ul>
       <select
+        ref={inputRef}
         className={styles.select}
         name={inputName}
         id={styles.selector}

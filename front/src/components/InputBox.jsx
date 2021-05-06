@@ -11,36 +11,12 @@ import styles from '../styles/InputBox.module.css';
  * @param {string} props.placeholder - input의 placeholder 속성 값
  * @param {Function} props.validator - input의 유효성 검사를 수행할 콜백 함수, 반환하는 boolean 값에 따라 상태 변화 여부 결정
  */
-const InputBox = ({
-  inputRef,
-  value,
-  labelText,
-  inputType,
-  inputName,
-  afterText,
-  validator,
-  placeholder,
-  styleName,
-  maxLength,
-  rows,
-  cols,
-}) => {
+const InputBox = (props) => {
+  const { labelText, afterText } = props;
   return (
     <label className={`${styles.inputBox} ${styles.styleName}`} htmlFor={styles.label}>
       <span className={styles.name}>{labelText || ''}</span>
-      <Input
-        inputRef={inputRef}
-        value={value || ''}
-        id={styles.label}
-        name={inputName}
-        type={inputType}
-        placeholder={placeholder}
-        validator={validator}
-        styleName={styleName}
-        rows={rows}
-        cols={cols}
-        maxLength={maxLength}
-      />
+      <Input {...props} />
       <span className={styles.text}>{afterText}</span>
     </label>
   );

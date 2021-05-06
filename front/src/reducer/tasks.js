@@ -43,7 +43,7 @@ const reducer = (state = initialTask, action) => {
 
   switch (action.type) {
     case ADD_TASK:
-      tasks[generateId()] = action.task;
+      tasks[generateId()] = { ...action.task, checked: false };
       break;
     case UPDATE_TASK:
       tasks[action.task.id] = action.task.content;

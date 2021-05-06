@@ -28,6 +28,7 @@ const TagInputBox = ({ tags = [], inputName, validator, placeholder }) => {
         placeholder={placeholder}
         validator={validator}
         styleName="tagInput"
+        size={3}
       />
     </label>
   );
