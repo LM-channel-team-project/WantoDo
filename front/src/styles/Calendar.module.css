@@ -1,5 +1,7 @@
 @value colors: './common/color.css';
+@value size: './common/size.css';
 @value colorGray from colors;
+@value font-large, weight-semibold from size;
 
 .table {
   width: 100%;
@@ -8,11 +10,12 @@
   top: -30px;
   border-spacing: 1px;
   table-layout: fixed;
+  margin-left: 1.7em;
 }
 
 .month {
-  font-size: 32px; /*font-large*/
-  font-weight: 600; /*weight-semibold*/
+  font-size: font-large;
+  font-weight: weight-semibold;
   margin-right: 0.2em;
 }
 
@@ -35,12 +38,11 @@
 
 .dayofweek {
   font-size: 1.3em;
-  color: gray; /*colorGray; */
+  color: colorGray;
   line-height: 5em;
   text-align: justify;
 }
 
 .date {
   position: relative;
-  /* background-color: blueviolet; */
 }

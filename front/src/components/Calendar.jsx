@@ -2,7 +2,7 @@ import React from 'react';
 import { IoIosArrowForward, IoIosArrowBack } from 'react-icons/io';
 import useCalendar from './useCalendar';
 import IconButton from './IconButton';
-import '../styles/Calendar.css';
+import styles from '../styles/Calendar.module.css';
 
 const Calendar = () => {
   const testStyle = {
@@ -25,23 +25,23 @@ const Calendar = () => {
 
   return (
     <div>
-      <div className="monthyear">
-        <span className="month">{`${monthNames[selectedDate.getMonth()]}`}</span>
-        <span className="year">{`${selectedDate.getFullYear()}`}</span>
+      <div className={styles.monthyear}>
+        <span className={styles.month}>{`${monthNames[selectedDate.getMonth()]}`}</span>
+        <span className={styles.year}>{`${selectedDate.getFullYear()}`}</span>
       </div>
-      <div className="content">
+      <div className={styles.content}>
         <IconButton className="button" styleName="arrowbutton" onClick={getPrevMonth} type="button">
-          <IoIosArrowForward />
+          <IoIosArrowBack />
         </IconButton>
-        <table className="table">
+        <table className={styles.table}>
           <thead>
-            <tr className="dayofweek">
+            <tr className={styles.dayofweek}>
               {daysShort.map((day) => (
                 <th key={day}>{day}</th>
               ))}
             </tr>
           </thead>
-          <tbody className="date">
+          <tbody className={styles.date}>
             {Object.values(calendarRows).map((cols) => {
               return (
                 <tr key={cols[0].date}>
@@ -81,7 +81,7 @@ const Calendar = () => {
         </table>
 
         <IconButton className="button" styleName="arrowbutton" onClick={getNextMonth} type="button">
-          <IoIosArrowBack />
+          <IoIosArrowForward />
         </IconButton>
       </div>
     </div>
