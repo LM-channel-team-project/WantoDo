@@ -1,19 +1,6 @@
 import React, { useState } from 'react';
 import styles from '../styles/Input.module.css';
 
-const useFlexInputSize = (intialSize) => {
-  const [inputSize, setInputSize] = useState(intialSize);
-
-  const flexInputSize = (length) => {
-    if (length === 0) {
-      setInputSize(intialSize);
-      return;
-    }
-    setInputSize(length);
-  };
-
-  return { inputSize, flexInputSize };
-};
 /**
  * 재사용성을 높인 인풋 박스
  * @param {string} props.id - label과 input 연결해주는 고유한 id 문자열
@@ -35,9 +22,9 @@ const Input = ({
   cols,
   maxLength,
   onChange,
+  ...props
 }) => {
   const [value, setValue] = useState(initialValue || '');
-  const { inputSize, flexInputSize } = useFlexInputSize(3);
 
   const onValueChange = (event) => {
     const inputValue = event.target.value;
@@ -49,16 +36,14 @@ const Input = ({
 
     if (!validFlag) return;
 
-    if (styleName === 'tagInput') {
-      const { length } = inputValue;
-      flexInputSize(length >= 3 ? length * 1.8 : 3);
+    if (onChange instanceof Function) {
+      onChange(event, setValue);
+    } else {
+      setValue(inputValue);
     }
-
-    setValue(inputValue);
-    if (onChange instanceof Function) onChange(event);
   };
 
-  const props = {
+  const initialProps = {
     ref: inputRef,
     id,
     value,
@@ -68,13 +53,16 @@ const Input = ({
     name: name || 'input',
     placeholder: placeholder || '',
     autoComplete: 'off',
-    size: styleName === 'tagInput' ? inputSize : '',
     rows: type === 'textarea' ? rows : '',
     cols: type === 'textarea' ? cols : '',
     onChange: onValueChange,
   };
 
-  return type === 'textarea' ? <textarea {...props} /> : <input {...props} />;
+  return type === 'textarea' ? (
+    <textarea {...initialProps} {...props} />
+  ) : (
+    <input {...initialProps} {...props} />
+  );
 };
 
 export default Input;

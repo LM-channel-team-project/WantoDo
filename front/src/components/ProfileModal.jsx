@@ -26,7 +26,6 @@ const ProfileModal = ({ imageURL, userName, email, motto }) => {
   const onLogout = () => {
     // 로그아웃 처리
     history.push('/login');
-    console.log('logout');
   };
 
   return (

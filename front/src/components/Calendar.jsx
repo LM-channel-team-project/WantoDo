@@ -19,8 +19,8 @@ const Calendar = () => {
     getPrevMonth,
   } = useCalendar();
 
-  const dateClickHandler = (date) => {
-    console.log(date);
+  const dateClickHandler = () => {
+    // 날짜 클릭에 대한 처리 (date 인자로 받아 옮)
   };
 
   return (

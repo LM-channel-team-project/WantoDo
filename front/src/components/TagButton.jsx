@@ -1,6 +1,5 @@
 import React from 'react';
 import { TiDelete } from 'react-icons/ti';
-import Button from './Button';
 import Tag from './Tag';
 import IconButton from './IconButton';
 import styles from '../styles/TagButton.module.css';
@@ -11,28 +10,31 @@ import styles from '../styles/TagButton.module.css';
  * @param {text} props.color - 태그 색상을 설정하는 문자열, 5-10가지 종류 색상을 지정해서 사용
  * @param {Function} props.onClick - 태그 색상을 설정하는 문자열, 5-10가지 종류 색상을 지정해서 사용
  */
-const TagButton = ({ name, color, onClick }) => {
+const TagButton = ({ tagId, name, color, onClick, onDelete }) => {
   const onTagClick = (event) => {
     if (event.defaultPrevented) return; // delete 버튼이 클릭될 때는 실행하지 않음
 
     if (onClick instanceof Function) onClick(event);
   };
 
-  const onDeleteClick = (event) => {
-    event.preventDefault();
-    // 태그 삭제 로직 작성
-  };
+  const onKeyDown = () => {};
 
   return (
-    <Button styleName="tag" onClick={onTagClick}>
+    <div
+      className={styles.tag}
+      onClick={onTagClick}
+      onKeyDown={onKeyDown}
+      role="button"
+      tabIndex="0"
+    >
       <Tag name={name} color={color} styleName="tagButton">
         <span className={styles.delete} data-hover="show">
-          <IconButton styleName="tagDelete" onClick={onDeleteClick}>
+          <IconButton styleName="tagDelete" onClick={() => onDelete(tagId)}>
             <TiDelete />
           </IconButton>
         </span>
       </Tag>
-    </Button>
+    </div>
   );
 };
 

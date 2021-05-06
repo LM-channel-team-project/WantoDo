@@ -7,7 +7,6 @@ const GoogleLogoutButton = ({ onLogout }) => {
   const history = useHistory();
 
   const responseGoogle = () => {
-    console.log('logout');
     history.push('/login');
   };
 

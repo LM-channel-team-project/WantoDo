@@ -1,3 +1,5 @@
+import generateId from '../utils/id-generator';
+
 const initialTask = {
   '4k1g2435hk': {
     level: 0,
@@ -33,17 +35,12 @@ export const addTask = (task) => ({ type: ADD_TASK, task });
 export const updateTask = (task) => ({ type: UPDATE_TASK, task });
 export const deleteTask = (id) => ({ type: DELETE_TASK, id });
 
-function generateId() {
-  const randomNumber = Date.now() * Math.floor(Math.random() * 100);
-  return randomNumber.toString(16);
-}
-
 const reducer = (state = initialTask, action) => {
   const tasks = { ...state };
 
   switch (action.type) {
     case ADD_TASK:
-      tasks[generateId()] = action.task;
+      tasks[generateId()] = { ...action.task, checked: false };
       break;
     case UPDATE_TASK:
       tasks[action.task.id] = action.task.content;

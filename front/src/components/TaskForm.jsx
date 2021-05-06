@@ -1,5 +1,6 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import { connect } from 'react-redux';
+import timeparser from '../utils/timestamp-parser';
 import { actionCreators } from '../store/store';
 import Button from './Button';
 import PeriodInputBox from './PeriodInputBox';
@@ -8,36 +9,54 @@ import TagInputBox from './TagInputBox';
 import styles from '../styles/TaskForm.module.css';
 import Input from './Input';
 
-const TaskForm = ({ content, tags, priority, periods, addTask, toggleTaskFormModal }) => {
-  const inputRef = useRef();
+const TaskForm = ({ addTask, toggleTaskFormModal, ...props }) => {
+  const [tags, setTags] = useState(props.tags || []);
+  const contentRef = useRef();
+  const priorityRef = useRef();
+  const startRef = {
+    year: useRef(),
+    month: useRef(),
+    date: useRef(),
+    hours: useRef(),
+    mins: useRef(),
+    division: useRef(),
+  };
+  const endRef = {
+    year: useRef(),
+    month: useRef(),
+    date: useRef(),
+    hours: useRef(),
+    mins: useRef(),
+    division: useRef(),
+  };
 
   const onTaskSubmit = (event) => {
     event.preventDefault();
 
-    if (inputRef.current.value === '') {
-      alert('할 일을 입력해주세요.');
+    if (contentRef.current.value === '') {
+      // 경고창 표시
       return;
     }
 
-    const form = new FormData(event.target);
+    const dateKeys = ['year', 'month', 'date', 'hours', 'mins', 'division'];
+    const periods = [startRef, endRef].map((ref) => {
+      const dateObj = dateKeys.reduce((obj, key) => {
+        const period = { ...obj };
 
-    const task = Array.from(form.keys()).reduce((obj, key) => {
-      const copied = { ...obj };
+        period[key] = ref[key].current.value;
 
-      if (key.includes('date')) {
-        // date 인풋 데이터 처리
-        if (!copied.date) copied.date = [];
+        return period;
+      }, {});
 
-        const startOrEnd = key.includes('start') ? 0 : 1;
+      return timeparser.toTimestamp(dateObj);
+    }, []);
 
-        const value = form.get(key);
-        copied.date[startOrEnd] = value ? Date.parse(value) : '';
-      } else {
-        copied[key] = form.get(key);
-      }
-
-      return copied;
-    }, {});
+    const task = {
+      content: contentRef.current.value,
+      level: priorityRef.current.value,
+      periods,
+      tags,
+    };
 
     addTask(task);
     // 백엔드로 테스크 데이터 전송
@@ -53,8 +72,9 @@ const TaskForm = ({ content, tags, priority, periods, addTask, toggleTaskFormMod
       <div className={styles.header}>
         <div className={styles.content}>
           <Input
-            value={content}
-            inputName="content"
+            inputRef={contentRef}
+            value={props.content}
+            name="content"
             placeholder="오늘의 할 일을 적어주세요 (최대 50자)"
             maxLength="50"
           />
@@ -68,9 +88,12 @@ const TaskForm = ({ content, tags, priority, periods, addTask, toggleTaskFormMod
           </Button>
         </div>
       </div>
-      <PrioritySelector priority={priority} inputName="level" />
-      <PeriodInputBox periods={periods} />
-      <TagInputBox tags={tags} inputName="tags" />
+      <PrioritySelector inputRef={priorityRef} priority={props.priority} inputName="level" />
+      <PeriodInputBox
+        refs={{ startRef, endRef }}
+        periods={props.periods || { start: Date.now() }}
+      />
+      <TagInputBox tags={tags} inputName="tags" setTags={setTags} />
     </form>
   );
 };
