@@ -1,6 +1,5 @@
 import React from 'react';
 import { TiDelete } from 'react-icons/ti';
-import Button from './Button';
 import Tag from './Tag';
 import IconButton from './IconButton';
 import styles from '../styles/TagButton.module.css';
@@ -24,7 +23,7 @@ const TagButton = ({ name, color, onClick }) => {
   };
 
   return (
-    <Button styleName="tag" onClick={onTagClick}>
+    <textbox className={styles.tag} onClick={onTagClick}>
       <Tag name={name} color={color} styleName="tagButton">
         <span className={styles.delete} data-hover="show">
           <IconButton styleName="tagDelete" onClick={onDeleteClick}>
@@ -32,7 +31,7 @@ const TagButton = ({ name, color, onClick }) => {
           </IconButton>
         </span>
       </Tag>
-    </Button>
+    </textbox>
   );
 };
 

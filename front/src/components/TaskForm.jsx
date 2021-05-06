@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import { connect } from 'react-redux';
 import timeparser from '../utils/timestamp-parser';
 import { actionCreators } from '../store/store';
@@ -9,7 +9,8 @@ import TagInputBox from './TagInputBox';
 import styles from '../styles/TaskForm.module.css';
 import Input from './Input';
 
-const TaskForm = ({ content, tags, priority, periods, addTask, toggleTaskFormModal }) => {
+const TaskForm = ({ addTask, toggleTaskFormModal, ...props }) => {
+  const [tags, setTags] = useState(props.tags || []);
   const contentRef = useRef();
   const priorityRef = useRef();
   const startRef = {
@@ -38,7 +39,7 @@ const TaskForm = ({ content, tags, priority, periods, addTask, toggleTaskFormMod
     }
 
     const dateKeys = ['year', 'month', 'date', 'hours', 'mins', 'division'];
-    const periodsValue = [startRef, endRef].map((ref) => {
+    const periods = [startRef, endRef].map((ref) => {
       const dateObj = dateKeys.reduce((obj, key) => {
         const period = { ...obj };
 
@@ -50,10 +51,12 @@ const TaskForm = ({ content, tags, priority, periods, addTask, toggleTaskFormMod
       return timeparser.toTimestamp(dateObj);
     }, []);
 
-    const contentValue = contentRef.current.value;
-    const priorityValue = priorityRef.current.value;
-
-    const task = { content: contentValue, level: priorityValue, periods: periodsValue };
+    const task = {
+      content: contentRef.current.value,
+      level: priorityRef.current.value,
+      periods,
+      tags,
+    };
 
     addTask(task);
     // 백엔드로 테스크 데이터 전송
@@ -70,7 +73,7 @@ const TaskForm = ({ content, tags, priority, periods, addTask, toggleTaskFormMod
         <div className={styles.content}>
           <Input
             inputRef={contentRef}
-            value={content}
+            value={props.content}
             inputName="content"
             placeholder="오늘의 할 일을 적어주세요 (최대 50자)"
             maxLength="50"
@@ -85,9 +88,12 @@ const TaskForm = ({ content, tags, priority, periods, addTask, toggleTaskFormMod
           </Button>
         </div>
       </div>
-      <PrioritySelector inputRef={priorityRef} priority={priority} inputName="level" />
-      <PeriodInputBox refs={{ startRef, endRef }} periods={periods || { start: Date.now() }} />
-      <TagInputBox tags={tags} inputName="tags" />
+      <PrioritySelector inputRef={priorityRef} priority={props.priority} inputName="level" />
+      <PeriodInputBox
+        refs={{ startRef, endRef }}
+        periods={props.periods || { start: Date.now() }}
+      />
+      <TagInputBox tags={tags} inputName="tags" setTags={setTags} />
     </form>
   );
 };
