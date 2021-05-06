@@ -34,7 +34,7 @@ const TaskForm = ({ addTask, toggleTaskFormModal, ...props }) => {
     event.preventDefault();
 
     if (contentRef.current.value === '') {
-      alert('할 일을 입력해주세요.');
+      // 경고창 표시
       return;
     }
 
@@ -74,7 +74,7 @@ const TaskForm = ({ addTask, toggleTaskFormModal, ...props }) => {
           <Input
             inputRef={contentRef}
             value={props.content}
-            inputName="content"
+            name="content"
             placeholder="오늘의 할 일을 적어주세요 (최대 50자)"
             maxLength="50"
           />

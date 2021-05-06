@@ -23,8 +23,8 @@ const GoogleLoginButton = ({ onLogin }) => {
     onLogin(profile, userData.isTutorial);
   };
 
-  const onFailure = (response) => {
-    console.log(response);
+  const onFailure = () => {
+    // 로그인 실패에 대한 처리
   };
 
   return (
