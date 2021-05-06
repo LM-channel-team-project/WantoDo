@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import generateId from '../utils/id-generator';
 import colorManager from '../utils/color-manager';
 import TagButton from './TagButton';
 import styles from '../styles/InputBox.module.css';
@@ -31,7 +32,7 @@ const TagInputBox = ({ tags = [], inputName, validator, placeholder, setTags }) 
   const onClick = () => {};
 
   const addTag = (name) => {
-    const tag = { name, color: colorManager.getRandomHex() };
+    const tag = { id: generateId(), name, color: colorManager.getRandomHex() };
     setTags((previous) => [...previous, tag]);
   };
 
@@ -64,13 +65,25 @@ const TagInputBox = ({ tags = [], inputName, validator, placeholder, setTags }) 
     setValue(text);
   };
 
+  const onTagDelete = (id) => {
+    setTags((previous) => {
+      return [...previous].filter((tag) => tag.id !== id);
+    });
+  };
+
   return (
     <label className={styles.inputBox} htmlFor={styles.inputBox}>
       <span className={styles.name}>태그</span>
       <ul className={styles.list}>
         {tags.map((tag) => (
           <li key={tag.id} className={styles.tagItem}>
-            <TagButton name={tag.name} color={tag.color} onClick={onClick} />
+            <TagButton
+              tagId={tag.id}
+              name={tag.name}
+              color={tag.color}
+              onClick={onClick}
+              onDelete={onTagDelete}
+            />
           </li>
         ))}
       </ul>
@@ -81,7 +94,6 @@ const TagInputBox = ({ tags = [], inputName, validator, placeholder, setTags }) 
         name={inputName}
         placeholder={placeholder}
         validator={validator}
-        styleName="tagInput"
         size={inputSize || 3}
         onChange={onChange}
         onKeyDown={onKeyDown}
