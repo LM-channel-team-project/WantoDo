@@ -9,9 +9,10 @@
   "main": "src/app.ts",
   "scripts": {
     "local": "npm run apidoc-generate:local && cross-env NODE_ENV=local nodemon src/app.ts",
-    "dev": "cross-env NODE_ENV=develop nodemon src/app.ts",
     "prod": "cross-env NODE_ENV=production nodemon src/app.ts",
-    "apidoc-generate:local": "apidoc -i src/ -o ./docs"
+    "apidoc-generate:local": "apidoc -i src/ -o ./docs",
+    "front": "cd .. && cd front && npm run start",
+    "dev": "concurrently \"npm run local\" \"npm run front\""
   },
   "keywords": [
     "wantodo"

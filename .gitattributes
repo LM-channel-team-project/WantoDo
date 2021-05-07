@@ -1,0 +1,9 @@
+# 맥과 윈도우 개행문자 설정
+/front/*.js text=auto
+/front/*.jsx text=auto
+/front/*.module.css text=auto
+/front/*.css text=auto
+/front/*.json text=auto
+/front/*.html text=auto
+/front/*.txt text=auto
+README.md text=auto
