@@ -3,24 +3,51 @@
 @value effect: './common/effect.css';
 @value colorWhite,colorLightGray,colorGray, colorDarkGray, colorLightSkyblue, colorSkyblue, colorPurple,colorDarkPurple from colors;
 @value animation-duration-fast as fast from effect;
-@value box-shadow, button-radius, border-radius, weight-regular, weight-regular, weight-bold, font-regular,space-narrow, space-narrower from size;
+@value box-shadow, button-radius, border-radius, weight-regular, weight-regular, weight-bold, font-regular,space-narrow, space-narrower,space-regular from size;
 
 .button {
   font-size: 1em;
   padding: 0.5em 1em;
-  border-radius: border-radius;
+  border-radius: button-radius;
   transition: all fast ease-in;
-  background-color: colorLightSkyblue;
+  background-color: colorPurple;
+  color: colorWhite;
 }
 
 .button:hover {
-  background-color: colorSkyblue;
+  background-color: colorDarkPurple;
   transform: scale(1.05);
 }
 
 /* dumy button */
 .calendar {
   font-size: 1.5em;
+}
+
+/* 메인 페이지 */
+.loginbutton {
+  padding: 1em;
+}
+
+/* 회원가입 페이지 버튼 */
+.tutorial,
+.tutorial__cancel {
+  padding: 1em 3em;
+  margin-right: 1em;
+}
+
+.tutorial__cancel {
+  background-color: colorLightGray;
+}
+
+.tutorial__image {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  font-size: 1.2em;
+  line-height: 0.5;
+  padding: 1em;
+  border-radius: 50%;
 }
 
 /* navbar button */
@@ -31,7 +58,7 @@
 }
 
 .sideMenu:hover {
-  background-color: colorSkyblue;
+  background-color: colorDarkPurple;
 }
 
 .sideMenu,
@@ -50,33 +77,11 @@
 /* profile modal button */
 .profileModal {
   margin: 1em;
+  margin-bottom: 2em;
   width: 120px;
   height: 40px;
-  border-radius: button-radius;
-  background-color: colorPurple;
-  color: colorWhite;
   font-weight: weight-regular;
   box-shadow: box-shadow;
-}
-
-.profileModal:hover {
-  background-color: colorDarkPurple;
-}
-
-/* checkbox button */
-.checkbox {
-  position: relative;
-  display: flex;
-  width: 1em;
-  height: 1em;
-  border: 1px solid colorDarkGray;
-  border-radius: 50%;
-  margin-right: space-narrower;
-  margin-left: space-narrower;
-  bottom: -0.1em;
-  padding: 0;
-  background: none;
-  color: red;
 }
 
 /* Created by 오영롱(youngrongoh) on 2021/04/23 */
@@ -106,6 +111,37 @@
   background-color: transparent;
 }
 
+/* 투두 리스트-체크박스 */
+.checkbox {
+  position: relative;
+  display: flex;
+  width: 1em;
+  height: 1em;
+  border: 1px solid colorDarkGray;
+  border-radius: 50%;
+  margin-right: space-narrower;
+  margin-left: space-narrower;
+  bottom: -0.1em;
+  padding: 0;
+  background: none;
+  color: red;
+}
+
+/* 투두 리스트-삭제버튼 */
+.todoDeleteButton {
+  background-color: transparent;
+  color: colorDarkGray;
+  padding: 0;
+  margin-left: space-narrow;
+  margin-right: space-narrow;
+}
+
+.todoDeleteButton:hover {
+  background-color: transparent;
+  transform: scale(1.2);
+}
+
+/* 투두리스트-등록 폼 */
 .QuickAddForm,
 .QuickAddForm__icon {
   height: 100%;
@@ -123,30 +159,14 @@
   background-color: gray;
 }
 
+.QuickAddForm__icon:hover {
+  background-color: transparent;
+}
+
 .QuickAddForm__icon {
   padding: 0.8em;
   line-height: 0.8;
-}
-
-/* 회원가입 페이지 버튼 */
-.tutorial,
-.tutorial__cancel {
-  padding: 1em 3em;
-  margin-right: 1em;
-}
-
-.tutorial__cancel {
-  background-color: colorLightGray;
-}
-
-.tutorial__image {
-  position: absolute;
-  bottom: 0;
-  right: 0;
-  font-size: 1.2em;
-  line-height: 0.5;
-  padding: 1em;
-  border-radius: 50%;
+  background-color: transparent;
 }
 
 /* taskform modal button */
@@ -188,32 +208,21 @@
   background-color: transparent;
 }
 
-/* todolist delete button */
-.todoDeleteButton {
-  background-color: transparent;
-  color: colorDarkGray;
-  padding: 0;
-  margin-left: space-narrow;
-  margin-right: space-narrow;
-}
-
-.todoDeleteButton:hover {
-  background-color: transparent;
-  transform: scale(1.2);
-}
-
 /* calendar button */
 .arrowbutton {
   background-color: transparent;
   margin-top: 15em;
-  margin-right: space-narrow;
+  margin-right: space-regular;
+  margin-left: space-narrower;
   width: 30px;
   height: 30px;
+  opacity: 0.1;
 }
 
 .arrowbutton:hover {
   background-color: transparent;
   transform: scale(1.2);
+  opacity: 1;
 }
 
 /* .date {
