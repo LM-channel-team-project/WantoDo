@@ -170,14 +170,17 @@
 
 /* taskform modal button */
 .taskForm__cancel {
-  margin-right: 0.3em;
+  margin-right: 0.1em;
 }
 
 .taskForm__cancel,
 .taskForm__done {
+  position: relative;
+  right:10px;
   padding: 0.3em 0.5em;
   background-color: transparent;
-  color: colorGray;
+  color: lightGray;
+  font-size: 14px;
 }
 
 .taskForm__cancel:hover,
