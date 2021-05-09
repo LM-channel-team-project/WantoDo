@@ -8,9 +8,10 @@
   display: inline-flex;
 }
 
+/* "중요도" 글씨 */
 .name {
   margin-right: narrow;
-  font-size: 1em;
+  font-size: 16px;
   font-weight: semibold;
   color: colorWhite;
 }
