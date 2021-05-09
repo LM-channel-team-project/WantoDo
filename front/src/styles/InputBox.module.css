@@ -9,11 +9,21 @@
   color: red;
 }
 
-/* 태그, 년, 월, 일 등 input 글씨들 */
+/* 년, 월, 일 등 input 글씨들 */
 .name {
+  position: relative;
+  right: 3px;
   font-size: 14px;
-  color: red;
+  color: colorWhite;
   font-weight: semibold;
+}
+
+/* "TaskModal에서 글자 "태그" */
+.ModalNameTag{
+  color: colorWhite;
+  font-weight: semibold;
+  margin: 0 10px;
+  padding: 0 15px;
 }
 
 .list {
@@ -28,7 +38,6 @@
   margin-left: 0.5em;
 }
 
-/* afterText 클레스네임은 어딨죠,,, */
 .text{
   margin:0px !important;
 }

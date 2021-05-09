@@ -17,7 +17,7 @@ const PeriodInputBox = ({ refs: { startRef, endRef }, periods: { start, end } = 
         <DateInputBox
           value={start}
           inputRef={startRef}
-          labelText="시작"
+          labelText="시작:"
           inputType="date"
           inputName="date-start"
           validator={checkValidDate}
@@ -25,7 +25,7 @@ const PeriodInputBox = ({ refs: { startRef, endRef }, periods: { start, end } = 
         <DateInputBox
           value={end}
           inputRef={endRef}
-          labelText="마침"
+          labelText="마침:"
           inputType="date"
           inputName="date-end"
           validator={checkValidDate}

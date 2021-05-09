@@ -1,29 +1,21 @@
 
+
+
+
+/* 21년 05월 09, 10일 modal 각 카테고리 container by 현빈 */
+
 /* 시작, 마침 텍스트 */
 .text{
-    border: 1px solid white;
-
+    color: white;
 }
-
-
-/* 21년 05월 09일 */
-.periods {
-    border: 1px solid white;
-}
-/* 10시 49분 AM*/
 .box{
-    border: 1px solid red;
     display: flex;
-}
-.inputBox{
-    border: 1px solid blue;
-
 }
 
 .time{
-    border: 1px solid blue;
 }
+
 .date{
-    border: 1px solid rgb(49, 54, 53);
 }
+
 
