@@ -169,6 +169,7 @@
 }
 
 /* taskform modal button */
+
 .taskForm__cancel {
   margin-right: 0.1em;
 }
@@ -177,16 +178,21 @@
 .taskForm__done {
   position: relative;
   right:10px;
+  margin: 0 3px;
   padding: 0.3em 0.5em;
   background-color: transparent;
-  color: lightGray;
+  transition-property: none;
+  color: colorWhite;
   font-size: 14px;
+  border: 0.5px solid rgb(82, 82, 82);
+  margin: 6px 0 0 0;
 }
 
 .taskForm__cancel:hover,
 .taskForm__done:hover {
   background-color: transparent;
   color: colorWhite;
+  transform: scale(0.9)
 }
 
 .priorityInput {

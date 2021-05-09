@@ -22,7 +22,6 @@ const PrioritySelector = ({ inputRef, priority, inputName }) => {
   return (
     <label className={styles.selector} htmlFor={styles.selector}>
       <span className={styles.name}>중요도</span>
-      {}
       <ul className={styles.list}>
         <li className={styles.item}>
           <IconButton styleName="priorityInput" onClick={() => onButtonClick(0)}>
