@@ -3,17 +3,16 @@
 @value colorWhite from './common/color.css';
 
 .inputBox {
-  position: relative;
   top: 130px;
   text-align: left;
-  padding: narrower;
-  top: -15px;
+  padding: 0;
+  color: red;
 }
 
+/* 태그, 년, 월, 일 등 input 글씨들 */
 .name {
-  margin-right: narrow;
-  font-size: 1em;
-  color: colorWhite;
+  font-size: 14px;
+  color: red;
   font-weight: semibold;
 }
 
@@ -27,4 +26,9 @@
 
 .tagItem + .tagItem {
   margin-left: 0.5em;
+}
+
+/* afterText 클레스네임은 어딨죠,,, */
+.text{
+  margin:0px !important;
 }

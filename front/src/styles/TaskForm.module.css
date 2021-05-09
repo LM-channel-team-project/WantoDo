@@ -20,7 +20,7 @@
 .content {
   font-size: 14px;
   width: 300px;
-  margin: 6px;
+  margin: 6px 0px 0px 6px;
   /* font-weight: semibold; */
 }
 
@@ -37,6 +37,10 @@
   font-size: 1em;
   color: colorwhite;
 }
+/* 
+.contentInput::placeholder{
+color: white;
+} */
 
 .contentInput:focus {
   background-color: colorLightBlack;
@@ -44,3 +48,8 @@
   color: colorWhite;
 }
 
+.contentInput:focus::placeholder{
+  color: rgb(165, 165, 165) ;
+  transition: all duration-regular ease-in;
+
+}

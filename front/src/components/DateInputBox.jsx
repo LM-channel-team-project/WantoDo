@@ -15,10 +15,11 @@ const DateInputBox = ({ inputRef, value, labelText, inputName }) => {
 
   return (
     <div className={styles.box}>
-      <span>{labelText}</span>
+      <span className={styles.text}>{labelText}</span>
       <div className={styles.date}>
         <NumberInput
           inputRef={inputRef.year}
+          styleName="year"
           type="number"
           value={year}
           name={`${inputName}-year`}
@@ -27,6 +28,7 @@ const DateInputBox = ({ inputRef, value, labelText, inputName }) => {
         />
         <NumberInput
           inputRef={inputRef.month}
+          styleName="month"
           type="number"
           value={month}
           name={`${inputName}-month`}
@@ -35,6 +37,7 @@ const DateInputBox = ({ inputRef, value, labelText, inputName }) => {
         />
         <NumberInput
           inputRef={inputRef.date}
+          styleName="date"
           type="number"
           value={date}
           name={`${inputName}-date`}
@@ -45,6 +48,7 @@ const DateInputBox = ({ inputRef, value, labelText, inputName }) => {
       <div className={styles.time}>
         <NumberInput
           inputRef={inputRef.hours}
+          styleName="hour"
           type="number"
           value={hours}
           name={`${inputName}-hours`}
@@ -53,6 +57,7 @@ const DateInputBox = ({ inputRef, value, labelText, inputName }) => {
         />
         <NumberInput
           inputRef={inputRef.mins}
+          styleName="min"
           type="number"
           value={mins}
           name={`${inputName}-mins`}
@@ -61,6 +66,7 @@ const DateInputBox = ({ inputRef, value, labelText, inputName }) => {
         />
         <DivisionInput
           inputRef={inputRef.division}
+          styleName="division"
           value={division}
           name={`${inputName}-division`}
         />
