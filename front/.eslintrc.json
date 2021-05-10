@@ -22,5 +22,13 @@
     "no-useless-catch": "off",
     "no-nested-ternary": "off"
   },
+  "overrides": [
+    {
+      "files": ["*.stories.js"],
+      "rules": {
+        "import/no-extraneous-dependencies": "off"
+      }
+    }
+  ],
   "ignorePatterns": ["node_modules/", "build/"]
 }
