@@ -50,14 +50,14 @@ const Tutorial = ({ profile, createProfile }) => {
           <InputBox
             value={profile.userName}
             labelText="이름"
-            inputName="userName"
+            name="userName"
             styleName="tutorial"
             maxLength="10"
           />
           <InputBox
             inputType="textarea"
             labelText="좌우명"
-            inputName="motto"
+            name="motto"
             rows="3"
             cols="15"
             maxLength="30"
