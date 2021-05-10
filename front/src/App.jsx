@@ -10,6 +10,7 @@ import TagInputBox from './components/TagInputBox';
 import Calendar from './components/Calendar';
 import Login from './page/Login';
 import Main from './page/Main';
+import './styles/App.css';
 
 const ROOT_PATH = process.env.PUBLIC_URL;
 
