@@ -12,7 +12,8 @@
 /* 년, 월, 일 등 input 글씨들 */
 .name {
   position: relative;
-  right: 3px;
+  right: 1px;
+  margin-right:1px;
   font-size: 14px;
   color: colorWhite;
   font-weight: semibold;
