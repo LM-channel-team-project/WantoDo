@@ -71,7 +71,7 @@ const DateInputBox = ({ inputRef, value, labelText, inputName }) => {
           name={`${inputName}-division`}
         />
       </div>
-      <IconButton Icon={AiOutlineCalendar} />
+      <IconButton styleName="calendar" Icon={AiOutlineCalendar} />
     </div>
   );
 };

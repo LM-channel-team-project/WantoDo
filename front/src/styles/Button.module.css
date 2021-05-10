@@ -79,6 +79,7 @@
   color: red;
 }
 
+
 /* Created by 오영롱(youngrongoh) on 2021/04/23 */
 .tag,
 .tagDelete {
@@ -128,6 +129,7 @@
   line-height: 0.8;
 }
 
+
 /* 회원가입 페이지 버튼 */
 .tutorial,
 .tutorial__cancel {
@@ -148,6 +150,7 @@
   padding: 1em;
   border-radius: 50%;
 }
+
 
 /* taskform modal button */
 
@@ -185,6 +188,23 @@
   background-color: transparent;
   transform: scale(1.2);
 }
+
+.calendar{
+  font-size: 11px;
+  background-color: transparent;
+  transition-property: none;
+}
+
+.calendar:hover{
+  font-size: 11px;
+  background-color: transparent;
+  transform: scale(1.1);
+}
+
+.calendar svg{
+  fill: rgba(255, 255, 255, 0.856);
+}
+
 
 /* quick button */
 .quickButton {
@@ -250,3 +270,4 @@
   transform: none;
   color: colorPurple;
 }
+
