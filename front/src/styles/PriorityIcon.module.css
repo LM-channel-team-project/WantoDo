@@ -19,15 +19,15 @@
   color: yellow;
 }
 
-path.star {
+g.star {
   fill: yellow;
 }
 
-path.starLightOff {
+g.starLightOff {
   fill: black;
 }
 
-path.starLightOff:hover {
+g.starLightOff:hover {
   fill: yellow;
 }
 
