@@ -83,6 +83,27 @@
   box-shadow: box-shadow;
 }
 
+.profileModal:hover {
+  background-color: colorDarkPurple;
+}
+
+/* checkbox button */
+.checkbox {
+  position: relative;
+  display: flex;
+  width: 1em;
+  height: 1em;
+  border: 1px solid colorDarkGray;
+  border-radius: 50%;
+  margin-right: space-narrower;
+  margin-left: space-narrower;
+  bottom: -0.1em;
+  padding: 0;
+  background: none;
+  color: red;
+}
+
+
 /* Created by 오영롱(youngrongoh) on 2021/04/23 */
 .tag,
 .tagDelete {
@@ -168,6 +189,29 @@
   background-color: transparent;
 }
 
+
+/* 회원가입 페이지 버튼 */
+.tutorial,
+.tutorial__cancel {
+  padding: 1em 3em;
+  margin-right: 1em;
+}
+
+.tutorial__cancel {
+  background-color: colorLightGray;
+}
+
+.tutorial__image {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  font-size: 1.2em;
+  line-height: 0.5;
+  padding: 1em;
+  border-radius: 50%;
+}
+
+
 /* taskform modal button */
 
 .taskForm__cancel {
@@ -204,6 +248,23 @@
   background-color: transparent;
   transform: scale(1.2);
 }
+
+.calendar{
+  font-size: 11px;
+  background-color: transparent;
+  transition-property: none;
+}
+
+.calendar:hover{
+  font-size: 11px;
+  background-color: transparent;
+  transform: scale(1.1);
+}
+
+.calendar svg{
+  fill: rgba(255, 255, 255, 0.856);
+}
+
 
 /* quick button */
 .quickButton {
@@ -258,3 +319,4 @@
   transform: none;
   color: colorPurple;
 }
+
