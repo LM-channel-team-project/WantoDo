@@ -21,6 +21,7 @@ const reducer = (state = initialProfile, action) => {
       profile = { ...state, ...action.profile };
       break;
     case EDIT_PROFILE:
+      profile = { ...state, ...action.profile };
       break;
     case DELETE_PROFILE:
       break;
