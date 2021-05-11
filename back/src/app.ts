@@ -14,6 +14,14 @@ app.use(express.static('./'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+app.use((req: express.Request, res: express.Response, next: express.NextFunction) => {
+	console.log(req.params);
+	console.log(req.query);
+	console.log(req.headers);
+	console.log(req.body);
+	next();
+});
+
 // router
 app.use('/api', router);
 
