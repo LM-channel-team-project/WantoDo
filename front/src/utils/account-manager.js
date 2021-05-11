@@ -30,6 +30,18 @@ class AccountManager {
 
     return userData;
   };
+
+  // 최초 로그인한 사용자가 초기 프로필 제출할 때 서버에 튜토리얼 완료 상태 전송
+  completeTutorial = async (token) => {
+    const url = `${process.env.REACT_APP_SERVER_URL}/api/v1/accounts/tutorial`;
+
+    const response = await axios({
+      method: 'post',
+      url,
+      headers: { Authorization: token },
+    });
+    return response;
+  };
 }
 
 const accountManager = new AccountManager();
