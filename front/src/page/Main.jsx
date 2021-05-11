@@ -12,8 +12,8 @@ import CalenderContainer from '../container/CalenderContainer';
 
 const Main = ({ isProfileShow, isTaskFormShow, content, createProfile }) => {
   const onLoginSuccess = async ({ tokenObj }) => {
-    const profile = await accountManager.getUserData(tokenObj.id_token);
-    createProfile(profile.profile);
+    const profile = await accountManager.getUserProfile(tokenObj.id_token);
+    createProfile(profile);
   };
 
   useGoogleLogin({

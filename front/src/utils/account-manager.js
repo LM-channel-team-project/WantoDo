@@ -42,6 +42,33 @@ class AccountManager {
     });
     return response;
   };
+
+  getUserProfile = async (token) => {
+    const url = `${process.env.REACT_APP_SERVER_URL}/api/v1/profiles`;
+
+    let profile;
+    try {
+      const response = await axios({
+        method: 'get',
+        url,
+        headers: { Authorization: token },
+      });
+
+      const { data } = response.data;
+
+      profile = {
+        userName: data.nickname,
+        email: data.email,
+        imageURL: data.profileImageUrl,
+        motto: data.motto,
+        platform: data.platform,
+      };
+    } catch (error) {
+      throw new Error(error);
+    }
+
+    return profile;
+  };
 }
 
 const accountManager = new AccountManager();
