@@ -1,6 +1,8 @@
 import { NextFunction, Request, Response } from 'express';
 import { body, header, param, validationResult } from 'express-validator';
 import tagService from '../../services/v1/tag.service';
+import Utils from '../../common/Utils';
+import Exceptions from '../../exceptions';
 
 //  21/4/29 by 현빈 - 임시코드 - createTag
 
@@ -42,10 +44,10 @@ export const createTag = async (req: Request, res: Response, next: NextFunction)
 		]);
 
 		// validation Error
-		// todo: Error model 정의하기
 		const validationErrors = validationResult(req);
 		if (!validationErrors.isEmpty()) {
-			throw new Error('updateUserSettings validationError');
+			const msg: string = Utils.mixingValidationErrorMessage(validationErrors);
+			throw new Exceptions.WantodoException(10001, msg);
 		}
 
 		const { user } = res.locals;
@@ -80,10 +82,10 @@ export const getTags = async (req: Request, res: Response, next: NextFunction) =
 		]);
 
 		// validation Error
-		// todo: Error model 정의하기
 		const validationErrors = validationResult(req);
 		if (!validationErrors.isEmpty()) {
-			throw new Error('updateUserSettings validationError');
+			const msg: string = Utils.mixingValidationErrorMessage(validationErrors);
+			throw new Exceptions.WantodoException(10001, msg);
 		}
 
 		const { user } = res.locals;
@@ -136,10 +138,10 @@ export const updateTag = async (req: Request, res: Response, next: NextFunction)
 		]);
 
 		// validation Error
-		// todo: Error model 정의하기
 		const validationErrors = validationResult(req);
 		if (!validationErrors.isEmpty()) {
-			throw new Error('updateUserSettings validationError');
+			const msg: string = Utils.mixingValidationErrorMessage(validationErrors);
+			throw new Exceptions.WantodoException(10001, msg);
 		}
 
 		const { user } = res.locals;
@@ -176,10 +178,10 @@ export const deleteTag = async (req: Request, res: Response, next: NextFunction)
 		]);
 
 		// validation Error
-		// todo: Error model 정의하기
 		const validationErrors = validationResult(req);
 		if (!validationErrors.isEmpty()) {
-			throw new Error('updateUserSettings validationError');
+			const msg: string = Utils.mixingValidationErrorMessage(validationErrors);
+			throw new Exceptions.WantodoException(10001, msg);
 		}
 
 		const { user } = res.locals;

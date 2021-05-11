@@ -3,6 +3,7 @@ import { v4 as uuidV4 } from 'uuid';
 import { UserInfo } from '../../common/types';
 import { users } from '../../models/user.model';
 import { tasks } from '../../models/task.model';
+import Exceptions from '../../exceptions';
 
 interface ReqCreateTaskOptions {
 	tags: string[];
@@ -37,17 +38,25 @@ interface ReqUpdateTaskOptions extends ReqCreateTaskOptions {
  */
 export const createTask = async (user: UserInfo, contents: string, options: ReqCreateTaskOptions) => {
 	try {
-		const wantodoUser = await users.findByPlatformIdAndPlatform({
-			platformId: user.platformId,
-			platform: user.platform,
-		});
+		const wantodoUser = await users
+			.findByPlatformIdAndPlatform({
+				platformId: user.platformId,
+				platform: user.platform,
+			})
+			.catch((err) => {
+				throw new Exceptions.MongoException(err);
+			});
 
-		await tasks.create({
-			userId: wantodoUser.userId,
-			taskId: uuidV4(),
-			contents,
-			...options,
-		});
+		await tasks
+			.create({
+				userId: wantodoUser.userId,
+				taskId: uuidV4(),
+				contents,
+				...options,
+			})
+			.catch((err) => {
+				throw new Exceptions.MongoException(err);
+			});
 
 		return {
 			msg: 'success',
@@ -69,10 +78,14 @@ export const createTask = async (user: UserInfo, contents: string, options: ReqC
  */
 export const getTasks = async (user: UserInfo, options: ReqGetTasksOptions) => {
 	try {
-		const wantodoUser = await users.findByPlatformIdAndPlatform({
-			platformId: user.platformId,
-			platform: user.platform,
-		});
+		const wantodoUser = await users
+			.findByPlatformIdAndPlatform({
+				platformId: user.platformId,
+				platform: user.platform,
+			})
+			.catch((err) => {
+				throw new Exceptions.MongoException(err);
+			});
 
 		const { year, month, day } = options;
 
@@ -109,7 +122,10 @@ export const getTasks = async (user: UserInfo, options: ReqGetTasksOptions) => {
 			.sort({
 				'period.start': 1,
 			})
-			.exec();
+			.exec()
+			.catch((err) => {
+				throw new Exceptions.MongoException(err);
+			});
 
 		return {
 			msg: 'success',
@@ -139,10 +155,14 @@ export const getTasks = async (user: UserInfo, options: ReqGetTasksOptions) => {
  */
 export const updateTask = async (user: UserInfo, taskId: string, options: ReqUpdateTaskOptions) => {
 	try {
-		const wantodoUser = await users.findByPlatformIdAndPlatform({
-			platformId: user.platformId,
-			platform: user.platform,
-		});
+		const wantodoUser = await users
+			.findByPlatformIdAndPlatform({
+				platformId: user.platformId,
+				platform: user.platform,
+			})
+			.catch((err) => {
+				throw new Exceptions.MongoException(err);
+			});
 
 		const { contents, important, period, tags } = options;
 
@@ -164,7 +184,10 @@ export const updateTask = async (user: UserInfo, taskId: string, options: ReqUpd
 				},
 				updateDoc,
 			)
-			.exec();
+			.exec()
+			.catch((err) => {
+				throw new Exceptions.MongoException(err);
+			});
 
 		return {
 			msg: 'success',
@@ -200,7 +223,10 @@ export const deleteTask = async (user: UserInfo, taskId: string) => {
 					isDeleted: true,
 				},
 			)
-			.exec();
+			.exec()
+			.catch((err) => {
+				throw new Exceptions.MongoException(err);
+			});
 
 		return {
 			msg: 'success',

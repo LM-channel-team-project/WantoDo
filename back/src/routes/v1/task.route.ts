@@ -17,8 +17,8 @@ const taskRouter = Router();
  * @apiUse HeaderToken
  *
  * @apiParam (Body) {Object} period 기간
- * @apiParam (Body) {Object} period.start 시작 시간
- * @apiParam (Body) {Object} period.end 종료 시간
+ * @apiParam (Body) {Number} period.start 시작 시간
+ * @apiParam (Body) {Number} period.end 종료 시간
  * @apiParam (Body) {String} contents 내용
  * @apiParam (Body) {Array} [tags] 태그 Id
  * @apiParam (Body) {Number} [important] 중요도
@@ -111,25 +111,25 @@ taskRouter.post('/', taskController.createTask);
  *
  * @apiUse HeaderToken
  *
- * @apiParam (Query Parameter) {String} year 년
- * @apiParam (Query Parameter) {String} month 월
- * @apiParam (Query Parameter) {String} [day] 일
+ * @apiParam (Query Parameter) {Number} year 년
+ * @apiParam (Query Parameter) {Number} month 월
+ * @apiParam (Query Parameter) {Number} [day] 일
  *
  * @apiSampleRequest /v1/tasks
  * @apiSuccess (SUCCESS) {Object} data Response Data Object
  * @apiSuccess (SUCCESS) {Array} data.tasks Task 배열
- * @apiSuccess (SUCCESS) {Array} data.tasks.taskId Task id
- * @apiSuccess (SUCCESS) {Array} data.tasks.contents 내용
- * @apiSuccess (SUCCESS) {Array} data.tasks.important 중요도
- * @apiSuccess (SUCCESS) {Array} data.tasks.isChecked 수행 여부
+ * @apiSuccess (SUCCESS) {String} data.tasks.taskId Task id
+ * @apiSuccess (SUCCESS) {String} data.tasks.contents 내용
+ * @apiSuccess (SUCCESS) {Number} data.tasks.important 중요도
+ * @apiSuccess (SUCCESS) {Boolean} data.tasks.isChecked 수행 여부
  * @apiSuccess (SUCCESS) {Array} data.tasks.tags 태그 배열
- * @apiSuccess (SUCCESS) {Array} data.tasks.tags.tagId 태그 id
- * @apiSuccess (SUCCESS) {Array} data.tasks.tags.isMainTag 메인 태그 여부
- * @apiSuccess (SUCCESS) {Array} data.tasks.period 시작 종료 기간 객체
- * @apiSuccess (SUCCESS) {Array} data.tasks.period.start 시작
- * @apiSuccess (SUCCESS) {Array} data.tasks.period.end 종료
- * @apiSuccess (SUCCESS) {Array} data.tasks.createdTimestamp 생성 일자
- * @apiSuccess (SUCCESS) {Array} data.tasks.updatedTimestamp 업데이트 일자
+ * @apiSuccess (SUCCESS) {String} data.tasks.tags.tagId 태그 id
+ * @apiSuccess (SUCCESS) {Boolean} data.tasks.tags.isMainTag 메인 태그 여부
+ * @apiSuccess (SUCCESS) {Object} data.tasks.period 시작 종료 기간 객체
+ * @apiSuccess (SUCCESS) {Number} data.tasks.period.start 시작
+ * @apiSuccess (SUCCESS) {Number} data.tasks.period.end 종료
+ * @apiSuccess (SUCCESS) {Number} data.tasks.createdTimestamp 생성 일자
+ * @apiSuccess (SUCCESS) {Number} data.tasks.updatedTimestamp 업데이트 일자
  * @apiSuccess (SUCCESS) {String} msg 성공메시지
  * @apiSuccessExample {json} SuccessResponse
  * {
@@ -187,8 +187,8 @@ taskRouter.get('/', taskController.getTasks);
  * @apiParam (Path Variable) {String} taskId task Id
  *
  * @apiParam (Body) {Object} [period] 기간
- * @apiParam (Body) {Object} period.start 시작 시간
- * @apiParam (Body) {Object} period.end 종료 시간
+ * @apiParam (Body) {Number} period.start 시작 시간
+ * @apiParam (Body) {Number} period.end 종료 시간
  * @apiParam (Body) {String} [contents] 내용
  * @apiParam (Body) {Array} [tags] 태그 Id
  * @apiParam (Body) {Number} [important] 중요도

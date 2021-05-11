@@ -4,6 +4,8 @@ import cors from 'cors';
 import configs from './config';
 import router from './routes';
 import './lib/wantodoMongoose';
+import Exceptions from './exceptions';
+import errorHandler from './middlewares/ErrorHandler';
 
 const app = express();
 
@@ -17,8 +19,10 @@ app.use('/api', router);
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
-	next(new Error('404 Error'));
+	next(new Exceptions.WantodoException(10002));
 });
+
+app.use(errorHandler);
 
 // start
 app.listen(configs.port, () => {

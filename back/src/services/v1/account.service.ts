@@ -2,6 +2,7 @@ import { v4 as uuidV4 } from 'uuid';
 
 import { UserInfo } from '../../common/types';
 import { BeginningOfWeek, Theme, users } from '../../models/user.model';
+import Exceptions from '../../exceptions';
 
 /**
  * @author 강성모(castleMo)
@@ -12,11 +13,15 @@ import { BeginningOfWeek, Theme, users } from '../../models/user.model';
 export const isUserExist = async (user: UserInfo) => {
 	try {
 		// 유저 존재여부 체크를 위한 쿼리
-		const count: number = await users.countDocuments({
-			platformId: user.platformId,
-			platform: user.platform,
-			isCloseAccount: false,
-		});
+		const count: number = await users
+			.countDocuments({
+				platformId: user.platformId,
+				platform: user.platform,
+				isCloseAccount: false,
+			})
+			.catch((err) => {
+				throw new Exceptions.MongoException(err);
+			});
 
 		return {
 			msg: 'success',
@@ -40,11 +45,15 @@ export const isUserExist = async (user: UserInfo) => {
 export const loginUser = async (user: UserInfo) => {
 	try {
 		// 신규유저인지 로그인유저인지 확인을 위한 쿼리
-		const count: number = await users.countDocuments({
-			platformId: user.platformId,
-			platform: user.platform,
-			isCloseAccount: false,
-		});
+		const count: number = await users
+			.countDocuments({
+				platformId: user.platformId,
+				platform: user.platform,
+				isCloseAccount: false,
+			})
+			.catch((err) => {
+				throw new Exceptions.MongoException(err);
+			});
 
 		let returnToUser: any = {
 			email: '',
@@ -94,7 +103,10 @@ export const loginUser = async (user: UserInfo) => {
 					platformId: user.platformId,
 					isCloseAccount: false,
 				})
-				.exec();
+				.exec()
+				.catch((err) => {
+					throw new Exceptions.MongoException(err);
+				});
 
 			// 존재하지않으면 에러를 던져줌
 			if (!dbUser) throw new Error('');
@@ -162,7 +174,10 @@ export const updateUserSettings = async (
 					updatedTimestamp: Math.floor(+new Date()),
 				},
 			)
-			.exec();
+			.exec()
+			.catch((err) => {
+				throw new Exceptions.MongoException(err);
+			});
 
 		return {
 			msg: 'success',
@@ -192,7 +207,10 @@ export const withdrawUser = async (user: UserInfo) => {
 					isCloseAccount: true,
 				},
 			)
-			.exec();
+			.exec()
+			.catch((err) => {
+				throw new Exceptions.MongoException(err);
+			});
 
 		return {
 			msg: 'success',
@@ -222,7 +240,10 @@ export const successTutorial = async (user: UserInfo) => {
 					isTutorial: true,
 				},
 			)
-			.exec();
+			.exec()
+			.catch((err) => {
+				throw new Exceptions.MongoException(err);
+			});
 
 		return {
 			msg: 'success',
