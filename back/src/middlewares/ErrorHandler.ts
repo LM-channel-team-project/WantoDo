@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from 'express';
 
 const errorHandler = (error: any, req: Request, res: Response, next: NextFunction) => {
-	if ('errorCode' in error) {
+	if ('type' in error) {
 		res.status(error.status).send({
 			name: error.name,
 			type: error.type,
