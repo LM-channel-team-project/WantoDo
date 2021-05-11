@@ -1,4 +1,4 @@
-@value colorLightSkyblue, colorSkyblue from './common/color.css';
+@value colorPurple from './common/color.css';
 
 .selector {
   display: inline-block;
@@ -14,7 +14,7 @@
 }
 
 .hidden {
-  background-color: colorLightSkyblue;
+  background-color: colorPurple;
   position: absolute;
   right: 0;
   top: 0;
@@ -27,7 +27,7 @@
 }
 
 .hidden:hover {
-  background-color: colorLightSkyblue;
+  background-color: colorPurple;
 }
 
 .selector:hover .hidden {

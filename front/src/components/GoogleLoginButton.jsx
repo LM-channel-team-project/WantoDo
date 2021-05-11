@@ -35,7 +35,7 @@ const GoogleLoginButton = ({ onLogin }) => {
       // isSignedIn
       cookiePolicy="single_host_origin"
       render={(props) => (
-        <IconButton Icon={AiOutlineGoogle} onClick={props.onClick}>
+        <IconButton Icon={AiOutlineGoogle} styleName="loginbutton" onClick={props.onClick}>
           구글 계정으로 시작하기
         </IconButton>
       )}
