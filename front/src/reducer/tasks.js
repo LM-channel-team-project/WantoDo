@@ -1,44 +1,22 @@
 import generateId from '../utils/id-generator';
 
-const initialTask = {
-  '4k1g2435hk': {
-    level: 0,
-    checked: true,
-    content: '투두리스트 만들기',
-    periods: [Date.now()],
-  },
-  '4f5j76k2d1': {
-    level: 1,
-    checked: false,
-    content: '컴포넌트 전부 완성하기',
-    periods: [new Date('2021-04-21T16:30:00'), new Date('2021-04-22T16:30:00')],
-  },
-  '3ds45h63o5': {
-    level: 2,
-    checked: false,
-    content: '비즈니스 로직 짜기',
-    periods: [new Date('2021-04-21T16:30:00'), new Date('2021-04-23T16:30:00')],
-  },
-  '16wh4rk43w': {
-    level: 3,
-    checked: false,
-    content: '프로젝트 마치고 치킨 먹기',
-    periods: [new Date('2021-04-23T16:30:00'), new Date('2021-04-24T16:30:00')],
-  },
-};
-
+const UPDATE_TASKS = 'UPDATE_TASKS';
 const ADD_TASK = 'ADD_TASK';
 const UPDATE_TASK = 'UPDATE_TASK';
 const DELETE_TASK = 'DELETE_TASK';
 
+export const updateTasks = (tasks) => ({ type: UPDATE_TASKS, tasks });
 export const addTask = (task) => ({ type: ADD_TASK, task });
 export const updateTask = (task) => ({ type: UPDATE_TASK, task });
 export const deleteTask = (id) => ({ type: DELETE_TASK, id });
 
-const reducer = (state = initialTask, action) => {
-  const tasks = { ...state };
+const reducer = (state = {}, action) => {
+  let tasks = { ...state };
 
   switch (action.type) {
+    case UPDATE_TASKS:
+      tasks = action.tasks;
+      break;
     case ADD_TASK:
       tasks[generateId()] = { ...action.task, checked: false };
       break;
