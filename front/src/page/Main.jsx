@@ -10,10 +10,11 @@ import ProfileModal from '../components/ProfileModal';
 import TasksContainer from '../container/TasksContainer';
 import CalenderContainer from '../container/CalenderContainer';
 
-const Main = ({ isProfileShow, isTaskFormShow, content, createProfile }) => {
+const Main = ({ isProfileShow, isTaskFormShow, content, createProfile, pushToken }) => {
   const onLoginSuccess = async ({ tokenObj }) => {
     const profile = await accountManager.getUserProfile(tokenObj.id_token);
     createProfile(profile);
+    pushToken(tokenObj.id_token);
   };
 
   useGoogleLogin({
@@ -48,6 +49,7 @@ const mapStateToProps = ({ modal: { profile, taskForm } }) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     createProfile: (profile) => dispatch(actionCreators.createProfile(profile)),
+    pushToken: (token) => dispatch(actionCreators.pushToken(token)),
   };
 };
 
