@@ -3,7 +3,7 @@ import { Error as MongooseError } from 'mongoose';
 class MongoException extends Error {
 	public status: number = 0;
 
-	public type: string = 'MognoDBException';
+	public type: string = 'MongoDBException';
 
 	public name: string = '';
 
