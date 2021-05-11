@@ -69,6 +69,43 @@ class AccountManager {
 
     return profile;
   };
+
+  getUserTasks = async (token, { year, month, day = '' }, handleTasks) => {
+    const url = `${process.env.REACT_APP_SERVER_URL}/api/v1/tasks`;
+
+    let tasks;
+    try {
+      const response = await axios({
+        method: 'get',
+        url,
+        headers: { Authorization: token },
+        params: { year: String(year), month: String(month) },
+      });
+
+      const { data } = response.data;
+
+      tasks = data.tasks.reduce((tasksObj, task) => {
+        const copied = { ...tasksObj };
+        const { taskId, contents, important, isChecked, tags, period } = task;
+        copied[taskId] = {
+          level: important,
+          checked: isChecked,
+          content: contents,
+          periods: period,
+          tags,
+        };
+        return copied;
+      }, {});
+    } catch (error) {
+      throw new Error(error);
+    }
+
+    try {
+      if (handleTasks instanceof Function) handleTasks(tasks);
+    } catch (error) {
+      throw new Error(error);
+    }
+  };
 }
 
 const accountManager = new AccountManager();
