@@ -90,7 +90,7 @@ export const createTask = async (req: Request, res: Response, next: NextFunction
 		const { user } = res.locals;
 		const { contents, tags, period, important } = req.body;
 		const result = await taskService.createTask(user, contents, {
-			tags,
+			reqTags: tags,
 			period,
 			important,
 		});
@@ -261,7 +261,7 @@ export const updateTask = async (req: Request, res: Response, next: NextFunction
 		const { contents, tags, period, important } = req.body;
 		const result = await taskService.updateTask(user, taskId, {
 			contents,
-			tags,
+			reqTags: tags,
 			period,
 			important,
 		});
