@@ -127,11 +127,13 @@ taskRouter.post('/', taskController.createTask);
  * @apiSuccess (SUCCESS) {Array} data.tasks.tags 태그 배열
  * @apiSuccess (SUCCESS) {String} data.tasks.tags.tagId 태그 id
  * @apiSuccess (SUCCESS) {Boolean} data.tasks.tags.isMainTag 메인 태그 여부
+ * @apiSuccess (SUCCESS) {String} data.tasks.tags.name 태그 이름
+ * @apiSuccess (SUCCESS) {String} data.tasks.tags.color 태그 컬러
+ * @apiSuccess (SUCCESS) {Number} data.tasks.createdTimestamp 생성 일자
+ * @apiSuccess (SUCCESS) {Number} data.tasks.updatedTimestamp 업데이트 일자
  * @apiSuccess (SUCCESS) {Object} data.tasks.period 시작 종료 기간 객체
  * @apiSuccess (SUCCESS) {Number} data.tasks.period.start 시작
  * @apiSuccess (SUCCESS) {Number} data.tasks.period.end 종료
- * @apiSuccess (SUCCESS) {Number} data.tasks.createdTimestamp 생성 일자
- * @apiSuccess (SUCCESS) {Number} data.tasks.updatedTimestamp 업데이트 일자
  * @apiSuccess (SUCCESS) {String} msg 성공메시지
  * @apiSuccessExample {json} SuccessResponse
  * {
@@ -151,7 +153,9 @@ taskRouter.post('/', taskController.createTask);
  *           "tags": [
  *             {
  *               "tagId": "958c10bd-c946-4170-9d92-33eead88eea2",
- *               "isMainTag": true
+ *               "isMainTag": true,
+ *               "name": "tag1",
+ *               "color": "#112233"
  *             }
  *           ],
  *           "createdTimestamp": 1620201587228
