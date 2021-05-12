@@ -3,7 +3,7 @@
 @value effect: './common/effect.css';
 @value colorWhite,colorLightGray,colorGray, colorDarkGray, colorLightSkyblue, colorSkyblue, colorPurple,colorDarkPurple from colors;
 @value animation-duration-fast as fast from effect;
-@value box-shadow, button-radius, border-radius, weight-regular, weight-regular, weight-bold, font-regular,space-narrow, space-narrower,space-regular from size;
+@value box-shadow, button-radius, border-radius, weight-regular, weight-regular, weight-bold, weight-semibold, font-regular,space-narrow, space-narrower,space-regular from size;
 
 .button {
   font-size: 1em;
@@ -26,27 +26,35 @@
 /* 메인 페이지 */
 .loginbutton {
   padding: 1em;
+  color: colorWhite;
 }
 
 /* 회원가입 페이지 버튼 */
 .tutorial,
 .tutorial__cancel {
-  padding: 1em 3em;
-  margin-right: 1em;
+  padding: 1em 2em;
+  margin-right: 3em;
+  color: colorWhite;
+  font-weight: weight-semibold;
 }
 
 .tutorial__cancel {
   background-color: colorLightGray;
 }
 
+.tutorial__cancel:hover {
+  background-color: colorGray;
+}
+
 .tutorial__image {
   position: absolute;
   bottom: 0;
-  right: 0;
-  font-size: 1.2em;
+  right: 75px;
+  font-size: 0.8em;
   line-height: 0.5;
   padding: 1em;
   border-radius: 50%;
+  color: colorWhite;
 }
 
 /* navbar button */

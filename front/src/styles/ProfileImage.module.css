@@ -24,3 +24,8 @@
   border: colorPurple solid 5px;
   box-shadow: box-shadow;
 }
+
+.tutorial {
+  width: 130px;
+  height: 130px;
+}

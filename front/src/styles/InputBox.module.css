@@ -13,7 +13,7 @@
 .name {
   margin-right: narrow;
   font-size: 1em;
-  color: colorWhite;
+  /* color: colorWhite; */
   font-weight: semibold;
 }
 

@@ -1,7 +1,7 @@
 @value colors: './common/color.css';
 @value size: './common/size.css';
 @value effect: './common/effect.css';
-@value colorWhite, colorGray, colorLightGray, colorLightBlack, colorBlack from colors;
+@value colorWhite, colorGray, colorLightGray, colorDarkGray, colorLightBlack, colorBlack, colorPurple from colors;
 @value space-regular as regular, space-narrower as narrower, button-radius as radius from size;
 @value animation-duration-regular as duration-regular from effect;
 
@@ -34,15 +34,22 @@
   transition: all duration-regular ease-in;
 }
 
+/* 회원가입 */
 .tutorial {
   display: block;
   width: 100%;
-  font-size: 1.5em;
   background-color: transparent;
-  border-bottom: 1px solid colorBlack;
+  border-bottom: 2px solid colorGray;
   border-radius: 0;
   margin-top: 0.3em;
   margin-bottom: 0.8em;
+  color: colorDarkGray;
+}
+
+.tutorial:focus {
+  background-color: transparent;
+  border-bottom: 2px solid colorPurple;
+  color: colorDarkGray;
 }
 
 .tagInput {
