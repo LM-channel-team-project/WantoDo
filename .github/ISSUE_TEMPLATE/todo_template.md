@@ -1,10 +1,9 @@
 ---
 name: 투두 템플릿
 about: 작업전 생성하는 이슈
-title: '[Add]: ...'
+title: '[Feat]: ...'
 labels: todo
 assignees: ''
-
 ---
 
 # 📚Todo
