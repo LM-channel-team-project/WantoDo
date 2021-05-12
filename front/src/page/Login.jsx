@@ -9,7 +9,7 @@ import IconButton from '../components/IconButton';
 import accountManager from '../utils/account-manager';
 import styles from '../styles/page/Login.module.css';
 
-const LoginRender = ({ onLogin }) => {
+const LoginRender = ({ onLogin, pushToken }) => {
   const onSuccess = async (response) => {
     // 서버에 사용자 정보 전송, 가입 상태 및 프로필 정보 응답 받음
     const idToken = response.tokenObj.id_token;
@@ -29,6 +29,7 @@ const LoginRender = ({ onLogin }) => {
     onLogin(profile, userData.isTutorial);
     // 서버에 튜토리얼 완료 메시지 전송
     accountManager.completeTutorial(idToken);
+    pushToken(idToken);
   };
 
   const { signIn } = useGoogleLogin({
@@ -56,7 +57,7 @@ const LoginRender = ({ onLogin }) => {
   );
 };
 
-const Login = ({ createProfile }) => {
+const Login = ({ createProfile, pushToken }) => {
   const [tutorialDisplay, setTutorialDisplay] = useState(false);
   const [defaultProfile, setDefaultProfile] = useState({});
   const history = useHistory();
@@ -75,7 +76,11 @@ const Login = ({ createProfile }) => {
 
   return (
     <section className={styles.container}>
-      {tutorialDisplay ? <Tutorial profile={defaultProfile} /> : <LoginRender onLogin={onLogin} />}
+      {tutorialDisplay ? (
+        <Tutorial profile={defaultProfile} />
+      ) : (
+        <LoginRender pushToken={pushToken} onLogin={onLogin} />
+      )}
     </section>
   );
 };
@@ -85,6 +90,7 @@ const mapDispatchToProps = (dispatch) => {
     createProfile: (profile) => {
       dispatch(actionCreators.createProfile(profile));
     },
+    pushToken: (token) => dispatch(actionCreators.pushToken(token)),
   };
 };
 
