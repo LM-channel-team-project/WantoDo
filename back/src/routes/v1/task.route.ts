@@ -21,6 +21,8 @@ const taskRouter = Router();
  * @apiParam (Body) {Number} period.end 종료 시간
  * @apiParam (Body) {String} contents 내용
  * @apiParam (Body) {Array} [tags] 태그 Id
+ * @apiParam (Body) {String} tags.tagId 태그 Id
+ * @apiParam (Body) {Boolean} tags.isMainTag 메인 태그 유무
  * @apiParam (Body) {Number} [important] 중요도
  * @apiParamExample {json} RequestBodyExample (default)
  * {
@@ -112,7 +114,7 @@ taskRouter.post('/', taskController.createTask);
  * @apiUse HeaderToken
  *
  * @apiParam (Query Parameter) {Number} year 년
- * @apiParam (Query Parameter) {Number} month 월
+ * @apiParam (Query Parameter) {Number} month 월 (0 ~ 11)
  * @apiParam (Query Parameter) {Number} [day] 일
  *
  * @apiSampleRequest /v1/tasks

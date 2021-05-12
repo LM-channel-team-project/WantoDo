@@ -95,12 +95,12 @@ export const getTasks = async (user: UserInfo, options: ReqGetTasksOptions) => {
 
 		if (Number.isNaN(day)) {
 			// day 값이 들어오지 않으면 한달 조회
-			startTimestamp = +new Date(year, month - 1, 1, 0, 0, 0);
-			endTimestamp = +new Date(year, month, 0, 23, 59, 59);
+			startTimestamp = +new Date(year, month, 1, 0, 0, 0);
+			endTimestamp = +new Date(year, month + 1, 0, 23, 59, 59);
 		} else {
 			// day 값이 들어오면 하루 조회
-			startTimestamp = +new Date(year, month - 1, day, 0, 0, 0);
-			endTimestamp = +new Date(year, month - 1, day, 23, 59, 59);
+			startTimestamp = +new Date(year, month, day, 0, 0, 0);
+			endTimestamp = +new Date(year, month, day, 23, 59, 59);
 		}
 
 		const returnToTasks = await tasks

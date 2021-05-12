@@ -1,7 +1,7 @@
 import { v4 as uuidV4 } from 'uuid';
 import { UserInfo } from '../../common/types';
 import { users } from '../../models/user.model';
-import { tags } from '../../models/tag.model';
+import { ITagDocument, tags } from '../../models/tag.model';
 import Exceptions from '../../exceptions';
 
 /**
@@ -23,7 +23,7 @@ export const createTag = async (user: UserInfo, name: string, color: string) => 
 				throw new Exceptions.MongoException(err);
 			});
 
-		await tags
+		const tag: ITagDocument = await tags
 			.create({
 				userId: wantodoUser.userId,
 				tagId: uuidV4(),
@@ -36,6 +36,13 @@ export const createTag = async (user: UserInfo, name: string, color: string) => 
 
 		return {
 			msg: 'createTag',
+			data: {
+				tag: {
+					tagId: tag.tagId,
+					name: tag.name,
+					color: tag.color,
+				},
+			},
 		};
 	} catch (err) {
 		throw err;
