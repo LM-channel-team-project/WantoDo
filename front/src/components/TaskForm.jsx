@@ -72,6 +72,7 @@ const TaskForm = ({ addTask, toggleTaskFormModal, ...props }) => {
       <div className={styles.header}>
         <div className={styles.content}>
           <Input
+            className={styles.contentInput}
             inputRef={contentRef}
             value={props.content}
             name="content"

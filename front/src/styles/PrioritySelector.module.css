@@ -4,17 +4,25 @@
 .selector {
   display: flex;
   align-items: center;
-  padding: narrower;
+  padding: 0 0 0 10px;
   display: inline-flex;
 }
 
+
+/* "중요도" 글씨 */
 .name {
-  margin-right: narrow;
-  font-size: 1em;
+  margin: 0 10px;
+  font-size: 15px;
   font-weight: semibold;
   color: colorWhite;
 }
 
+/* 중요도 선택 ul == container */
+.list{
+  margin: 15px 10px 10px 15px;
+}
+
+/* 중요도 선택 li */
 .item {
   display: inline-block;
 }
