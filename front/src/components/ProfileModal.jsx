@@ -9,6 +9,7 @@ import styles from '../styles/ProfileModal.module.css';
 import GoogleLogoutButton from './GoogleLogoutButton';
 import Input from './Input';
 import InputBox from './InputBox';
+import accountManager from '../utils/account-manager';
 
 /**
  * 사용자의 프로필 정보를 표시하는 컴포넌트
@@ -65,7 +66,7 @@ const Profile = ({ imageURL, userName, email, motto, setEditDisplay }) => {
  * @param {Function} props.editProfile - 전역 프로필 수정하는 함수
  * @param {Function} props.setEditDisplay - 프로필 모달에 표시할 컴포넌트를 변경하는 함수
  */
-const ProfileEdit = ({ imageURL, userName, email, motto, editProfile, setEditDisplay }) => {
+const ProfileEdit = ({ imageURL, userName, email, motto, token, editProfile, setEditDisplay }) => {
   const nameRef = useRef();
   const mottoRef = useRef();
 
@@ -75,9 +76,15 @@ const ProfileEdit = ({ imageURL, userName, email, motto, editProfile, setEditDis
   };
 
   const onEditClick = () => {
-    // 프로필 전역 상태 변경
-    const profile = { userName: nameRef.current.value, motto: mottoRef.current.value };
-    editProfile(profile);
+    // 변경된 데이터만 객체로 만듦
+    const values = { userName: nameRef.current.value, motto: mottoRef.current.value };
+    const changed = {};
+
+    if (values.userName !== userName) changed.userName = values.userName;
+    if (values.motto !== userName) changed.motto = values.motto;
+
+    editProfile(changed);
+    accountManager.updateUserProfile(token, changed); // 서버에 프로필 변경 요청
     setEditDisplay(false);
   };
 
@@ -140,8 +147,8 @@ const ProfileModal = (props) => {
   );
 };
 
-const mapStateToProps = ({ profile: { imageURL, userName, email, motto } }) => {
-  return { imageURL, userName, email, motto };
+const mapStateToProps = ({ profile: { imageURL, userName, email, motto }, token }) => {
+  return { imageURL, userName, email, motto, token };
 };
 
 const mapDispatchToProps = (dispatch) => {
