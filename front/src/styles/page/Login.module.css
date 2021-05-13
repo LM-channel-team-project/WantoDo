@@ -5,7 +5,7 @@
   flex-direction: column;
   width: 100%;
   height: 100%;
-  background-color: white;
+  background-color: White;
   text-align: center;
   font-size: 1rem;
   border-radius: 1em;
@@ -40,19 +40,23 @@
 .list {
   display: flex;
   justify-content: center;
-  align-items: flex-start;
+  flex-direction: column;
+  /* align-items: flex-start; */
   margin-bottom: 3em;
 }
 
 .profile {
   position: relative;
-  margin-right: 4em;
+  margin-bottom: 3em;
 }
 
 .textBox {
   display: flex;
   flex-direction: column;
+  color: #525153;
 }
 
 .buttons {
+  position: relative;
+  right: -20px;
 }
