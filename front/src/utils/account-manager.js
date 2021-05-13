@@ -70,6 +70,26 @@ class AccountManager {
     return profile;
   };
 
+  // 서버에 프로필 수정 요청
+  updateUserProfile = async (token, profile) => {
+    const url = `${process.env.REACT_APP_SERVER_URL}/api/v1/profiles`;
+
+    // 수정 데이터만 전송
+    const updated = Object.keys(profile).reduce((obj, key) => {
+      const copied = { ...obj };
+      copied[key] = profile[key];
+      return copied;
+    }, {});
+
+    await axios.patch(url, updated, {
+      headers: {
+        Authorization: token,
+      },
+    });
+
+    // 추후에 응답 핸들링 추가
+  };
+
   getUserTasks = async (token, { year, month, day = '' }, handleTasks) => {
     const url = `${process.env.REACT_APP_SERVER_URL}/api/v1/tasks`;
 

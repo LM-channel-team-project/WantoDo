@@ -36,6 +36,7 @@ const Tutorial = ({ profile: defaultProfile, token, createProfile }) => {
     const profile = Object.assign(defaultProfile, tutorial);
 
     createProfile(profile);
+    accountManager.updateUserProfile(token, profile); // 프로필 수정 정보 전송
     accountManager.completeTutorial(token); // 튜토리얼 완료 상태 전송
     history.push('/');
   };
