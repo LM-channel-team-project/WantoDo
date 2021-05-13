@@ -60,8 +60,7 @@ class TimestampParser {
   };
 
   parsePeriods = (periods, options) => {
-    const start = periods[0];
-    const end = periods[1];
+    const { start, end } = periods;
 
     const parsedStart = start ? this.parseDate(start, options) : '';
     const parsedEnd = end ? this.parseDate(end, options) : '';
