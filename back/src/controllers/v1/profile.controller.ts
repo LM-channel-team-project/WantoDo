@@ -1,6 +1,8 @@
 import { NextFunction, Request, Response } from 'express';
 import { body, header, validationResult } from 'express-validator';
 import * as profileService from '../../services/v1/profile.service';
+import Utils from '../../common/Utils';
+import Exceptions from '../../exceptions';
 
 /**
  * @author 강성모(castleMo)
@@ -24,13 +26,10 @@ export const getProfile = async (req: Request, res: Response, next: NextFunction
 		]);
 
 		// validation Error
-		// todo: Error model 정의하기
 		const validationErrors = validationResult(req);
 		if (!validationErrors.isEmpty()) {
-			validationErrors.array().forEach((value) => {
-				console.log(value);
-			});
-			throw new Error('error');
+			const msg: string = Utils.mixingValidationErrorMessage(validationErrors);
+			throw new Exceptions.WantodoException(10001, msg);
 		}
 
 		const { user } = res.locals;
@@ -96,13 +95,10 @@ export const updateProfile = async (req: Request, res: Response, next: NextFunct
 		]);
 
 		// validation Error
-		// todo: Error model 정의하기
 		const validationErrors = validationResult(req);
 		if (!validationErrors.isEmpty()) {
-			validationErrors.array().forEach((value) => {
-				console.log(value);
-			});
-			throw new Error('error');
+			const msg: string = Utils.mixingValidationErrorMessage(validationErrors);
+			throw new Exceptions.WantodoException(10001, msg);
 		}
 
 		const { user } = res.locals;

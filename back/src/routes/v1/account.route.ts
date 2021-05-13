@@ -54,9 +54,9 @@ accountRouter.get('/signed', accountController.isUserExist);
  * @apiSuccess (SUCCESS) {Boolean} data.isTutorial 튜토리얼 진행 여부
  * @apiSuccess (SUCCESS) {Array} data.notifications 유저 notification tokens
  * @apiSuccess (SUCCESS) {Object} data.settings 유저 settings
- * @apiSuccess (SUCCESS) {Object} data.settings.theme 테마 설정 (default | dark)
- * @apiSuccess (SUCCESS) {Object} data.settings.isNotification 알림 받을 여부
- * @apiSuccess (SUCCESS) {Object} data.settings.beginningOfWeek 한주의 시작 설정 (sunday | monday)
+ * @apiSuccess (SUCCESS) {String} data.settings.theme 테마 설정 (default | dark)
+ * @apiSuccess (SUCCESS) {Boolean} data.settings.isNotification 알림 받을 여부
+ * @apiSuccess (SUCCESS) {String} data.settings.beginningOfWeek 한주의 시작 설정 (sunday | monday)
  * @apiSuccess (SUCCESS) {String} msg 성공메시지
  * @apiSuccessExample {json} SuccessResponse
  * {

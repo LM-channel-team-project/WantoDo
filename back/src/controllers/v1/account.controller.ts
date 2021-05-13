@@ -1,6 +1,8 @@
 import { NextFunction, Request, Response } from 'express';
 import { body, header, validationResult } from 'express-validator';
 import accountService from '../../services/v1/account.service';
+import Utils from '../../common/Utils';
+import Exceptions from '../../exceptions';
 
 /**
  * @author 강성모(castleMo)
@@ -24,10 +26,10 @@ export const isUserExist = async (req: Request, res: Response, next: NextFunctio
 		]);
 
 		// validation Error
-		// todo: Error model 정의하기
 		const validationErrors = validationResult(req);
 		if (!validationErrors.isEmpty()) {
-			throw new Error('updateUserSettings validationError');
+			const msg: string = Utils.mixingValidationErrorMessage(validationErrors);
+			throw new Exceptions.WantodoException(10001, msg);
 		}
 
 		const { user } = res.locals;
@@ -60,10 +62,10 @@ export const loginUser = async (req: Request, res: Response, next: NextFunction)
 		]);
 
 		// validation Error
-		// todo: Error model 정의하기
 		const validationErrors = validationResult(req);
 		if (!validationErrors.isEmpty()) {
-			throw new Error('updateUserSettings validationError');
+			const msg: string = Utils.mixingValidationErrorMessage(validationErrors);
+			throw new Exceptions.WantodoException(10001, msg);
 		}
 
 		const { user } = res.locals;
@@ -130,10 +132,10 @@ export const updateUserSettings = async (req: Request, res: Response, next: Next
 		]);
 
 		// validation Error
-		// todo: Error model 정의하기
 		const validationErrors = validationResult(req);
 		if (!validationErrors.isEmpty()) {
-			throw new Error('updateUserSettings validationError');
+			const msg: string = Utils.mixingValidationErrorMessage(validationErrors);
+			throw new Exceptions.WantodoException(10001, msg);
 		}
 
 		const { user } = res.locals;
@@ -167,10 +169,10 @@ export const withdrawUser = async (req: Request, res: Response, next: NextFuncti
 		]);
 
 		// validation Error
-		// todo: Error model 정의하기
 		const validationErrors = validationResult(req);
 		if (!validationErrors.isEmpty()) {
-			throw new Error('updateUserSettings validationError');
+			const msg: string = Utils.mixingValidationErrorMessage(validationErrors);
+			throw new Exceptions.WantodoException(10001, msg);
 		}
 
 		const { user } = res.locals;
@@ -203,10 +205,10 @@ export const successTutorial = async (req: Request, res: Response, next: NextFun
 		]);
 
 		// validation Error
-		// todo: Error model 정의하기
 		const validationErrors = validationResult(req);
 		if (!validationErrors.isEmpty()) {
-			throw new Error('successTutorial validationError');
+			const msg: string = Utils.mixingValidationErrorMessage(validationErrors);
+			throw new Exceptions.WantodoException(10001, msg);
 		}
 
 		const { user } = res.locals;

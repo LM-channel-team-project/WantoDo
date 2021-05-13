@@ -1,7 +1,8 @@
 import { v4 as uuidV4 } from 'uuid';
 import { UserInfo } from '../../common/types';
 import { users } from '../../models/user.model';
-import { tags } from '../../models/tag.model';
+import { ITagDocument, tags } from '../../models/tag.model';
+import Exceptions from '../../exceptions';
 
 /**
  * @author 강성모(castleMo)
@@ -13,20 +14,35 @@ import { tags } from '../../models/tag.model';
  */
 export const createTag = async (user: UserInfo, name: string, color: string) => {
 	try {
-		const wantodoUser = await users.findByPlatformIdAndPlatform({
-			platformId: user.platformId,
-			platform: user.platform,
-		});
+		const wantodoUser = await users
+			.findByPlatformIdAndPlatform({
+				platformId: user.platformId,
+				platform: user.platform,
+			})
+			.catch((err) => {
+				throw new Exceptions.MongoException(err);
+			});
 
-		await tags.create({
-			userId: wantodoUser.userId,
-			tagId: uuidV4(),
-			name,
-			color,
-		});
+		const tag: ITagDocument = await tags
+			.create({
+				userId: wantodoUser.userId,
+				tagId: uuidV4(),
+				name,
+				color,
+			})
+			.catch((err) => {
+				throw new Exceptions.MongoException(err);
+			});
 
 		return {
 			msg: 'createTag',
+			data: {
+				tag: {
+					tagId: tag.tagId,
+					name: tag.name,
+					color: tag.color,
+				},
+			},
 		};
 	} catch (err) {
 		throw err;
@@ -41,23 +57,31 @@ export const createTag = async (user: UserInfo, name: string, color: string) => 
  */
 export const getTags = async (user: UserInfo) => {
 	try {
-		const wantodoUser = await users.findByPlatformIdAndPlatform({
-			platformId: user.platformId,
-			platform: user.platform,
-		});
+		const wantodoUser = await users
+			.findByPlatformIdAndPlatform({
+				platformId: user.platformId,
+				platform: user.platform,
+			})
+			.catch((err) => {
+				throw new Exceptions.MongoException(err);
+			});
 
-		const returnTags = await tags.find(
-			{
-				userId: wantodoUser.userId,
-				isDeleted: false,
-			},
-			{
-				_id: 0,
-				tagId: 1,
-				name: 1,
-				color: 1,
-			},
-		);
+		const returnTags = await tags
+			.find(
+				{
+					userId: wantodoUser.userId,
+					isDeleted: false,
+				},
+				{
+					_id: 0,
+					tagId: 1,
+					name: 1,
+					color: 1,
+				},
+			)
+			.catch((err) => {
+				throw new Exceptions.MongoException(err);
+			});
 
 		return {
 			msg: 'success',
@@ -84,10 +108,14 @@ export const updateTag = async (user: UserInfo, tagId: string, name: string, col
 		// todo: Error model 정의하기
 		if (name === undefined && color === undefined) throw new Error('둘다 비어있음');
 
-		const wantodoUser = await users.findByPlatformIdAndPlatform({
-			platformId: user.platformId,
-			platform: user.platform,
-		});
+		const wantodoUser = await users
+			.findByPlatformIdAndPlatform({
+				platformId: user.platformId,
+				platform: user.platform,
+			})
+			.catch((err) => {
+				throw new Exceptions.MongoException(err);
+			});
 
 		const updateTagDoc: any = {
 			updatedTimestamp: Math.floor(+new Date()),
@@ -105,7 +133,10 @@ export const updateTag = async (user: UserInfo, tagId: string, name: string, col
 				},
 				updateTagDoc,
 			)
-			.exec();
+			.exec()
+			.catch((err) => {
+				throw new Exceptions.MongoException(err);
+			});
 
 		return {
 			msg: 'success',
@@ -141,7 +172,10 @@ export const deleteTag = async (user: UserInfo, tagId: string) => {
 					isDeleted: true,
 				},
 			)
-			.exec();
+			.exec()
+			.catch((err) => {
+				throw new Exceptions.MongoException(err);
+			});
 
 		return {
 			msg: 'success',

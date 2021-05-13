@@ -25,6 +25,11 @@ const tagRouter = Router();
  * }
  *
  * @apiSampleRequest /v1/tags
+ * @apiSuccess (SUCCESS) {Object} data Response Data Object
+ * @apiSuccess (SUCCESS) {Object} data.tag 태그 객체
+ * @apiSuccess (SUCCESS) {String} data.tag.tagId 태그 id
+ * @apiSuccess (SUCCESS) {String} data.tag.name 태그 이름
+ * @apiSuccess (SUCCESS) {String} data.tag.color 태그 컬러
  * @apiSuccess (SUCCESS) {String} msg 성공메시지
  * @apiSuccessExample {json} SuccessResponse
  * {

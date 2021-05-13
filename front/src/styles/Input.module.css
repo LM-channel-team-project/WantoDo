@@ -52,7 +52,68 @@
   color: colorDarkGray;
 }
 
+/* 21/05/09 DateInput 모달 각 요소들 수정 by 현빈*/
+
+/* 태그들 */
 .tagInput {
   border-radius: 3em;
+  background-color: white;
   padding: 0.3em 0.8em;
+}
+
+.year{
+  
+  padding: 0px !important;
+  left: 0px;
+  width: 50px;
+  text-align: center;
+  font-size: 15px;
+
+}
+
+.month{
+  
+  padding: 0px !important;
+  left: 0px;
+  width: 30px;
+  text-align: center;
+  font-size: 15px;
+
+
+}
+
+.date{
+  padding: 0px !important;
+  left: 0px;
+  width: 30px;
+  text-align: center;
+  font-size: 15px;
+  
+}
+.hour{
+  padding: 0 5px !important;
+  left: 0px;
+  width: 30px;
+  margin-left: 5px;
+  text-align: center;
+  font-size: 15px;
+
+}
+.min{
+  
+  padding: 0px !important;
+  left: 0px;
+  width: 30px;
+  text-align: center;
+  font-size: 15px;
+
+}
+.division{
+  
+  padding: 0px !important;
+  left: 0px;
+  width: 30px;
+  text-align: center;
+  font-size: 15px;
+
 }

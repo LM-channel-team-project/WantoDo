@@ -1,6 +1,8 @@
 import { NextFunction, Request, Response } from 'express';
 import { body, header, param, query, validationResult } from 'express-validator';
 import taskService from '../../services/v1/task.service';
+import Utils from '../../common/Utils';
+import Exceptions from '../../exceptions';
 
 /**
  * @author 강성모(castleMo)
@@ -65,7 +67,7 @@ export const createTask = async (req: Request, res: Response, next: NextFunction
 				.custom((value) => {
 					return value.start !== undefined && value.end !== undefined;
 				})
-				.withMessage('not properties')
+				.withMessage('properties is empty')
 				.run(req),
 			body('important')
 				.optional({ nullable: true })
@@ -79,13 +81,10 @@ export const createTask = async (req: Request, res: Response, next: NextFunction
 		]);
 
 		// validation Error
-		// todo: Error model 정의하기
 		const validationErrors = validationResult(req);
 		if (!validationErrors.isEmpty()) {
-			validationErrors.array().forEach((value) => {
-				console.log(value);
-			});
-			throw new Error('error');
+			const msg: string = Utils.mixingValidationErrorMessage(validationErrors);
+			throw new Exceptions.WantodoException(10001, msg);
 		}
 
 		const { user } = res.locals;
@@ -135,8 +134,8 @@ export const getTasks = async (req: Request, res: Response, next: NextFunction) 
 				.bail()
 				.isInt()
 				.withMessage('is not Number value')
-				.isInt({ min: 1, max: 12 })
-				.withMessage('month size must be greater than 1 or less than 12')
+				.isInt({ min: 0, max: 11 })
+				.withMessage('month size must be greater than 0 or less than 11')
 				.run(req),
 			query('day')
 				.optional({ checkFalsy: true })
@@ -152,13 +151,10 @@ export const getTasks = async (req: Request, res: Response, next: NextFunction) 
 		]);
 
 		// validation Error
-		// todo: Error model 정의하기
 		const validationErrors = validationResult(req);
 		if (!validationErrors.isEmpty()) {
-			validationErrors.array().forEach((value) => {
-				console.log(value);
-			});
-			throw new Error('error');
+			const msg: string = Utils.mixingValidationErrorMessage(validationErrors);
+			throw new Exceptions.WantodoException(10001, msg);
 		}
 
 		const { user } = res.locals;
@@ -254,13 +250,10 @@ export const updateTask = async (req: Request, res: Response, next: NextFunction
 		]);
 
 		// validation Error
-		// todo: Error model 정의하기
 		const validationErrors = validationResult(req);
 		if (!validationErrors.isEmpty()) {
-			validationErrors.array().forEach((value) => {
-				console.log(value);
-			});
-			throw new Error('error');
+			const msg: string = Utils.mixingValidationErrorMessage(validationErrors);
+			throw new Exceptions.WantodoException(10001, msg);
 		}
 
 		const { user } = res.locals;
@@ -308,13 +301,10 @@ export const deleteTask = async (req: Request, res: Response, next: NextFunction
 		]);
 
 		// validation Error
-		// todo: Error model 정의하기
 		const validationErrors = validationResult(req);
 		if (!validationErrors.isEmpty()) {
-			validationErrors.array().forEach((value) => {
-				console.log(value);
-			});
-			throw new Error('error');
+			const msg: string = Utils.mixingValidationErrorMessage(validationErrors);
+			throw new Exceptions.WantodoException(10001, msg);
 		}
 
 		const { user } = res.locals;

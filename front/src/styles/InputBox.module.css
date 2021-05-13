@@ -3,18 +3,28 @@
 @value colorWhite from './common/color.css';
 
 .inputBox {
-  position: relative;
   top: 130px;
   text-align: left;
-  padding: narrower;
-  top: -15px;
+  padding: 0;
+  color: red;
 }
 
+/* 년, 월, 일 등 input 글씨들 */
 .name {
-  margin-right: narrow;
-  font-size: 1em;
-  /* color: colorWhite; */
+  position: relative;
+  right: 1px;
+  margin-right:1px;
+  font-size: 14px;
+ /* color: colorWhite; */
   font-weight: semibold;
+}
+
+/* "TaskModal에서 글자 "태그" */
+.ModalNameTag{
+  color: colorWhite;
+  font-weight: semibold;
+  margin: 0 10px;
+  padding: 0 15px;
 }
 
 .list {
@@ -28,3 +38,8 @@
 .tagItem + .tagItem {
   margin-left: 0.5em;
 }
+
+.text{
+  margin:0px !important;
+}
+

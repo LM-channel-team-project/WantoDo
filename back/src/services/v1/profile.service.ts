@@ -1,5 +1,6 @@
 import { UserInfo } from '../../common/types';
 import { users } from '../../models/user.model';
+import Exceptions from '../../exceptions';
 
 interface ReqUpdateProfileOptions {
 	nickname: string;
@@ -15,10 +16,14 @@ interface ReqUpdateProfileOptions {
  */
 export const getProfile = async (user: UserInfo) => {
 	try {
-		const wantodoUser = await users.findByPlatformIdAndPlatform({
-			platformId: user.platformId,
-			platform: user.platform,
-		});
+		const wantodoUser = await users
+			.findByPlatformIdAndPlatform({
+				platformId: user.platformId,
+				platform: user.platform,
+			})
+			.catch((err) => {
+				throw new Exceptions.MongoException(err);
+			});
 
 		return {
 			msg: 'success',
@@ -68,7 +73,10 @@ export const updateProfile = async (user: UserInfo, options: ReqUpdateProfileOpt
 				},
 				updateDoc,
 			)
-			.exec();
+			.exec()
+			.catch((err) => {
+				throw new Exceptions.MongoException(err);
+			});
 
 		return {
 			msg: 'success',
