@@ -1,12 +1,9 @@
-@value colors: './common/color.css';
-@value colorDarkGray from colors;
-
 .form {
   display: flex;
   justify-content: space-between;
   align-items: center;
   width: 100%;
-  background: colorDarkGray;
+  background: lightgray;
   border-radius: 2em;
   padding: 0.3em;
   overflow: hidden;

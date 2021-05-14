@@ -41,10 +41,9 @@
   background-color: transparent;
   border-bottom: 2px solid colorGray;
   border-radius: 0;
-  margin-top: 0.6em;
-  margin-bottom: 2em;
+  margin-top: 0.3em;
+  margin-bottom: 0.8em;
   color: colorDarkGray;
-  padding: 0.4em 0.3em;
 }
 
 .tutorial:focus {
@@ -62,48 +61,59 @@
   padding: 0.3em 0.8em;
 }
 
-.year {
+.year{
+  
   padding: 0px !important;
   left: 0px;
   width: 50px;
   text-align: center;
   font-size: 15px;
+
 }
 
-.month {
+.month{
+  
   padding: 0px !important;
   left: 0px;
   width: 30px;
   text-align: center;
   font-size: 15px;
+
+
 }
 
-.date {
+.date{
   padding: 0px !important;
   left: 0px;
   width: 30px;
   text-align: center;
   font-size: 15px;
+  
 }
-.hour {
+.hour{
   padding: 0 5px !important;
   left: 0px;
   width: 30px;
   margin-left: 5px;
   text-align: center;
   font-size: 15px;
+
 }
-.min {
+.min{
+  
   padding: 0px !important;
   left: 0px;
   width: 30px;
   text-align: center;
   font-size: 15px;
+
 }
-.division {
+.division{
+  
   padding: 0px !important;
   left: 0px;
   width: 30px;
   text-align: center;
   font-size: 15px;
+
 }

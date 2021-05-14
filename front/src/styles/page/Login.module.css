@@ -41,25 +41,22 @@
   display: flex;
   justify-content: center;
   flex-direction: column;
+  /* align-items: flex-start; */
   margin-bottom: 3em;
 }
 
 .profile {
   position: relative;
-  display: flex;
-  justify-content: center;
   margin-bottom: 3em;
 }
 
 .textBox {
   display: flex;
   flex-direction: column;
-  font-size: 1.1em;
   color: #525153;
 }
 
 .buttons {
   position: relative;
-  display: flex;
-  justify-content: center;
+  right: -20px;
 }
