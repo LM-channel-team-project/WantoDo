@@ -13,7 +13,7 @@ const InputBox = (props) => {
   const { labelText, afterText } = props;
   return (
     <label className={`${styles.inputBox} ${styles[styleName]}`} htmlFor={styles.label}>
-      <span className={styles.name}>{labelText || ''}</span>
+      <span className={`${styles.name} ${styles[styleName]}`}>{labelText || ''}</span>
       <Input {...props} />
       <span className={styles.text}>{afterText}</span>
     </label>
