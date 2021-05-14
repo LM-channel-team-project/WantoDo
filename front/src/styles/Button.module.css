@@ -49,7 +49,7 @@
 .tutorial__image {
   position: absolute;
   bottom: 0;
-  right: 75px;
+  right: 60px;
   font-size: 0.8em;
   line-height: 0.5;
   padding: 1em;
@@ -215,8 +215,8 @@
 .tutorial__image {
   position: absolute;
   bottom: 0;
-  right: 0;
-  font-size: 1.2em;
+  right: 55px;
+  font-size: 1em;
   line-height: 0.5;
   padding: 1em;
   border-radius: 50%;
