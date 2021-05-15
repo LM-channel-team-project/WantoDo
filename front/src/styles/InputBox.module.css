@@ -20,7 +20,8 @@
 .ModalNameTag {
   color: colorWhite;
   font-weight: semibold;
-  margin: 0 10px;
+  font-size: 17px;
+  margin: 0 3px;
   padding: 0 15px;
 }
 

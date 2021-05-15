@@ -58,8 +58,9 @@
 /* 태그들 */
 .tagInput {
   border-radius: 3em;
-  background-color: white;
+  background-color: colorLightGray;
   padding: 0.3em 0.8em;
+  margin-left: 10px;
 }
 
 .year {

@@ -8,18 +8,17 @@
   display: inline-flex;
 }
 
-
 /* "중요도" 글씨 */
 .name {
-  margin: 0 10px;
-  font-size: 15px;
+  margin: 0 6px;
+  font-size: 17spx;
   font-weight: semibold;
   color: colorWhite;
 }
 
 /* 중요도 선택 ul == container */
-.list{
-  margin: 15px 10px 10px 15px;
+.list {
+  margin: 15px 8px;
 }
 
 /* 중요도 선택 li */

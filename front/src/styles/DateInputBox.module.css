@@ -1,21 +1,20 @@
-
-
-
+@value colors: './common/color.css';
+@value colorWhite from colors;
 
 /* 21년 05월 09, 10일 modal 각 카테고리 container by 현빈 */
 
 /* 시작, 마침 텍스트 */
-.text{
-    color: white;
+.text {
+  margin-right: 5px;
 }
-.box{
-    display: flex;
-}
-
-.time{
-}
-
-.date{
+.box {
+  color: colorWhite;
+  display: flex;
+  margin-left: 9px;
 }
 
+.time {
+}
 
+.date {
+}
