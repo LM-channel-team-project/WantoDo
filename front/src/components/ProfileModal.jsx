@@ -113,7 +113,7 @@ const ProfileEdit = ({ imageURL, userName, email, motto, token, editProfile, set
             name="motto"
             rows="3"
             cols="15"
-            styleName="profileModal__motto"
+            styleName="profileModify__motto"
             maxLength="30"
           />
         </li>
