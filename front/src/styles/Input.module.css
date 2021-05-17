@@ -38,9 +38,10 @@
   background-color: transparent;
   border-bottom: 2px solid colorGray;
   border-radius: 0;
-  margin-top: 0.3em;
-  margin-bottom: 0.8em;
+  margin-top: 0.6em;
+  margin-bottom: 2em;
   color: colorDarkGray;
+  padding: 0.4em 0.3em;
 }
 
 .tutorial:focus {
@@ -54,29 +55,27 @@
 /* 태그들 */
 .tagInput {
   border-radius: 3em;
-  background-color: white;
+  background-color: colorLightGray;
   padding: 0.3em 0.8em;
+  margin-left: 10px;
 }
 
+
 .year{
-  
   padding: 0px ;
   left: 0px;
   width: 50px;
   text-align: center;
   font-size: 15px;
-
 }
 
+
 .month{
-  
   padding: 0px;
   left: 0px;
   width: 30px;
   text-align: center;
   font-size: 15px;
-
-
 }
 
 .date{
@@ -85,8 +84,8 @@
   width: 30px;
   text-align: center;
   font-size: 15px;
-  
 }
+
 .hour{
   padding: 0 5px ;
   left: 0px;
@@ -94,25 +93,22 @@
   margin-left: 5px;
   text-align: center;
   font-size: 15px;
-
 }
+
 .min{
   padding: 0px ;
   left: 0px;
   width: 30px;
   text-align: center;
   font-size: 15px;
-
 }
+
 .division{
-  
   padding: 0px ;
   left: 0px;
   width: 30px;
   text-align: center;
   font-size: 15px;
-
-}
 
 /*! 프로필 수정  */
 /* 이름 수정 input창 */

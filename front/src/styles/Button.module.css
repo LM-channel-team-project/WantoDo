@@ -49,7 +49,7 @@
 .tutorial__image {
   position: absolute;
   bottom: 0;
-  right: 75px;
+  right: 60px;
   font-size: 0.8em;
   line-height: 0.5;
   padding: 1em;
@@ -111,7 +111,6 @@
   color: red;
 }
 
-
 /* Created by 오영롱(youngrongoh) on 2021/04/23 */
 .tag,
 .tagDelete {
@@ -170,6 +169,11 @@
 }
 
 /* 투두리스트-등록 폼 */
+.QuickAddForm {
+  color: colorWhite;
+  margin-right: 0.5em;
+}
+
 .QuickAddForm,
 .QuickAddForm__icon {
   height: 100%;
@@ -197,7 +201,6 @@
   background-color: transparent;
 }
 
-
 /* 회원가입 페이지 버튼 */
 .tutorial,
 .tutorial__cancel {
@@ -212,13 +215,12 @@
 .tutorial__image {
   position: absolute;
   bottom: 0;
-  right: 0;
-  font-size: 1.2em;
+  right: 55px;
+  font-size: 1em;
   line-height: 0.5;
   padding: 1em;
   border-radius: 50%;
 }
-
 
 /* taskform modal button */
 
@@ -229,13 +231,12 @@
 .taskForm__cancel,
 .taskForm__done {
   position: relative;
-  right:10px;
+  right: 10px;
   margin: 0 3px;
   padding: 0.3em 0.5em;
   background-color: transparent;
-  transition-property: none;
   color: colorWhite;
-  font-size: 14px;
+  font-size: 16px;
   border: 0.5px solid rgb(82, 82, 82);
   margin: 6px 0 0 0;
 }
@@ -244,7 +245,7 @@
 .taskForm__done:hover {
   background-color: transparent;
   color: colorWhite;
-  transform: scale(0.9)
+  transform: scale(1.1);
 }
 
 .priorityInput {
@@ -257,22 +258,24 @@
   transform: scale(1.2);
 }
 
-.calendar{
-  font-size: 11px;
+.calendar {
+  font-size: 15px;
+  position: relative;
+  top: -5px;
   background-color: transparent;
   transition-property: none;
+  color: colorPurple;
 }
 
-.calendar:hover{
-  font-size: 11px;
+.calendar:hover {
+  font-size: 15px;
   background-color: transparent;
   transform: scale(1.1);
 }
 
-.calendar svg{
+.calendar svg {
   fill: rgba(255, 255, 255, 0.856);
 }
-
 
 /* quick button */
 .quickButton {
@@ -327,7 +330,6 @@
   transform: none;
   color: colorPurple;
 }
-
 
 .profileModal{
   color: colorWhite;

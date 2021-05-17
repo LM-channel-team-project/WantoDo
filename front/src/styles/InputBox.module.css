@@ -23,10 +23,11 @@
 }
 
 /* "TaskModal에서 글자 "태그" */
-.ModalNameTag{
+.ModalNameTag {
   color: colorWhite;
   font-weight: semibold;
-  margin: 0 10px;
+  font-size: 17px;
+  margin: 0 3px;
   padding: 0 15px;
 }
 
@@ -42,12 +43,9 @@
   margin-left: 0.5em;
 }
 
-.text{
-  margin:0px !important;
+.text {
+  margin: 0px !important;
 }
-
-
-
 
 /*! 프로필 수정  */
 /* Motto 텍스트 label*/
@@ -65,3 +63,4 @@
   margin-right: 10px;
   background-color: colorWhite;
 }
+
