@@ -99,7 +99,6 @@ class AccountManager {
       if (key) copied[key] = time[key];
       return copied;
     }, {});
-    console.log(params);
 
     let tasks;
     try {
@@ -149,16 +148,103 @@ class AccountManager {
     const data = Object.keys(task).reduce((taskObj, key) => {
       const copied = { ...taskObj };
 
+      if (key === 'tags') {
+        copied[key] = task.tags.map((tag) => ({ tagId: tag.tagId, isMainTag: tag.isMainTag }));
+        return copied;
+      }
+
       if (task[key]) copied[matchingKeys[key]] = task[key];
       return copied;
     }, {});
-    console.log(data);
 
-    await axios({
+    const response = await axios({
       method: 'post',
       url,
       headers: { Authorization: token },
       data,
+    });
+
+    // 추후에 서버에서 태스크 id 받아와서 반환하는 것으로 변경
+    return response.data.msg;
+  };
+
+  updateTask = async (token, taskId, task) => {
+    const url = `${process.env.REACT_APP_SERVER_URL}/api/v1/tasks/${taskId}`;
+
+    const matchingKeys = {
+      level: 'important',
+      tags: 'tags',
+      content: 'contents',
+      periods: 'period',
+      checked: 'checked',
+    };
+
+    // task에 존재하는 값만 객체로 만듦
+    const data = Object.keys(task).reduce((taskObj, key) => {
+      const copied = { ...taskObj };
+
+      if (key === 'tags') {
+        copied[key] = task.tags.map((tag) => ({ tagId: tag.tagId, isMainTag: tag.isMainTag }));
+        return copied;
+      }
+
+      // 서버에서 사용하는 필드명으로 변환하고 값 매칭
+      if (task[key]) copied[matchingKeys[key]] = task[key];
+      return copied;
+    }, {});
+
+    await axios({
+      method: 'patch',
+      url,
+      headers: { Authorization: token },
+      data,
+    });
+  };
+
+  deleteTask = async (token, taskId) => {
+    const url = `${process.env.REACT_APP_SERVER_URL}/api/v1/tasks/${taskId}`;
+
+    await axios({
+      method: 'delete',
+      url,
+      headers: { Authorization: token },
+    });
+  };
+
+  getUserTags = async (token, handleTags) => {
+    const url = `${process.env.REACT_APP_SERVER_URL}/api/v1/tags`;
+
+    const { data } = await axios({
+      method: 'get',
+      url,
+      headers: { Authorization: token },
+    });
+
+    const { tags } = data.data;
+
+    if (handleTags instanceof Function) handleTags(tags);
+  };
+
+  addTag = async (token, tag) => {
+    const url = `${process.env.REACT_APP_SERVER_URL}/api/v1/tags`;
+
+    const { data } = await axios({
+      method: 'post',
+      url,
+      headers: { Authorization: token },
+      data: tag,
+    });
+
+    return data.data.tag.tagId;
+  };
+
+  deleteTag = async (token, tagId) => {
+    const url = `${process.env.REACT_APP_SERVER_URL}/api/v1/tags/${tagId}`;
+
+    await axios({
+      method: 'delete',
+      url,
+      headers: { Authorization: token },
     });
   };
 }

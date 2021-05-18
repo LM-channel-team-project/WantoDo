@@ -331,7 +331,12 @@
   color: colorPurple;
 }
 
-.profileModal{
+.profileModal {
   color: colorWhite;
 }
 
+.taskItem,
+.taskItem:hover {
+  background-color: transparent;
+  transform: unset;
+}

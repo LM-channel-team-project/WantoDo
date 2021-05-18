@@ -8,9 +8,9 @@ import Navbar from '../container/Navbar';
 import TaskModal from '../container/TaskModal';
 import ProfileModal from '../components/ProfileModal';
 import TasksContainer from '../container/TasksContainer';
-import CalenderContainer from '../container/CalenderContainer';
+import CalendarContainer from '../container/CalendarContainer';
 
-const Main = ({ isProfileShow, isTaskFormShow, content, createProfile, pushToken }) => {
+const Main = ({ isProfileShow, isTaskFormShow, task, taskId, createProfile, pushToken }) => {
   const onLoginSuccess = async ({ tokenObj }) => {
     const profile = await accountManager.getUserProfile(tokenObj.id_token);
     createProfile(profile);
@@ -29,10 +29,10 @@ const Main = ({ isProfileShow, isTaskFormShow, content, createProfile, pushToken
       <Layout
         Side={() => <Navbar />}
         Left={() => <TasksContainer />}
-        Right={() => <CalenderContainer />}
+        Right={() => <CalendarContainer />}
       >
         {isProfileShow && <ProfileModal />}
-        {isTaskFormShow && <TaskModal content={content} />}
+        {isTaskFormShow && <TaskModal taskId={taskId} task={task} />}
       </Layout>
     </>
   );
@@ -42,7 +42,8 @@ const mapStateToProps = ({ modal: { profile, taskForm } }) => {
   return {
     isProfileShow: profile,
     isTaskFormShow: taskForm.display,
-    content: taskForm.content,
+    task: taskForm.task,
+    taskId: taskForm.taskId,
   };
 };
 

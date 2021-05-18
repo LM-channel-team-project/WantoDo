@@ -1,5 +1,6 @@
 import React from 'react';
 import styles from '../styles/Tag.module.css';
+import colorManager from '../utils/color-manager';
 
 /** Created by 오영롱(youngrongoh) on 2021/04/23
  * 태스크의 태그를 나타내는 컴포넌트
@@ -8,11 +9,14 @@ import styles from '../styles/Tag.module.css';
  * @param {ReactElement} props.children - 컴포넌트의 자식 요소
  * @param {string} props.styleName - 스타일링 변화를 줄 때 사용되는 클래스명 문자열
  */
-const Tag = ({ name, color, children, styleName }) => (
-  <div className={`${styles.tag} ${styles[color]} ${styles[styleName]}`}>
-    <span className={styles.name}>{name}</span>
-    {children}
-  </div>
-);
+const Tag = ({ name, color = '', children, styleName }) => {
+  const colorName = color.includes('#') ? colorManager.toName(color) : color;
+  return (
+    <div className={`${styles.tag} ${styles[colorName || '']} ${styles[styleName]}`}>
+      <span className={styles.name}>{name}</span>
+      {children}
+    </div>
+  );
+};
 
 export default Tag;

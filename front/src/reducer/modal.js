@@ -5,14 +5,18 @@ export const modals = {
 
 const initialState = {
   [modals.profile]: false,
-  [modals.taskForm]: { display: false, content: '' },
+  [modals.taskForm]: { display: false, taskId: '', task: {} },
 };
 
 const TOGGLE_MODAL = 'TOGGLE_MODAL';
 const TOGGLE_TASK_FORM_MODAL = 'TOGGLE_TASK_FORM_MODAL';
 
 export const toggleModal = (target) => ({ type: TOGGLE_MODAL, target });
-export const toggleTaskFormModal = (content) => ({ type: TOGGLE_TASK_FORM_MODAL, content });
+export const toggleTaskFormModal = (taskId, task) => ({
+  type: TOGGLE_TASK_FORM_MODAL,
+  taskId,
+  task,
+});
 
 const reducer = (state = initialState, action) => {
   const newState = { ...state };
@@ -23,7 +27,8 @@ const reducer = (state = initialState, action) => {
       break;
     case TOGGLE_TASK_FORM_MODAL:
       newState[modals.taskForm].display = !newState[modals.taskForm].display;
-      newState[modals.taskForm].content = action.content;
+      newState[modals.taskForm].taskId = action.taskId;
+      newState[modals.taskForm].task = action.task;
       break;
     default:
       break;
