@@ -10,7 +10,7 @@ import styles from '../styles/TaskForm.module.css';
 import Input from './Input';
 import accountManager from '../utils/account-manager';
 
-const TaskForm = ({ addTask, updateTask, toggleTaskFormModal, token, taskId, task }) => {
+const TaskForm = ({ addTask, updateTask, toggleTaskFormModal, token, taskId, task, tagList }) => {
   const [tags, setTags] = useState(task.tags || []);
   const contentRef = useRef();
   const priorityRef = useRef();
@@ -108,13 +108,13 @@ const TaskForm = ({ addTask, updateTask, toggleTaskFormModal, token, taskId, tas
         refs={{ startRef, endRef }}
         periods={task.periods || { start: currentTime, end: currentTime }}
       />
-      <TagInputBox token={token} tags={tags} inputName="tags" setTags={setTags} />
+      <TagInputBox tagList={tagList} token={token} tags={tags} inputName="tags" setTags={setTags} />
     </form>
   );
 };
 
-const mapStateToProps = ({ token }) => {
-  return { token };
+const mapStateToProps = ({ token, tags }) => {
+  return { token, tagList: tags };
 };
 
 const mapDispatchToProps = (dispatch) => {

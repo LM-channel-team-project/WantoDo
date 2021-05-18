@@ -13,7 +13,11 @@ const reducer = (state = {}, action) => {
 
   switch (action.type) {
     case GET_TAGS:
-      tags = action.tags;
+      tags = action.tags.reduce((obj, tag) => {
+        const copied = { ...obj };
+        copied[tag.tagId] = tag;
+        return copied;
+      }, {});
       break;
     case ADD_TAG:
       tags[''] = { ...action.tag };

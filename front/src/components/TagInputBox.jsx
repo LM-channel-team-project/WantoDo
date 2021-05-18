@@ -25,7 +25,7 @@ const useFlexInputSize = (intialSize) => {
  * @param {string} props.placeholder - input의 placeholder 속성 값
  * @param {Function} props.validator - input의 유효성 검사를 수행할 콜백 함수, 반환하는 boolean 값에 따라 상태 변화 여부 결정
  */
-const TagInputBox = ({ token, tags = [], inputName, validator, placeholder, setTags }) => {
+const TagInputBox = ({ token, tags = [], inputName, validator, placeholder, setTags, tagList }) => {
   const [value, setValue] = useState('');
   const { inputSize, flexInputSize } = useFlexInputSize(0);
 
@@ -35,7 +35,7 @@ const TagInputBox = ({ token, tags = [], inputName, validator, placeholder, setT
     const isMainTag = tags.length === 0;
     const tag = { name, color: colorManager.getRandomHex(), isMainTag };
     const tagId = await accountManager.addTag(token, tag);
-    setTags((previous) => [...previous, { id: tagId, ...tag }]);
+    setTags((previous) => [...previous, { tagId, ...tag }]);
   };
 
   const onKeyDown = (event) => {
@@ -78,10 +78,10 @@ const TagInputBox = ({ token, tags = [], inputName, validator, placeholder, setT
       <span className={styles.ModalNameTag}>태그</span>
       <ul className={styles.list}>
         {tags.map((tag) => (
-          <li key={tag.id} className={styles.tagItem}>
+          <li key={tag.tagId} className={styles.tagItem}>
             <TagButton
-              tagId={tag.id}
-              name={tag.name}
+              tagId={tag.tagId}
+              name={tag.name || tagList[tag.tagId].name}
               color={tag.color}
               onClick={onClick}
               onDelete={onTagDelete}
