@@ -105,7 +105,7 @@ const TagInputBox = ({ token, tags = [], inputName, validator, placeholder, setT
             <TagButton
               tagId={tag.tagId}
               name={tag.name || tagList[tag.tagId].name}
-              color={tag.color}
+              color={tag.color || tagList[tag.tagId].color}
               isMainTag={tag.isMainTag}
               onMouseDown={onTagMouseDown}
               onMouseUp={onTagMouseUp}
