@@ -99,6 +99,21 @@ const taskRouter = Router();
  * @apiSuccessExample {json} SuccessResponse
  * {
  *     "msg": "success"
+ *     "data": {
+ *          "task": {
+ *              "taskId": "14c302ec-dfc7-4551-8379-f139e9911a64",
+ *              "contents": "task10",
+ *              "tags": [],
+ *              "createdTimestamp": 1621322008932,
+ *              "updatedTimestamp": 0,
+ *              "important": 0,
+ *              "isChecked": false,
+ *              "period": {
+ *                  "start": 1621321862,
+ *                  "end": 1621321862
+ *              }
+ *          }
+ *      }
  * }
  */
 taskRouter.post('/', taskController.createTask);
@@ -204,6 +219,7 @@ taskRouter.get('/', taskController.getTasks);
  *
  * @apiParam (Body) {String} [contents] 내용
  * @apiParam (Body) {Number} [important] 중요도
+ * @apiParam (Body) {Boolean} [isChecked] 수행 여부
  * @apiParamExample {json} RequestBodyExample (contents)
  * {
  *     "contents": "Hello world"
@@ -243,6 +259,12 @@ taskRouter.get('/', taskController.getTasks);
  *     "important": 2
  * }
  *
+ * @apiParamExample {json} RequestBodyExample (contents + isChecked)
+ * {
+ *     "contents": "Hello world",
+ *     "isChecked": true
+ * }
+ *
  * @apiParamExample {json} RequestBodyExample (All)
  * {
  *     "contents": "Hello world",
@@ -264,7 +286,8 @@ taskRouter.get('/', taskController.getTasks);
  *       "start": 21039210,
  *       "end": 31820938
  *     },
- *     "important": 2
+ *     "important": 2,
+ *     "isChecked": true
  * }
  *
  * @apiSampleRequest /v1/tasks/:taskId
