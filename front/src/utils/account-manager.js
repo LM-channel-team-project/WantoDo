@@ -206,6 +206,20 @@ class AccountManager {
     });
   };
 
+  getUserTags = async (token, handleTags) => {
+    const url = `${process.env.REACT_APP_SERVER_URL}/api/v1/tags`;
+
+    const { data } = await axios({
+      method: 'get',
+      url,
+      headers: { Authorization: token },
+    });
+
+    const { tags } = data.data;
+
+    if (handleTags instanceof Function) handleTags(tags);
+  };
+
   addTag = async (token, tag) => {
     const url = `${process.env.REACT_APP_SERVER_URL}/api/v1/tags`;
 

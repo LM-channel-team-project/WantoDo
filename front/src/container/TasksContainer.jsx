@@ -6,7 +6,7 @@ import { actionCreators } from '../store/store';
 import styles from '../styles/page/Main.module.css';
 import accountManager from '../utils/account-manager';
 
-const TasksContainer = ({ tasks, token, updateTasks }) => {
+const TasksContainer = ({ tasks, token, updateTasks, getTags }) => {
   useEffect(() => {
     if (!token) return;
     const now = new Date();
@@ -19,7 +19,9 @@ const TasksContainer = ({ tasks, token, updateTasks }) => {
       },
       updateTasks,
     );
-  }, [token, updateTasks]);
+
+    accountManager.getUserTags(token, getTags);
+  }, [token, updateTasks, getTags]);
 
   return (
     <div className={styles.container}>
@@ -43,6 +45,7 @@ const mapStateToProps = ({ tasks, token }) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     updateTasks: (tasks) => dispatch(actionCreators.updateTasks(tasks)),
+    getTags: (tags) => dispatch(actionCreators.getTags(tags)),
   };
 };
 
