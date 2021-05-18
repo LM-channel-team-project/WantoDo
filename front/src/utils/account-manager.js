@@ -149,7 +149,7 @@ class AccountManager {
       const copied = { ...taskObj };
 
       if (key === 'tags') {
-        copied[key] = task.tags.map((tag) => ({ tagId: tag.id, isMainTag: tag.isMainTag }));
+        copied[key] = task.tags.map((tag) => ({ tagId: tag.tagId, isMainTag: tag.isMainTag }));
         return copied;
       }
 
@@ -182,6 +182,11 @@ class AccountManager {
     // task에 존재하는 값만 객체로 만듦
     const data = Object.keys(task).reduce((taskObj, key) => {
       const copied = { ...taskObj };
+
+      if (key === 'tags') {
+        copied[key] = task.tags.map((tag) => ({ tagId: tag.tagId, isMainTag: tag.isMainTag }));
+        return copied;
+      }
 
       // 서버에서 사용하는 필드명으로 변환하고 값 매칭
       if (task[key]) copied[matchingKeys[key]] = task[key];
@@ -231,6 +236,16 @@ class AccountManager {
     });
 
     return data.data.tag.tagId;
+  };
+
+  deleteTag = async (token, tagId) => {
+    const url = `${process.env.REACT_APP_SERVER_URL}/api/v1/tags/${tagId}`;
+
+    await axios({
+      method: 'delete',
+      url,
+      headers: { Authorization: token },
+    });
   };
 }
 

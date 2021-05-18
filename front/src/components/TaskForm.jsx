@@ -61,7 +61,7 @@ const TaskForm = ({ addTask, updateTask, toggleTaskFormModal, token, taskId, tas
       content: contentRef.current.value,
       level: Number(priorityRef.current.value),
       periods,
-      tags: tags.length > 0 ? tags : null,
+      tags,
     };
 
     // taskId가 없으면 등록, 있으면 수정

@@ -69,8 +69,9 @@ const TagInputBox = ({ token, tags = [], inputName, validator, placeholder, setT
 
   const onTagDelete = (id) => {
     setTags((previous) => {
-      return [...previous].filter((tag) => tag.id !== id);
+      return [...previous].filter((tag) => tag.tagId !== id);
     });
+    accountManager.deleteTag(token, id);
   };
 
   return (
