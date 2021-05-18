@@ -174,7 +174,7 @@ class AccountManager {
       tags: 'tags',
       content: 'contents',
       periods: 'period',
-      checked: 'checked',
+      checked: 'isChecked',
     };
 
     // task에 존재하는 값만 객체로 만듦
