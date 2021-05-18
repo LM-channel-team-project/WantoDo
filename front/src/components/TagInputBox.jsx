@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import generateId from '../utils/id-generator';
 import colorManager from '../utils/color-manager';
 import TagButton from './TagButton';
 import styles from '../styles/InputBox.module.css';
 import inputStyles from '../styles/Input.module.css';
+import accountManager from '../utils/account-manager';
 
 const useFlexInputSize = (intialSize) => {
   const [inputSize, setInputSize] = useState(intialSize);
@@ -25,15 +25,17 @@ const useFlexInputSize = (intialSize) => {
  * @param {string} props.placeholder - input의 placeholder 속성 값
  * @param {Function} props.validator - input의 유효성 검사를 수행할 콜백 함수, 반환하는 boolean 값에 따라 상태 변화 여부 결정
  */
-const TagInputBox = ({ tags = [], inputName, validator, placeholder, setTags }) => {
+const TagInputBox = ({ token, tags = [], inputName, validator, placeholder, setTags }) => {
   const [value, setValue] = useState('');
   const { inputSize, flexInputSize } = useFlexInputSize(0);
 
   const onClick = () => {};
 
-  const addTag = (name) => {
-    const tag = { id: generateId(), name, color: colorManager.getRandomHex() };
-    setTags((previous) => [...previous, tag]);
+  const addTag = async (name) => {
+    const isMainTag = tags.length === 0;
+    const tag = { name, color: colorManager.getRandomHex(), isMainTag };
+    const tagId = await accountManager.addTag(token, tag);
+    setTags((previous) => [...previous, { id: tagId, ...tag }]);
   };
 
   const onKeyDown = (event) => {

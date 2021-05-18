@@ -148,16 +148,24 @@ class AccountManager {
     const data = Object.keys(task).reduce((taskObj, key) => {
       const copied = { ...taskObj };
 
+      if (key === 'tags') {
+        copied[key] = task.tags.map((tag) => ({ tagId: tag.id, isMainTag: tag.isMainTag }));
+        return copied;
+      }
+
       if (task[key]) copied[matchingKeys[key]] = task[key];
       return copied;
     }, {});
 
-    await axios({
+    const response = await axios({
       method: 'post',
       url,
       headers: { Authorization: token },
       data,
     });
+
+    // 추후에 서버에서 태스크 id 받아와서 반환하는 것으로 변경
+    return response.data.msg;
   };
 
   updateTask = async (token, taskId, task) => {
@@ -186,6 +194,19 @@ class AccountManager {
       headers: { Authorization: token },
       data,
     });
+  };
+
+  addTag = async (token, tag) => {
+    const url = `${process.env.REACT_APP_SERVER_URL}/api/v1/tags`;
+
+    const { data } = await axios({
+      method: 'post',
+      url,
+      headers: { Authorization: token },
+      data: tag,
+    });
+
+    return data.data.tag.tagId;
   };
 }
 
