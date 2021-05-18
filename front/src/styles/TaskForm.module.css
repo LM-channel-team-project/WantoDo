@@ -1,5 +1,12 @@
 @value weight-semibold as semibold, font-regular from './common/size.css';
+@value colors: './common/color.css';
+@value size: './common/size.css';
+@value effect: './common/effect.css';
+@value colorWhite, colorGray, colorLightGray, colorLightBlack, colorBlack from colors;
+@value space-regular as regular, space-narrower as narrower, button-radius as radius from size;
+@value animation-duration-regular as duration-regular from effect;
 
+/* 전체 컨테이너 */
 .form {
   white-space: nowrap;
 }
@@ -11,6 +18,37 @@
 }
 
 .content {
-  font-size: font-regular;
+  font-size: 14px;
+  width: 300px;
+  margin: 6px 0px 0px 6px;
   /* font-weight: semibold; */
+}
+
+/* "오늘의 할일을 적어주세요" Input 부분 스타일 추가21/05/09 by 현빈 */
+.contentInput {
+  /* border: 0.3px solid rgba(109, 98, 98, 0.5); */
+  /* box-shadow: 1px 1px rgba(109, 103, 103, 0.5); */
+  width: 300px;
+  position: relative;
+  left: -5px;
+  padding: 0.6em 1em;
+  border-radius: radius;
+  background-color: transparent;
+  font-size: 1.1em;
+  color: colorwhite;
+}
+/* 
+.contentInput::placeholder{
+color: white;
+} */
+
+.contentInput:focus {
+  background-color: colorLightBlack;
+  transition: all duration-regular ease-in;
+  color: colorWhite;
+}
+
+.contentInput:focus::placeholder {
+  color: rgb(165, 165, 165);
+  transition: all duration-regular ease-in;
 }

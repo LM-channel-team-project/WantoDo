@@ -73,7 +73,7 @@ const TagInputBox = ({ tags = [], inputName, validator, placeholder, setTags }) 
 
   return (
     <label className={styles.inputBox} htmlFor={styles.inputBox}>
-      <span className={styles.name}>태그</span>
+      <span className={styles.ModalNameTag}>태그</span>
       <ul className={styles.list}>
         {tags.map((tag) => (
           <li key={tag.id} className={styles.tagItem}>

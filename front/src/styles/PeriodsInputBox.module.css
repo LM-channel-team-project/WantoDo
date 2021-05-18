@@ -6,11 +6,11 @@
 }
 
 .label {
-  font-size: 1em;
+  font-size: 17px;
+  margin-left: 3px;
+  padding: 0px 15px;
   color: colorWhite;
   font-weight: semibold;
-  margin-left: narrower;
-  margin-right: narrower;
 }
 
 .periods {

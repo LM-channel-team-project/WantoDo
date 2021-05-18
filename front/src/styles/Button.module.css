@@ -3,7 +3,7 @@
 @value effect: './common/effect.css';
 @value colorWhite,colorLightGray,colorGray, colorDarkGray, colorLightSkyblue, colorSkyblue, colorPurple,colorDarkPurple from colors;
 @value animation-duration-fast as fast from effect;
-@value box-shadow, button-radius, border-radius, weight-regular, weight-regular, weight-bold, font-regular,space-narrow, space-narrower,space-regular from size;
+@value box-shadow, button-radius, border-radius, weight-regular, weight-regular, weight-bold, weight-semibold, font-regular,space-narrow, space-narrower,space-regular from size;
 
 .button {
   font-size: 1em;
@@ -26,27 +26,35 @@
 /* 메인 페이지 */
 .loginbutton {
   padding: 1em;
+  color: colorWhite;
 }
 
 /* 회원가입 페이지 버튼 */
 .tutorial,
 .tutorial__cancel {
-  padding: 1em 3em;
-  margin-right: 1em;
+  padding: 1em 2em;
+  margin-right: 3em;
+  color: colorWhite;
+  font-weight: weight-semibold;
 }
 
 .tutorial__cancel {
   background-color: colorLightGray;
 }
 
+.tutorial__cancel:hover {
+  background-color: colorGray;
+}
+
 .tutorial__image {
   position: absolute;
   bottom: 0;
-  right: 0;
-  font-size: 1.2em;
+  right: 60px;
+  font-size: 0.8em;
   line-height: 0.5;
   padding: 1em;
   border-radius: 50%;
+  color: colorWhite;
 }
 
 /* navbar button */
@@ -81,6 +89,26 @@
   height: 40px;
   font-weight: weight-regular;
   box-shadow: box-shadow;
+}
+
+.profileModal:hover {
+  background-color: colorDarkPurple;
+}
+
+/* checkbox button */
+.checkbox {
+  position: relative;
+  display: flex;
+  width: 1em;
+  height: 1em;
+  border: 1px solid colorDarkGray;
+  border-radius: 50%;
+  margin-right: space-narrower;
+  margin-left: space-narrower;
+  bottom: -0.1em;
+  padding: 0;
+  background: none;
+  color: red;
 }
 
 /* Created by 오영롱(youngrongoh) on 2021/04/23 */
@@ -141,6 +169,11 @@
 }
 
 /* 투두리스트-등록 폼 */
+.QuickAddForm {
+  color: colorWhite;
+  margin-right: 0.5em;
+}
+
 .QuickAddForm,
 .QuickAddForm__icon {
   height: 100%;
@@ -168,22 +201,51 @@
   background-color: transparent;
 }
 
+/* 회원가입 페이지 버튼 */
+.tutorial,
+.tutorial__cancel {
+  padding: 1em 3em;
+  margin-right: 1em;
+}
+
+.tutorial__cancel {
+  background-color: colorLightGray;
+}
+
+.tutorial__image {
+  position: absolute;
+  bottom: 0;
+  right: 55px;
+  font-size: 1em;
+  line-height: 0.5;
+  padding: 1em;
+  border-radius: 50%;
+}
+
 /* taskform modal button */
+
 .taskForm__cancel {
-  margin-right: 0.3em;
+  margin-right: 0.1em;
 }
 
 .taskForm__cancel,
 .taskForm__done {
+  position: relative;
+  right: 10px;
+  margin: 0 3px;
   padding: 0.3em 0.5em;
   background-color: transparent;
-  color: colorGray;
+  color: colorWhite;
+  font-size: 16px;
+  border: 0.5px solid rgb(82, 82, 82);
+  margin: 6px 0 0 0;
 }
 
 .taskForm__cancel:hover,
 .taskForm__done:hover {
   background-color: transparent;
   color: colorWhite;
+  transform: scale(1.1);
 }
 
 .priorityInput {
@@ -194,6 +256,25 @@
 .priorityInput:hover {
   background-color: transparent;
   transform: scale(1.2);
+}
+
+.calendar {
+  font-size: 15px;
+  position: relative;
+  top: -5px;
+  background-color: transparent;
+  transition-property: none;
+  color: colorPurple;
+}
+
+.calendar:hover {
+  font-size: 15px;
+  background-color: transparent;
+  transform: scale(1.1);
+}
+
+.calendar svg {
+  fill: rgba(255, 255, 255, 0.856);
 }
 
 /* quick button */
@@ -249,3 +330,8 @@
   transform: none;
   color: colorPurple;
 }
+
+.profileModal{
+  color: colorWhite;
+}
+

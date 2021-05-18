@@ -10,11 +10,12 @@ import InputBox from '../components/InputBox';
 import ProfileImage from '../components/ProfileImage';
 
 import styles from '../styles/page/Login.module.css';
+import accountManager from '../utils/account-manager';
 
-const Tutorial = ({ profile, createProfile }) => {
+const Tutorial = ({ profile: defaultProfile, token, createProfile }) => {
   const history = useHistory();
 
-  const [imageURL, setImageURL] = useState(profile.imageURL);
+  const [imageURL, setImageURL] = useState(defaultProfile.imageURL);
 
   const onImageChange = (url = '') => {
     setImageURL(url);
@@ -24,18 +25,19 @@ const Tutorial = ({ profile, createProfile }) => {
     event.preventDefault();
 
     const form = new FormData(event.target);
-
-    const newProfile = Array.from(form.keys()).reduce((obj, key) => {
+    // 폼 내에 모든 input 값을 받아와 객체로 변환
+    const tutorial = Array.from(form.keys()).reduce((obj, key) => {
       const copied = { ...obj };
 
       copied[key] = form.get(key);
       return copied;
     }, {});
 
-    // 임시 처리
-    newProfile.email = profile.email;
+    const profile = Object.assign(defaultProfile, tutorial);
 
-    createProfile(newProfile);
+    createProfile(profile);
+    accountManager.updateUserProfile(token, profile); // 프로필 수정 정보 전송
+    accountManager.completeTutorial(token); // 튜토리얼 완료 상태 전송
     history.push('/');
   };
 
@@ -48,7 +50,7 @@ const Tutorial = ({ profile, createProfile }) => {
         </li>
         <li className={styles.textBox}>
           <InputBox
-            value={profile.userName}
+            value={defaultProfile.userName}
             labelText="이름"
             name="userName"
             styleName="tutorial"
@@ -75,6 +77,10 @@ const Tutorial = ({ profile, createProfile }) => {
   );
 };
 
+const mapStateToProps = ({ token }) => {
+  return { token };
+};
+
 const mapDispatchToProps = (dispatch) => {
   return {
     createProfile: (profile) => {
@@ -83,4 +89,4 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-export default connect(undefined, mapDispatchToProps)(Tutorial);
+export default connect(mapStateToProps, mapDispatchToProps)(Tutorial);
