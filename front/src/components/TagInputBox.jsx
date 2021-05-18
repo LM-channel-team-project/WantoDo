@@ -28,8 +28,30 @@ const useFlexInputSize = (intialSize) => {
 const TagInputBox = ({ token, tags = [], inputName, validator, placeholder, setTags, tagList }) => {
   const [value, setValue] = useState('');
   const { inputSize, flexInputSize } = useFlexInputSize(0);
+  let isMouseDown = false;
 
-  const onClick = () => {};
+  const onTagMouseDown = (tagId) => {
+    isMouseDown = true;
+    setTimeout(() => {
+      if (isMouseDown) {
+        const updated = tags.map((tag) => {
+          const copied = { ...tag };
+          if (copied.tagId === tagId) {
+            copied.isMainTag = true;
+          } else {
+            copied.isMainTag = false;
+          }
+          return copied;
+        });
+        setTags(updated);
+        isMouseDown = false;
+      }
+    }, 1000);
+  };
+
+  const onTagMouseUp = () => {
+    isMouseDown = false;
+  };
 
   const addTag = async (name) => {
     const isMainTag = tags.length === 0;
@@ -84,7 +106,9 @@ const TagInputBox = ({ token, tags = [], inputName, validator, placeholder, setT
               tagId={tag.tagId}
               name={tag.name || tagList[tag.tagId].name}
               color={tag.color}
-              onClick={onClick}
+              isMainTag={tag.isMainTag}
+              onMouseDown={onTagMouseDown}
+              onMouseUp={onTagMouseUp}
               onDelete={onTagDelete}
             />
           </li>

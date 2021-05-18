@@ -10,19 +10,26 @@ import styles from '../styles/TagButton.module.css';
  * @param {text} props.color - 태그 색상을 설정하는 문자열, 5-10가지 종류 색상을 지정해서 사용
  * @param {Function} props.onClick - 태그 색상을 설정하는 문자열, 5-10가지 종류 색상을 지정해서 사용
  */
-const TagButton = ({ tagId, name, color, onClick, onDelete }) => {
-  const onTagClick = (event) => {
+const TagButton = ({ tagId, name, color, isMainTag, onMouseDown, onMouseUp, onDelete }) => {
+  const onTagMouseDown = (event) => {
     if (event.defaultPrevented) return; // delete 버튼이 클릭될 때는 실행하지 않음
 
-    if (onClick instanceof Function) onClick(event);
+    if (onMouseDown instanceof Function) onMouseDown(tagId);
+  };
+
+  const onTagMouseUp = (event) => {
+    if (event.defaultPrevented) return; // delete 버튼이 클릭될 때는 실행하지 않음
+
+    if (onMouseUp instanceof Function) onMouseUp(event);
   };
 
   const onKeyDown = () => {};
 
   return (
     <div
-      className={styles.tag}
-      onClick={onTagClick}
+      className={isMainTag ? styles.main : ''}
+      onMouseDown={onTagMouseDown}
+      onMouseUp={onTagMouseUp}
       onKeyDown={onKeyDown}
       role="button"
       tabIndex="0"
