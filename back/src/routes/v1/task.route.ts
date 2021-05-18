@@ -16,14 +16,16 @@ const taskRouter = Router();
  *
  * @apiUse HeaderToken
  *
+ * @apiParam (Body) {Array} [tags] 태그 배열
+ * @apiParam (Body) {String} tags.tagId 태그 Id
+ * @apiParam (Body) {Boolean} tags.isMainTag 메인 태그 유무
+ *
  * @apiParam (Body) {Object} period 기간
  * @apiParam (Body) {Number} period.start 시작 시간
  * @apiParam (Body) {Number} period.end 종료 시간
- * @apiParam (Body) {String} contents 내용
- * @apiParam (Body) {Array} [tags] 태그 Id
- * @apiParam (Body) {String} tags.tagId 태그 Id
- * @apiParam (Body) {Boolean} tags.isMainTag 메인 태그 유무
+ *
  * @apiParam (Body) {Number} [important] 중요도
+ * @apiParam (Body) {String} contents 내용
  * @apiParamExample {json} RequestBodyExample (default)
  * {
  *     "contents": "Hello world",
@@ -97,6 +99,21 @@ const taskRouter = Router();
  * @apiSuccessExample {json} SuccessResponse
  * {
  *     "msg": "success"
+ *     "data": {
+ *          "task": {
+ *              "taskId": "14c302ec-dfc7-4551-8379-f139e9911a64",
+ *              "contents": "task10",
+ *              "tags": [],
+ *              "createdTimestamp": 1621322008932,
+ *              "updatedTimestamp": 0,
+ *              "important": 0,
+ *              "isChecked": false,
+ *              "period": {
+ *                  "start": 1621321862,
+ *                  "end": 1621321862
+ *              }
+ *          }
+ *      }
  * }
  */
 taskRouter.post('/', taskController.createTask);
@@ -127,11 +144,13 @@ taskRouter.post('/', taskController.createTask);
  * @apiSuccess (SUCCESS) {Array} data.tasks.tags 태그 배열
  * @apiSuccess (SUCCESS) {String} data.tasks.tags.tagId 태그 id
  * @apiSuccess (SUCCESS) {Boolean} data.tasks.tags.isMainTag 메인 태그 여부
+ * @apiSuccess (SUCCESS) {String} data.tasks.tags.name 태그 이름
+ * @apiSuccess (SUCCESS) {String} data.tasks.tags.color 태그 컬러
+ * @apiSuccess (SUCCESS) {Number} data.tasks.createdTimestamp 생성 일자
+ * @apiSuccess (SUCCESS) {Number} data.tasks.updatedTimestamp 업데이트 일자
  * @apiSuccess (SUCCESS) {Object} data.tasks.period 시작 종료 기간 객체
  * @apiSuccess (SUCCESS) {Number} data.tasks.period.start 시작
  * @apiSuccess (SUCCESS) {Number} data.tasks.period.end 종료
- * @apiSuccess (SUCCESS) {Number} data.tasks.createdTimestamp 생성 일자
- * @apiSuccess (SUCCESS) {Number} data.tasks.updatedTimestamp 업데이트 일자
  * @apiSuccess (SUCCESS) {String} msg 성공메시지
  * @apiSuccessExample {json} SuccessResponse
  * {
@@ -151,7 +170,9 @@ taskRouter.post('/', taskController.createTask);
  *           "tags": [
  *             {
  *               "tagId": "958c10bd-c946-4170-9d92-33eead88eea2",
- *               "isMainTag": true
+ *               "isMainTag": true,
+ *               "name": "tag1",
+ *               "color": "#112233"
  *             }
  *           ],
  *           "createdTimestamp": 1620201587228
@@ -191,9 +212,14 @@ taskRouter.get('/', taskController.getTasks);
  * @apiParam (Body) {Object} [period] 기간
  * @apiParam (Body) {Number} period.start 시작 시간
  * @apiParam (Body) {Number} period.end 종료 시간
+ *
+ * @apiParam (Body) {Array} [tags] 태그 배열
+ * @apiParam (Body) {String} tags.tagId 태그 Id
+ * @apiParam (Body) {Boolean} tags.isMainTag 메인 태그 유무
+ *
  * @apiParam (Body) {String} [contents] 내용
- * @apiParam (Body) {Array} [tags] 태그 Id
  * @apiParam (Body) {Number} [important] 중요도
+ * @apiParam (Body) {Boolean} [isChecked] 수행 여부
  * @apiParamExample {json} RequestBodyExample (contents)
  * {
  *     "contents": "Hello world"
@@ -233,6 +259,12 @@ taskRouter.get('/', taskController.getTasks);
  *     "important": 2
  * }
  *
+ * @apiParamExample {json} RequestBodyExample (contents + isChecked)
+ * {
+ *     "contents": "Hello world",
+ *     "isChecked": true
+ * }
+ *
  * @apiParamExample {json} RequestBodyExample (All)
  * {
  *     "contents": "Hello world",
@@ -254,7 +286,8 @@ taskRouter.get('/', taskController.getTasks);
  *       "start": 21039210,
  *       "end": 31820938
  *     },
- *     "important": 2
+ *     "important": 2,
+ *     "isChecked": true
  * }
  *
  * @apiSampleRequest /v1/tasks/:taskId

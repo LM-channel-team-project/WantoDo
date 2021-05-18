@@ -2,11 +2,12 @@ import { v4 as uuidV4 } from 'uuid';
 
 import { UserInfo } from '../../common/types';
 import { users } from '../../models/user.model';
-import { tasks } from '../../models/task.model';
+import { ITag, ITask, tasks } from '../../models/task.model';
+import { tags } from '../../models/tag.model';
 import Exceptions from '../../exceptions';
 
 interface ReqCreateTaskOptions {
-	tags: string[];
+	reqTags: string[];
 	important: number | undefined;
 	period: { start: number; end: number } | undefined;
 }
@@ -17,8 +18,30 @@ interface ReqGetTasksOptions {
 	day: number | undefined;
 }
 
+interface ResTags {
+	tagId: string;
+	isMainTag: boolean;
+	name: string;
+	color: string;
+}
+
+interface ResTasks {
+	taskId: string;
+	contents: string;
+	isChecked: boolean;
+	period: {
+		start: number;
+		end: number;
+	};
+	important: number;
+	tags: ResTags[];
+	createdTimestamp: number;
+	updatedTimestamp: number;
+}
+
 interface ReqUpdateTaskOptions extends ReqCreateTaskOptions {
-	contents: string | undefined;
+	contents?: string;
+	isChecked?: boolean;
 }
 
 /**
@@ -47,7 +70,7 @@ export const createTask = async (user: UserInfo, contents: string, options: ReqC
 				throw new Exceptions.MongoException(err);
 			});
 
-		await tasks
+		const task = await tasks
 			.create({
 				userId: wantodoUser.userId,
 				taskId: uuidV4(),
@@ -60,6 +83,18 @@ export const createTask = async (user: UserInfo, contents: string, options: ReqC
 
 		return {
 			msg: 'success',
+			data: {
+				task: {
+					taskId: task.taskId,
+					contents: task.contents,
+					tags: task.tags,
+					createdTimestamp: task.createdTimestamp,
+					updatedTimestamp: task.updatedTimestamp,
+					important: task.important,
+					isChecked: task.isChecked,
+					period: task.period,
+				},
+			},
 		};
 	} catch (err) {
 		throw err;
@@ -70,11 +105,11 @@ export const createTask = async (user: UserInfo, contents: string, options: ReqC
  * @author 강성모(castleMo)
  * @since 2021/04/29
  *
- * @param user					platform 유저 객체
- * @param options				년, 월, 일
- * @param options.year	년
- * @param options.month	월
- * @param options.day		일
+ * @param user            platform 유저 객체
+ * @param options          년, 월, 일
+ * @param options.year    년
+ * @param options.month    월
+ * @param options.day      일
  */
 export const getTasks = async (user: UserInfo, options: ReqGetTasksOptions) => {
 	try {
@@ -103,7 +138,8 @@ export const getTasks = async (user: UserInfo, options: ReqGetTasksOptions) => {
 			endTimestamp = +new Date(year, month, day, 23, 59, 59);
 		}
 
-		const returnToTasks = await tasks
+		// DB에서 user가 생성한 Task 가져오기
+		const taskList = await tasks
 			.find(
 				{
 					userId: wantodoUser.userId,
@@ -127,6 +163,54 @@ export const getTasks = async (user: UserInfo, options: ReqGetTasksOptions) => {
 				throw new Exceptions.MongoException(err);
 			});
 
+		// DB에서 user가 생성한 Tag 가져오기
+		const tagList = await tags
+			.find(
+				{
+					userId: wantodoUser.userId,
+					isDeleted: false,
+				},
+				{
+					_id: 0,
+					tagId: 1,
+					name: 1,
+					color: 1,
+				},
+			)
+			.exec()
+			.catch((err) => {
+				throw new Exceptions.MongoException(err);
+			});
+
+		// return 시킬 Task 배열
+		const returnToTasks: ResTasks[] = [];
+
+		taskList.forEach((task: ITask) => {
+			const returnTags: ResTags[] = [];
+			// task하나의 tag 배열을 돌면서 name과 color 추가
+			task.tags.forEach((value: ITag) => {
+				const tagIndex = tagList.findIndex((tag) => value.tagId === tag.tagId);
+				returnTags.push({
+					tagId: value.tagId,
+					isMainTag: value.isMainTag,
+					name: tagList[tagIndex].name,
+					color: tagList[tagIndex].color,
+				});
+			});
+
+			// return 시킬 task 배열에 push
+			returnToTasks.push({
+				taskId: task.taskId,
+				contents: task.contents,
+				period: task.period,
+				important: task.important,
+				isChecked: task.isChecked,
+				createdTimestamp: task.createdTimestamp,
+				updatedTimestamp: task.updatedTimestamp,
+				tags: returnTags,
+			});
+		});
+
 		return {
 			msg: 'success',
 			data: {
@@ -148,7 +232,7 @@ export const getTasks = async (user: UserInfo, options: ReqGetTasksOptions) => {
  * @param options.tags            태그
  * @param options.tags.tagId      태그 id
  * @param options.tags.isMainTag  메인 태그 여부
- * @param options.important      	태그, 중요도, 시작 및 종료 기간
+ * @param options.important        태그, 중요도, 시작 및 종료 기간
  * @param options.period          시작 및 종료 기간 오브젝트
  * @param options.period.start    시작 시간 (timestamp)
  * @param options.period.end      종료 시간 (timestamp)
@@ -164,16 +248,18 @@ export const updateTask = async (user: UserInfo, taskId: string, options: ReqUpd
 				throw new Exceptions.MongoException(err);
 			});
 
-		const { contents, important, period, tags } = options;
+		const { contents, important, period, reqTags, isChecked } = options;
 
 		const updateDoc: any = {
 			updatedTimestamp: Math.floor(+new Date()),
 		};
 
+		// 데이터가 수정된 것만 업데이트 하기 위한 코드
 		if (contents !== undefined) updateDoc.contents = contents;
 		if (important !== undefined) updateDoc.important = important;
 		if (period !== undefined) updateDoc.period = period;
-		if (tags !== undefined) updateDoc.tags = tags;
+		if (reqTags !== undefined) updateDoc.tags = reqTags;
+		if (isChecked !== undefined) updateDoc.isChecked = isChecked;
 
 		await tasks
 			.updateOne(

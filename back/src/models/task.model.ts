@@ -107,4 +107,26 @@ export interface ITaskDocument extends Document {
 	isDeleted: boolean;
 }
 
+export interface ITask {
+	userId: string;
+	taskId: string;
+	contents: string;
+	isChecked: boolean;
+	period: {
+		start: number;
+		end: number;
+	};
+	important: number;
+	tags: ITag[];
+	repeat: {
+		interval: number;
+		datOfWeek: [number];
+		time: number;
+	};
+	alarm: IAlarm;
+	createdTimestamp: number;
+	updatedTimestamp: number;
+	isDeleted: boolean;
+}
+
 export const tasks: Model<ITaskDocument> = model('Task', taskSchema);

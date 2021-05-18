@@ -14,6 +14,7 @@ app.use(express.static('./'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+// logger 설정전의 log
 app.use((req: express.Request, res: express.Response, next: express.NextFunction) => {
 	console.log(req.params);
 	console.log(req.query);
