@@ -10,8 +10,8 @@ import styles from '../styles/TaskForm.module.css';
 import Input from './Input';
 import accountManager from '../utils/account-manager';
 
-const TaskForm = ({ addTask, toggleTaskFormModal, token, ...props }) => {
-  const [tags, setTags] = useState(props.tags || []);
+const TaskForm = ({ addTask, updateTask, toggleTaskFormModal, token, taskId, task }) => {
+  const [tags, setTags] = useState(task.tags || []);
   const contentRef = useRef();
   const priorityRef = useRef();
   const startRef = {
@@ -57,16 +57,22 @@ const TaskForm = ({ addTask, toggleTaskFormModal, token, ...props }) => {
       return copied;
     }, {});
 
-    const task = {
+    const collected = {
       content: contentRef.current.value,
       level: Number(priorityRef.current.value),
       periods,
       tags: tags.length > 0 ? tags : null,
     };
 
-    addTask(task);
-    // 백엔드로 테스크 데이터 전송
-    accountManager.addTask(token, task);
+    // taskId가 없으면 등록, 있으면 수정
+    if (taskId) {
+      updateTask(taskId, collected);
+      accountManager.updateTask(token, taskId, collected);
+    } else {
+      addTask(collected);
+      accountManager.addTask(token, collected);
+    }
+
     toggleTaskFormModal();
   };
 
@@ -81,7 +87,7 @@ const TaskForm = ({ addTask, toggleTaskFormModal, token, ...props }) => {
           <Input
             className={styles.contentInput}
             inputRef={contentRef}
-            value={props.content}
+            value={task.content}
             name="content"
             placeholder="오늘의 할 일을 적어주세요 (최대 50자)"
             maxLength="50"
@@ -96,10 +102,10 @@ const TaskForm = ({ addTask, toggleTaskFormModal, token, ...props }) => {
           </Button>
         </div>
       </div>
-      <PrioritySelector inputRef={priorityRef} priority={props.priority} inputName="level" />
+      <PrioritySelector inputRef={priorityRef} priority={task.level} inputName="level" />
       <PeriodInputBox
         refs={{ startRef, endRef }}
-        periods={props.periods || { start: Date.now(), end: Date.now() + 3600000 }}
+        periods={task.periods || { start: Date.now(), end: Date.now() + 3600000 }}
       />
       <TagInputBox tags={tags} inputName="tags" setTags={setTags} />
     </form>
@@ -113,6 +119,7 @@ const mapStateToProps = ({ token }) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     addTask: (task) => dispatch(actionCreators.addTask(task)),
+    updateTask: (taskId, task) => dispatch(actionCreators.updateTask(taskId, task)),
     toggleTaskFormModal: () => dispatch(actionCreators.toggleTaskFormModal()),
   };
 };

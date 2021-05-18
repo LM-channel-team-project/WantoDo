@@ -99,7 +99,6 @@ class AccountManager {
       if (key) copied[key] = time[key];
       return copied;
     }, {});
-    console.log(params);
 
     let tasks;
     try {
@@ -152,10 +151,37 @@ class AccountManager {
       if (task[key]) copied[matchingKeys[key]] = task[key];
       return copied;
     }, {});
-    console.log(data);
 
     await axios({
       method: 'post',
+      url,
+      headers: { Authorization: token },
+      data,
+    });
+  };
+
+  updateTask = async (token, taskId, task) => {
+    const url = `${process.env.REACT_APP_SERVER_URL}/api/v1/tasks/${taskId}`;
+
+    const matchingKeys = {
+      level: 'important',
+      tags: 'tags',
+      content: 'contents',
+      periods: 'period',
+      checked: 'checked',
+    };
+
+    // task에 존재하는 값만 객체로 만듦
+    const data = Object.keys(task).reduce((taskObj, key) => {
+      const copied = { ...taskObj };
+
+      // 서버에서 사용하는 필드명으로 변환하고 값 매칭
+      if (task[key]) copied[matchingKeys[key]] = task[key];
+      return copied;
+    }, {});
+
+    await axios({
+      method: 'patch',
       url,
       headers: { Authorization: token },
       data,
