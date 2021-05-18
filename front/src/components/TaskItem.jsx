@@ -29,6 +29,7 @@ const TaskItem = ({ token, taskId, task, type, updateTask, deleteTask, toggleTas
 
   const onDeleteClick = () => {
     deleteTask(taskId);
+    accountManager.deleteTask(token, taskId);
   };
 
   const onTaskClick = () => {

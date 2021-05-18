@@ -196,6 +196,16 @@ class AccountManager {
     });
   };
 
+  deleteTask = async (token, taskId) => {
+    const url = `${process.env.REACT_APP_SERVER_URL}/api/v1/tasks/${taskId}`;
+
+    await axios({
+      method: 'delete',
+      url,
+      headers: { Authorization: token },
+    });
+  };
+
   addTag = async (token, tag) => {
     const url = `${process.env.REACT_APP_SERVER_URL}/api/v1/tags`;
 
