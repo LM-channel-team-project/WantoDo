@@ -8,17 +8,15 @@
   padding: 0;
 }
 
-
-
 /*! 테스크 모달  */
 /* 년, 월, 일 등 input 글씨들 */
 .name {
   position: relative;
   right: 1px;
-  margin-right:1px;
+  margin-right: 1px;
   font-size: font-micro;
-  color: colorPurple;
- /* color: colorWhite; */
+  color: colorWhite;
+  /* color: colorWhite; */
   font-weight: semibold;
 }
 
@@ -49,18 +47,17 @@
 
 /*! 프로필 수정  */
 /* Motto 텍스트 label*/
-.inputBox.profileModify__motto{
+.inputBox.profileModify__motto {
   display: flex;
   justify-content: center;
   align-items: flex-start;
 }
 
 /* Motto 텍스트 span */
-.name.profileModify__motto{
+.name.profileModify__motto {
   color: colorPurple;
   font-weight: semibold;
   font-size: font-small;
   margin-right: 10px;
   background-color: colorWhite;
 }
-
