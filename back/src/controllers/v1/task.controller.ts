@@ -199,14 +199,7 @@ export const updateTask = async (req: Request, res: Response, next: NextFunction
 				.isLength({ min: 1, max: 50 })
 				.withMessage('contents length must be greater than 1 or less than 50')
 				.run(req),
-			body('tags')
-				.optional({ checkFalsy: true })
-				.isArray()
-				.withMessage('is not Array value')
-				.bail()
-				.isArray({ min: 1 })
-				.withMessage('Array length must be greater than 1')
-				.run(req),
+			body('tags').optional({ checkFalsy: true }).isArray().withMessage('is not Array value').run(req),
 			body('tags.*.tagId')
 				.trim()
 				.notEmpty()
@@ -247,6 +240,15 @@ export const updateTask = async (req: Request, res: Response, next: NextFunction
 				.withMessage('is not Number value')
 				.bail()
 				.run(req),
+			body('isChecked')
+				.optional({ nullable: true })
+				.notEmpty()
+				.withMessage('is empty')
+				.bail()
+				.isBoolean()
+				.withMessage('is not Boolean value')
+				.bail()
+				.run(req),
 		]);
 
 		// validation Error
@@ -258,12 +260,13 @@ export const updateTask = async (req: Request, res: Response, next: NextFunction
 
 		const { user } = res.locals;
 		const { taskId } = req.params;
-		const { contents, tags, period, important } = req.body;
+		const { contents, tags, period, important, isChecked } = req.body;
 		const result = await taskService.updateTask(user, taskId, {
 			contents,
 			reqTags: tags,
 			period,
 			important,
+			isChecked,
 		});
 		res.status(200).send(result);
 	} catch (err) {

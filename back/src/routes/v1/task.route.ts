@@ -16,14 +16,16 @@ const taskRouter = Router();
  *
  * @apiUse HeaderToken
  *
+ * @apiParam (Body) {Array} [tags] 태그 배열
+ * @apiParam (Body) {String} tags.tagId 태그 Id
+ * @apiParam (Body) {Boolean} tags.isMainTag 메인 태그 유무
+ *
  * @apiParam (Body) {Object} period 기간
  * @apiParam (Body) {Number} period.start 시작 시간
  * @apiParam (Body) {Number} period.end 종료 시간
- * @apiParam (Body) {String} contents 내용
- * @apiParam (Body) {Array} [tags] 태그 Id
- * @apiParam (Body) {String} tags.tagId 태그 Id
- * @apiParam (Body) {Boolean} tags.isMainTag 메인 태그 유무
+ *
  * @apiParam (Body) {Number} [important] 중요도
+ * @apiParam (Body) {String} contents 내용
  * @apiParamExample {json} RequestBodyExample (default)
  * {
  *     "contents": "Hello world",
@@ -195,8 +197,12 @@ taskRouter.get('/', taskController.getTasks);
  * @apiParam (Body) {Object} [period] 기간
  * @apiParam (Body) {Number} period.start 시작 시간
  * @apiParam (Body) {Number} period.end 종료 시간
+ *
+ * @apiParam (Body) {Array} [tags] 태그 배열
+ * @apiParam (Body) {String} tags.tagId 태그 Id
+ * @apiParam (Body) {Boolean} tags.isMainTag 메인 태그 유무
+ *
  * @apiParam (Body) {String} [contents] 내용
- * @apiParam (Body) {Array} [tags] 태그 Id
  * @apiParam (Body) {Number} [important] 중요도
  * @apiParamExample {json} RequestBodyExample (contents)
  * {

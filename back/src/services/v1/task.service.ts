@@ -40,7 +40,8 @@ interface ResTasks {
 }
 
 interface ReqUpdateTaskOptions extends ReqCreateTaskOptions {
-	contents: string | undefined;
+	contents?: string;
+	isChecked?: boolean;
 }
 
 /**
@@ -69,7 +70,7 @@ export const createTask = async (user: UserInfo, contents: string, options: ReqC
 				throw new Exceptions.MongoException(err);
 			});
 
-		await tasks
+		const task = await tasks
 			.create({
 				userId: wantodoUser.userId,
 				taskId: uuidV4(),
@@ -82,6 +83,18 @@ export const createTask = async (user: UserInfo, contents: string, options: ReqC
 
 		return {
 			msg: 'success',
+			data: {
+				task: {
+					taskId: task.taskId,
+					contents: task.contents,
+					tags: task.tags,
+					createdTimestamp: task.createdTimestamp,
+					updatedTimestamp: task.updatedTimestamp,
+					important: task.important,
+					isChecked: task.isChecked,
+					period: task.period,
+				},
+			},
 		};
 	} catch (err) {
 		throw err;
@@ -235,7 +248,7 @@ export const updateTask = async (user: UserInfo, taskId: string, options: ReqUpd
 				throw new Exceptions.MongoException(err);
 			});
 
-		const { contents, important, period, reqTags } = options;
+		const { contents, important, period, reqTags, isChecked } = options;
 
 		const updateDoc: any = {
 			updatedTimestamp: Math.floor(+new Date()),
@@ -245,7 +258,8 @@ export const updateTask = async (user: UserInfo, taskId: string, options: ReqUpd
 		if (contents !== undefined) updateDoc.contents = contents;
 		if (important !== undefined) updateDoc.important = important;
 		if (period !== undefined) updateDoc.period = period;
-		if (reqTags !== undefined) updateDoc.tags = tags;
+		if (reqTags !== undefined) updateDoc.tags = reqTags;
+		if (isChecked !== undefined) updateDoc.isChecked = isChecked;
 
 		await tasks
 			.updateOne(
