@@ -8,7 +8,7 @@ import Navbar from '../container/Navbar';
 import TaskModal from '../container/TaskModal';
 import ProfileModal from '../components/ProfileModal';
 import TasksContainer from '../container/TasksContainer';
-import CalenderContainer from '../container/CalenderContainer';
+import CalendarContainer from '../container/CalendarContainer';
 
 const Main = ({ isProfileShow, isTaskFormShow, task, taskId, createProfile, pushToken }) => {
   const onLoginSuccess = async ({ tokenObj }) => {
@@ -29,7 +29,7 @@ const Main = ({ isProfileShow, isTaskFormShow, task, taskId, createProfile, push
       <Layout
         Side={() => <Navbar />}
         Left={() => <TasksContainer />}
-        Right={() => <CalenderContainer />}
+        Right={() => <CalendarContainer />}
       >
         {isProfileShow && <ProfileModal />}
         {isTaskFormShow && <TaskModal taskId={taskId} task={task} />}
