@@ -31,7 +31,7 @@ const TaskForm = ({ addTask, updateTask, toggleTaskFormModal, token, taskId, tas
     division: useRef(),
   };
 
-  const onTaskSubmit = (event) => {
+  const onTaskSubmit = async (event) => {
     event.preventDefault();
 
     if (contentRef.current.value === '') {
@@ -69,8 +69,8 @@ const TaskForm = ({ addTask, updateTask, toggleTaskFormModal, token, taskId, tas
       updateTask(taskId, collected);
       accountManager.updateTask(token, taskId, collected);
     } else {
-      addTask(collected);
-      accountManager.addTask(token, collected);
+      const id = await accountManager.addTask(token, collected);
+      addTask(id, collected);
     }
 
     toggleTaskFormModal();

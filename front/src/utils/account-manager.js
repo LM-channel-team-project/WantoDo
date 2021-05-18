@@ -108,7 +108,6 @@ class AccountManager {
         headers: { Authorization: token },
         params,
       });
-
       const { data } = response.data;
 
       tasks = data.tasks.reduce((tasksObj, task) => {
@@ -164,8 +163,7 @@ class AccountManager {
       data,
     });
 
-    // 추후에 서버에서 태스크 id 받아와서 반환하는 것으로 변경
-    return response.data.msg;
+    return response.data.data.task.taskId;
   };
 
   updateTask = async (token, taskId, task) => {
@@ -238,10 +236,10 @@ class AccountManager {
     return data.data.tag.tagId;
   };
 
-  deleteTag = async (token, tagId) => {
+  deleteTag = (token, tagId) => {
     const url = `${process.env.REACT_APP_SERVER_URL}/api/v1/tags/${tagId}`;
 
-    await axios({
+    axios({
       method: 'delete',
       url,
       headers: { Authorization: token },

@@ -1,12 +1,10 @@
-import generateId from '../utils/id-generator';
-
 const UPDATE_TASKS = 'UPDATE_TASKS';
 const ADD_TASK = 'ADD_TASK';
 const UPDATE_TASK = 'UPDATE_TASK';
 const DELETE_TASK = 'DELETE_TASK';
 
 export const updateTasks = (tasks) => ({ type: UPDATE_TASKS, tasks });
-export const addTask = (task) => ({ type: ADD_TASK, task });
+export const addTask = (taskId, task) => ({ type: ADD_TASK, taskId, task });
 export const updateTask = (taskId, task) => ({ type: UPDATE_TASK, taskId, task });
 export const deleteTask = (id) => ({ type: DELETE_TASK, id });
 
@@ -18,7 +16,7 @@ const reducer = (state = {}, action) => {
       tasks = action.tasks;
       break;
     case ADD_TASK:
-      tasks[generateId()] = { ...action.task, checked: false };
+      tasks[action.taskId] = { ...action.task, checked: false };
       break;
     case UPDATE_TASK:
       tasks[action.taskId] = action.task;
