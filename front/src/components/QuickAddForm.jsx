@@ -6,14 +6,14 @@ import Button from './Button';
 import IconButton from './IconButton';
 import Input from './Input';
 import styles from '../styles/QuickAddForm.module.css';
+import accountManager from '../utils/account-manager';
 
 /**
  * Task 내용만 입력하여 Task를 빠르게 추가하는 폼 컴포넌트
  * @param {Fucntion} toggleTaskFormModal - 전역 모달 상태를 변경하여 태스크 폼을 토글하는 함수
  */
 
-const QuickAddForm = ({ toggleTaskFormModal, addTask }) => {
-  const formRef = useRef();
+const QuickAddForm = ({ token, toggleTaskFormModal, addTask }) => {
   const inputRef = useRef();
 
   const onSubmit = (event) => {
@@ -21,17 +21,14 @@ const QuickAddForm = ({ toggleTaskFormModal, addTask }) => {
 
     if (inputRef.current.value === '') return;
 
-    const form = new FormData(formRef.current);
-
-    const task = Array.from(form.keys()).reduce((obj, key) => {
-      const copied = { ...obj };
-      if (!form.get(key)) return {};
-      copied[key] = form.get(key);
-      return copied;
-    }, {});
+    const currentTime = Date.now();
+    const task = {
+      content: inputRef.current.value,
+      periods: { start: currentTime, end: currentTime },
+    };
 
     addTask(task);
-
+    accountManager.addTask(token, task);
     inputRef.current.value = '';
   };
 
@@ -43,7 +40,7 @@ const QuickAddForm = ({ toggleTaskFormModal, addTask }) => {
   };
 
   return (
-    <form ref={formRef} className={styles.form} onSubmit={onSubmit}>
+    <form className={styles.form} onSubmit={onSubmit}>
       <IconButton Icon={FaPlus} styleName="QuickAddForm__icon" onClick={onDetailClick} />
       <Input
         inputRef={inputRef}

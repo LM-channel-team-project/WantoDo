@@ -30,7 +30,7 @@ const TasksContainer = ({ tasks, token, updateTasks }) => {
         <TaskList tasks={tasks} />
       </div>
       <footer className={styles.footer}>
-        <QuickAddForm />
+        <QuickAddForm token={token} />
       </footer>
     </div>
   );

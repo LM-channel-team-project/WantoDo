@@ -80,6 +80,7 @@ const TaskForm = ({ addTask, updateTask, toggleTaskFormModal, token, taskId, tas
     toggleTaskFormModal();
   };
 
+  const currentTime = Date.now();
   return (
     <form onSubmit={onTaskSubmit} className={styles.form}>
       <div className={styles.header}>
@@ -105,9 +106,9 @@ const TaskForm = ({ addTask, updateTask, toggleTaskFormModal, token, taskId, tas
       <PrioritySelector inputRef={priorityRef} priority={task.level} inputName="level" />
       <PeriodInputBox
         refs={{ startRef, endRef }}
-        periods={task.periods || { start: Date.now(), end: Date.now() + 3600000 }}
+        periods={task.periods || { start: currentTime, end: currentTime }}
       />
-      <TagInputBox tags={tags} inputName="tags" setTags={setTags} />
+      <TagInputBox token={token} tags={tags} inputName="tags" setTags={setTags} />
     </form>
   );
 };
