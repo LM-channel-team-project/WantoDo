@@ -6,7 +6,7 @@ const DELETE_TASK = 'DELETE_TASK';
 export const updateTasks = (tasks) => ({ type: UPDATE_TASKS, tasks });
 export const addTask = (taskId, task) => ({ type: ADD_TASK, taskId, task });
 export const updateTask = (taskId, task) => ({ type: UPDATE_TASK, taskId, task });
-export const deleteTask = (id) => ({ type: DELETE_TASK, id });
+export const deleteTask = (taskId) => ({ type: DELETE_TASK, taskId });
 
 const reducer = (state = {}, action) => {
   let tasks = { ...state };
@@ -22,7 +22,7 @@ const reducer = (state = {}, action) => {
       tasks[action.taskId] = action.task;
       break;
     case DELETE_TASK:
-      delete tasks[action.id];
+      delete tasks[action.taskId];
       break;
     default:
       break;

@@ -7,9 +7,11 @@ import styles from '../styles/TaskList.module.css';
  */
 const TaskList = ({ tasks = {}, type }) => (
   <ol className={styles.list}>
-    {Object.keys(tasks).map((key) => (
-      <TaskItem key={key} taskId={key} task={tasks[key]} type={type} />
-    ))}
+    {Object.keys(tasks)
+      .sort((a, b) => tasks[a].periods.start - tasks[b].periods.start) // 시간순 정렬
+      .map((key) => (
+        <TaskItem key={key} taskId={key} task={tasks[key]} type={type} />
+      ))}
   </ol>
 );
 

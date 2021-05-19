@@ -119,7 +119,7 @@ const mapStateToProps = ({ token, tags }) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    addTask: (task) => dispatch(actionCreators.addTask(task)),
+    addTask: (taskId, task) => dispatch(actionCreators.addTask(taskId, task)),
     updateTask: (taskId, task) => dispatch(actionCreators.updateTask(taskId, task)),
     toggleTaskFormModal: () => dispatch(actionCreators.toggleTaskFormModal()),
   };

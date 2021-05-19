@@ -1,10 +1,33 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
+import CategoryDivider from '../components/CategoryDivider';
 import QuickAddForm from '../components/QuickAddForm';
 import TaskList from '../components/TaskList';
 import { actionCreators } from '../store/store';
 import styles from '../styles/page/Main.module.css';
 import accountManager from '../utils/account-manager';
+import timeparser from '../utils/timestamp-parser';
+
+// 테스크를 날짜별로 분류하여 객체로 반환하는 함수
+function categorizeTasks(tasks) {
+  const cotegorized = Object.keys(tasks).reduce((obj, taskId) => {
+    const copied = { ...obj };
+
+    const option = { type: 'array', isZeroAdded: true };
+    const start = timeparser.parseDate(tasks[taskId].periods.start, option);
+    const end = timeparser.parseDate(tasks[taskId].periods.end, option);
+
+    // 시작일과 종료일 사이 모든 날짜에 task 표시되도록 추가
+    for (let i = Number(start.join('')); i <= Number(end.join('')); i += 1) {
+      if (copied[i]) copied[i][taskId] = tasks[taskId];
+      else copied[i] = { [taskId]: tasks[taskId] };
+    }
+
+    return copied;
+  }, {});
+
+  return cotegorized;
+}
 
 const TasksContainer = ({ tasks, token, updateTasks, getTags }) => {
   useEffect(() => {
@@ -23,14 +46,31 @@ const TasksContainer = ({ tasks, token, updateTasks, getTags }) => {
     accountManager.getUserTags(token, getTags);
   }, [token, updateTasks, getTags]);
 
+  const categorized = categorizeTasks(tasks);
+
   return (
     <div className={styles.container}>
       <header className={styles.header}>
         <h2 className={styles.title}>Todo</h2>
       </header>
-      <div className={styles.content}>
-        <TaskList tasks={tasks} />
-      </div>
+      <ol className={styles.content}>
+        {Object.keys(categorized).map((day) => {
+          const dateObj = timeparser.categorize(day);
+
+          const month = timeparser.parseMonthIndex(dateObj.month, 'eng');
+          const { date } = dateObj;
+
+          return (
+            <li key={day}>
+              <CategoryDivider styleName="taskContainer">
+                <span>{date}</span>
+                <span>{month}</span>
+              </CategoryDivider>
+              <TaskList tasks={categorized[day]} />
+            </li>
+          );
+        })}
+      </ol>
       <footer className={styles.footer}>
         <QuickAddForm token={token} />
       </footer>
