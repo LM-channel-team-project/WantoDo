@@ -112,6 +112,7 @@ class AccountManager {
 
       tasks = data.tasks.reduce((tasksObj, task) => {
         const copied = { ...tasksObj };
+
         const { taskId, contents, important, isChecked, tags, period } = task;
         copied[taskId] = {
           level: important,
@@ -120,6 +121,7 @@ class AccountManager {
           periods: period,
           tags,
         };
+
         return copied;
       }, {});
     } catch (error) {
@@ -148,11 +150,13 @@ class AccountManager {
       const copied = { ...taskObj };
 
       if (key === 'tags') {
-        copied[key] = task.tags.map((tag) => ({ tagId: tag.tagId, isMainTag: tag.isMainTag }));
-        return copied;
+        if (task.tags.length > 0) {
+          copied[key] = task.tags.map((tag) => ({ tagId: tag.tagId, isMainTag: tag.isMainTag }));
+        }
+      } else if (task[key]) {
+        copied[matchingKeys[key]] = task[key];
       }
 
-      if (task[key]) copied[matchingKeys[key]] = task[key];
       return copied;
     }, {});
 
