@@ -1,5 +1,5 @@
 import React from 'react';
-import CalenderContainer from '../../container/CalenderContainer';
+import CalenderContainer from '../../container/CalendarContainer';
 
 export default {
   title: 'containers/CalendarContainer',
