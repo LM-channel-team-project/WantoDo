@@ -46,31 +46,35 @@ const TasksContainer = ({ tasks, token, updateTasks, getTags }) => {
     accountManager.getUserTags(token, getTags);
   }, [token, updateTasks, getTags]);
 
-  const categorized = categorizeTasks(tasks);
+  const renderTaskLists = () => {
+    const categorized = categorizeTasks(tasks);
+
+    const render = Object.keys(categorized).map((day) => {
+      const dateObj = timeparser.categorize(day);
+
+      const month = timeparser.parseMonthIndex(dateObj.month, 'eng');
+      const { date } = dateObj;
+
+      return (
+        <li key={day}>
+          <CategoryDivider styleName="taskContainer" date={Object.values(dateObj).join('-')}>
+            <span>{date}</span>
+            <span>{month}</span>
+          </CategoryDivider>
+          <TaskList tasks={categorized[day]} />
+        </li>
+      );
+    });
+
+    return render;
+  };
 
   return (
     <div className={styles.container}>
       <header className={styles.header}>
         <h2 className={styles.title}>Todo</h2>
       </header>
-      <ol className={styles.content}>
-        {Object.keys(categorized).map((day) => {
-          const dateObj = timeparser.categorize(day);
-
-          const month = timeparser.parseMonthIndex(dateObj.month, 'eng');
-          const { date } = dateObj;
-
-          return (
-            <li key={day}>
-              <CategoryDivider styleName="taskContainer">
-                <span>{date}</span>
-                <span>{month}</span>
-              </CategoryDivider>
-              <TaskList tasks={categorized[day]} />
-            </li>
-          );
-        })}
-      </ol>
+      <ol className={styles.content}>{renderTaskLists()}</ol>
       <footer className={styles.footer}>
         <QuickAddForm token={token} />
       </footer>
