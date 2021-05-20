@@ -16,7 +16,7 @@ import accountManager from '../utils/account-manager';
 const QuickAddForm = ({ token, toggleTaskFormModal, addTask }) => {
   const inputRef = useRef();
 
-  const onSubmit = (event) => {
+  const onSubmit = async (event) => {
     event.preventDefault();
 
     if (inputRef.current.value === '') return;
@@ -26,9 +26,9 @@ const QuickAddForm = ({ token, toggleTaskFormModal, addTask }) => {
       content: inputRef.current.value,
       periods: { start: currentTime, end: currentTime },
     };
+    const taskId = await accountManager.addTask(token, task);
 
-    addTask(task);
-    accountManager.addTask(token, task);
+    addTask(taskId, task);
     inputRef.current.value = '';
   };
 
@@ -59,7 +59,7 @@ const mapDispatchToProps = (dispatch) => {
   return {
     toggleTaskFormModal: (taskId, task) =>
       dispatch(actionCreators.toggleTaskFormModal(taskId, task)),
-    addTask: (task) => dispatch(actionCreators.addTask(task)),
+    addTask: (taskId, task) => dispatch(actionCreators.addTask(taskId, task)),
   };
 };
 

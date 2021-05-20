@@ -108,11 +108,11 @@ class AccountManager {
         headers: { Authorization: token },
         params,
       });
-
       const { data } = response.data;
 
       tasks = data.tasks.reduce((tasksObj, task) => {
         const copied = { ...tasksObj };
+
         const { taskId, contents, important, isChecked, tags, period } = task;
         copied[taskId] = {
           level: important,
@@ -121,6 +121,7 @@ class AccountManager {
           periods: period,
           tags,
         };
+
         return copied;
       }, {});
     } catch (error) {
@@ -149,11 +150,13 @@ class AccountManager {
       const copied = { ...taskObj };
 
       if (key === 'tags') {
-        copied[key] = task.tags.map((tag) => ({ tagId: tag.tagId, isMainTag: tag.isMainTag }));
-        return copied;
+        if (task.tags.length > 0) {
+          copied[key] = task.tags.map((tag) => ({ tagId: tag.tagId, isMainTag: tag.isMainTag }));
+        }
+      } else if (task[key]) {
+        copied[matchingKeys[key]] = task[key];
       }
 
-      if (task[key]) copied[matchingKeys[key]] = task[key];
       return copied;
     }, {});
 
@@ -164,8 +167,7 @@ class AccountManager {
       data,
     });
 
-    // 추후에 서버에서 태스크 id 받아와서 반환하는 것으로 변경
-    return response.data.msg;
+    return response.data.data.task.taskId;
   };
 
   updateTask = async (token, taskId, task) => {
@@ -176,7 +178,7 @@ class AccountManager {
       tags: 'tags',
       content: 'contents',
       periods: 'period',
-      checked: 'checked',
+      checked: 'isChecked',
     };
 
     // task에 존재하는 값만 객체로 만듦
@@ -238,10 +240,10 @@ class AccountManager {
     return data.data.tag.tagId;
   };
 
-  deleteTag = async (token, tagId) => {
+  deleteTag = (token, tagId) => {
     const url = `${process.env.REACT_APP_SERVER_URL}/api/v1/tags/${tagId}`;
 
-    await axios({
+    axios({
       method: 'delete',
       url,
       headers: { Authorization: token },
