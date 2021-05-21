@@ -23,7 +23,7 @@ import IconButton from './IconButton';
  * @param {string} props.motto - 사용자의 좌우명 문자열
  * @param {Function} props.setEditDisplay - 프로필 모달에 표시할 컴포넌트를 변경하는 함수
  */
-const Profile = ({ imageURL, userName, email, motto, setEditDisplay, toogleProfileModal }) => {
+const Profile = ({ imageURL, userName, email, motto, setEditDisplay, toggleProfileModal }) => {
   const history = useHistory();
 
   const onEditClick = () => {
@@ -48,7 +48,7 @@ const Profile = ({ imageURL, userName, email, motto, setEditDisplay, toogleProfi
   };
 
   const closeProfileModal = () => {
-    toogleProfileModal();
+    toggleProfileModal();
   };
 
   return (
@@ -69,7 +69,7 @@ const Profile = ({ imageURL, userName, email, motto, setEditDisplay, toogleProfi
           </h3>
         )}
         {!editProfileName && (
-          <input
+          <Input
             type="textarea"
             value={userName}
             className={styles.name}
@@ -184,14 +184,26 @@ const ProfileEdit = ({ imageURL, userName, email, motto, token, editProfile, set
  */
 const ProfileModal = (props) => {
   const [editDisplay, setEditDisplay] = useState(false);
+  const { toggleProfileModal } = props;
   return (
-    <Modal styleName="profileModal">
-      {editDisplay ? (
-        <ProfileEdit {...props} setEditDisplay={setEditDisplay} />
-      ) : (
-        <Profile {...props} setEditDisplay={setEditDisplay} />
-      )}
-    </Modal>
+    <>
+      <Modal styleName="profileModal">
+        {editDisplay ? (
+          <ProfileEdit {...props} setEditDisplay={setEditDisplay} />
+        ) : (
+          <Profile {...props} setEditDisplay={setEditDisplay} />
+        )}
+      </Modal>
+      <div
+        className={styles.background}
+        role="button"
+        onKeyPress={() => {}}
+        tabIndex="0"
+        onClick={toggleProfileModal}
+      >
+        모달외부박스
+      </div>
+    </>
   );
 };
 
@@ -202,7 +214,7 @@ const mapStateToProps = ({ profile: { imageURL, userName, email, motto }, token 
 const mapDispatchToProps = (dispatch) => {
   return {
     editProfile: (profile) => dispatch(actionCreators.editProfile(profile)),
-    toogleProfileModal: () => dispatch(actionCreators.toggleModal('profile')),
+    toggleProfileModal: () => dispatch(actionCreators.toggleModal('profile')),
   };
 };
 
