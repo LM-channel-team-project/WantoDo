@@ -19,8 +19,10 @@ const Calendar = () => {
     getPrevMonth,
   } = useCalendar();
 
-  const dateClickHandler = () => {
-    // 날짜 클릭에 대한 처리 (date 인자로 받아 옮)
+  const dateClickHandler = (date) => {
+    // 날짜에 해당하는 태스크 리스트로 스크롤 이동
+    const scrollTarget = document.querySelector(`[data-date="${date}"]`);
+    if (scrollTarget) scrollTarget.scrollIntoView({ behavior: 'smooth' });
   };
 
   return (
