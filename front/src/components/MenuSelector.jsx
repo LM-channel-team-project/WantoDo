@@ -51,11 +51,12 @@ const useSelector = (iconList) => {
  * <MenuSelector iconList={ {BsListCheck, BiCalendarCheck} }>
  * @description 마우스 오버 시 숨겨진 메뉴 아이콘들이 나타나며, 아이콘을 클릭하면 메인 아이콘과 위치가 변경됨
  */
-const MenuSelector = ({ iconList, styleName }) => {
+const MenuSelector = ({ iconList, styleName, onClick }) => {
   const { menu, switchMenuPlace } = useSelector(iconList);
 
   const onMenuClick = (menuName) => {
     // 여기에 클릭 이벤트 핸들링 로직 추가
+    if (onClick instanceof Function) onClick(menuName);
     switchMenuPlace(menuName);
   };
 

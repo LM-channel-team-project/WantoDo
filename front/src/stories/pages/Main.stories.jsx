@@ -15,14 +15,42 @@ const store = {
       token: '',
       modal: {
         profile: props.isProfileShow,
-        taskForm: { display: props.isTaskFormShow, content: props.content },
+        taskForm: { display: props.isTaskFormShow, taskId: '', task: {} },
       },
       profile: {
         imageURL: '/assets/images/default_profile.png',
         userName: 'userName',
         email: 'email@email.com',
         motto: 'mottomotto',
+        settings: {},
       },
+      tasks: {
+        1: {
+          level: 0,
+          checked: false,
+          content: 'task1',
+          periods: { start: Date.now(), end: Date.now() },
+        },
+        2: {
+          level: 1,
+          checked: false,
+          content: 'task2',
+          periods: { start: Date.now(), end: Date.now() },
+        },
+        3: {
+          level: 2,
+          checked: false,
+          content: 'task3',
+          periods: { start: Date.now(), end: Date.now() },
+        },
+        4: {
+          level: 3,
+          checked: false,
+          content: 'task4',
+          periods: { start: Date.now(), end: Date.now() },
+        },
+      },
+      tags: {},
     };
   },
   subscribe: () => {},
