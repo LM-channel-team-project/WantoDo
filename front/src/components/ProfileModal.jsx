@@ -1,6 +1,7 @@
 import React, { useRef, useState } from 'react';
 import { connect } from 'react-redux';
 import { useHistory } from 'react-router-dom';
+import { AiOutlineClose } from 'react-icons/ai';
 import { actionCreators } from '../store/store';
 import Modal from '../container/Modal';
 import ProfileImage from './ProfileImage';
@@ -10,6 +11,7 @@ import GoogleLogoutButton from './GoogleLogoutButton';
 import Input from './Input';
 import InputBox from './InputBox';
 import accountManager from '../utils/account-manager';
+import Iconbutton from './IconButton';
 
 /**
  * 사용자의 프로필 정보를 표시하는 컴포넌트
@@ -19,7 +21,7 @@ import accountManager from '../utils/account-manager';
  * @param {string} props.motto - 사용자의 좌우명 문자열
  * @param {Function} props.setEditDisplay - 프로필 모달에 표시할 컴포넌트를 변경하는 함수
  */
-const Profile = ({ imageURL, userName, email, motto, setEditDisplay }) => {
+const Profile = ({ imageURL, userName, email, motto, setEditDisplay, toogleProfileModal }) => {
   const history = useHistory();
 
   const onEditClick = () => {
@@ -32,12 +34,19 @@ const Profile = ({ imageURL, userName, email, motto, setEditDisplay }) => {
     history.push('/login');
   };
 
+  const closeProfileModal = () => {
+    toogleProfileModal();
+  };
+
   return (
     <>
       <header className={styles.header}>
         <div className={styles.profile}>
           <ProfileImage imageURL={imageURL} styleName="profileModal" />
         </div>
+        <Iconbutton styleName="closeProfile" onClick={closeProfileModal}>
+          <AiOutlineClose />
+        </Iconbutton>
         <h3 className={styles.name}>{userName || 'anonymous'}</h3>
         <p className={styles.email}>{email || '이메일 정보를 찾을 수 없습니다.'}</p>
       </header>
@@ -154,6 +163,7 @@ const mapStateToProps = ({ profile: { imageURL, userName, email, motto }, token 
 const mapDispatchToProps = (dispatch) => {
   return {
     editProfile: (profile) => dispatch(actionCreators.editProfile(profile)),
+    toogleProfileModal: () => dispatch(actionCreators.toggleModal('profile')),
   };
 };
 
