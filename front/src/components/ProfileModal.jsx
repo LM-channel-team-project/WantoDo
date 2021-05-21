@@ -30,7 +30,7 @@ const Profile = ({
   motto,
   token,
   setEditDisplay,
-  toogleProfileModal,
+  toggleProfileModal,
   editProfile,
 }) => {
   const history = useHistory();
@@ -62,7 +62,7 @@ const Profile = ({
   };
 
   const closeProfileModal = () => {
-    toogleProfileModal();
+    toggleProfileModal();
   };
 
   const profileEditClick = () => {
@@ -70,7 +70,6 @@ const Profile = ({
     const changed = {};
 
     if (value.userName !== userName) changed.userName = value.userName;
-
     editProfile(changed);
     accountManager.updateUserProfile(token, changed);
   };
@@ -244,14 +243,26 @@ const ProfileEdit = ({ imageURL, userName, email, motto, token, editProfile, set
  */
 const ProfileModal = (props) => {
   const [editDisplay, setEditDisplay] = useState(false);
+  const { toggleProfileModal } = props;
   return (
-    <Modal styleName="profileModal">
-      {editDisplay ? (
-        <ProfileEdit {...props} setEditDisplay={setEditDisplay} />
-      ) : (
-        <Profile {...props} setEditDisplay={setEditDisplay} />
-      )}
-    </Modal>
+    <>
+      <Modal styleName="profileModal">
+        {editDisplay ? (
+          <ProfileEdit {...props} setEditDisplay={setEditDisplay} />
+        ) : (
+          <Profile {...props} setEditDisplay={setEditDisplay} />
+        )}
+      </Modal>
+      <div
+        className={styles.background}
+        role="button"
+        onKeyPress={() => {}}
+        tabIndex="0"
+        onClick={toggleProfileModal}
+      >
+        모달외부박스
+      </div>
+    </>
   );
 };
 
@@ -262,7 +273,7 @@ const mapStateToProps = ({ profile: { imageURL, userName, email, motto }, token 
 const mapDispatchToProps = (dispatch) => {
   return {
     editProfile: (profile) => dispatch(actionCreators.editProfile(profile)),
-    toogleProfileModal: () => dispatch(actionCreators.toggleModal('profile')),
+    toggleProfileModal: () => dispatch(actionCreators.toggleModal('profile')),
   };
 };
 
