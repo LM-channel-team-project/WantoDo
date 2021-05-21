@@ -62,6 +62,7 @@ class AccountManager {
         imageURL: data.profileImageUrl,
         motto: data.motto,
         platform: data.platform,
+        settings: data.settings,
       };
     } catch (error) {
       throw new Error(error);
@@ -82,6 +83,19 @@ class AccountManager {
     }, {});
 
     await axios.patch(url, updated, {
+      headers: {
+        Authorization: token,
+      },
+    });
+
+    // 추후에 응답 핸들링 추가
+  };
+
+  // 사용자 설정 변경
+  editSetting = (token, setting) => {
+    const url = `${process.env.REACT_APP_SERVER_URL}/api/v1/accounts/settings`;
+
+    axios.patch(url, setting, {
       headers: {
         Authorization: token,
       },
