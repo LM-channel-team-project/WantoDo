@@ -2,6 +2,8 @@ import React, { useRef, useState } from 'react';
 import { connect } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { AiOutlineClose } from 'react-icons/ai';
+import { IoIosClose } from 'react-icons/io';
+import { FaPencilAlt } from 'react-icons/fa';
 import { actionCreators } from '../store/store';
 import Modal from '../container/Modal';
 import ProfileImage from './ProfileImage';
@@ -11,7 +13,7 @@ import GoogleLogoutButton from './GoogleLogoutButton';
 import Input from './Input';
 import InputBox from './InputBox';
 import accountManager from '../utils/account-manager';
-import Iconbutton from './IconButton';
+import IconButton from './IconButton';
 
 /**
  * 사용자의 프로필 정보를 표시하는 컴포넌트
@@ -29,6 +31,17 @@ const Profile = ({ imageURL, userName, email, motto, setEditDisplay, toogleProfi
     setEditDisplay(true);
   };
 
+  const [editProfileName, setEditProfileName] = useState(true);
+
+  const editIcon = () => {
+    setEditProfileName(!editProfileName);
+  };
+
+  // const onCancleClick = () => {
+  // 프로필 모달로 변경
+  //   setEditDisplay(false);
+  // };
+
   const onLogout = () => {
     // 로그아웃 처리
     history.push('/login');
@@ -44,10 +57,36 @@ const Profile = ({ imageURL, userName, email, motto, setEditDisplay, toogleProfi
         <div className={styles.profile}>
           <ProfileImage imageURL={imageURL} styleName="profileModal" />
         </div>
-        <Iconbutton styleName="closeProfile" onClick={closeProfileModal}>
+        {/* X닫기 버튼 */}
+        <IconButton styleName="closeProfile" onClick={closeProfileModal}>
           <AiOutlineClose />
-        </Iconbutton>
-        <h3 className={styles.name}>{userName || 'anonymous'}</h3>
+        </IconButton>
+
+        {/* 사용자 이름 */}
+        {editProfileName && (
+          <h3 type="text" className={styles.name}>
+            {userName || 'anonymous'}
+          </h3>
+        )}
+        {!editProfileName && (
+          <input
+            type="textarea"
+            value={userName}
+            className={styles.name}
+            onChange={() => {
+              setEditProfileName(true);
+            }}
+            onClick={() => {
+              setEditProfileName(true);
+            }}
+          />
+        )}
+        <IconButton type="button" onClick={(event) => editIcon(event)}>
+          {editProfileName && <FaPencilAlt className={styles.editIcon} />}
+          {!editProfileName && <IoIosClose className={styles.closeIcon} />}
+        </IconButton>
+
+        {/* 이메일 */}
         <p className={styles.email}>{email || '이메일 정보를 찾을 수 없습니다.'}</p>
       </header>
       <ul className={styles.intros}>
