@@ -23,24 +23,38 @@ import IconButton from './IconButton';
  * @param {string} props.motto - 사용자의 좌우명 문자열
  * @param {Function} props.setEditDisplay - 프로필 모달에 표시할 컴포넌트를 변경하는 함수
  */
-const Profile = ({ imageURL, userName, email, motto, setEditDisplay, toogleProfileModal }) => {
+const Profile = ({
+  imageURL,
+  userName,
+  email,
+  motto,
+  token,
+  setEditDisplay,
+  toogleProfileModal,
+  editProfile,
+}) => {
   const history = useHistory();
+  const nameRef = useRef();
+  const mottoRef = useRef();
 
   const onEditClick = () => {
     // 프로필 수정 폼으로 모달 변경
     setEditDisplay(true);
   };
 
+  // 프로필 이름
   const [editProfileName, setEditProfileName] = useState(true);
 
   const editIcon = () => {
     setEditProfileName(!editProfileName);
   };
 
-  // const onCancleClick = () => {
-  // 프로필 모달로 변경
-  //   setEditDisplay(false);
-  // };
+  // motto
+  const [editMotto, setEditMotto] = useState(true);
+
+  const editMottoIcon = () => {
+    setEditMotto(!editMotto);
+  };
 
   const onLogout = () => {
     // 로그아웃 처리
@@ -49,6 +63,25 @@ const Profile = ({ imageURL, userName, email, motto, setEditDisplay, toogleProfi
 
   const closeProfileModal = () => {
     toogleProfileModal();
+  };
+
+  const profileEditClick = () => {
+    const value = { userName: nameRef.current.value };
+    const changed = {};
+
+    if (value.userName !== userName) changed.userName = value.userName;
+
+    editProfile(changed);
+    accountManager.updateUserProfile(token, changed);
+  };
+
+  const mottoEditClick = () => {
+    const value = { motto: mottoRef.current.value };
+    const changed = {};
+
+    if (value.motto !== motto) changed.motto = value.motto;
+    editProfile(changed);
+    accountManager.updateUserProfile(token, changed);
   };
 
   return (
@@ -69,19 +102,22 @@ const Profile = ({ imageURL, userName, email, motto, setEditDisplay, toogleProfi
           </h3>
         )}
         {!editProfileName && (
-          <input
+          <Input
             type="textarea"
-            value={userName}
-            className={styles.name}
-            onChange={() => {
-              setEditProfileName(true);
-            }}
-            onClick={() => {
-              setEditProfileName(true);
-            }}
+            inputRef={nameRef}
+            value={userName || 'anonymous'}
+            styleName="profileModalName"
           />
         )}
-        <IconButton type="button" onClick={(event) => editIcon(event)}>
+        <IconButton
+          type="button"
+          onClick={() => {
+            editIcon();
+            if (!editProfileName) {
+              profileEditClick();
+            }
+          }}
+        >
           {editProfileName && <FaPencilAlt className={styles.editIcon} />}
           {!editProfileName && <IoIosClose className={styles.closeIcon} />}
         </IconButton>
@@ -92,8 +128,32 @@ const Profile = ({ imageURL, userName, email, motto, setEditDisplay, toogleProfi
       <ul className={styles.intros}>
         <li className={styles.intro}>
           <span className={styles.mottoTitle}>MOTTO</span>
-          <span className={styles.text}>{motto || '좌우명을 등록해보세요.'}</span>
+          {editMotto && (
+            <span type="text" className={styles.text}>
+              {motto || '좌우명을 등록해보세요.'}
+            </span>
+          )}
+          {!editMotto && (
+            <Input
+              type="textarea"
+              inputRef={mottoRef}
+              value={motto || '좌우명을 등록해보세요.'}
+              styleName="mottoText"
+            />
+          )}
         </li>
+        <IconButton
+          type="button"
+          onClick={() => {
+            editMottoIcon();
+            if (!editMotto) {
+              mottoEditClick();
+            }
+          }}
+        >
+          {editMotto && <FaPencilAlt className={styles.editIcon} />}
+          {!editMotto && <IoIosClose className={styles.closeIcon} />}
+        </IconButton>
       </ul>
       <footer className={styles.footer}>
         <Button styleName="profileModal" onClick={onEditClick}>
@@ -129,7 +189,7 @@ const ProfileEdit = ({ imageURL, userName, email, motto, token, editProfile, set
     const changed = {};
 
     if (values.userName !== userName) changed.userName = values.userName;
-    if (values.motto !== userName) changed.motto = values.motto;
+    if (values.motto !== motto) changed.motto = values.motto;
 
     editProfile(changed);
     accountManager.updateUserProfile(token, changed); // 서버에 프로필 변경 요청
