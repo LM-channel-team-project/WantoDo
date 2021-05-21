@@ -17,11 +17,7 @@ import { modals } from '../reducer/modal';
  * @param {string | undefined} profileURL - 사용자의 프로필 이미지 URL, 없을 경우 기본 이미지 표시
  * @param {Function} toggleProfileModal - 전역 모달 상태를 변경하여 프로필 모달 토글하는 함수
  */
-const Navbar = ({ imageURL, toggleProfileModal }) => {
-  const onSettingClick = () => {
-    // 여기서 설정 컴포넌트 표시
-  };
-
+const Navbar = ({ imageURL, toggleProfileModal, changeLeft }) => {
   const onProfileClick = () => {
     toggleProfileModal();
   };
@@ -40,12 +36,20 @@ const Navbar = ({ imageURL, toggleProfileModal }) => {
             />
           </li>
           <li className={styles.menuItem}>
-            <MenuSelector iconList={{ BsCardChecklist }} styleName="sideMenu" />
+            <MenuSelector
+              iconList={{ tasks: BsCardChecklist }}
+              styleName="sideMenu"
+              onClick={(name) => changeLeft(name)}
+            />
           </li>
         </ul>
       </div>
       <div className={styles.setting}>
-        <IconButton Icon={AiFillSetting} styleName="setting" onClick={onSettingClick} />
+        <IconButton
+          Icon={AiFillSetting}
+          styleName="setting"
+          onClick={() => changeLeft('setting')}
+        />
       </div>
     </nav>
   );

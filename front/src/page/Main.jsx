@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { useGoogleLogin } from 'react-google-login';
 import accountManager from '../utils/account-manager';
@@ -9,8 +9,11 @@ import TaskModal from '../container/TaskModal';
 import ProfileModal from '../components/ProfileModal';
 import TasksContainer from '../container/TasksContainer';
 import CalendarContainer from '../container/CalendarContainer';
+import SettingContainer from '../container/SettingContainer';
 
 const Main = ({ isProfileShow, isTaskFormShow, task, taskId, createProfile, pushToken }) => {
+  const [left, setLeft] = useState('tasks'); // Left에 렌더링할 컴포넌트 이름
+
   const onLoginSuccess = async ({ tokenObj }) => {
     const profile = await accountManager.getUserProfile(tokenObj.id_token);
     createProfile(profile);
@@ -27,8 +30,8 @@ const Main = ({ isProfileShow, isTaskFormShow, task, taskId, createProfile, push
   return (
     <>
       <Layout
-        Side={() => <Navbar />}
-        Left={() => <TasksContainer />}
+        Side={() => <Navbar changeLeft={setLeft} />}
+        Left={() => (left === 'tasks' ? <TasksContainer /> : <SettingContainer />)}
         Right={() => <CalendarContainer />}
       >
         {isProfileShow && <ProfileModal />}

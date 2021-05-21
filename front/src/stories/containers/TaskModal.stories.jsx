@@ -19,6 +19,7 @@ export default {
   decorators: [(story) => <Provider store={store}>{story()}</Provider>],
   args: {
     content: '',
+    task: {},
   },
 };
 

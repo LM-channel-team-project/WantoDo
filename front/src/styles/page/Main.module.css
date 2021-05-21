@@ -16,6 +16,13 @@
   overflow-y: auto;
 }
 
+.item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.5em;
+}
+
 .footer {
   margin: 1em;
 }
