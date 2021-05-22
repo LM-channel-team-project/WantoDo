@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
-import { useHistory } from 'react-router-dom';
 import { FaPlus } from 'react-icons/fa';
 import { actionCreators } from '../store/store';
 
@@ -14,9 +13,8 @@ import useInput from '../hooks/useInput';
 import styles from '../styles/page/Login.module.css';
 import ImageModal from '../container/ImageModal';
 
-const Tutorial = ({ profile: defaultProfile, token, createProfile }) => {
+const Tutorial = ({ profile: defaultProfile, token, createProfile, goToMain }) => {
   const [modal, setModal] = useState(false);
-  const history = useHistory();
 
   const userNameInput = useInput(defaultProfile.userName);
   const mottoInput = useInput();
@@ -40,7 +38,7 @@ const Tutorial = ({ profile: defaultProfile, token, createProfile }) => {
     createProfile(profile);
     accountManager.updateUserProfile(token, profile); // 프로필 수정 정보 전송
     accountManager.completeTutorial(token); // 튜토리얼 완료 상태 전송
-    history.push('/');
+    goToMain();
   };
 
   return (
