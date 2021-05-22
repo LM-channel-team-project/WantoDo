@@ -21,13 +21,10 @@
   font-size: 14px;
   width: 300px;
   margin: 6px 0px 0px 6px;
-  /* font-weight: semibold; */
 }
 
 /* "오늘의 할일을 적어주세요" Input 부분 스타일 추가21/05/09 by 현빈 */
 .contentInput {
-  /* border: 0.3px solid rgba(109, 98, 98, 0.5); */
-  /* box-shadow: 1px 1px rgba(109, 103, 103, 0.5); */
   width: 300px;
   position: relative;
   left: -5px;
@@ -35,12 +32,9 @@
   border-radius: radius;
   background-color: transparent;
   font-size: 1.1em;
-  color: colorwhite;
+  color: colorWhite;
+  /* font-weight: semibold; */
 }
-/* 
-.contentInput::placeholder{
-color: white;
-} */
 
 .contentInput:focus {
   background-color: colorLightBlack;
