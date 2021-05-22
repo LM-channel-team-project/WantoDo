@@ -1,0 +1,21 @@
+.list {
+  display: flex;
+  width: 32em;
+  background-color: #fff;
+  padding: 2em 2em 1em 2em;
+}
+
+.item {
+  width: 100%;
+}
+
+.item:not(:last-child) {
+  margin-right: 2em;
+}
+
+.buttonWrapper {
+  position: absolute;
+  top: 1em;
+  right: 1em;
+  color: black;
+}

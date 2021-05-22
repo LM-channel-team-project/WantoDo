@@ -78,6 +78,7 @@ class AccountManager {
     const matchingKeys = {
       userName: 'nickname',
       motto: 'motto',
+      imageURL: 'profileImageUrl',
     };
 
     // 수정 데이터만 전송

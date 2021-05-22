@@ -341,11 +341,21 @@
   transform: unset;
 }
 
-.tagModal__close {
+.close {
   background-color: transparent;
   border-radius: 50%;
   padding: 0.3em 0.5em;
   font-size: 1em;
   line-height: 1em;
-  color: white;
+  color: inherit;
+}
+
+.imageModal,
+.imageModal:hover {
+  padding: 0;
+  background-color: transparent;
+}
+
+.imageModal:hover {
+  opacity: 0.8;
 }

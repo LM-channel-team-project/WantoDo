@@ -6,7 +6,7 @@ import { CgToday } from 'react-icons/cg';
 import { BsCardChecklist } from 'react-icons/bs';
 import { AiFillSetting, AiFillTags } from 'react-icons/ai';
 import { actionCreators } from '../store/store';
-import ProfileButon from '../components/ProfileButon';
+import ProfileButon from '../components/ProfileButton';
 import MenuSelector from '../components/MenuSelector';
 import IconButton from '../components/IconButton';
 import styles from '../styles/Navbar.module.css';

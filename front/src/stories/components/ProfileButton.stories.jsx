@@ -1,10 +1,10 @@
 import React from 'react';
 import { action } from '@storybook/addon-actions';
-import ProfileButon from '../../components/ProfileButon';
+import ProfileButton from '../../components/ProfileButton';
 
 export default {
-  title: 'components/ProfileButon',
-  component: ProfileButon,
+  title: 'components/ProfileButton',
+  component: ProfileButton,
   argTypes: {
     imageURL: { control: false },
     styleName: { control: 'text' },
@@ -17,6 +17,6 @@ export default {
   },
 };
 
-const Template = (args) => <ProfileButon {...args} />;
+const Template = (args) => <ProfileButton {...args} />;
 
 export const Default = Template.bind({});

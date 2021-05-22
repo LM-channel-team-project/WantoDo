@@ -13,6 +13,7 @@
   font-size: 1rem;
   box-shadow: box-shadow;
   border-radius: modal-radius;
+  z-index: 3;
 }
 
 .profileModal {
@@ -49,4 +50,8 @@
   padding: 1em;
   transform: translateX(-50%);
   background-color: colorDarkGray;
+}
+
+.imageModal {
+  background-color: #fff;
 }
