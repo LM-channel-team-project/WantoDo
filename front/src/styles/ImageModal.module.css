@@ -5,6 +5,11 @@
   padding: 2em 2em 1em 2em;
 }
 
+.list.small {
+  width: 20em;
+  padding: 1em 1em 0.5em 1em;
+}
+
 .item {
   width: 100%;
 }
@@ -13,9 +18,18 @@
   margin-right: 2em;
 }
 
+.item.small:not(:last-child) {
+  margin-right: 1em;
+}
+
 .buttonWrapper {
   position: absolute;
   top: 1em;
   right: 1em;
   color: black;
+}
+
+.buttonWrapper.small {
+  top: 0.5em;
+  right: 0.5em;
 }

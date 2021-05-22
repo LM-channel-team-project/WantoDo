@@ -1,16 +1,19 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { useHistory } from 'react-router-dom';
+import { FaPlus } from 'react-icons/fa';
 import { actionCreators } from '../store/store';
 import Modal from '../container/Modal';
 import ProfileImage from './ProfileImage';
 import Button from './Button';
-import styles from '../styles/ProfileModal.module.css';
 import GoogleLogoutButton from './GoogleLogoutButton';
 import Input from './Input';
 import InputBox from './InputBox';
+import IconButton from './IconButton';
+import ImageModal from '../container/ImageModal';
 import accountManager from '../utils/account-manager';
 import useInput from '../hooks/useInput';
+import styles from '../styles/ProfileModal.module.css';
 
 /**
  * 사용자의 프로필 정보를 표시하는 컴포넌트
@@ -20,8 +23,9 @@ import useInput from '../hooks/useInput';
  * @param {string} props.motto - 사용자의 좌우명 문자열
  * @param {Function} props.setEditDisplay - 프로필 모달에 표시할 컴포넌트를 변경하는 함수
  */
-const Profile = ({ imageURL, userName, email, motto, setEditDisplay }) => {
+const Profile = ({ token, imageURL, userName, email, motto, editProfile, setEditDisplay }) => {
   const history = useHistory();
+  const [subModal, setSubModal] = useState(false);
 
   const onEditClick = () => {
     // 프로필 수정 폼으로 모달 변경
@@ -33,11 +37,22 @@ const Profile = ({ imageURL, userName, email, motto, setEditDisplay }) => {
     history.push('/login');
   };
 
+  const onImageSelect = (url) => {
+    const updated = { imageURL: url };
+
+    accountManager.updateUserProfile(token, updated);
+    editProfile(updated);
+    setSubModal(false);
+  };
+
   return (
     <>
       <header className={styles.header}>
         <div className={styles.profile}>
-          <ProfileImage imageURL={imageURL} styleName="profileModal" />
+          <div className={styles.profileBox}>
+            <ProfileImage imageURL={imageURL} styleName="profileModal" />
+            <IconButton Icon={FaPlus} styleName="image_add" onClick={() => setSubModal(true)} />
+          </div>
         </div>
         <h3 className={styles.name}>{userName || 'anonymous'}</h3>
         <p className={styles.email}>{email || '이메일 정보를 찾을 수 없습니다.'}</p>
@@ -54,6 +69,14 @@ const Profile = ({ imageURL, userName, email, motto, setEditDisplay }) => {
         </Button>
         <GoogleLogoutButton onLogout={onLogout} />
       </footer>
+      {subModal && (
+        <ImageModal
+          imageList={[0, 1, 2]}
+          styleName="small"
+          onSelect={onImageSelect}
+          closeModal={() => setSubModal(false)}
+        />
+      )}
     </>
   );
 };

@@ -22,15 +22,8 @@ const Tutorial = ({ profile: defaultProfile, token, createProfile }) => {
   const mottoInput = useInput();
   const [imageURL, setImageURL] = useState(defaultProfile.imageURL);
 
-  const onImageButtonClick = () => {
-    setModal(true);
-  };
-
-  const onSelectImage = (e) => {
-    const target = e.target.tagName === 'BUTTON' ? e.target.firstChild : e.target;
-    const { origin } = target.dataset;
-
-    setImageURL(origin);
+  const onImageSelect = (url) => {
+    setImageURL(url);
     setModal(false);
   };
 
@@ -55,8 +48,10 @@ const Tutorial = ({ profile: defaultProfile, token, createProfile }) => {
       <form className={styles.form} onSubmit={onRegisterClick}>
         <ul className={styles.list}>
           <li className={styles.profile}>
-            <ProfileImage imageURL={imageURL} styleName="tutorial" />
-            <IconButton Icon={FaPlus} styleName="tutorial__image" onClick={onImageButtonClick} />
+            <div className={styles.profileBox}>
+              <ProfileImage imageURL={imageURL} styleName="tutorial" />
+              <IconButton Icon={FaPlus} styleName="image_add" onClick={() => setModal(true)} />
+            </div>
           </li>
           <li className={styles.textBox}>
             <InputBox
@@ -88,7 +83,7 @@ const Tutorial = ({ profile: defaultProfile, token, createProfile }) => {
       {modal && (
         <ImageModal
           imageList={[0, 1, 2, defaultProfile.imageURL]}
-          onSelect={onSelectImage}
+          onSelect={onImageSelect}
           closeModal={() => setModal(false)}
         />
       )}

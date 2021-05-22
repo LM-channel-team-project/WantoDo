@@ -46,10 +46,10 @@
   background-color: colorGray;
 }
 
-.tutorial__image {
+.image_add {
   position: absolute;
   bottom: 0;
-  right: 60px;
+  right: 0;
   font-size: 0.8em;
   line-height: 0.5;
   padding: 1em;

@@ -16,9 +16,7 @@
 }
 
 .profileModal {
-  position: relative;
   margin: 0;
-  top: -50px;
   width: 80px;
   height: 80px;
   border: colorPurple solid 5px;

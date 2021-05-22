@@ -7,9 +7,6 @@
   position: absolute;
   display: flex;
   flex-direction: column;
-  /* 편의로 설정해 둔 것이므로 나중에 삭제 */
-  /* margin: 30px; */
-  /* width: 340px; */
   font-size: 1rem;
   box-shadow: box-shadow;
   border-radius: modal-radius;
@@ -54,4 +51,10 @@
 
 .imageModal {
   background-color: #fff;
+}
+
+.imageModal_small {
+  background-color: #fff;
+  left: -0.6em;
+  top: 1.5em;
 }
