@@ -58,3 +58,11 @@
   left: -0.6em;
   top: 1.5em;
 }
+
+.withdrawalModal {
+  bottom: 20%;
+  left: 50%;
+  width: 30em;
+  transform: translateX(-50%);
+  background-color: white;
+}

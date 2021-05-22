@@ -42,7 +42,8 @@
 }
 
 /* 회원가입 */
-.tutorial {
+.tutorial,
+.withdrawal {
   display: block;
   width: 100%;
   background-color: transparent;
@@ -54,12 +55,20 @@
   padding: 0.4em 0.3em;
 }
 
-.tutorial:focus {
+.tutorial:focus,
+.withdrawal {
   background-color: transparent;
   border-bottom: 2px solid colorPurple;
   color: colorDarkGray;
 }
 
+.withdrawal {
+  display: inline-block;
+  width: 5em;
+  margin: 0;
+  margin-left: 0.3em;
+  padding: 0;
+}
 /* 21/05/09 DateInput 모달 각 요소들 수정 by 현빈*/
 
 /* 태그들 */
