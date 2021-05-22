@@ -1,12 +1,10 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
-import { useHistory } from 'react-router-dom';
 import { FaPlus } from 'react-icons/fa';
 import { actionCreators } from '../store/store';
 import Modal from '../container/Modal';
 import ProfileImage from './ProfileImage';
 import Button from './Button';
-import GoogleLogoutButton from './GoogleLogoutButton';
 import Input from './Input';
 import InputBox from './InputBox';
 import IconButton from './IconButton';
@@ -23,8 +21,16 @@ import styles from '../styles/ProfileModal.module.css';
  * @param {string} props.motto - 사용자의 좌우명 문자열
  * @param {Function} props.setEditDisplay - 프로필 모달에 표시할 컴포넌트를 변경하는 함수
  */
-const Profile = ({ token, imageURL, userName, email, motto, editProfile, setEditDisplay }) => {
-  const history = useHistory();
+const Profile = ({
+  signOut,
+  token,
+  imageURL,
+  userName,
+  email,
+  motto,
+  editProfile,
+  setEditDisplay,
+}) => {
   const [subModal, setSubModal] = useState(false);
 
   const onEditClick = () => {
@@ -34,7 +40,7 @@ const Profile = ({ token, imageURL, userName, email, motto, editProfile, setEdit
 
   const onLogout = () => {
     // 로그아웃 처리
-    history.push('/login');
+    signOut();
   };
 
   const onImageSelect = (url) => {
@@ -67,7 +73,9 @@ const Profile = ({ token, imageURL, userName, email, motto, editProfile, setEdit
         <Button styleName="profileModal" onClick={onEditClick}>
           프로필 수정
         </Button>
-        <GoogleLogoutButton onLogout={onLogout} />
+        <Button styleName="profileModal" onClick={onLogout}>
+          로그아웃
+        </Button>
       </footer>
       {subModal && (
         <ImageModal

@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
-import { useGoogleLogin } from 'react-google-login';
-import accountManager from '../utils/account-manager';
+import { useGoogleLogout } from 'react-google-login';
 import { actionCreators } from '../store/store';
 import { modals } from '../reducer/modal';
 import Layout from '../container/Layout';
@@ -14,44 +13,35 @@ import SettingContainer from '../container/SettingContainer';
 import TagModal from '../container/TagModal';
 
 const Main = ({
+  changeSignState,
   isProfileShow,
   isTaskFormShow,
   isTagShow,
   task,
   taskId,
-  createProfile,
-  pushToken,
   toggleModal,
 }) => {
   const [left, setLeft] = useState('tasks'); // Left에 렌더링할 컴포넌트 이름
 
-  const onLoginSuccess = async ({ tokenObj }) => {
-    const profile = await accountManager.getUserProfile(tokenObj.id_token);
-    createProfile(profile);
-    pushToken(tokenObj.id_token);
-  };
-
-  useGoogleLogin({
+  const { signOut } = useGoogleLogout({
     clientId: process.env.REACT_APP_GOOGLE_CLIENT_ID,
-    onSuccess: onLoginSuccess,
-    // true로 설정 시 이미 로그인한 상태이면 onSuccess 호출, 로그아웃 상태면 호출 안함
-    isSignedIn: true,
+    onLogoutSuccess: () => changeSignState(false),
+    // 추후 로그아웃 실패 시 알림 모달 추가
+    // onFailure: (e) => console.log(e),
   });
 
   return (
-    <>
-      <Layout
-        Side={() => <Navbar changeLeft={setLeft} />}
-        Left={() => (left === 'tasks' ? <TasksContainer /> : <SettingContainer />)}
-        Right={() => <CalendarContainer />}
-      >
-        {isProfileShow && <ProfileModal />}
-        {isTagShow && <TagModal toggleModal={() => toggleModal(modals.tags)} />}
-        {isTaskFormShow && (
-          <TaskModal taskId={taskId} task={task} toggleModal={() => toggleModal(modals.taskForm)} />
-        )}
-      </Layout>
-    </>
+    <Layout
+      Side={() => <Navbar changeLeft={setLeft} />}
+      Left={() => (left === 'tasks' ? <TasksContainer /> : <SettingContainer />)}
+      Right={() => <CalendarContainer />}
+    >
+      {isProfileShow && <ProfileModal signOut={signOut} />}
+      {isTagShow && <TagModal toggleModal={() => toggleModal(modals.tags)} />}
+      {isTaskFormShow && (
+        <TaskModal taskId={taskId} task={task} toggleModal={() => toggleModal(modals.taskForm)} />
+      )}
+    </Layout>
   );
 };
 
@@ -67,8 +57,6 @@ const mapStateToProps = ({ modal: { profile, taskForm, tags } }) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    createProfile: (profile) => dispatch(actionCreators.createProfile(profile)),
-    pushToken: (token) => dispatch(actionCreators.pushToken(token)),
     toggleModal: (modal) =>
       dispatch(
         modal === modals.taskForm
