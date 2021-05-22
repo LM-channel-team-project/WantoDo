@@ -4,7 +4,9 @@ import { Provider } from 'react-redux';
 import TaskList from '../../components/TaskList';
 
 const store = {
-  getState: () => {},
+  getState: () => {
+    return { token: '' };
+  },
   subscribe: () => {},
   dispatch: action('dispatch'),
 };

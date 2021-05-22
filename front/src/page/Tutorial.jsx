@@ -11,10 +11,13 @@ import ProfileImage from '../components/ProfileImage';
 
 import styles from '../styles/page/Login.module.css';
 import accountManager from '../utils/account-manager';
+import useInput from '../hooks/useInput';
 
 const Tutorial = ({ profile: defaultProfile, token, createProfile }) => {
   const history = useHistory();
 
+  const userNameInput = useInput(defaultProfile.userName);
+  const mottoInput = useInput();
   const [imageURL, setImageURL] = useState(defaultProfile.imageURL);
 
   const onImageChange = (url = '') => {
@@ -24,16 +27,7 @@ const Tutorial = ({ profile: defaultProfile, token, createProfile }) => {
   const onRegisterClick = (event) => {
     event.preventDefault();
 
-    const form = new FormData(event.target);
-    // 폼 내에 모든 input 값을 받아와 객체로 변환
-    const tutorial = Array.from(form.keys()).reduce((obj, key) => {
-      const copied = { ...obj };
-
-      copied[key] = form.get(key);
-      return copied;
-    }, {});
-
-    const profile = Object.assign(defaultProfile, tutorial);
+    const profile = { ...defaultProfile, userName: userNameInput.value, motto: mottoInput.value };
 
     createProfile(profile);
     accountManager.updateUserProfile(token, profile); // 프로필 수정 정보 전송
@@ -50,20 +44,21 @@ const Tutorial = ({ profile: defaultProfile, token, createProfile }) => {
         </li>
         <li className={styles.textBox}>
           <InputBox
-            value={defaultProfile.userName}
+            value={userNameInput.value}
+            onChange={userNameInput.onChange}
             labelText="이름"
-            name="userName"
             styleName="tutorial"
             maxLength="10"
           />
           <InputBox
-            inputType="textarea"
+            value={mottoInput.value}
+            onChange={mottoInput.onChange}
             labelText="좌우명"
-            name="motto"
+            styleName="tutorial"
+            inputType="textarea"
             rows="3"
             cols="15"
             maxLength="30"
-            styleName="tutorial"
           />
         </li>
       </ul>

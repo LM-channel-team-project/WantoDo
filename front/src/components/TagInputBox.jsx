@@ -1,9 +1,13 @@
 import React, { useState } from 'react';
-import colorManager from '../utils/color-manager';
+import { connect } from 'react-redux';
 import TagButton from './TagButton';
-import styles from '../styles/InputBox.module.css';
-import inputStyles from '../styles/Input.module.css';
+import Input from './Input';
 import accountManager from '../utils/account-manager';
+import colorManager from '../utils/color-manager';
+import generateId from '../utils/id-generator';
+import useInput from '../hooks/useInput';
+import styles from '../styles/InputBox.module.css';
+import { actionCreators } from '../store/store';
 
 const useFlexInputSize = (intialSize) => {
   const [inputSize, setInputSize] = useState(intialSize);
@@ -21,18 +25,23 @@ const useFlexInputSize = (intialSize) => {
 
 /**
  * 재사용성을 높인 인풋 박스
- * @param {string} props.inputName - form에서 모든 input의 값을 객체로 받을 때 key로 쓰일 문자열
+ * @param {string} props.token - 사용자 id token 문자열
  * @param {string} props.placeholder - input의 placeholder 속성 값
- * @param {Function} props.validator - input의 유효성 검사를 수행할 콜백 함수, 반환하는 boolean 값에 따라 상태 변화 여부 결정
+ * @param {Array} props.tags - 상위 컴포넌트의 지역 태그 상태를 담고 있는 배열
+ * @param {Object} props.tagList - 전역 태그 상태를 담고 있는 객체
+ * @param {Function} props.setTags - 지역 태그 상태를 업데이트 하는 함수
+ * @param {Function} props.updateTag - 전역 태그 상태에 태그를 하나 추가하는 함수
  */
-const TagInputBox = ({ token, tags = [], inputName, validator, placeholder, setTags, tagList }) => {
-  const [value, setValue] = useState('');
+const TagInputBox = ({ token, placeholder, tags = [], tagList, setTags, updateTag }) => {
+  const inputId = generateId();
+  const { value, onChange, reset } = useInput();
   const { inputSize, flexInputSize } = useFlexInputSize(0);
   let isMouseDown = false;
 
   const onTagMouseDown = (tagId) => {
     isMouseDown = true;
     setTimeout(() => {
+      // 메인 태그 지정
       if (isMouseDown) {
         const updated = tags.map((tag) => {
           const copied = { ...tag };
@@ -58,26 +67,28 @@ const TagInputBox = ({ token, tags = [], inputName, validator, placeholder, setT
     const tag = { name, color: colorManager.getRandomHex(), isMainTag };
     const tagId = await accountManager.addTag(token, tag);
     setTags((previous) => [...previous, { tagId, ...tag }]);
+    updateTag(tagId, tag);
   };
 
   const onKeyDown = (event) => {
-    if (event.target.value === '') return;
+    if (value === '' || value.length < 2) return;
     if (event.key !== 'Enter') return;
     event.preventDefault();
-    const name = event.target.value;
-    addTag(name);
-    setValue('');
+
+    addTag(value);
+    reset();
     flexInputSize(0);
   };
 
-  const onBlur = (event) => {
-    if (event.target.value === '') return;
-    addTag(event.target.value);
-    setValue('');
+  const onBlur = () => {
+    if (value === '' || value.length < 2) return;
+
+    addTag(value);
+    reset();
     flexInputSize(0);
   };
 
-  const onChange = (event) => {
+  const onValueChange = (event) => {
     const text = event.target.value;
     const { length } = text;
 
@@ -85,19 +96,24 @@ const TagInputBox = ({ token, tags = [], inputName, validator, placeholder, setT
       (count, arr) => count + String(arr).length,
       0,
     );
-    flexInputSize(length >= 3 ? 0.95 * (length + korCount) : 3);
-    setValue(text);
+    flexInputSize(length >= 3 ? 0.95 * length + korCount * 0.85 : 3);
+    onChange(event);
   };
 
   const onTagDelete = (id) => {
     setTags((previous) => {
       return [...previous].filter((tag) => tag.tagId !== id);
     });
-    accountManager.deleteTag(token, id);
+    // 태그 관리 플로우 결정 전까지 삭제 요청 비활성화
+    // accountManager.deleteTag(token, id);
+  };
+
+  const validator = (text) => {
+    return !text.includes(' ');
   };
 
   return (
-    <label className={styles.inputBox} htmlFor={styles.inputBox}>
+    <label className={styles.inputBox} htmlFor={inputId}>
       <span className={styles.ModalNameTag}>태그</span>
       <ul className={styles.list}>
         {tags.map((tag) => (
@@ -114,15 +130,14 @@ const TagInputBox = ({ token, tags = [], inputName, validator, placeholder, setT
           </li>
         ))}
       </ul>
-      <input
-        className={`${inputStyles.input} ${inputStyles.tagInput}`}
-        id={styles.inputBox}
+      <Input
+        styleName="tagInput"
+        id={inputId}
         value={value}
-        name={inputName}
         placeholder={placeholder}
         validator={validator}
         size={inputSize || 3}
-        onChange={onChange}
+        onChange={onValueChange}
         onKeyDown={onKeyDown}
         onBlur={onBlur}
         maxLength="15"
@@ -131,4 +146,10 @@ const TagInputBox = ({ token, tags = [], inputName, validator, placeholder, setT
   );
 };
 
-export default TagInputBox;
+const mapDispatchToProps = (dispatch) => {
+  return {
+    updateTag: (tagId, tag) => dispatch(actionCreators.updateTag(tagId, tag)),
+  };
+};
+
+export default connect(undefined, mapDispatchToProps)(TagInputBox);

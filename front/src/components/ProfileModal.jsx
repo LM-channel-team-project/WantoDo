@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { actionCreators } from '../store/store';
@@ -10,6 +10,7 @@ import GoogleLogoutButton from './GoogleLogoutButton';
 import Input from './Input';
 import InputBox from './InputBox';
 import accountManager from '../utils/account-manager';
+import useInput from '../hooks/useInput';
 
 /**
  * 사용자의 프로필 정보를 표시하는 컴포넌트
@@ -67,8 +68,8 @@ const Profile = ({ imageURL, userName, email, motto, setEditDisplay }) => {
  * @param {Function} props.setEditDisplay - 프로필 모달에 표시할 컴포넌트를 변경하는 함수
  */
 const ProfileEdit = ({ imageURL, userName, email, motto, token, editProfile, setEditDisplay }) => {
-  const nameRef = useRef();
-  const mottoRef = useRef();
+  const nameInput = useInput(userName);
+  const mottoInput = useInput(motto);
 
   const onCancleClick = () => {
     // 프로필 모달로 변경
@@ -77,11 +78,11 @@ const ProfileEdit = ({ imageURL, userName, email, motto, token, editProfile, set
 
   const onEditClick = () => {
     // 변경된 데이터만 객체로 만듦
-    const values = { userName: nameRef.current.value, motto: mottoRef.current.value };
+    const values = { userName: nameInput.value, motto: mottoInput.value };
     const changed = {};
 
     if (values.userName !== userName) changed.userName = values.userName;
-    if (values.motto !== userName) changed.motto = values.motto;
+    if (values.motto !== motto) changed.motto = values.motto;
 
     editProfile(changed);
     accountManager.updateUserProfile(token, changed); // 서버에 프로필 변경 요청
@@ -95,10 +96,9 @@ const ProfileEdit = ({ imageURL, userName, email, motto, token, editProfile, set
           <ProfileImage imageURL={imageURL} styleName="profileModal" />
         </div>
         <Input
-          inputRef={nameRef}
-          value={userName}
-          name="userName"
+          value={nameInput.value}
           styleName="profileModal__name"
+          onChange={nameInput.onChange}
           maxLength="10"
         />
         <p className={styles.email}>{email || '이메일 정보를 찾을 수 없습니다.'}</p>
@@ -106,14 +106,13 @@ const ProfileEdit = ({ imageURL, userName, email, motto, token, editProfile, set
       <ul className={styles.intros}>
         <li className={styles.intro}>
           <InputBox
-            inputRef={mottoRef}
-            value={motto}
+            value={mottoInput.value}
             type="textarea"
             labelText="MOTTO"
-            name="motto"
+            styleName="profileModify__motto"
+            onChange={mottoInput.onChange}
             rows="3"
             cols="15"
-            styleName="profileModify__motto"
             maxLength="30"
           />
         </li>
