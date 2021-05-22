@@ -28,7 +28,7 @@
   display: block;
   text-align: right;
   left: -60px;
-  top: -20px;
+  margin-bottom: 20px;
 }
 
 .content {
