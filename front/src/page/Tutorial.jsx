@@ -9,31 +9,33 @@ import IconButton from '../components/IconButton';
 import InputBox from '../components/InputBox';
 import ProfileImage from '../components/ProfileImage';
 
-import styles from '../styles/page/Login.module.css';
 import accountManager from '../utils/account-manager';
+import useInput from '../hooks/useInput';
+import styles from '../styles/page/Login.module.css';
+import ImageModal from '../container/ImageModal';
 
 const Tutorial = ({ profile: defaultProfile, token, createProfile }) => {
+  const [modal, setModal] = useState(false);
   const history = useHistory();
 
+  const userNameInput = useInput(defaultProfile.userName);
+  const mottoInput = useInput();
   const [imageURL, setImageURL] = useState(defaultProfile.imageURL);
 
-  const onImageChange = (url = '') => {
+  const onImageSelect = (url) => {
     setImageURL(url);
+    setModal(false);
   };
 
   const onRegisterClick = (event) => {
     event.preventDefault();
 
-    const form = new FormData(event.target);
-    // 폼 내에 모든 input 값을 받아와 객체로 변환
-    const tutorial = Array.from(form.keys()).reduce((obj, key) => {
-      const copied = { ...obj };
-
-      copied[key] = form.get(key);
-      return copied;
-    }, {});
-
-    const profile = Object.assign(defaultProfile, tutorial);
+    const profile = {
+      ...defaultProfile,
+      userName: userNameInput.value,
+      motto: mottoInput.value,
+      imageURL,
+    };
 
     createProfile(profile);
     accountManager.updateUserProfile(token, profile); // 프로필 수정 정보 전송
@@ -42,38 +44,50 @@ const Tutorial = ({ profile: defaultProfile, token, createProfile }) => {
   };
 
   return (
-    <form className={styles.form} onSubmit={onRegisterClick}>
-      <ul className={styles.list}>
-        <li className={styles.profile}>
-          <ProfileImage imageURL={imageURL} styleName="tutorial" />
-          <IconButton Icon={FaPlus} styleName="tutorial__image" onClick={() => onImageChange()} />
-        </li>
-        <li className={styles.textBox}>
-          <InputBox
-            value={defaultProfile.userName}
-            labelText="이름"
-            name="userName"
-            styleName="tutorial"
-            maxLength="10"
-          />
-          <InputBox
-            inputType="textarea"
-            labelText="좌우명"
-            name="motto"
-            rows="3"
-            cols="15"
-            maxLength="30"
-            styleName="tutorial"
-          />
-        </li>
-      </ul>
-      <div className={styles.buttons}>
-        <Button styleName="tutorial__cancel">취소</Button>
-        <Button type="submit" styleName="tutorial">
-          가입
-        </Button>
-      </div>
-    </form>
+    <>
+      <form className={styles.form} onSubmit={onRegisterClick}>
+        <ul className={styles.list}>
+          <li className={styles.profile}>
+            <div className={styles.profileBox}>
+              <ProfileImage imageURL={imageURL} styleName="tutorial" />
+              <IconButton Icon={FaPlus} styleName="image_add" onClick={() => setModal(true)} />
+            </div>
+          </li>
+          <li className={styles.textBox}>
+            <InputBox
+              value={userNameInput.value}
+              onChange={userNameInput.onChange}
+              labelText="이름"
+              styleName="tutorial"
+              maxLength="10"
+            />
+            <InputBox
+              value={mottoInput.value}
+              onChange={mottoInput.onChange}
+              labelText="좌우명"
+              styleName="tutorial"
+              inputType="textarea"
+              rows="3"
+              cols="15"
+              maxLength="30"
+            />
+          </li>
+        </ul>
+        <div className={styles.buttons}>
+          <Button styleName="tutorial__cancel">취소</Button>
+          <Button type="submit" styleName="tutorial">
+            가입
+          </Button>
+        </div>
+      </form>
+      {modal && (
+        <ImageModal
+          imageList={[0, 1, 2, defaultProfile.imageURL]}
+          onSelect={onImageSelect}
+          closeModal={() => setModal(false)}
+        />
+      )}
+    </>
   );
 };
 

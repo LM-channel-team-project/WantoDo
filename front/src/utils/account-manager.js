@@ -75,10 +75,16 @@ class AccountManager {
   updateUserProfile = async (token, profile) => {
     const url = `${process.env.REACT_APP_SERVER_URL}/api/v1/profiles`;
 
+    const matchingKeys = {
+      userName: 'nickname',
+      motto: 'motto',
+      imageURL: 'profileImageUrl',
+    };
+
     // 수정 데이터만 전송
     const updated = Object.keys(profile).reduce((obj, key) => {
       const copied = { ...obj };
-      copied[key] = profile[key];
+      copied[matchingKeys[key]] = profile[key];
       return copied;
     }, {});
 

@@ -1,52 +1,56 @@
-import React, { useRef } from 'react';
+import React from 'react';
 import { FaPlus } from 'react-icons/fa';
-import { connect } from 'react-redux';
-import { actionCreators } from '../store/store';
 import Button from './Button';
 import IconButton from './IconButton';
 import Input from './Input';
 import styles from '../styles/QuickAddForm.module.css';
-import accountManager from '../utils/account-manager';
+import useInput from '../hooks/useInput';
 
 /**
  * Task 내용만 입력하여 Task를 빠르게 추가하는 폼 컴포넌트
- * @param {Fucntion} toggleTaskFormModal - 전역 모달 상태를 변경하여 태스크 폼을 토글하는 함수
+ * @param {boolean} props.isDetailButton - 디테일 버튼 표시 여부, 기본값 false
+ * @param {Fucntion} props.onDetailClick - 디테일 버튼 클릭하면 실행할 콜백, 인풋 값 전달 받음
+ * @param {Fucntion} props.onSubmit - 등록 버튼 클릭하면 실행할 콜백, 인풋 값 전달 받음
+ * @param {string} props.styleName - 별도의 클래스를 지정하는 문자열
+ * @param {string} props.placeholder - 입력이 없을 때 표시할 문자열
+ * @param {Fucntion} props.validator - 입력에 대한 유효성 검사 함수
  */
+const QuickAddForm = ({
+  isDetailButton = false,
+  onDetailClick: _onDetailClick,
+  onSubmit: _onSubmit,
+  styleName,
+  placeholder,
+  validator,
+}) => {
+  const { value, onChange, reset } = useInput();
 
-const QuickAddForm = ({ token, toggleTaskFormModal, addTask }) => {
-  const inputRef = useRef();
-
-  const onSubmit = async (event) => {
+  const onSubmit = (event) => {
     event.preventDefault();
 
-    if (inputRef.current.value === '') return;
+    if (value === '') return;
+    if (_onSubmit instanceof Function) _onSubmit(value);
 
-    const currentTime = Date.now();
-    const task = {
-      content: inputRef.current.value,
-      periods: { start: currentTime, end: currentTime },
-    };
-    const taskId = await accountManager.addTask(token, task);
-
-    addTask(taskId, task);
-    inputRef.current.value = '';
+    reset();
   };
 
   const onDetailClick = () => {
     // QuickAddForm 입력을 TaskModal로 전달하고 초기화
-    const task = { content: inputRef.current.value };
-    toggleTaskFormModal('', task);
-    inputRef.current.value = '';
+    if (_onDetailClick instanceof Function) _onDetailClick(value);
+    reset();
   };
 
   return (
-    <form className={styles.form} onSubmit={onSubmit}>
-      <IconButton Icon={FaPlus} styleName="QuickAddForm__icon" onClick={onDetailClick} />
+    <form className={`${styles.form} ${styles[styleName]}`} onSubmit={onSubmit}>
+      {isDetailButton && (
+        <IconButton Icon={FaPlus} styleName="QuickAddForm__icon" onClick={onDetailClick} />
+      )}
       <Input
-        inputRef={inputRef}
-        name="content"
-        styleName="QuickAddForm"
-        placeholder="나의 할 일 작성하기"
+        value={value}
+        onChange={onChange}
+        styleName={`QuickAddForm${styleName ? `_${styleName}` : ''}`}
+        placeholder={placeholder}
+        validator={validator}
       />
       <Button styleName="QuickAddForm" type="submit">
         등록
@@ -55,12 +59,4 @@ const QuickAddForm = ({ token, toggleTaskFormModal, addTask }) => {
   );
 };
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    toggleTaskFormModal: (taskId, task) =>
-      dispatch(actionCreators.toggleTaskFormModal(taskId, task)),
-    addTask: (taskId, task) => dispatch(actionCreators.addTask(taskId, task)),
-  };
-};
-
-export default connect(undefined, mapDispatchToProps)(QuickAddForm);
+export default QuickAddForm;

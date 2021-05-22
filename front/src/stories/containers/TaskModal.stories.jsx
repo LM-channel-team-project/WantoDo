@@ -5,9 +5,7 @@ import TaskModal from '../../container/TaskModal';
 
 const store = {
   getState: () => {
-    return {
-      token: '',
-    };
+    return {};
   },
   subscribe: () => {},
   dispatch: action('dispatch'),
@@ -18,6 +16,7 @@ export default {
   component: TaskModal,
   decorators: [(story) => <Provider store={store}>{story()}</Provider>],
   args: {
+    token: '',
     content: '',
     task: {},
   },

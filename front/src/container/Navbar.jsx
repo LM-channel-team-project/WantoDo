@@ -4,9 +4,9 @@ import { IoCalendarOutline } from 'react-icons/io5';
 import { MdViewWeek } from 'react-icons/md';
 import { CgToday } from 'react-icons/cg';
 import { BsCardChecklist } from 'react-icons/bs';
-import { AiFillSetting } from 'react-icons/ai';
+import { AiFillSetting, AiFillTags } from 'react-icons/ai';
 import { actionCreators } from '../store/store';
-import ProfileButon from '../components/ProfileButon';
+import ProfileButon from '../components/ProfileButton';
 import MenuSelector from '../components/MenuSelector';
 import IconButton from '../components/IconButton';
 import styles from '../styles/Navbar.module.css';
@@ -17,9 +17,9 @@ import { modals } from '../reducer/modal';
  * @param {string | undefined} profileURL - 사용자의 프로필 이미지 URL, 없을 경우 기본 이미지 표시
  * @param {Function} toggleProfileModal - 전역 모달 상태를 변경하여 프로필 모달 토글하는 함수
  */
-const Navbar = ({ imageURL, toggleProfileModal, changeLeft }) => {
+const Navbar = ({ imageURL, toggleModal, changeLeft }) => {
   const onProfileClick = () => {
-    toggleProfileModal();
+    toggleModal(modals.profile);
   };
 
   return (
@@ -42,6 +42,13 @@ const Navbar = ({ imageURL, toggleProfileModal, changeLeft }) => {
               onClick={(name) => changeLeft(name)}
             />
           </li>
+          <li className={styles.menuItem}>
+            <MenuSelector
+              iconList={{ tags: AiFillTags }}
+              styleName="sideMenu"
+              onClick={() => toggleModal(modals.tags)}
+            />
+          </li>
         </ul>
       </div>
       <div className={styles.setting}>
@@ -61,7 +68,7 @@ const mapStateToProps = ({ profile: { imageURL } }) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    toggleProfileModal: () => dispatch(actionCreators.toggleModal(modals.profile)),
+    toggleModal: (modal) => dispatch(actionCreators.toggleModal(modal)),
   };
 };
 

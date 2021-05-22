@@ -29,7 +29,7 @@ function categorizeTasks(tasks) {
   return cotegorized;
 }
 
-const TasksContainer = ({ tasks, token, updateTasks, getTags }) => {
+const TasksContainer = ({ tasks, token, updateTasks, getTags, toggleDetailModal, addTask }) => {
   useEffect(() => {
     if (!token) return;
     const now = new Date();
@@ -69,6 +69,21 @@ const TasksContainer = ({ tasks, token, updateTasks, getTags }) => {
     return render;
   };
 
+  const onDetailClick = (content) => {
+    toggleDetailModal('', { content });
+  };
+
+  const onSubmit = async (content) => {
+    const currentTime = Date.now();
+    const task = {
+      content,
+      periods: { start: currentTime, end: currentTime },
+    };
+
+    const taskId = await accountManager.addTask(token, task);
+    addTask(taskId, task);
+  };
+
   return (
     <div className={styles.container}>
       <header className={styles.header}>
@@ -76,7 +91,12 @@ const TasksContainer = ({ tasks, token, updateTasks, getTags }) => {
       </header>
       <ol className={styles.content}>{renderTaskLists()}</ol>
       <footer className={styles.footer}>
-        <QuickAddForm token={token} />
+        <QuickAddForm
+          placeholder="나의 할 일 작성하기"
+          isDetailButton
+          onDetailClick={onDetailClick}
+          onSubmit={onSubmit}
+        />
       </footer>
     </div>
   );
@@ -90,6 +110,8 @@ const mapDispatchToProps = (dispatch) => {
   return {
     updateTasks: (tasks) => dispatch(actionCreators.updateTasks(tasks)),
     getTags: (tags) => dispatch(actionCreators.getTags(tags)),
+    toggleDetailModal: (taskId, task) => dispatch(actionCreators.toggleTaskFormModal(taskId, task)),
+    addTask: (taskId, task) => dispatch(actionCreators.addTask(taskId, task)),
   };
 };
 

@@ -51,6 +51,11 @@
   margin-bottom: 3em;
 }
 
+.profileBox {
+  display: inline-block;
+  position: relative;
+}
+
 .textBox {
   display: flex;
   flex-direction: column;

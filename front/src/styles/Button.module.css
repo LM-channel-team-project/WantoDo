@@ -46,10 +46,10 @@
   background-color: colorGray;
 }
 
-.tutorial__image {
+.image_add {
   position: absolute;
   bottom: 0;
-  right: 60px;
+  right: 0;
   font-size: 0.8em;
   line-height: 0.5;
   padding: 1em;
@@ -339,4 +339,23 @@
 .taskItem:hover {
   background-color: transparent;
   transform: unset;
+}
+
+.close {
+  background-color: transparent;
+  border-radius: 50%;
+  padding: 0.3em 0.5em;
+  font-size: 1em;
+  line-height: 1em;
+  color: inherit;
+}
+
+.imageModal,
+.imageModal:hover {
+  padding: 0;
+  background-color: transparent;
+}
+
+.imageModal:hover {
+  opacity: 0.8;
 }
