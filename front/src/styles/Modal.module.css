@@ -41,3 +41,12 @@
   transform: translateX(-50%);
   background-color: colorDarkGray;
 }
+
+.tagModal {
+  bottom: 20%;
+  left: 50%;
+  width: 450px;
+  padding: 1em;
+  transform: translateX(-50%);
+  background-color: colorDarkGray;
+}

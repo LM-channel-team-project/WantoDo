@@ -18,7 +18,8 @@
   color: colorWhite;
 }
 
-.QuickAddForm {
+.QuickAddForm,
+.QuickAddForm_tagModal {
   width: 100%;
   line-height: 1.8;
   font-size: 1.2em;
@@ -26,9 +27,18 @@
   background-color: transparent;
 }
 
-.QuickAddForm:focus {
+.QuickAddForm:focus,
+.QuickAddForm_tagModal:focus {
   background-color: transparent;
   transition: all duration-regular ease-in;
+}
+
+.QuickAddForm_tagModal {
+  padding-left: 1em;
+}
+
+.QuickAddForm_tagModal::placeholder {
+  color: #ddd;
 }
 
 /* 회원가입 */

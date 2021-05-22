@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { useGoogleLogin } from 'react-google-login';
 import accountManager from '../utils/account-manager';
 import { actionCreators } from '../store/store';
+import { modals } from '../reducer/modal';
 import Layout from '../container/Layout';
 import Navbar from '../container/Navbar';
 import TaskModal from '../container/TaskModal';
@@ -10,8 +11,18 @@ import ProfileModal from '../components/ProfileModal';
 import TasksContainer from '../container/TasksContainer';
 import CalendarContainer from '../container/CalendarContainer';
 import SettingContainer from '../container/SettingContainer';
+import TagModal from '../container/TagModal';
 
-const Main = ({ isProfileShow, isTaskFormShow, task, taskId, createProfile, pushToken }) => {
+const Main = ({
+  isProfileShow,
+  isTaskFormShow,
+  isTagShow,
+  task,
+  taskId,
+  createProfile,
+  pushToken,
+  toggleModal,
+}) => {
   const [left, setLeft] = useState('tasks'); // Left에 렌더링할 컴포넌트 이름
 
   const onLoginSuccess = async ({ tokenObj }) => {
@@ -35,15 +46,19 @@ const Main = ({ isProfileShow, isTaskFormShow, task, taskId, createProfile, push
         Right={() => <CalendarContainer />}
       >
         {isProfileShow && <ProfileModal />}
-        {isTaskFormShow && <TaskModal taskId={taskId} task={task} />}
+        {isTagShow && <TagModal toggleModal={() => toggleModal(modals.tags)} />}
+        {isTaskFormShow && (
+          <TaskModal taskId={taskId} task={task} toggleModal={() => toggleModal(modals.taskForm)} />
+        )}
       </Layout>
     </>
   );
 };
 
-const mapStateToProps = ({ modal: { profile, taskForm } }) => {
+const mapStateToProps = ({ modal: { profile, taskForm, tags } }) => {
   return {
     isProfileShow: profile,
+    isTagShow: tags,
     isTaskFormShow: taskForm.display,
     task: taskForm.task,
     taskId: taskForm.taskId,
@@ -54,6 +69,12 @@ const mapDispatchToProps = (dispatch) => {
   return {
     createProfile: (profile) => dispatch(actionCreators.createProfile(profile)),
     pushToken: (token) => dispatch(actionCreators.pushToken(token)),
+    toggleModal: (modal) =>
+      dispatch(
+        modal === modals.taskForm
+          ? actionCreators.toggleTaskFormModal({ display: true })
+          : actionCreators.toggleModal(modal),
+      ),
   };
 };
 
