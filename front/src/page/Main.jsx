@@ -11,12 +11,16 @@ import TasksContainer from '../container/TasksContainer';
 import CalendarContainer from '../container/CalendarContainer';
 import SettingContainer from '../container/SettingContainer';
 import TagModal from '../container/TagModal';
+import WithdrawalModal from '../container/WithdrawalModal';
+import accountManager from '../utils/account-manager';
 
 const Main = ({
   changeSignState,
+  isWithdrawalShow,
   isProfileShow,
   isTaskFormShow,
   isTagShow,
+  token,
   task,
   taskId,
   toggleModal,
@@ -30,12 +34,29 @@ const Main = ({
     // onFailure: (e) => console.log(e),
   });
 
+  const removeAccount = () => {
+    accountManager.deleteAccount(token);
+    signOut();
+  };
+
   return (
     <Layout
       Side={() => <Navbar changeLeft={setLeft} />}
-      Left={() => (left === 'tasks' ? <TasksContainer /> : <SettingContainer />)}
+      Left={() =>
+        left === 'tasks' ? (
+          <TasksContainer />
+        ) : (
+          <SettingContainer toggleModal={() => toggleModal(modals.withdrawal)} />
+        )
+      }
       Right={() => <CalendarContainer />}
     >
+      {isWithdrawalShow && (
+        <WithdrawalModal
+          toggleModal={() => toggleModal(modals.withdrawal)}
+          removeAccount={removeAccount}
+        />
+      )}
       {isProfileShow && <ProfileModal signOut={signOut} />}
       {isTagShow && <TagModal toggleModal={() => toggleModal(modals.tags)} />}
       {isTaskFormShow && (
@@ -45,13 +66,15 @@ const Main = ({
   );
 };
 
-const mapStateToProps = ({ modal: { profile, taskForm, tags } }) => {
+const mapStateToProps = ({ modal: { profile, taskForm, tags, withdrawal }, token }) => {
   return {
+    isWithdrawalShow: withdrawal,
     isProfileShow: profile,
     isTagShow: tags,
     isTaskFormShow: taskForm.display,
     task: taskForm.task,
     taskId: taskForm.taskId,
+    token,
   };
 };
 

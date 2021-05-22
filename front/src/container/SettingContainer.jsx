@@ -5,8 +5,16 @@ import QuickAddForm from '../components/QuickAddForm';
 import ToggleSwitch from '../components/ToggleSwitch';
 import styles from '../styles/page/Main.module.css';
 import accountManager from '../utils/account-manager';
+import Button from '../components/Button';
 
-const SettingContainer = ({ settings, token, editSetting, toggleDetailModal, addTask }) => {
+const SettingContainer = ({
+  settings,
+  token,
+  editSetting,
+  toggleDetailModal,
+  addTask,
+  toggleModal,
+}) => {
   const { theme, isNotification, beginningOfWeek } = settings;
   const onToggleClick = (_, name, switchOn) => {
     let value;
@@ -63,6 +71,11 @@ const SettingContainer = ({ settings, token, editSetting, toggleDetailModal, add
             switchOn={beginningOfWeek === 'monday'}
             onClick={onToggleClick}
           />
+        </li>
+        <li className={styles.item}>
+          <Button styleName="withdrawal" onClick={toggleModal}>
+            계정 삭제하기
+          </Button>
         </li>
       </ul>
       <footer className={styles.footer}>
