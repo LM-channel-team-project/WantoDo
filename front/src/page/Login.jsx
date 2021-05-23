@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { useHistory } from 'react-router-dom';
 import { useGoogleLogin } from 'react-google-login';
 import { connect } from 'react-redux';
 import { AiOutlineGoogle } from 'react-icons/ai';
@@ -10,7 +9,7 @@ import accountManager from '../utils/account-manager';
 import styles from '../styles/page/Login.module.css';
 
 const LoginRender = ({ onLogin, pushToken }) => {
-  const onSuccess = async (response) => {
+  const onLoginSuccess = async (response) => {
     // 서버에 사용자 정보 전송, 가입 상태 및 프로필 정보 응답 받음
     const idToken = response.tokenObj.id_token;
     const { profile, isTutorial } = await accountManager.getUserData(idToken);
@@ -25,11 +24,12 @@ const LoginRender = ({ onLogin, pushToken }) => {
 
   const { signIn } = useGoogleLogin({
     clientId: process.env.REACT_APP_GOOGLE_CLIENT_ID,
-    onSuccess,
-    // 로그인 실패 시 다시 로그인 시도
-    onFailure: () => signIn(),
-    // true로 설정 시 이미 로그인한 상태이면 onSuccess 호출, 로그아웃 상태면 호출 안함
+    onSuccess: onLoginSuccess,
     isSignedIn: true,
+    uxMode: 'redirect',
+    redirectUri: process.env.PUBLIC_URL,
+    // 추후 로그인 실패 시 알림 페이지 표시 기능 추가
+    // onFailure: (e) => console.log(e),
   });
 
   return (
@@ -48,17 +48,16 @@ const LoginRender = ({ onLogin, pushToken }) => {
   );
 };
 
-const Login = ({ createProfile, pushToken }) => {
+const Login = ({ changeSignState, createProfile, pushToken }) => {
   const [tutorialDisplay, setTutorialDisplay] = useState(false);
   const [defaultProfile, setDefaultProfile] = useState({});
-  const history = useHistory();
 
   // 로그인 하면 사용자 등록 여부에 따라 렌더링할 페이지 변경
   const onLogin = (profile, isTutorial) => {
     // 튜토리얼 완료 여부 확인
     if (isTutorial) {
       createProfile(profile); // 프로필 전역 상태에 등록
-      history.push('/');
+      changeSignState(true);
     } else {
       setDefaultProfile(profile);
       setTutorialDisplay(true);
@@ -68,7 +67,7 @@ const Login = ({ createProfile, pushToken }) => {
   return (
     <section className={styles.container}>
       {tutorialDisplay ? (
-        <Tutorial profile={defaultProfile} />
+        <Tutorial profile={defaultProfile} goToMain={() => changeSignState(true)} />
       ) : (
         <LoginRender pushToken={pushToken} onLogin={onLogin} />
       )}

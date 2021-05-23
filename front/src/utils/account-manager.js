@@ -269,6 +269,16 @@ class AccountManager {
       headers: { Authorization: token },
     });
   };
+
+  deleteAccount = (token) => {
+    const url = `${process.env.REACT_APP_SERVER_URL}/api/v1/accounts`;
+
+    axios({
+      method: 'delete',
+      url,
+      headers: { Authorization: token },
+    });
+  };
 }
 
 const accountManager = new AccountManager();

@@ -359,3 +359,14 @@
 .imageModal:hover {
   opacity: 0.8;
 }
+
+.withdrawal {
+  background-color: transparent;
+  color: red;
+  padding: 0;
+}
+
+.withdrawal:hover {
+  background-color: transparent;
+  transform: unset;
+}
