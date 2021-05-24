@@ -4,7 +4,7 @@
 @value colorPurple from colors;
 
 .image {
-  width: 250px;
+  width: 100%;
   border-radius: 50%;
 }
 
@@ -16,9 +16,7 @@
 }
 
 .profileModal {
-  position: relative;
   margin: 0;
-  top: -50px;
   width: 80px;
   height: 80px;
   border: colorPurple solid 5px;

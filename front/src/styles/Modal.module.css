@@ -7,13 +7,10 @@
   position: absolute;
   display: flex;
   flex-direction: column;
-  /* 편의로 설정해 둔 것이므로 나중에 삭제 */
-  /* margin: 30px; */
-  /* width: 340px; */
   font-size: 1rem;
   box-shadow: box-shadow;
   border-radius: modal-radius;
-  z-index: 1;
+  z-index: 3;
 }
 
 .profileModal {
@@ -41,4 +38,31 @@
   padding: 1em;
   transform: translateX(-50%);
   background-color: colorDarkGray;
+}
+
+.tagModal {
+  bottom: 20%;
+  left: 50%;
+  width: 450px;
+  padding: 1em;
+  transform: translateX(-50%);
+  background-color: colorDarkGray;
+}
+
+.imageModal {
+  background-color: #fff;
+}
+
+.imageModal_small {
+  background-color: #fff;
+  left: -0.6em;
+  top: 1.5em;
+}
+
+.withdrawalModal {
+  bottom: 20%;
+  left: 50%;
+  width: 30em;
+  transform: translateX(-50%);
+  background-color: white;
 }

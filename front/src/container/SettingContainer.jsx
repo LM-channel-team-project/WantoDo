@@ -5,8 +5,16 @@ import QuickAddForm from '../components/QuickAddForm';
 import ToggleSwitch from '../components/ToggleSwitch';
 import styles from '../styles/page/Main.module.css';
 import accountManager from '../utils/account-manager';
+import Button from '../components/Button';
 
-const SettingContainer = ({ settings, token, editSetting }) => {
+const SettingContainer = ({
+  settings,
+  token,
+  editSetting,
+  toggleDetailModal,
+  addTask,
+  toggleModal,
+}) => {
   const { theme, isNotification, beginningOfWeek } = settings;
   const onToggleClick = (_, name, switchOn) => {
     let value;
@@ -25,6 +33,21 @@ const SettingContainer = ({ settings, token, editSetting }) => {
     }
     accountManager.editSetting(token, { [name]: value });
     editSetting({ ...settings, [name]: value });
+  };
+
+  const onDetailClick = (content) => {
+    toggleDetailModal('', { content });
+  };
+
+  const onSubmit = async (content) => {
+    const currentTime = Date.now();
+    const task = {
+      content,
+      periods: { start: currentTime, end: currentTime },
+    };
+
+    const taskId = await accountManager.addTask(token, task);
+    addTask(taskId, task);
   };
 
   return (
@@ -49,9 +72,19 @@ const SettingContainer = ({ settings, token, editSetting }) => {
             onClick={onToggleClick}
           />
         </li>
+        <li className={styles.item}>
+          <Button styleName="withdrawal" onClick={toggleModal}>
+            계정 삭제하기
+          </Button>
+        </li>
       </ul>
       <footer className={styles.footer}>
-        <QuickAddForm token={token} />
+        <QuickAddForm
+          placeholder="나의 할 일 작성하기"
+          isDetailButton
+          onDetailClick={onDetailClick}
+          onSubmit={onSubmit}
+        />
       </footer>
     </div>
   );
@@ -64,6 +97,8 @@ const mapStateToProps = ({ profile, token }) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     editSetting: (settings) => dispatch(actionCreators.editSetting(settings)),
+    toggleDetailModal: (taskId, task) => dispatch(actionCreators.toggleTaskFormModal(taskId, task)),
+    addTask: (taskId, task) => dispatch(actionCreators.addTask(taskId, task)),
   };
 };
 

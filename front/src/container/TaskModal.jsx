@@ -1,20 +1,16 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Modal from './Modal';
 import TaskForm from '../components/TaskForm';
 
-const TaskModal = ({ taskId, task }) => {
-  const [display, setDisplay] = useState(true);
-
+const TaskModal = ({ taskId, task, toggleModal }) => {
   const closeModal = () => {
-    setDisplay(false);
+    toggleModal();
   };
 
   return (
-    display && (
-      <Modal styleName="taskModal">
-        <TaskForm taskId={taskId} task={task} onCancel={closeModal} />
-      </Modal>
-    )
+    <Modal styleName="taskModal">
+      <TaskForm taskId={taskId} task={task} onCancel={closeModal} />
+    </Modal>
   );
 };
 

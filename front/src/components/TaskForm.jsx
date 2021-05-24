@@ -9,10 +9,11 @@ import TagInputBox from './TagInputBox';
 import styles from '../styles/TaskForm.module.css';
 import Input from './Input';
 import accountManager from '../utils/account-manager';
+import useInput from '../hooks/useInput';
 
 const TaskForm = ({ addTask, updateTask, toggleTaskFormModal, token, taskId, task, tagList }) => {
   const [tags, setTags] = useState(task.tags || []);
-  const contentRef = useRef();
+  const contentInput = useInput(task.content);
   const priorityRef = useRef();
   const startRef = {
     year: useRef(),
@@ -34,7 +35,7 @@ const TaskForm = ({ addTask, updateTask, toggleTaskFormModal, token, taskId, tas
   const onTaskSubmit = async (event) => {
     event.preventDefault();
 
-    if (contentRef.current.value === '') {
+    if (contentInput.value === '') {
       // 경고창 표시
       return;
     }
@@ -58,7 +59,7 @@ const TaskForm = ({ addTask, updateTask, toggleTaskFormModal, token, taskId, tas
     }, {});
 
     const collected = {
-      content: contentRef.current.value,
+      content: contentInput.value,
       level: Number(priorityRef.current.value),
       periods,
       tags,
@@ -87,9 +88,8 @@ const TaskForm = ({ addTask, updateTask, toggleTaskFormModal, token, taskId, tas
         <div className={styles.content}>
           <Input
             className={styles.contentInput}
-            inputRef={contentRef}
-            value={task.content}
-            name="content"
+            value={contentInput.value}
+            onChange={contentInput.onChange}
             placeholder="오늘의 할 일을 적어주세요 (최대 50자)"
             maxLength="50"
           />
@@ -108,7 +108,7 @@ const TaskForm = ({ addTask, updateTask, toggleTaskFormModal, token, taskId, tas
         refs={{ startRef, endRef }}
         periods={task.periods || { start: currentTime, end: currentTime }}
       />
-      <TagInputBox tagList={tagList} token={token} tags={tags} inputName="tags" setTags={setTags} />
+      <TagInputBox tagList={tagList} token={token} tags={tags} setTags={setTags} />
     </form>
   );
 };

@@ -1,19 +1,22 @@
-import React, { useRef, useState } from 'react';
+import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { AiOutlineClose } from 'react-icons/ai';
 import { IoIosClose } from 'react-icons/io';
 import { FaPencilAlt } from 'react-icons/fa';
+import { FaPlus } from 'react-icons/fa';
 import { actionCreators } from '../store/store';
 import Modal from '../container/Modal';
 import ProfileImage from './ProfileImage';
 import Button from './Button';
-import styles from '../styles/ProfileModal.module.css';
-import GoogleLogoutButton from './GoogleLogoutButton';
 import Input from './Input';
 import InputBox from './InputBox';
+import IconButton from './IconButton';
+import ImageModal from '../container/ImageModal';
 import accountManager from '../utils/account-manager';
 import IconButton from './IconButton';
+import useInput from '../hooks/useInput';
+import styles from '../styles/ProfileModal.module.css';
 
 /**
  * 사용자의 프로필 정보를 표시하는 컴포넌트
@@ -24,6 +27,8 @@ import IconButton from './IconButton';
  * @param {Function} props.setEditDisplay - 프로필 모달에 표시할 컴포넌트를 변경하는 함수
  */
 const Profile = ({
+  signOut,
+  token,
   imageURL,
   userName,
   email,
@@ -36,6 +41,7 @@ const Profile = ({
   const history = useHistory();
   const nameRef = useRef();
   const mottoRef = useRef();
+  const [subModal, setSubModal] = useState(false);
 
   const onEditClick = () => {
     // 프로필 수정 폼으로 모달 변경
@@ -58,7 +64,15 @@ const Profile = ({
 
   const onLogout = () => {
     // 로그아웃 처리
-    history.push('/login');
+    signOut();
+  };
+
+  const onImageSelect = (url) => {
+    const updated = { imageURL: url };
+
+    accountManager.updateUserProfile(token, updated);
+    editProfile(updated);
+    setSubModal(false);
   };
 
   const closeProfileModal = () => {
@@ -87,7 +101,10 @@ const Profile = ({
     <>
       <header className={styles.header}>
         <div className={styles.profile}>
-          <ProfileImage imageURL={imageURL} styleName="profileModal" />
+          <div className={styles.profileBox}>
+            <ProfileImage imageURL={imageURL} styleName="profileModal" />
+            <IconButton Icon={FaPlus} styleName="image_add" onClick={() => setSubModal(true)} />
+          </div>
         </div>
         {/* X닫기 버튼 */}
         <IconButton styleName="closeProfile" onClick={closeProfileModal}>
@@ -158,8 +175,18 @@ const Profile = ({
         <Button styleName="profileModal" onClick={onEditClick}>
           프로필 수정
         </Button>
-        <GoogleLogoutButton onLogout={onLogout} />
+        <Button styleName="profileModal" onClick={onLogout}>
+          로그아웃
+        </Button>
       </footer>
+      {subModal && (
+        <ImageModal
+          imageList={[0, 1, 2]}
+          styleName="small"
+          onSelect={onImageSelect}
+          closeModal={() => setSubModal(false)}
+        />
+      )}
     </>
   );
 };
@@ -174,8 +201,8 @@ const Profile = ({
  * @param {Function} props.setEditDisplay - 프로필 모달에 표시할 컴포넌트를 변경하는 함수
  */
 const ProfileEdit = ({ imageURL, userName, email, motto, token, editProfile, setEditDisplay }) => {
-  const nameRef = useRef();
-  const mottoRef = useRef();
+  const nameInput = useInput(userName);
+  const mottoInput = useInput(motto);
 
   const onCancleClick = () => {
     // 프로필 모달로 변경
@@ -184,7 +211,7 @@ const ProfileEdit = ({ imageURL, userName, email, motto, token, editProfile, set
 
   const onEditClick = () => {
     // 변경된 데이터만 객체로 만듦
-    const values = { userName: nameRef.current.value, motto: mottoRef.current.value };
+    const values = { userName: nameInput.value, motto: mottoInput.value };
     const changed = {};
 
     if (values.userName !== userName) changed.userName = values.userName;
@@ -202,10 +229,9 @@ const ProfileEdit = ({ imageURL, userName, email, motto, token, editProfile, set
           <ProfileImage imageURL={imageURL} styleName="profileModal" />
         </div>
         <Input
-          inputRef={nameRef}
-          value={userName}
-          name="userName"
+          value={nameInput.value}
           styleName="profileModal__name"
+          onChange={nameInput.onChange}
           maxLength="10"
         />
         <p className={styles.email}>{email || '이메일 정보를 찾을 수 없습니다.'}</p>
@@ -213,14 +239,13 @@ const ProfileEdit = ({ imageURL, userName, email, motto, token, editProfile, set
       <ul className={styles.intros}>
         <li className={styles.intro}>
           <InputBox
-            inputRef={mottoRef}
-            value={motto}
+            value={mottoInput.value}
             type="textarea"
             labelText="MOTTO"
-            name="motto"
+            styleName="profileModify__motto"
+            onChange={mottoInput.onChange}
             rows="3"
             cols="15"
-            styleName="profileModify__motto"
             maxLength="30"
           />
         </li>

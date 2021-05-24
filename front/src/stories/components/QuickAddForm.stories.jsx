@@ -1,25 +1,26 @@
 import React from 'react';
-import { action } from '@storybook/addon-actions';
-import { Provider } from 'react-redux';
 import QuickAddForm from '../../components/QuickAddForm';
-
-const store = {
-  getState: () => {
-    return {
-      toggleTaskFormModal: action('toggle'),
-      addTask: action('add'),
-    };
-  },
-  subscribe: () => {},
-  diskpatch: action('dispatch'),
-};
 
 export default {
   title: 'components/QuickAddForm',
   component: QuickAddForm,
-  decorators: [(story) => <Provider store={store}>{story()}</Provider>],
+  args: {
+    isDetailButton: false,
+    placeholder: '내용을 입력하세요',
+    styleName: '',
+  },
 };
 
 const Template = (args) => <QuickAddForm {...args} />;
 
 export const Default = Template.bind({});
+
+export const WithDetailButton = Template.bind({});
+WithDetailButton.args = {
+  isDetailButton: true,
+};
+
+export const TagModal = Template.bind({});
+TagModal.args = {
+  styleName: 'tagModal',
+};

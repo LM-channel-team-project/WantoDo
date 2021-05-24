@@ -6,12 +6,9 @@ export default {
   component: Input,
   argTypes: {
     inputRef: { control: false },
-    id: { control: false },
-    name: { control: false },
     type: { control: { type: 'select', options: ['text', 'textarea', 'date', 'number'] } },
     value: { control: 'text' },
     placeholder: { control: 'text' },
-    validator: { control: false },
     styleName: { control: 'text' },
     rows: { control: 'number' },
     cols: { control: 'number' },

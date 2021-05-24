@@ -1,11 +1,15 @@
 export const modals = {
   profile: 'profile',
   taskForm: 'taskForm',
+  tags: 'tags',
+  withdrawal: 'withdrawal',
 };
 
 const initialState = {
   [modals.profile]: false,
   [modals.taskForm]: { display: false, taskId: '', task: {} },
+  [modals.tags]: false,
+  [modals.withdrawal]: false,
 };
 
 const TOGGLE_MODAL = 'TOGGLE_MODAL';

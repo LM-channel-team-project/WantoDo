@@ -18,7 +18,8 @@
   color: colorWhite;
 }
 
-.QuickAddForm {
+.QuickAddForm,
+.QuickAddForm_tagModal {
   width: 100%;
   line-height: 1.8;
   font-size: 1.2em;
@@ -26,13 +27,23 @@
   background-color: transparent;
 }
 
-.QuickAddForm:focus {
+.QuickAddForm:focus,
+.QuickAddForm_tagModal:focus {
   background-color: transparent;
   transition: all duration-regular ease-in;
 }
 
+.QuickAddForm_tagModal {
+  padding-left: 1em;
+}
+
+.QuickAddForm_tagModal::placeholder {
+  color: #ddd;
+}
+
 /* 회원가입 */
-.tutorial {
+.tutorial,
+.withdrawal {
   display: block;
   width: 100%;
   background-color: transparent;
@@ -44,12 +55,20 @@
   padding: 0.4em 0.3em;
 }
 
-.tutorial:focus {
+.tutorial:focus,
+.withdrawal {
   background-color: transparent;
   border-bottom: 2px solid colorPurple;
   color: colorDarkGray;
 }
 
+.withdrawal {
+  display: inline-block;
+  width: 5em;
+  margin: 0;
+  margin-left: 0.3em;
+  padding: 0;
+}
 /* 21/05/09 DateInput 모달 각 요소들 수정 by 현빈*/
 
 /* 태그들 */
@@ -57,7 +76,7 @@
   border-radius: 3em;
   background-color: colorLightGray;
   padding: 0.3em 0.8em;
-  margin-left: 10px;
+  margin-left: 5px;
 }
 
 .year {

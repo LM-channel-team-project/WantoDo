@@ -1,16 +1,25 @@
 import React from 'react';
 import { action } from '@storybook/addon-actions';
+import { Provider } from 'react-redux';
 import TagInputBox from '../../components/TagInputBox';
+
+const store = {
+  getState: () => {},
+  subscribe: () => {},
+  dispatch: action('dispatch'),
+};
 
 export default {
   title: 'components/TagInputBox',
   component: TagInputBox,
+  decorators: [(story) => <Provider store={store}>{story()}</Provider>],
   argTypes: {
-    tags: { control: 'array' },
-    inputName: { control: false },
-    validator: { control: false },
+    token: { control: 'text' },
     placeholder: { control: 'text' },
+    tags: { control: 'array' },
+    tagList: { control: 'object' },
     setTags: { control: false },
+    updateTag: { control: false },
   },
   args: {
     tags: [
