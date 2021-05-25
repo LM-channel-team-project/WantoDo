@@ -26,6 +26,27 @@
 
 .checkcontent {
   display: flex;
+  width: 40%;
+}
+
+.content {
+  line-break: all;
+  text-align: left;
+}
+
+.tags {
+  font-size: 0.6em;
+  width: 40%;
+}
+
+.tag {
+  display: inline-block;
+  margin-top: 0.2em;
+  margin-bottom: 0.2em;
+}
+
+.tag:not(:last-child) {
+  margin-right: 0.3em;
 }
 
 .period {
