@@ -1,0 +1,28 @@
+.container {
+  padding: 1em;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 2em auto 3em;
+}
+
+.title {
+  display: flex;
+  align-items: flex-end;
+  font-size: 2.5em;
+}
+
+.date {
+  line-height: 0.9em;
+  margin-right: 0.1em;
+}
+
+.month,
+.day {
+  font-size: 0.4em;
+  display: block;
+  line-height: 1em;
+}
