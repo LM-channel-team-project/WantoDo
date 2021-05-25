@@ -370,3 +370,13 @@
   background-color: transparent;
   transform: unset;
 }
+
+.dailyNavbar__arrow,
+.dailyNavbar__date {
+  background-color: transparent;
+}
+
+.dailyNavbar__arrow:hover,
+.dailyNavbar__date:hover {
+  background-color: transparent;
+}
