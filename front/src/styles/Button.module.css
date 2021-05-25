@@ -95,21 +95,6 @@
   background-color: colorDarkPurple;
 }
 
-.closeProfile {
-  font-size: 1.2em;
-  padding: 0.25em 0.3em 0.1em 0.3em;
-  border-radius: 50%;
-  background-color: transparent;
-  position: absolute;
-  top: 8px;
-  right: 11px;
-}
-
-.closeProfile:hover {
-  background-color: colorLightGray;
-  transform: none;
-}
-
 /* checkbox button */
 .checkbox {
   position: relative;
