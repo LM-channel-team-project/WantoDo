@@ -17,7 +17,7 @@ import { modals } from '../reducer/modal';
  * @param {string | undefined} profileURL - 사용자의 프로필 이미지 URL, 없을 경우 기본 이미지 표시
  * @param {Function} toggleProfileModal - 전역 모달 상태를 변경하여 프로필 모달 토글하는 함수
  */
-const Navbar = ({ imageURL, toggleModal, changeLeft }) => {
+const Navbar = ({ imageURL, toggleModal, changeLeft, changeFull }) => {
   const onProfileClick = () => {
     toggleModal(modals.profile);
   };
@@ -31,8 +31,9 @@ const Navbar = ({ imageURL, toggleModal, changeLeft }) => {
         <ul className={styles.menu}>
           <li className={styles.menuItem}>
             <MenuSelector
-              iconList={{ IoCalendarOutline, MdViewWeek, CgToday }}
+              iconList={{ calendar: IoCalendarOutline, MdViewWeek, daily: CgToday }}
               styleName="sideMenu"
+              onClick={(name) => changeFull(name === 'calendar' ? '' : name)}
             />
           </li>
           <li className={styles.menuItem}>

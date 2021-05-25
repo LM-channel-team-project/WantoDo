@@ -13,6 +13,7 @@ import SettingContainer from '../container/SettingContainer';
 import TagModal from '../container/TagModal';
 import WithdrawalModal from '../container/WithdrawalModal';
 import accountManager from '../utils/account-manager';
+import DailyContainer from '../container/DailyContainer';
 
 const Main = ({
   changeSignState,
@@ -26,6 +27,7 @@ const Main = ({
   toggleModal,
 }) => {
   const [left, setLeft] = useState('tasks'); // Left에 렌더링할 컴포넌트 이름
+  const [full, setFull] = useState('');
 
   const { signOut } = useGoogleLogout({
     clientId: process.env.REACT_APP_GOOGLE_CLIENT_ID,
@@ -41,7 +43,15 @@ const Main = ({
 
   return (
     <Layout
-      Side={() => <Navbar changeLeft={setLeft} />}
+      Side={() => (
+        <Navbar
+          changeLeft={(name) => {
+            setLeft(name);
+            setFull(undefined);
+          }}
+          changeFull={setFull}
+        />
+      )}
       Left={() =>
         left === 'tasks' ? (
           <TasksContainer />
@@ -50,6 +60,7 @@ const Main = ({
         )
       }
       Right={() => <CalendarContainer />}
+      Full={full && (() => <DailyContainer />)}
     >
       {isWithdrawalShow && (
         <WithdrawalModal

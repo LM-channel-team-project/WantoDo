@@ -1,0 +1,21 @@
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.days {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  margin: 0 1.5em;
+}
+
+.date {
+  font-size: 1.2em;
+  margin-right: 0.2em;
+}
+
+.day {
+  font-size: 0.8em;
+}

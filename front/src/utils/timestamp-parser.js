@@ -2,7 +2,7 @@
 function getDays(style) {
   const days = {
     kor: ['일', '월', '화', '수', '목', '금', '토'],
-    eng: ['Sun', 'Mon', 'Wed', 'Thu', 'Fri', 'Sat'],
+    eng: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
   };
 
   return days[style];
@@ -45,24 +45,24 @@ class TimestampParser {
     return days[Number(num)];
   };
 
-  parseDayIndex = (num) => {
+  parseDayIndex = (num, style) => {
     if (num > 6) throw new Error(`A number of days must be one of 0 to 6: ${num}`);
 
-    const days = getDays('kor');
+    const days = getDays(style);
 
     return days[Number(num)];
   };
 
   parseDate = (timestamp, options = {}) => {
     if (!timestamp) return '';
-    const { seperator, isDay, isTime, isZeroAdded, type = 'string', is12Hours } = options;
+    const { separator, isDay, isTime, isZeroAdded, type = 'string', is12Hours, dayStyle } = options;
 
     const converted = new Date(Number(timestamp));
 
     const year = converted.getFullYear();
     const month = isZeroAdded ? addZero(converted.getMonth() + 1) : converted.getMonth() + 1;
     const date = isZeroAdded ? addZero(converted.getDate()) : converted.getDate();
-    const day = this.parseDayIndex(converted.getDay());
+    const day = this.parseDayIndex(converted.getDay(), dayStyle || 'kor');
     const hours = converted.getHours();
     const convertedHours = is12Hours && hours > 12 ? hours - 12 : hours;
     const mins = converted.getMinutes();
@@ -89,7 +89,7 @@ class TimestampParser {
 
     if (type === 'array') return dateArr;
 
-    return dateArr.join(seperator || '-');
+    return dateArr.join(separator != null ? separator : '-');
   };
 
   parsePeriods = (periods, options) => {
@@ -101,11 +101,12 @@ class TimestampParser {
     return parsedEnd ? `${parsedStart} - ${parsedEnd}` : parsedStart;
   };
 
-  categorize = (dateStr, separator) => {
+  categorize = (dateStr, option = {}) => {
+    const { separator, isDay, dayStyle, monthStyle } = option;
     let dateObj = dateStr;
 
     if (separator) {
-      const units = ['year', 'month', 'day'];
+      const units = ['year', 'month', 'date'];
 
       dateObj = dateStr.split(separator).reduce((obj, value, i) => {
         const copied = obj;
@@ -118,6 +119,18 @@ class TimestampParser {
         month: dateStr.slice(4, 6),
         date: dateStr.slice(6, 8),
       };
+    }
+
+    if (isDay) {
+      const date = new Date(Object.values(dateObj).join('-'));
+      const days = getDays(dayStyle);
+      const dayIndex = date.getDay();
+      dateObj.day = dayStyle ? days[dayIndex] : dayIndex;
+    }
+
+    if (monthStyle) {
+      const months = getMonths(monthStyle);
+      dateObj.month = months[Number(dateObj.month - 1)];
     }
 
     return dateObj;
