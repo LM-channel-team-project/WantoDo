@@ -7,14 +7,14 @@ import Input from '../components/Input';
 import useInput from '../hooks/useInput';
 import styles from '../styles/WithdrawalModal.module.css';
 
-const WithdrawalModal = ({ toggleModal, removeAccount }) => {
+const WithdrawalModal = ({ closeModal, removeAccount }) => {
   const { value, onChange } = useInput();
 
   const onSubmit = () => {
     if (value === '동의합니다') {
       const agreement = window.confirm('정말 계정을 삭제하시겠습니까?');
       if (agreement && removeAccount instanceof Function) removeAccount();
-      toggleModal();
+      closeModal();
     } else {
       window.alert('사용자 동의 없이 계정을 삭제할 수 없습니다');
     }
@@ -27,7 +27,7 @@ const WithdrawalModal = ({ toggleModal, removeAccount }) => {
           <h2 className={styles.title}>계정 삭제</h2>
           <hr className={styles.line} />
           <div className={styles.close}>
-            <IconButton Icon={AiOutlineClose} styleName="close" onClick={toggleModal} />
+            <IconButton Icon={AiOutlineClose} styleName="close" onClick={closeModal} />
           </div>
         </header>
         <div className={styles.body}>
@@ -53,7 +53,7 @@ const WithdrawalModal = ({ toggleModal, removeAccount }) => {
           </p>
         </div>
         <div className={styles.buttons}>
-          <Button styleName="tutorial" onClick={toggleModal}>
+          <Button styleName="tutorial" onClick={closeModal}>
             돌아가기
           </Button>
           <Button styleName="tutorial__cancel" onClick={onSubmit}>

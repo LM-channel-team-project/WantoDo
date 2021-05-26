@@ -11,9 +11,9 @@ const SettingContainer = ({
   settings,
   token,
   editSetting,
-  toggleDetailModal,
   addTask,
-  toggleModal,
+  openWidrawalModal,
+  openDetailModal,
 }) => {
   const { theme, isNotification, beginningOfWeek } = settings;
   const onToggleClick = (_, name, switchOn) => {
@@ -33,10 +33,6 @@ const SettingContainer = ({
     }
     accountManager.editSetting(token, { [name]: value });
     editSetting({ ...settings, [name]: value });
-  };
-
-  const onDetailClick = (content) => {
-    toggleDetailModal('', { content });
   };
 
   const onSubmit = async (content) => {
@@ -73,7 +69,7 @@ const SettingContainer = ({
           />
         </li>
         <li className={styles.item}>
-          <Button styleName="withdrawal" onClick={toggleModal}>
+          <Button styleName="withdrawal" onClick={openWidrawalModal}>
             계정 삭제하기
           </Button>
         </li>
@@ -82,7 +78,7 @@ const SettingContainer = ({
         <QuickAddForm
           placeholder="나의 할 일 작성하기"
           isDetailButton
-          onDetailClick={onDetailClick}
+          onDetailClick={openDetailModal}
           onSubmit={onSubmit}
         />
       </footer>
@@ -97,7 +93,6 @@ const mapStateToProps = ({ profile, token }) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     editSetting: (settings) => dispatch(actionCreators.editSetting(settings)),
-    toggleDetailModal: (taskId, task) => dispatch(actionCreators.toggleTaskFormModal(taskId, task)),
     addTask: (taskId, task) => dispatch(actionCreators.addTask(taskId, task)),
   };
 };

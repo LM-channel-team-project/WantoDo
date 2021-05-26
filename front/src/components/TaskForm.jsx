@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { connect } from 'react-redux';
 import timeparser from '../utils/timestamp-parser';
 import { actionCreators } from '../store/store';

@@ -17,7 +17,7 @@ import useInput from '../hooks/useInput';
  */
 const QuickAddForm = ({
   isDetailButton = false,
-  onDetailClick: _onDetailClick,
+  openDetailModal,
   onSubmit: _onSubmit,
   styleName,
   placeholder,
@@ -36,7 +36,7 @@ const QuickAddForm = ({
 
   const onDetailClick = () => {
     // QuickAddForm 입력을 TaskModal로 전달하고 초기화
-    if (_onDetailClick instanceof Function) _onDetailClick(value);
+    if (openDetailModal instanceof Function) openDetailModal({ task: { content: value } });
     reset();
   };
 
