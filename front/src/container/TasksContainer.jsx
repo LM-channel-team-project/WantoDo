@@ -52,7 +52,7 @@ const TasksContainer = ({ tasks, token, updateTasks, getTags, toggleDetailModal,
     const render = Object.keys(categorized).map((day) => {
       const dateObj = timeparser.categorize(day);
 
-      const month = timeparser.parseMonthIndex(dateObj.month, 'eng');
+      const month = timeparser.parseMonthIndex(dateObj.month - 1, 'eng');
       const { date } = dateObj;
 
       return (
