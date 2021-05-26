@@ -58,8 +58,8 @@ const TasksContainer = ({ tasks, token, updateTasks, getTags, toggleDetailModal,
       return (
         <li key={day}>
           <CategoryDivider styleName="taskContainer" date={Object.values(dateObj).join('-')}>
-            <span>{date}</span>
-            <span>{month}</span>
+            <span className={styles.date}>{date}</span>
+            <span className={styles.month}>{month}</span>
           </CategoryDivider>
           <TaskList tasks={categorized[day]} />
         </li>

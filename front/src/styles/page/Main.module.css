@@ -29,3 +29,12 @@
 .footer {
   margin: 1em;
 }
+
+.date {
+  font-size: 1.4em;
+}
+
+.month {
+  font-size: 1em;
+  color: #525153;
+}

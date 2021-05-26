@@ -366,6 +366,7 @@
 .taskItem:hover {
   background-color: transparent;
   transform: unset;
+  padding: 0.5em 0;
 }
 
 .imageModal,

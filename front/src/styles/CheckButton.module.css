@@ -22,4 +22,7 @@
 
 .box {
   line-height: 0;
+  position: relative;
+  top: 7px;
+  margin-left: 5px;
 }
