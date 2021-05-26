@@ -38,8 +38,8 @@ const Profile = ({
   const mottoInput = useInput(motto);
   const [subModal, setSubModal] = useState(false);
 
+  // 프로필 수정 폼으로 모달 변경
   const onEditClick = () => {
-    // 프로필 수정 폼으로 모달 변경
     setEditDisplay(true);
   };
 
@@ -50,18 +50,19 @@ const Profile = ({
     setEditProfileName(!editProfileName);
   };
 
-  // motto
+  // Motto
   const [editMotto, setEditMotto] = useState(true);
 
   const editMottoIcon = () => {
     setEditMotto(!editMotto);
   };
 
+  // 로그아웃 처리
   const onLogout = () => {
-    // 로그아웃 처리
     signOut();
   };
 
+  // 프로필 사진
   const onImageSelect = (url) => {
     const updated = { imageURL: url };
 
@@ -70,11 +71,13 @@ const Profile = ({
     setSubModal(false);
   };
 
+  // 모달 닫기 버튼
   const closeProfileModal = () => {
     toggleModal();
   };
 
-  const profileEditClick = () => {
+  // 프로필 이름 변경
+  const profileNameEditClick = () => {
     const value = { userName: nameInput.value };
     const changed = {};
 
@@ -83,6 +86,7 @@ const Profile = ({
     accountManager.updateUserProfile(token, changed);
   };
 
+  // 모토 변경
   const mottoEditClick = () => {
     const value = { motto: mottoInput.value };
     const changed = {};
@@ -125,7 +129,7 @@ const Profile = ({
           onClick={() => {
             editIcon();
             if (!editProfileName) {
-              profileEditClick();
+              profileNameEditClick();
             }
           }}
         >
