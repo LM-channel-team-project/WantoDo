@@ -96,21 +96,6 @@
   background-color: colorDarkPurple;
 }
 
-.closeProfile {
-  font-size: 1.2em;
-  padding: 0.25em 0.3em 0.1em 0.3em;
-  border-radius: 50%;
-  background-color: transparent;
-  position: absolute;
-  top: 8px;
-  right: 11px;
-}
-
-.closeProfile:hover {
-  background-color: colorLightGray;
-  transform: none;
-}
-
 /* checkbox button */
 .checkbox {
   position: relative;
@@ -155,16 +140,35 @@
   background-color: transparent;
 }
 
+/* 닫기버튼 */
 .tagClose {
-  background-color: transparent;
-  border-radius: 50%;
-  padding: 0.25em 0.2em 0.1em 0.3em;
-  font-size: 1.2em;
-  line-height: 1em;
   color: colorWhite;
 }
 
-.tagClose:hover {
+.closeProfile {
+  padding: 0.25em 0.3em 0.1em 0.3em;
+  position: absolute;
+  top: 8px;
+  right: 11px;
+}
+
+.tagClose,
+.close {
+  padding: 0.25em 0.2em 0.1em 0.3em;
+  line-height: 1em;
+}
+
+.tagClose,
+.close,
+.closeProfile {
+  background-color: transparent;
+  border-radius: 50%;
+  font-size: 1.2em;
+}
+
+.close:hover,
+.tagClose:hover,
+.closeProfile:hover {
   background-color: colorLightGray;
   color: colorDarkGray;
   transform: none;
@@ -429,18 +433,4 @@
 
 .withdrawal_cancel_button:hover {
   background-color: colorGray;
-}
-
-.close {
-  background-color: transparent;
-  border-radius: 50%;
-  padding: 0.25em 0.2em 0.1em 0.3em;
-  font-size: 1.2em;
-  line-height: 1em;
-}
-
-.close:hover {
-  background-color: colorLightGray;
-  color: colorDarkGray;
-  transform: none;
 }
