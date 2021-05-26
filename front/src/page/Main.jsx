@@ -68,7 +68,9 @@ const Main = ({
           removeAccount={removeAccount}
         />
       )}
-      {isProfileShow && <ProfileModal signOut={signOut} />}
+      {isProfileShow && (
+        <ProfileModal signOut={signOut} toggleModal={() => toggleModal(modals.profile)} />
+      )}
       {isTagShow && <TagModal toggleModal={() => toggleModal(modals.tags)} />}
       {isTaskFormShow && (
         <TaskModal taskId={taskId} task={task} toggleModal={() => toggleModal(modals.taskForm)} />
