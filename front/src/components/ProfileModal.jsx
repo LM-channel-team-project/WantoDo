@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { AiOutlineClose } from 'react-icons/ai';
-import { IoIosClose } from 'react-icons/io';
+import { GoCheck } from 'react-icons/go';
 import { FaPencilAlt, FaPlus } from 'react-icons/fa';
 import { actionCreators } from '../store/store';
 import Modal from '../container/Modal';
@@ -134,7 +134,7 @@ const Profile = ({
           }}
         >
           {editProfileName && <FaPencilAlt className={styles.editIcon} />}
-          {!editProfileName && <IoIosClose className={styles.closeIcon} />}
+          {!editProfileName && <GoCheck className={styles.closeIcon} />}
         </IconButton>
 
         {/* 이메일 */}
@@ -167,7 +167,7 @@ const Profile = ({
           }}
         >
           {editMotto && <FaPencilAlt className={styles.editIcon} />}
-          {!editMotto && <IoIosClose className={styles.closeIcon} />}
+          {!editMotto && <GoCheck className={styles.closeIcon} />}
         </IconButton>
       </ul>
       <footer className={styles.footer}>
