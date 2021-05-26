@@ -83,6 +83,7 @@
 
 /* profile modal button */
 .profileModal {
+  color: colorWhite;
   margin: 1em;
   margin-bottom: 2em;
   width: 120px;
@@ -254,7 +255,6 @@
 }
 
 /* taskform modal button */
-
 .taskForm__cancel {
   margin-right: 0.1em;
 }
@@ -362,28 +362,10 @@
   color: colorPurple;
 }
 
-.profileModal {
-  color: colorWhite;
-}
-
 .taskItem,
 .taskItem:hover {
   background-color: transparent;
   transform: unset;
-}
-
-.close {
-  background-color: transparent;
-  border-radius: 50%;
-  padding: 0.25em 0.2em 0.1em 0.3em;
-  font-size: 1.2em;
-  line-height: 1em;
-}
-
-.close:hover {
-  background-color: colorLightGray;
-  color: colorDarkGray;
-  transform: none;
 }
 
 .imageModal,
@@ -415,4 +397,37 @@
 .dailyNavbar__arrow:hover,
 .dailyNavbar__date:hover {
   background-color: transparent;
+}
+
+/* 계정탈퇴 */
+.withdrawal_button,
+.withdrawal_cancel_button {
+  padding: 0.9em 1.9em;
+  margin-left: 20px;
+  margin-right: 20px;
+  color: colorWhite;
+  font-weight: weight-semibold;
+  font-size: 15px;
+}
+
+.withdrawal_cancel_button {
+  background-color: colorLightGray;
+}
+
+.withdrawal_cancel_button:hover {
+  background-color: colorGray;
+}
+
+.close {
+  background-color: transparent;
+  border-radius: 50%;
+  padding: 0.25em 0.2em 0.1em 0.3em;
+  font-size: 1.2em;
+  line-height: 1em;
+}
+
+.close:hover {
+  background-color: colorLightGray;
+  color: colorDarkGray;
+  transform: none;
 }
