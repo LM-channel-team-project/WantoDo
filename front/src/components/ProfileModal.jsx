@@ -124,7 +124,9 @@ const ProfileEdit = ({ imageURL, userName, email, motto, token, editProfile, set
     <>
       <header className={styles.header}>
         <div className={styles.profile}>
-          <ProfileImage imageURL={imageURL} styleName="profileModal" />
+          <div className={styles.profileBox}>
+            <ProfileImage imageURL={imageURL} styleName="profileModal" />
+          </div>
         </div>
         <Input
           value={nameInput.value}
@@ -164,10 +166,10 @@ const ProfileEdit = ({ imageURL, userName, email, motto, token, editProfile, set
  * 모달 프레임에 들어갈 프로필 모달
  * @param {Object} props - 사용자의 프로필 정보를 담고있는 객체
  */
-const ProfileModal = (props) => {
+const ProfileModal = ({ closeModal, ...props }) => {
   const [editDisplay, setEditDisplay] = useState(false);
   return (
-    <Modal styleName="profileModal">
+    <Modal styleName="profileModal" isBG onBGClick={closeModal}>
       {editDisplay ? (
         <ProfileEdit {...props} setEditDisplay={setEditDisplay} />
       ) : (

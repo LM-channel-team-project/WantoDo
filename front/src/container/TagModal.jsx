@@ -10,11 +10,7 @@ import colorManager from '../utils/color-manager';
 import accountManager from '../utils/account-manager';
 import styles from '../styles/TagModal.module.css';
 
-const TagModal = ({ token, tags, updateTag, deleteTag, toggleModal }) => {
-  const closeModal = () => {
-    toggleModal();
-  };
-
+const TagModal = ({ token, tags, updateTag, deleteTag, closeModal }) => {
   const onSubmit = async (name) => {
     const tag = {
       name,
@@ -37,7 +33,7 @@ const TagModal = ({ token, tags, updateTag, deleteTag, toggleModal }) => {
   };
 
   return (
-    <Modal styleName="tagModal">
+    <Modal styleName="tagModal" isBG onBGClick={closeModal}>
       <div className={styles.container}>
         <header className={styles.header}>
           <h1 className={styles.title}>Tags</h1>

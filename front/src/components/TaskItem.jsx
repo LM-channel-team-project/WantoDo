@@ -17,7 +17,7 @@ import styles from '../styles/TaskItem.module.css';
  * @param {'basic' | 'daily'} props.type - 태스크 아이템에서 기간(period)에 대한 표시 여부를 결정하는 문자열
  */
 
-const TaskItem = ({ token, taskId, task, type, updateTask, deleteTask, toggleTaskFormModal }) => {
+const TaskItem = ({ token, taskId, task, type, updateTask, deleteTask, openModal }) => {
   const { level, checked, content, periods, tags } = task;
   const isPeriodsRender = periods && type === 'daily';
   const isTagsRender = tags && type === 'daily';
@@ -34,9 +34,7 @@ const TaskItem = ({ token, taskId, task, type, updateTask, deleteTask, toggleTas
     accountManager.deleteTask(token, taskId);
   };
 
-  const onTaskClick = () => {
-    toggleTaskFormModal(taskId, task);
-  };
+  const onTaskClick = () => openModal({ taskId, task });
 
   const renderTags = () => (
     <ul className={styles.tags}>

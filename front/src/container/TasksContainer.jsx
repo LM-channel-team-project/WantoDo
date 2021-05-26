@@ -29,7 +29,7 @@ function categorizeTasks(tasks) {
   return cotegorized;
 }
 
-const TasksContainer = ({ tasks, token, updateTasks, getTags, toggleDetailModal, addTask }) => {
+const TasksContainer = ({ tasks, token, updateTasks, getTags, openDetailModal, addTask }) => {
   useEffect(() => {
     if (!token) return;
     const now = new Date();
@@ -61,16 +61,12 @@ const TasksContainer = ({ tasks, token, updateTasks, getTags, toggleDetailModal,
             <span>{date}</span>
             <span>{month}</span>
           </CategoryDivider>
-          <TaskList tasks={categorized[day]} />
+          <TaskList tasks={categorized[day]} openModal={openDetailModal} />
         </li>
       );
     });
 
     return render;
-  };
-
-  const onDetailClick = (content) => {
-    toggleDetailModal('', { content });
   };
 
   const onSubmit = async (content) => {
@@ -94,7 +90,7 @@ const TasksContainer = ({ tasks, token, updateTasks, getTags, toggleDetailModal,
         <QuickAddForm
           placeholder="나의 할 일 작성하기"
           isDetailButton
-          onDetailClick={onDetailClick}
+          openDetailModal={openDetailModal}
           onSubmit={onSubmit}
         />
       </footer>
@@ -110,7 +106,6 @@ const mapDispatchToProps = (dispatch) => {
   return {
     updateTasks: (tasks) => dispatch(actionCreators.updateTasks(tasks)),
     getTags: (tags) => dispatch(actionCreators.getTags(tags)),
-    toggleDetailModal: (taskId, task) => dispatch(actionCreators.toggleTaskFormModal(taskId, task)),
     addTask: (taskId, task) => dispatch(actionCreators.addTask(taskId, task)),
   };
 };
