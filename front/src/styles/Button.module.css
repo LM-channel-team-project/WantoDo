@@ -192,7 +192,7 @@
   color: colorDarkGray;
   padding: 0;
   margin-left: space-narrow;
-  margin-right: space-narrow;
+  margin-right: 1em;
 }
 
 .todoDeleteButton:hover {
@@ -379,6 +379,29 @@
   opacity: 0.8;
 }
 
+/* 데일리 */
+.dailyNavbar__arrow,
+.dailyNavbar__date {
+  background-color: transparent;
+  padding: 0.3em 0.5em;
+}
+
+.dailyNavbar__arrow:hover {
+  transform: scale(1.2);
+  background-color: colorLightGray;
+  border-radius: 50%;
+}
+
+.dailyNavbar__date:hover {
+  background-color: transparent;
+}
+
+.dailyNavbar__arrow:hover,
+.dailyNavbar__date:hover {
+  padding: 0.3em 0.5em;
+}
+
+/* 계정탈퇴 */
 .withdrawal {
   background-color: transparent;
   color: red;
@@ -390,17 +413,6 @@
   transform: unset;
 }
 
-.dailyNavbar__arrow,
-.dailyNavbar__date {
-  background-color: transparent;
-}
-
-.dailyNavbar__arrow:hover,
-.dailyNavbar__date:hover {
-  background-color: transparent;
-}
-
-/* 계정탈퇴 */
 .withdrawal_button,
 .withdrawal_cancel_button {
   padding: 0.9em 1.9em;

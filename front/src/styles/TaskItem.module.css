@@ -1,6 +1,6 @@
 @value colors: './common/color.css';
 @value size: './common/size.css';
-@value colorGray, colorDarkGray from colors;
+@value colorGray, colorDarkGray, colorLightGray from colors;
 
 /* Created by 오영롱(youngrongoh) on 2021/04/20 */
 .task {
@@ -13,7 +13,7 @@
   position: absolute;
   left: 3%;
   top: 100%;
-  width: 94%;
+  width: 96%;
   border-bottom: 1px solid colorGray;
 }
 
@@ -52,7 +52,11 @@
 .period {
   font-size: 0.8em;
   margin-left: 2.5em;
-  color: colorDarkGray;
+  margin-right: 3em;
+  padding: 3px;
+  position: relative;
+  top: -7px;
+  color: grey;
 }
 
 .iconbuttons {
