@@ -78,7 +78,7 @@ const SettingContainer = ({
         <QuickAddForm
           placeholder="나의 할 일 작성하기"
           isDetailButton
-          onDetailClick={openDetailModal}
+          openDetailModal={openDetailModal}
           onSubmit={onSubmit}
         />
       </footer>
