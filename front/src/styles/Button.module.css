@@ -420,7 +420,7 @@
 
 .dailyNavbar__date--today {
   font-size: 1.2em;
-  background-color: #efefef;
+  color: colorPurple;
 }
 
 /* 계정탈퇴 */
