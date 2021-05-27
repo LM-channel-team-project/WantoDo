@@ -1,35 +1,40 @@
 import React from 'react';
-import { AiOutlineClose } from 'react-icons/ai';
 import Modal from './Modal';
-import IconButton from '../components/IconButton';
 import Button from '../components/Button';
 import Input from '../components/Input';
+import ModalHeader from '../components/ModalHeader';
 import useInput from '../hooks/useInput';
 import styles from '../styles/WithdrawalModal.module.css';
 
-const WithdrawalModal = ({ closeModal, removeAccount }) => {
-  const { value, onChange } = useInput();
+const WithdrawalModal = ({ closeModal, removeAccount, setAlert }) => {
+  const { value, onChange, reset } = useInput();
 
   const onSubmit = () => {
     if (value === '동의합니다') {
-      const agreement = window.confirm('정말 계정을 삭제하시겠습니까?');
-      if (agreement && removeAccount instanceof Function) removeAccount();
-      closeModal();
+      setAlert({
+        display: true,
+        message: '정말 계정을 삭제하시겠습니까?',
+        cancel: '취소',
+        confirm: '삭제',
+        onConfirm: () => {
+          if (removeAccount instanceof Function) removeAccount();
+          closeModal();
+        },
+        onClose: () => reset(),
+      });
     } else {
-      window.alert('사용자 동의 없이 계정을 삭제할 수 없습니다');
+      setAlert({
+        display: true,
+        message: '사용자의 동의 없이 \n 계정을 삭제할 수 없습니다',
+        cancel: '확인',
+      });
     }
   };
 
   return (
     <Modal styleName="withdrawalModal" isBG onBGClick={closeModal}>
       <div className={styles.container}>
-        <header className={styles.header}>
-          <h2 className={styles.title}>계정 삭제</h2>
-          <hr className={styles.line} />
-          <div className={styles.close}>
-            <IconButton Icon={AiOutlineClose} styleName="close" onClick={closeModal} />
-          </div>
-        </header>
+        <ModalHeader title="계정 삭제" closeModal={closeModal} />
         <div className={styles.body}>
           <p className={styles.announcement}>
             <span className={styles.warning}>

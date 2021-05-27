@@ -5,7 +5,7 @@ import Modal from './Modal';
 import QuickAddForm from '../components/QuickAddForm';
 import accountManager from '../utils/account-manager';
 
-const QuickModal = ({ token, closeModal, openDetailModal, addTask }) => {
+const QuickModal = ({ token, closeModal, openDetailModal, addTask, setAlert }) => {
   const onSubmit = async (content) => {
     const currentTime = Date.now();
     const task = {
@@ -27,6 +27,7 @@ const QuickModal = ({ token, closeModal, openDetailModal, addTask }) => {
           openDetailModal(task);
         }}
         onSubmit={onSubmit}
+        setAlert={setAlert}
       />
     </Modal>
   );

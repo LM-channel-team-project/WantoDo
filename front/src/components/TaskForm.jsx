@@ -11,7 +11,16 @@ import Input from './Input';
 import accountManager from '../utils/account-manager';
 import useInput from '../hooks/useInput';
 
-const TaskForm = ({ addTask, updateTask, toggleTaskFormModal, token, taskId, task, tagList }) => {
+const TaskForm = ({
+  addTask,
+  updateTask,
+  toggleTaskFormModal,
+  token,
+  taskId,
+  task,
+  tagList,
+  setAlert,
+}) => {
   const [tags, setTags] = useState(task.tags || []);
   const contentInput = useInput(task.content);
   const priorityRef = useRef();
@@ -37,6 +46,7 @@ const TaskForm = ({ addTask, updateTask, toggleTaskFormModal, token, taskId, tas
 
     if (contentInput.value === '') {
       // 경고창 표시
+      setAlert({ display: true, message: '내용을 입력 해주세요', confirm: '확인' });
       return;
     }
 

@@ -14,6 +14,7 @@ const SettingContainer = ({
   addTask,
   openWidrawalModal,
   openDetailModal,
+  setAlert,
 }) => {
   const { theme, isNotification, beginningOfWeek } = settings;
   const onToggleClick = (_, name, switchOn) => {
@@ -80,6 +81,7 @@ const SettingContainer = ({
           isDetailButton
           openDetailModal={openDetailModal}
           onSubmit={onSubmit}
+          setAlert={setAlert}
         />
       </footer>
     </div>
