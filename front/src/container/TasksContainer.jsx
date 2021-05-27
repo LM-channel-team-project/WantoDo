@@ -52,14 +52,14 @@ const TasksContainer = ({ tasks, token, updateTasks, getTags, toggleDetailModal,
     const render = Object.keys(categorized).map((day) => {
       const dateObj = timeparser.categorize(day);
 
-      const month = timeparser.parseMonthIndex(dateObj.month, 'eng');
+      const month = timeparser.parseMonthIndex(dateObj.month - 1, 'eng');
       const { date } = dateObj;
 
       return (
         <li key={day}>
           <CategoryDivider styleName="taskContainer" date={Object.values(dateObj).join('-')}>
-            <span>{date}</span>
-            <span>{month}</span>
+            <span className={styles.date}>{date}</span>
+            <span className={styles.month}>{month}</span>
           </CategoryDivider>
           <TaskList tasks={categorized[day]} />
         </li>

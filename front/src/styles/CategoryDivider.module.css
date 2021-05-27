@@ -1,3 +1,6 @@
+@value colors: './common/color.css';
+@value colorBlueBlack from colors;
+
 .divider {
   display: flex;
   align-items: center;
@@ -7,7 +10,7 @@
 
 .content {
   font-weight: bold;
-  font-size: 1.2em;
+  color: colorBlueBlack;
 }
 
 .line {
