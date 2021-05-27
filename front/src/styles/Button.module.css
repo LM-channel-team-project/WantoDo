@@ -96,6 +96,17 @@
   background-color: colorDarkPurple;
 }
 
+
+.profileModalEditButton {
+  padding: 5px;
+  font-size: 20px;
+  background-color: transparent;
+}
+
+.profileModalEditButton:hover {
+  background-color: transparent;
+}
+
 /* checkbox button */
 .checkbox {
   position: relative;
