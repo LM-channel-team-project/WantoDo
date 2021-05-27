@@ -53,10 +53,10 @@ const WithdrawalModal = ({ toggleModal, removeAccount }) => {
           </p>
         </div>
         <div className={styles.buttons}>
-          <Button styleName="tutorial" onClick={toggleModal}>
+          <Button styleName="withdrawal_button" onClick={toggleModal}>
             돌아가기
           </Button>
-          <Button styleName="tutorial__cancel" onClick={onSubmit}>
+          <Button styleName="withdrawal_cancel_button" onClick={onSubmit}>
             삭제하기
           </Button>
         </div>
