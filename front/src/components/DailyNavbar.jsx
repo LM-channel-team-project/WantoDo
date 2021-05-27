@@ -17,6 +17,7 @@ const DailyNavbar = ({ current, move }) => {
         month: newDate.getMonth() + 1,
         date: newDate.getDate(),
         day: timeparser.parseDayIndex(newDate.getDay(), 'eng'),
+        class: i === 2 ? 'dailyNavbar__date--today' : 'dailyNavbar__date',
       };
     });
 
@@ -36,7 +37,7 @@ const DailyNavbar = ({ current, move }) => {
       <ol className={styles.days}>
         {dates.map((date) => (
           <li key={date.date}>
-            <Button styleName="dailyNavbar__date" onClick={() => move(date.obj)}>
+            <Button styleName={date.class} onClick={() => move(date.obj)}>
               <span className={styles.date}>
                 {date.month}/{date.date}
               </span>
