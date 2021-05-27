@@ -80,3 +80,12 @@
   transform: translateX(-50%);
   background-color: white;
 }
+
+.quickModal {
+  bottom: 20%;
+  left: 50%;
+  width: 30em;
+  transform: translateX(-50%);
+  background-color: transparent;
+  border-radius: 2em;
+}
