@@ -83,6 +83,7 @@
 
 /* profile modal button */
 .profileModal {
+  color: colorWhite;
   margin: 1em;
   margin-bottom: 2em;
   width: 120px;
@@ -95,19 +96,15 @@
   background-color: colorDarkPurple;
 }
 
-.closeProfile {
-  font-size: 1.2em;
-  padding: 0.25em 0.3em 0.1em 0.3em;
-  border-radius: 50%;
+
+.profileModalEditButton {
+  padding: 5px;
+  font-size: 20px;
   background-color: transparent;
-  position: absolute;
-  top: 8px;
-  right: 11px;
 }
 
-.closeProfile:hover {
-  background-color: colorLightGray;
-  transform: none;
+.profileModalEditButton:hover {
+  background-color: transparent;
 }
 
 /* checkbox button */
@@ -126,6 +123,7 @@
   color: red;
 }
 
+/* 태그 */
 /* Created by 오영롱(youngrongoh) on 2021/04/23 */
 .tag,
 .tagDelete {
@@ -153,6 +151,40 @@
   background-color: transparent;
 }
 
+/* 닫기버튼 */
+.tagClose {
+  color: colorWhite;
+}
+
+.closeProfile {
+  padding: 0.25em 0.3em 0.1em 0.3em;
+  position: absolute;
+  top: 8px;
+  right: 11px;
+}
+
+.tagClose,
+.close {
+  padding: 0.25em 0.2em 0.1em 0.3em;
+  line-height: 1em;
+}
+
+.tagClose,
+.close,
+.closeProfile {
+  background-color: transparent;
+  border-radius: 50%;
+  font-size: 1.2em;
+}
+
+.close:hover,
+.tagClose:hover,
+.closeProfile:hover {
+  background-color: colorLightGray;
+  color: colorDarkGray;
+  transform: none;
+}
+
 /* 투두 리스트-체크박스 */
 .checkbox {
   position: relative;
@@ -175,7 +207,7 @@
   color: colorDarkGray;
   padding: 0;
   margin-left: space-narrow;
-  margin-right: space-narrow;
+  margin-right: 1em;
 }
 
 .todoDeleteButton:hover {
@@ -203,7 +235,7 @@
 .QuickAddForm__icon:hover {
   transform: none;
   color: colorWhite;
-  background-color: gray;
+  background-color: Gray;
 }
 
 .QuickAddForm__icon:hover {
@@ -238,7 +270,6 @@
 }
 
 /* taskform modal button */
-
 .taskForm__cancel {
   margin-right: 0.1em;
 }
@@ -346,23 +377,11 @@
   color: colorPurple;
 }
 
-.profileModal {
-  color: colorWhite;
-}
-
 .taskItem,
 .taskItem:hover {
   background-color: transparent;
   transform: unset;
-}
-
-.close {
-  background-color: transparent;
-  border-radius: 50%;
-  padding: 0.3em 0.5em;
-  font-size: 1em;
-  line-height: 1em;
-  color: inherit;
+  padding: 0.5em 0;
 }
 
 .imageModal,
@@ -375,6 +394,29 @@
   opacity: 0.8;
 }
 
+/* 데일리 */
+.dailyNavbar__arrow,
+.dailyNavbar__date {
+  background-color: transparent;
+  padding: 0.3em 0.5em;
+}
+
+.dailyNavbar__arrow:hover {
+  transform: scale(1.2);
+  background-color: colorLightGray;
+  border-radius: 50%;
+}
+
+.dailyNavbar__date:hover {
+  background-color: transparent;
+}
+
+.dailyNavbar__arrow:hover,
+.dailyNavbar__date:hover {
+  padding: 0.3em 0.5em;
+}
+
+/* 계정탈퇴 */
 .withdrawal {
   background-color: transparent;
   color: red;
@@ -386,12 +428,20 @@
   transform: unset;
 }
 
-.dailyNavbar__arrow,
-.dailyNavbar__date {
-  background-color: transparent;
+.withdrawal_button,
+.withdrawal_cancel_button {
+  padding: 0.9em 1.9em;
+  margin-left: 20px;
+  margin-right: 20px;
+  color: colorWhite;
+  font-weight: weight-semibold;
+  font-size: 15px;
 }
 
-.dailyNavbar__arrow:hover,
-.dailyNavbar__date:hover {
-  background-color: transparent;
+.withdrawal_cancel_button {
+  background-color: colorLightGray;
+}
+
+.withdrawal_cancel_button:hover {
+  background-color: colorGray;
 }

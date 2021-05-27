@@ -1,3 +1,6 @@
+@value colors: './common/color.css';
+@value colorBlueBlack from colors;
+
 .container {
   padding: 1em;
 }
@@ -18,11 +21,18 @@
 .date {
   line-height: 0.9em;
   margin-right: 0.1em;
+  color: colorBlueBlack;
+  margin-left: 0.3em;
 }
 
 .month,
 .day {
-  font-size: 0.4em;
+  font-size: 0.5em;
   display: block;
   line-height: 1em;
+}
+
+.month {
+  font-size: 0.4em;
+  color: Gray;
 }

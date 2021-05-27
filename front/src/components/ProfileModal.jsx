@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { AiOutlineClose } from 'react-icons/ai';
-import { IoIosClose } from 'react-icons/io';
+import { GoCheck } from 'react-icons/go';
 import { FaPencilAlt, FaPlus } from 'react-icons/fa';
 import { actionCreators } from '../store/store';
 import Modal from '../container/Modal';
@@ -38,8 +38,8 @@ const Profile = ({
   const mottoInput = useInput(motto);
   const [subModal, setSubModal] = useState(false);
 
+  // 프로필 수정 폼으로 모달 변경
   const onEditClick = () => {
-    // 프로필 수정 폼으로 모달 변경
     setEditDisplay(true);
   };
 
@@ -50,18 +50,19 @@ const Profile = ({
     setEditProfileName(!editProfileName);
   };
 
-  // motto
+  // Motto
   const [editMotto, setEditMotto] = useState(true);
 
   const editMottoIcon = () => {
     setEditMotto(!editMotto);
   };
 
+  // 로그아웃 처리
   const onLogout = () => {
-    // 로그아웃 처리
     signOut();
   };
 
+  // 프로필 사진
   const onImageSelect = (url) => {
     const updated = { imageURL: url };
 
@@ -70,11 +71,13 @@ const Profile = ({
     setSubModal(false);
   };
 
+  // 모달 닫기 버튼
   const closeProfileModal = () => {
     closeModal();
   };
 
-  const profileEditClick = () => {
+  // 프로필 이름 변경
+  const profileNameEditClick = () => {
     const value = { userName: nameInput.value };
     const changed = {};
 
@@ -83,6 +86,7 @@ const Profile = ({
     accountManager.updateUserProfile(token, changed);
   };
 
+  // 모토 변경
   const mottoEditClick = () => {
     const value = { motto: mottoInput.value };
     const changed = {};
@@ -107,32 +111,34 @@ const Profile = ({
         </IconButton>
 
         {/* 사용자 이름 */}
-        {editProfileName && (
-          <h3 type="text" className={styles.name}>
-            {userName || 'anonymous'}
-          </h3>
-        )}
-        {!editProfileName && (
-          <Input
-            type="textarea"
-            onChange={nameInput.onChange}
-            value={nameInput.value}
-            styleName="profileModalName"
-          />
-        )}
-        <IconButton
-          type="button"
-          onClick={() => {
-            editIcon();
-            if (!editProfileName) {
-              profileEditClick();
-            }
-          }}
-        >
-          {editProfileName && <FaPencilAlt className={styles.editIcon} />}
-          {!editProfileName && <IoIosClose className={styles.closeIcon} />}
-        </IconButton>
-
+        <div className={styles.profileNameContainer}>
+          {editProfileName && (
+            <h3 type="text" className={styles.name}>
+              {userName || 'anonymous'}
+            </h3>
+          )}
+          {!editProfileName && (
+            <Input
+              type="textarea"
+              onChange={nameInput.onChange}
+              value={nameInput.value}
+              styleName="profileModalName"
+            />
+          )}
+          <IconButton
+            type="button"
+            styleName="profileModalEditButton"
+            onClick={() => {
+              editIcon();
+              if (!editProfileName) {
+                profileNameEditClick();
+              }
+            }}
+          >
+            {editProfileName && <FaPencilAlt className={styles.editIcon} />}
+            {!editProfileName && <GoCheck className={styles.closeIcon} />}
+          </IconButton>
+        </div>
         {/* 이메일 */}
         <p className={styles.email}>{email || '이메일 정보를 찾을 수 없습니다.'}</p>
       </header>
@@ -153,19 +159,23 @@ const Profile = ({
             />
           )}
         </li>
-        <IconButton
-          type="button"
-          onClick={() => {
-            editMottoIcon();
-            if (!editMotto) {
-              mottoEditClick();
-            }
-          }}
-        >
-          {editMotto && <FaPencilAlt className={styles.editIcon} />}
-          {!editMotto && <IoIosClose className={styles.closeIcon} />}
-        </IconButton>
+        <li>
+          <IconButton
+            type="button"
+            styleName="profileModalEditButton"
+            onClick={() => {
+              editMottoIcon();
+              if (!editMotto) {
+                mottoEditClick();
+              }
+            }}
+          >
+            {editMotto && <FaPencilAlt className={styles.editIcon} />}
+            {!editMotto && <GoCheck className={styles.closeIcon} />}
+          </IconButton>
+        </li>
       </ul>
+
       <footer className={styles.footer}>
         <Button styleName="profileModal" onClick={onEditClick}>
           프로필 수정
@@ -270,7 +280,7 @@ const ProfileModal = ({ closeModal, ...props }) => {
       {editDisplay ? (
         <ProfileEdit {...props} setEditDisplay={setEditDisplay} />
       ) : (
-        <Profile {...props} setEditDisplay={setEditDisplay} />
+        <Profile {...props} closeModal={closeModal} setEditDisplay={setEditDisplay} />
       )}
     </Modal>
   );

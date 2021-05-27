@@ -58,7 +58,7 @@ const TagModal = ({ token, tags, updateTag, deleteTag, closeModal }) => {
           />
         </footer>
         <div className={styles.buttonWrapper}>
-          <IconButton Icon={AiOutlineClose} styleName="close" onClick={closeModal} />
+          <IconButton Icon={AiOutlineClose} styleName="tagClose" onClick={closeModal} />
         </div>
       </div>
     </Modal>
