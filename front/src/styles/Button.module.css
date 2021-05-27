@@ -96,7 +96,6 @@
   background-color: colorDarkPurple;
 }
 
-
 .profileModalEditButton {
   padding: 5px;
   font-size: 20px;
@@ -396,7 +395,8 @@
 
 /* 데일리 */
 .dailyNavbar__arrow,
-.dailyNavbar__date {
+.dailyNavbar__date,
+.dailyNavbar__date--today {
   background-color: transparent;
   padding: 0.3em 0.5em;
 }
@@ -407,13 +407,20 @@
   border-radius: 50%;
 }
 
-.dailyNavbar__date:hover {
+.dailyNavbar__date:hover,
+.dailyNavbar__date--today:hover {
   background-color: transparent;
 }
 
 .dailyNavbar__arrow:hover,
-.dailyNavbar__date:hover {
+.dailyNavbar__date:hover,
+.dailyNavbar__date--today:hover {
   padding: 0.3em 0.5em;
+}
+
+.dailyNavbar__date--today {
+  font-size: 1.2em;
+  background-color: #efefef;
 }
 
 /* 계정탈퇴 */

@@ -1,6 +1,6 @@
 @value colors: './common/color.css';
 @value size: './common/size.css';
-@value colorWhite,colorLightGray,tagColorRed,tagColorOrenge,tagColorYellow,tagColorGreen,tagColorBlue,tagColorPurple from colors;
+@value colorWhite, colorLightGray, tagColorRed, tagColorOrenge, tagColorYellow, tagColorGreen, tagColorBlue, tagColorPurple, tagColorPink from colors;
 @value weight-regular from size;
 
 .tag {

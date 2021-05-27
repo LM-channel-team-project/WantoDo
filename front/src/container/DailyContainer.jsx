@@ -4,6 +4,7 @@ import CategoryDivider from '../components/CategoryDivider';
 import DailyNavbar from '../components/DailyNavbar';
 import TaskList from '../components/TaskList';
 import ToggleSwitch from '../components/ToggleSwitch';
+import QuickButton from '../components/QuickButton';
 import timeparser from '../utils/timestamp-parser';
 import styles from '../styles/DailyContainer.module.css';
 
@@ -45,7 +46,7 @@ function filterByDate(tasks, date) {
   return filtered;
 }
 
-const DailyContainer = ({ date, tasks, tags }) => {
+const DailyContainer = ({ date, tasks, tags, openModal }) => {
   const [mode, setMode] = useState('time');
   const [current, setCurrent] = useState(date ? new Date(date) : new Date());
 
@@ -91,6 +92,9 @@ const DailyContainer = ({ date, tasks, tags }) => {
         />
       </header>
       <ul className={styles.list}>{renderTaskLists()}</ul>
+      <div className={styles.quick}>
+        <QuickButton onClick={openModal} />
+      </div>
     </section>
   );
 };

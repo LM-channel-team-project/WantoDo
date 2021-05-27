@@ -3,6 +3,7 @@ export const modals = {
   taskForm: 'taskForm',
   tags: 'tags',
   withdrawal: 'withdrawal',
+  quick: 'quick',
 };
 
 const initialState = {
@@ -10,6 +11,7 @@ const initialState = {
   [modals.taskForm]: { display: false, taskId: '', task: {} },
   [modals.tags]: false,
   [modals.withdrawal]: false,
+  [modals.quick]: false,
 };
 
 const TOGGLE_MODAL = 'TOGGLE_MODAL';

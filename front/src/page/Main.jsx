@@ -14,9 +14,11 @@ import TagModal from '../container/TagModal';
 import WithdrawalModal from '../container/WithdrawalModal';
 import accountManager from '../utils/account-manager';
 import DailyContainer from '../container/DailyContainer';
+import QuickModal from '../container/QuickModal';
 
 const Main = ({
   changeSignState,
+  isQuickModal,
   isWithdrawalShow,
   isProfileShow,
   isTaskFormShow,
@@ -40,6 +42,8 @@ const Main = ({
     signOut();
   };
 
+  const openTaskModal = (_task) => toggleModal(modals.taskForm, 'open', _task);
+
   return (
     <Layout
       Side={() => (
@@ -54,19 +58,23 @@ const Main = ({
       )}
       Left={() =>
         left === 'tasks' ? (
-          <TasksContainer
-            openDetailModal={(_task) => toggleModal(modals.taskForm, 'open', _task)}
-          />
+          <TasksContainer openDetailModal={openTaskModal} />
         ) : (
           <SettingContainer
             openWidrawalModal={() => toggleModal(modals.withdrawal, 'open')}
-            openDetailModal={(_task) => toggleModal(modals.taskForm, 'open', _task)}
+            openDetailModal={openTaskModal}
           />
         )
       }
       Right={() => <CalendarContainer />}
-      Full={full && (() => <DailyContainer />)}
+      Full={full && (() => <DailyContainer openModal={() => toggleModal(modals.quick, 'open')} />)}
     >
+      {isQuickModal && (
+        <QuickModal
+          closeModal={() => toggleModal(modals.quick, 'close')}
+          openDetailModal={openTaskModal}
+        />
+      )}
       {isWithdrawalShow && (
         <WithdrawalModal
           closeModal={() => toggleModal(modals.withdrawal, 'close')}
@@ -88,8 +96,9 @@ const Main = ({
   );
 };
 
-const mapStateToProps = ({ modal: { profile, taskForm, tags, withdrawal }, token }) => {
+const mapStateToProps = ({ modal: { profile, taskForm, tags, withdrawal, quick }, token }) => {
   return {
+    isQuickModal: quick,
     isWithdrawalShow: withdrawal,
     isProfileShow: profile,
     isTagShow: tags,

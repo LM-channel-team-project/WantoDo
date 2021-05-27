@@ -2,6 +2,8 @@
 @value colorBlueBlack from colors;
 
 .container {
+  position: relative;
+  height: 100%;
   padding: 1em;
 }
 
@@ -35,4 +37,10 @@
 .month {
   font-size: 0.4em;
   color: Gray;
+}
+
+.quick {
+  position: absolute;
+  bottom: 1em;
+  right: 1.2em;
 }
