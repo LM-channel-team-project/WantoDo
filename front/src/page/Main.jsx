@@ -28,7 +28,6 @@ const Main = ({
 }) => {
   const [left, setLeft] = useState('tasks'); // Left에 렌더링할 컴포넌트 이름
   const [full, setFull] = useState('');
-
   const { signOut } = useGoogleLogout({
     clientId: process.env.REACT_APP_GOOGLE_CLIENT_ID,
     onLogoutSuccess: () => changeSignState(false),
@@ -50,13 +49,19 @@ const Main = ({
             setFull(undefined);
           }}
           changeFull={setFull}
+          openModal={(modal) => toggleModal(modal, 'open')}
         />
       )}
       Left={() =>
         left === 'tasks' ? (
-          <TasksContainer />
+          <TasksContainer
+            openDetailModal={(_task) => toggleModal(modals.taskForm, 'open', _task)}
+          />
         ) : (
-          <SettingContainer toggleModal={() => toggleModal(modals.withdrawal)} />
+          <SettingContainer
+            openWidrawalModal={() => toggleModal(modals.withdrawal, 'open')}
+            openDetailModal={(_task) => toggleModal(modals.taskForm, 'open', _task)}
+          />
         )
       }
       Right={() => <CalendarContainer />}
@@ -64,16 +69,20 @@ const Main = ({
     >
       {isWithdrawalShow && (
         <WithdrawalModal
-          toggleModal={() => toggleModal(modals.withdrawal)}
+          closeModal={() => toggleModal(modals.withdrawal, 'close')}
           removeAccount={removeAccount}
         />
       )}
       {isProfileShow && (
-        <ProfileModal signOut={signOut} toggleModal={() => toggleModal(modals.profile)} />
+        <ProfileModal signOut={signOut} closeModal={() => toggleModal(modals.profile, 'close')} />
       )}
-      {isTagShow && <TagModal toggleModal={() => toggleModal(modals.tags)} />}
+      {isTagShow && <TagModal closeModal={() => toggleModal(modals.tags, 'close')} />}
       {isTaskFormShow && (
-        <TaskModal taskId={taskId} task={task} toggleModal={() => toggleModal(modals.taskForm)} />
+        <TaskModal
+          taskId={taskId}
+          task={task}
+          closeModal={() => toggleModal(modals.taskForm, 'close')}
+        />
       )}
     </Layout>
   );
@@ -93,12 +102,21 @@ const mapStateToProps = ({ modal: { profile, taskForm, tags, withdrawal }, token
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    toggleModal: (modal) =>
-      dispatch(
-        modal === modals.taskForm
-          ? actionCreators.toggleTaskFormModal({ display: true })
-          : actionCreators.toggleModal(modal),
-      ),
+    toggleModal: (modal, command, task) => {
+      let action;
+      switch (modal) {
+        case modals.taskForm:
+          action = actionCreators.toggleTaskFormModal(task, command);
+          break;
+        case 'all':
+          action = actionCreators.closeAllModal();
+          break;
+        default:
+          action = actionCreators.toggleModal(modal, command);
+          break;
+      }
+      return dispatch(action);
+    },
   };
 };
 

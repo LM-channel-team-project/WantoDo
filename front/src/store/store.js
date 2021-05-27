@@ -6,7 +6,7 @@ import profileReducer, {
   editSetting,
 } from '../reducer/profile';
 import tasksReducer, { addTask, deleteTask, updateTask, updateTasks } from '../reducer/tasks';
-import modalReducer, { toggleModal, toggleTaskFormModal } from '../reducer/modal';
+import modalReducer, { toggleModal, toggleTaskFormModal, closeAllModal } from '../reducer/modal';
 import tokenReducer, { pushToken, removeToken } from '../reducer/token';
 import tagsReducer, { getTags, addTag, updateTag, deleteTag } from '../reducer/tags';
 
@@ -30,6 +30,7 @@ export const actionCreators = {
   deleteTask,
   toggleModal,
   toggleTaskFormModal,
+  closeAllModal,
   pushToken,
   removeToken,
   updateTasks,

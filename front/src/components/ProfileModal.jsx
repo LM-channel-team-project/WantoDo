@@ -31,7 +31,7 @@ const Profile = ({
   email,
   motto,
   setEditDisplay,
-  toggleModal,
+  closeModal,
   editProfile,
 }) => {
   const nameInput = useInput(userName);
@@ -73,7 +73,7 @@ const Profile = ({
 
   // 모달 닫기 버튼
   const closeProfileModal = () => {
-    toggleModal();
+    closeModal();
   };
 
   // 프로필 이름 변경
@@ -231,7 +231,9 @@ const ProfileEdit = ({ imageURL, userName, email, motto, token, editProfile, set
     <>
       <header className={styles.header}>
         <div className={styles.profile}>
-          <ProfileImage imageURL={imageURL} styleName="profileModal" />
+          <div className={styles.profileBox}>
+            <ProfileImage imageURL={imageURL} styleName="profileModal" />
+          </div>
         </div>
         <Input
           value={nameInput.value}
@@ -271,28 +273,16 @@ const ProfileEdit = ({ imageURL, userName, email, motto, token, editProfile, set
  * 모달 프레임에 들어갈 프로필 모달
  * @param {Object} props - 사용자의 프로필 정보를 담고있는 객체
  */
-const ProfileModal = (props) => {
+const ProfileModal = ({ closeModal, ...props }) => {
   const [editDisplay, setEditDisplay] = useState(false);
-  const { toggleModal } = props;
   return (
-    <>
-      <Modal styleName="profileModal">
-        {editDisplay ? (
-          <ProfileEdit {...props} setEditDisplay={setEditDisplay} />
-        ) : (
-          <Profile {...props} setEditDisplay={setEditDisplay} />
-        )}
-      </Modal>
-      <div
-        className={styles.background}
-        role="button"
-        onKeyPress={() => {}}
-        tabIndex="0"
-        onClick={toggleModal}
-      >
-        모달외부박스
-      </div>
-    </>
+    <Modal styleName="profileModal" isBG onBGClick={closeModal}>
+      {editDisplay ? (
+        <ProfileEdit {...props} setEditDisplay={setEditDisplay} />
+      ) : (
+        <Profile {...props} closeModal={closeModal} setEditDisplay={setEditDisplay} />
+      )}
+    </Modal>
   );
 };
 

@@ -3,6 +3,20 @@
 @value box-shadow, modal-radius from size;
 @value colorDarkGray from colors;
 
+.background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: transparent;
+  width: 100%;
+  height: 100vh;
+  z-index: 5;
+}
+
+.hidden {
+  display: none;
+}
+
 .modal {
   position: absolute;
   display: flex;
@@ -10,7 +24,7 @@
   font-size: 1rem;
   box-shadow: box-shadow;
   border-radius: modal-radius;
-  z-index: 3;
+  z-index: 8;
 }
 
 .profileModal {
