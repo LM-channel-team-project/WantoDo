@@ -1,34 +1,33 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styles from '../styles/Input.module.css';
 import BoxStyles from '../styles/InputBox.module.css';
+import generateId from '../utils/id-generator';
 
-const NumberInput = ({ inputRef, value, styleName, name, size, afterText }) => {
-  const [number, setNumber] = useState(value || 0);
+const NumberInput = ({ value, styleName, name, size, afterText, onChange, onArrowUpOrDown }) => {
+  const { length } = String(value);
+  const zeroAdded = length < size ? `${'0'.repeat(size - length)}${value}` : value;
 
   const onKeyDown = (event) => {
-    event.preventDefault();
-
     const { key } = event;
 
-    if (key === 'ArrowUp') {
-      setNumber(number + 1);
-    } else if (key === 'ArrowDown') {
-      setNumber(number > 0 ? number - 1 : number);
+    if (key === 'ArrowUp' || key === 'ArrowDown') {
+      if (onArrowUpOrDown instanceof Function) onArrowUpOrDown(event);
     }
   };
 
+  const id = generateId();
+
   return (
-    <label htmlFor={styles[name]}>
+    <label htmlFor={id}>
       <input
-        ref={inputRef}
         className={`${styles.input} ${styles[styleName]}`}
-        id={styles[name]}
+        id={id}
         type="text"
         name={name}
-        value={'0'.repeat(size - String(number).length) + String(number)}
+        value={zeroAdded}
         size={size}
+        onChange={onChange}
         onKeyDown={onKeyDown}
-        onChange={() => {}}
       />
       <span className={BoxStyles.name}>{afterText}</span>
     </label>

@@ -1,26 +1,33 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styles from '../styles/Input.module.css';
 
-const DivisionInput = ({ inputRef, value, styleName, name }) => {
-  const [division, setDivision] = useState(value || 'am');
+const DivisionInput = ({ value, styleName, name, onChange: changeValue, onArrowUpOrDown }) => {
+  const converted = value ? 'AM' : 'PM';
+
+  const onChange = (event) => {
+    if (event.target.value) return;
+
+    if (changeValue instanceof Function) changeValue(event);
+  };
 
   const onKeyDown = (event) => {
     event.preventDefault();
+
     const { key } = event;
+
     if (key !== 'ArrowUp' && key !== 'ArrowDown') return;
-    setDivision(division === 'am' ? 'pm' : 'am');
+    if (onArrowUpOrDown instanceof Function) onArrowUpOrDown(event);
   };
 
   return (
     <input
-      ref={inputRef}
       className={`${styles.input} ${styles[styleName]}`}
       type="text"
       name={name}
-      value={division.toUpperCase()}
+      value={converted.toUpperCase()}
       size={3}
       onKeyDown={onKeyDown}
-      onChange={() => {}}
+      onChange={onChange}
     />
   );
 };

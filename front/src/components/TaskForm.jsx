@@ -1,6 +1,5 @@
 import React, { useRef, useState } from 'react';
 import { connect } from 'react-redux';
-import timeparser from '../utils/timestamp-parser';
 import { actionCreators } from '../store/store';
 import Button from './Button';
 import PeriodInputBox from './PeriodInputBox';
@@ -24,22 +23,10 @@ const TaskForm = ({
   const [tags, setTags] = useState(task.tags || []);
   const contentInput = useInput(task.content);
   const priorityRef = useRef();
-  const startRef = {
-    year: useRef(),
-    month: useRef(),
-    date: useRef(),
-    hours: useRef(),
-    mins: useRef(),
-    division: useRef(),
-  };
-  const endRef = {
-    year: useRef(),
-    month: useRef(),
-    date: useRef(),
-    hours: useRef(),
-    mins: useRef(),
-    division: useRef(),
-  };
+
+  const currentTime = Date.now();
+  const [start, setStart] = useState(task.periods ? task.periods.start : currentTime);
+  const [end, setEnd] = useState(task.periods ? task.periods.end : currentTime);
 
   const onTaskSubmit = async (event) => {
     event.preventDefault();
@@ -50,28 +37,10 @@ const TaskForm = ({
       return;
     }
 
-    // periods 객체 만듦
-    const dateKeys = ['year', 'month', 'date', 'hours', 'mins', 'division'];
-    const refs = { start: startRef, end: endRef };
-    const periods = Object.keys(refs).reduce((result, key) => {
-      const copied = { ...result };
-      // 입력값을 모아 timestamp로 바꾸기 위한 객체 만듦
-      const dateObj = dateKeys.reduce((obj, unit) => {
-        const period = { ...obj };
-
-        period[unit] = refs[key][unit].current.value;
-
-        return period;
-      }, {});
-
-      copied[key] = timeparser.toTimestamp(dateObj);
-      return copied;
-    }, {});
-
     const collected = {
       content: contentInput.value,
       level: Number(priorityRef.current.value),
-      periods,
+      periods: { start, end },
       tags,
     };
 
@@ -91,7 +60,6 @@ const TaskForm = ({
     toggleTaskFormModal();
   };
 
-  const currentTime = Date.now();
   return (
     <form onSubmit={onTaskSubmit} className={styles.form}>
       <div className={styles.header}>
@@ -114,10 +82,7 @@ const TaskForm = ({
         </div>
       </div>
       <PrioritySelector inputRef={priorityRef} priority={task.level} inputName="level" />
-      <PeriodInputBox
-        refs={{ startRef, endRef }}
-        periods={task.periods || { start: currentTime, end: currentTime }}
-      />
+      <PeriodInputBox periods={{ start, end }} changePeriods={{ start: setStart, end: setEnd }} />
       <TagInputBox tagList={tagList} token={token} tags={tags} setTags={setTags} />
     </form>
   );

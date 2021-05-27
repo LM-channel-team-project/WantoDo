@@ -4,7 +4,7 @@ import useCalendar from './useCalendar';
 import IconButton from './IconButton';
 import styles from '../styles/Calendar.module.css';
 
-const Calendar = () => {
+const Calendar = ({ isMonStart }) => {
   const testStyle = {
     border: 0,
     outline: 0,
@@ -17,7 +17,7 @@ const Calendar = () => {
     monthNames,
     getNextMonth,
     getPrevMonth,
-  } = useCalendar();
+  } = useCalendar(isMonStart);
 
   const dateClickHandler = (date) => {
     // 날짜에 해당하는 태스크 리스트로 스크롤 이동
@@ -26,30 +26,31 @@ const Calendar = () => {
   };
 
   return (
-    <div>
-      <div className={styles.monthyear}>
-        <span className={styles.month}>{`${monthNames[selectedDate.getMonth()]}`}</span>
-        <span className={styles.year}>{`${selectedDate.getFullYear()}`}</span>
+    <div className={styles.calendar}>
+      <div className={styles.header}>
+        <div className={styles.title}>
+          <span className={styles.month}>{`${monthNames[selectedDate.getMonth()]}`}</span>
+          <span className={styles.year}>{`${selectedDate.getFullYear()}`}</span>
+        </div>
       </div>
       <div className={styles.content}>
-        <IconButton className="button" styleName="arrowbutton" onClick={getPrevMonth} type="button">
-          <IoIosArrowBack />
-        </IconButton>
         <table className={styles.table}>
-          <thead>
-            <tr className={styles.dayofweek}>
+          <thead className={styles.tableHead}>
+            <tr className={styles.tableRow}>
               {daysShort.map((day) => (
-                <th key={day}>{day}</th>
+                <th key={day} className={styles.tableHeadCell}>
+                  {day}
+                </th>
               ))}
             </tr>
           </thead>
-          <tbody className={styles.date}>
+          <tbody className={styles.tableBody}>
             {Object.values(calendarRows).map((cols) => {
               return (
-                <tr key={cols[0].date}>
+                <tr key={cols[0].date} className={styles.tableRow}>
                   {cols.map((col) =>
                     col.date === todayFormatted ? (
-                      <td>
+                      <td className={styles.tableCell}>
                         <IconButton
                           style={testStyle}
                           type="button"
@@ -62,7 +63,7 @@ const Calendar = () => {
                         </IconButton>
                       </td>
                     ) : (
-                      <td>
+                      <td className={styles.tableCell}>
                         <IconButton
                           style={testStyle}
                           type="button"
@@ -81,10 +82,24 @@ const Calendar = () => {
             })}
           </tbody>
         </table>
-
-        <IconButton className="button" styleName="arrowbutton" onClick={getNextMonth} type="button">
-          <IoIosArrowForward />
-        </IconButton>
+        <div className={styles.buttons}>
+          <IconButton
+            className="button"
+            styleName="arrowbutton"
+            onClick={getPrevMonth}
+            type="button"
+          >
+            <IoIosArrowBack />
+          </IconButton>
+          <IconButton
+            className="button"
+            styleName="arrowbutton"
+            onClick={getNextMonth}
+            type="button"
+          >
+            <IoIosArrowForward />
+          </IconButton>
+        </div>
       </div>
     </div>
   );
