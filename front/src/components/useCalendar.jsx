@@ -1,7 +1,7 @@
 import { useState } from 'react';
 
 // 표시알 요일 문자배열
-const daysShortArr = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+const daysShortArr = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 
 // 표시할 월일 문자배열
 const monthNamesArr = [
@@ -19,12 +19,15 @@ const monthNamesArr = [
   'December',
 ];
 
-const useCalendar = (daysShort = daysShortArr, monthNames = monthNamesArr) => {
+const useCalendar = (isMonStart, _daysShort = daysShortArr, monthNames = monthNamesArr) => {
   const today = new Date();
   const todayFormatted = `${today.getFullYear()}-${
     today.getMonth() + 1 < 10 ? `0${today.getMonth() + 1}` : today.getMonth() + 1
   }-${today.getDate() < 10 ? `0${today.getDate()}` : today.getDate()}`;
-  const daysInWeek = [1, 2, 3, 4, 5, 6, 0];
+
+  const daysInWeek = isMonStart ? [1, 2, 3, 4, 5, 6, 0] : [0, 1, 2, 3, 4, 5, 6];
+  const daysShort = daysInWeek.map((dayIndex) => _daysShort[dayIndex]);
+
   const [selectedDate, setSelectedDate] = useState(today);
   const selectedMonthLastDate = new Date(
     selectedDate.getFullYear(),
