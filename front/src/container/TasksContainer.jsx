@@ -29,7 +29,15 @@ function categorizeTasks(tasks) {
   return cotegorized;
 }
 
-const TasksContainer = ({ tasks, token, updateTasks, getTags, openDetailModal, addTask }) => {
+const TasksContainer = ({
+  tasks,
+  token,
+  updateTasks,
+  getTags,
+  openDetailModal,
+  addTask,
+  setAlert,
+}) => {
   useEffect(() => {
     if (!token) return;
     const now = new Date();
@@ -92,6 +100,7 @@ const TasksContainer = ({ tasks, token, updateTasks, getTags, openDetailModal, a
           isDetailButton
           openDetailModal={openDetailModal}
           onSubmit={onSubmit}
+          setAlert={setAlert}
         />
       </footer>
     </div>

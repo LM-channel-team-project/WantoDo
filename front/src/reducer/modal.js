@@ -52,7 +52,7 @@ const reducer = (state = initialState, action) => {
     default:
       break;
   }
-  console.log(newState);
+
   return newState;
 };
 

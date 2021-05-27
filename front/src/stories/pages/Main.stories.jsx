@@ -6,6 +6,8 @@ import Main from '../../page/Main';
 let props = {
   isProfileShow: false,
   isTaskFormShow: false,
+  isTagShow: false,
+  isWithdrawalShow: false,
   content: '',
 };
 
@@ -16,6 +18,8 @@ const store = {
       modal: {
         profile: props.isProfileShow,
         taskForm: { display: props.isTaskFormShow, taskId: '', task: {} },
+        tags: props.isTagShow,
+        withdrawal: props.isWithdrawalShow,
       },
       profile: {
         imageURL: '/assets/images/default_profile.png',
@@ -69,7 +73,15 @@ export default {
   argTypes: {
     isProfileShow: { control: 'boolean' },
     isTaskFormShow: { control: 'boolean' },
+    isTagShow: { control: 'boolean' },
+    isWithdrawalShow: { control: 'boolean' },
     content: { control: 'text' },
+  },
+  args: {
+    isProfileShow: false,
+    isTaskFormShow: false,
+    isTagShow: false,
+    isWithdrawalShow: false,
   },
 };
 

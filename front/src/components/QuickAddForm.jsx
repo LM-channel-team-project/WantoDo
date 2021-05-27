@@ -22,13 +22,17 @@ const QuickAddForm = ({
   styleName,
   placeholder,
   validator,
+  setAlert,
 }) => {
   const { value, onChange, reset } = useInput();
 
   const onSubmit = (event) => {
     event.preventDefault();
 
-    if (value === '') return;
+    if (value === '') {
+      setAlert({ display: true, message: '내용을 입력 해주세요', confirm: '확인' });
+      return;
+    }
     if (_onSubmit instanceof Function) _onSubmit(value);
 
     reset();

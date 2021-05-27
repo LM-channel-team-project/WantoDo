@@ -1,0 +1,23 @@
+.header {
+  text-align: left;
+  margin-bottom: 1em;
+}
+
+.title {
+  margin-left: 0.2em;
+}
+
+.title.alert {
+  color: red;
+}
+
+.line {
+  border-width: 2px;
+  opacity: 0.05;
+}
+
+.close {
+  position: absolute;
+  top: 1em;
+  right: 1em;
+}

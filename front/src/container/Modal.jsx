@@ -8,15 +8,17 @@ import styles from '../styles/Modal.module.css';
  */
 const Modal = ({ children, styleName, isBG, onBGClick }) => (
   <>
-    <div
-      className={isBG ? styles.background : ''}
-      onClick={onBGClick}
-      onKeyPress={() => {}}
-      tabIndex="0"
-      role="button"
-    >
-      <br className={styles.hidden} />
-    </div>
+    {isBG && (
+      <div
+        className={`${styles.background} ${styles[styleName]}`}
+        onClick={onBGClick}
+        onKeyPress={() => {}}
+        tabIndex="0"
+        role="button"
+      >
+        <br className={styles.hidden} />
+      </div>
+    )}
     <section className={`${styles.modal} ${styles[styleName]}`}>{children}</section>
   </>
 );

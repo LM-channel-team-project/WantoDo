@@ -15,6 +15,7 @@ import WithdrawalModal from '../container/WithdrawalModal';
 import accountManager from '../utils/account-manager';
 import DailyContainer from '../container/DailyContainer';
 import QuickModal from '../container/QuickModal';
+import AlertModal from '../container/AlertModal';
 
 const Main = ({
   changeSignState,
@@ -28,6 +29,7 @@ const Main = ({
   taskId,
   toggleModal,
 }) => {
+  const [alert, setAlert] = useState({});
   const [left, setLeft] = useState('tasks'); // Left에 렌더링할 컴포넌트 이름
   const [full, setFull] = useState('');
   const { signOut } = useGoogleLogout({
@@ -58,11 +60,12 @@ const Main = ({
       )}
       Left={() =>
         left === 'tasks' ? (
-          <TasksContainer openDetailModal={openTaskModal} />
+          <TasksContainer openDetailModal={openTaskModal} setAlert={setAlert} />
         ) : (
           <SettingContainer
             openWidrawalModal={() => toggleModal(modals.withdrawal, 'open')}
             openDetailModal={openTaskModal}
+            setAlert={setAlert}
           />
         )
       }
@@ -73,12 +76,14 @@ const Main = ({
         <QuickModal
           closeModal={() => toggleModal(modals.quick, 'close')}
           openDetailModal={openTaskModal}
+          setAlert={setAlert}
         />
       )}
       {isWithdrawalShow && (
         <WithdrawalModal
           closeModal={() => toggleModal(modals.withdrawal, 'close')}
           removeAccount={removeAccount}
+          setAlert={setAlert}
         />
       )}
       {isProfileShow && (
@@ -90,6 +95,20 @@ const Main = ({
           taskId={taskId}
           task={task}
           closeModal={() => toggleModal(modals.taskForm, 'close')}
+          setAlert={setAlert}
+        />
+      )}
+      {alert.display && (
+        <AlertModal
+          title={alert.title || '주의!'}
+          message={alert.message}
+          cancelMsg={alert.cancel}
+          confirmMsg={alert.confirm}
+          onConfirm={alert.onConfirm}
+          closeModal={() => {
+            if (alert.onClose instanceof Function) alert.onClose();
+            setAlert({});
+          }}
         />
       )}
     </Layout>
