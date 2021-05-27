@@ -1,16 +1,16 @@
 import React, { useState } from 'react';
 import styles from '../styles/ToggleSwitch.module.css';
 
-const ToggleSwitch = ({ name, switchOn, onClick }) => {
-  const [on, setOn] = useState(switchOn);
-  const switchClass = on ? styles.on : '';
+const ToggleSwitch = ({ name, switchOff, onClick }) => {
+  const [off, setOff] = useState(switchOff);
+  const switchClass = off ? styles.off : '';
   return (
     <div className={styles.wrapper}>
       <div
-        className={styles.line}
+        className={`${styles.line} ${switchClass}`}
         onClick={(event) => {
-          if (onClick instanceof Function) onClick(event, name, !on);
-          setOn(!on);
+          if (onClick instanceof Function) onClick(event, name, !off);
+          setOff(!off);
         }}
         onKeyPress={() => {}}
         role="button"
