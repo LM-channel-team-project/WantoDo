@@ -53,6 +53,10 @@
   align-items: flex-start;
 }
 
+.profileModalEditButton {
+  padding: 4px;
+}
+
 /* Motto 텍스트 span */
 .name.profileModify__motto {
   color: colorPurple;

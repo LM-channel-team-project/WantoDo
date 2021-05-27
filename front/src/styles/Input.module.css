@@ -2,7 +2,7 @@
 @value size: './common/size.css';
 @value effect: './common/effect.css';
 @value colorWhite, colorGray, colorLightGray, colorDarkGray, colorLightBlack, colorBlack, colorPurple from colors;
-@value font-small, font-micro, font-large, space-regular as regular, space-narrower as narrower, button-radius as radius, weight-semibold as semibold, weight-bold from size;
+@value modal-radius, font-small, font-micro, font-large, space-regular as regular, space-narrower as narrower, button-radius as radius, weight-semibold as semibold, weight-bold from size;
 @value animation-duration-regular as duration-regular from effect;
 
 .input {
@@ -130,17 +130,20 @@
 
 /*! 프로필 수정  */
 /* 이름 수정 input창 */
-.profileModal__name {
+
+.profileModalName {
+  width: 130px;
+  height: 50px;
+  border-radius: modal-radius;
   border: 1px solid rgba(128, 128, 128, 0.171);
-  width: 150px;
-  border-radius: 5px;
   text-align: center;
   font-size: font-large;
   color: colorPurple;
-  font-weight: bold;
+  font-weight: weight-bold;
+  margin: 0.3em 0.6em;
 }
 
-.profileModal__name:focus {
+.profileModalName:focus {
   background-color: colorWhite;
   color: rgb(255, 196, 0);
   font-weight: semibold;

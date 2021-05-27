@@ -111,32 +111,34 @@ const Profile = ({
         </IconButton>
 
         {/* 사용자 이름 */}
-        {editProfileName && (
-          <h3 type="text" className={styles.name}>
-            {userName || 'anonymous'}
-          </h3>
-        )}
-        {!editProfileName && (
-          <Input
-            type="textarea"
-            onChange={nameInput.onChange}
-            value={nameInput.value}
-            styleName="profileModalName"
-          />
-        )}
-        <IconButton
-          type="button"
-          onClick={() => {
-            editIcon();
-            if (!editProfileName) {
-              profileNameEditClick();
-            }
-          }}
-        >
-          {editProfileName && <FaPencilAlt className={styles.editIcon} />}
-          {!editProfileName && <GoCheck className={styles.closeIcon} />}
-        </IconButton>
-
+        <div className={styles.profileNameContainer}>
+          {editProfileName && (
+            <h3 type="text" className={styles.name}>
+              {userName || 'anonymous'}
+            </h3>
+          )}
+          {!editProfileName && (
+            <Input
+              type="textarea"
+              onChange={nameInput.onChange}
+              value={nameInput.value}
+              styleName="profileModalName"
+            />
+          )}
+          <IconButton
+            type="button"
+            styleName="profileModalEditButton"
+            onClick={() => {
+              editIcon();
+              if (!editProfileName) {
+                profileNameEditClick();
+              }
+            }}
+          >
+            {editProfileName && <FaPencilAlt className={styles.editIcon} />}
+            {!editProfileName && <GoCheck className={styles.closeIcon} />}
+          </IconButton>
+        </div>
         {/* 이메일 */}
         <p className={styles.email}>{email || '이메일 정보를 찾을 수 없습니다.'}</p>
       </header>
@@ -157,19 +159,23 @@ const Profile = ({
             />
           )}
         </li>
-        <IconButton
-          type="button"
-          onClick={() => {
-            editMottoIcon();
-            if (!editMotto) {
-              mottoEditClick();
-            }
-          }}
-        >
-          {editMotto && <FaPencilAlt className={styles.editIcon} />}
-          {!editMotto && <GoCheck className={styles.closeIcon} />}
-        </IconButton>
+        <li>
+          <IconButton
+            type="button"
+            styleName="profileModalEditButton"
+            onClick={() => {
+              editMottoIcon();
+              if (!editMotto) {
+                mottoEditClick();
+              }
+            }}
+          >
+            {editMotto && <FaPencilAlt className={styles.editIcon} />}
+            {!editMotto && <GoCheck className={styles.closeIcon} />}
+          </IconButton>
+        </li>
       </ul>
+
       <footer className={styles.footer}>
         <Button styleName="profileModal" onClick={onEditClick}>
           프로필 수정

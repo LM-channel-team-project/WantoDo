@@ -95,6 +95,16 @@
   background-color: colorDarkPurple;
 }
 
+.profileModalEditButton {
+  padding: 5px;
+  font-size: 20px;
+  background-color: transparent;
+}
+
+.profileModalEditButton:hover {
+  background-color: transparent;
+}
+
 .closeProfile {
   font-size: 1.2em;
   padding: 0.25em 0.3em 0.1em 0.3em;
