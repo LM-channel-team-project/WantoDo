@@ -27,13 +27,13 @@
   z-index: 8;
 }
 
-.profileModal {
+.modal.profileModal {
   top: 4em;
   left: 4.2em;
   background: #fff;
 }
 
-.profileModal:before {
+.modal.profileModal:before {
   content: '';
   position: absolute;
   top: 1.3em;
@@ -44,7 +44,7 @@
   border-color: transparent #fff transparent transparent;
 }
 
-.taskModal {
+.modal.taskModal {
   bottom: 20%;
   left: 50%;
   width: 450px;
@@ -54,7 +54,7 @@
   background-color: colorDarkGray;
 }
 
-.tagModal {
+.modal.tagModal {
   bottom: 20%;
   left: 50%;
   width: 450px;
@@ -63,17 +63,17 @@
   background-color: colorDarkGray;
 }
 
-.imageModal {
+.modal.imageModal {
   background-color: #fff;
 }
 
-.imageModal_small {
+.modal.imageModal_small {
   background-color: #fff;
   left: -0.6em;
   top: 1.5em;
 }
 
-.withdrawalModal {
+.modal.withdrawalModal {
   bottom: 20%;
   left: 50%;
   width: 30em;
@@ -81,11 +81,26 @@
   background-color: white;
 }
 
-.quickModal {
+.modal.quickModal {
   bottom: 20%;
   left: 50%;
   width: 30em;
   transform: translateX(-50%);
   background-color: transparent;
   border-radius: 2em;
+}
+
+.modal.alertModal {
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  padding: 1em;
+  z-index: 22;
+}
+
+.background.alertModal {
+  z-index: 20;
+  background-color: #bebebe33;
+  backdrop-filter: blur(0.1em);
 }
