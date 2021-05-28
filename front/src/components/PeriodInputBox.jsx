@@ -1,8 +1,8 @@
 import React from 'react';
-import styles from '../styles/PeriodsInputBox.module.css';
 import DateInputBox from './DateInputBox';
+import styles from '../styles/PeriodsInputBox.module.css';
 
-const PeriodInputBox = ({ refs: { startRef, endRef }, periods: { start, end } = {} }) => {
+const PeriodInputBox = ({ periods = {}, changePeriods }) => {
   const checkValidDate = () => {
     // const startDate = Date.parse(startRef.current.value);
     // const endDate = Date.parse(endRef.current.value);
@@ -15,20 +15,18 @@ const PeriodInputBox = ({ refs: { startRef, endRef }, periods: { start, end } = 
       <span className={styles.label}>기간</span>
       <div className={styles.periods}>
         <DateInputBox
-          value={start}
-          inputRef={startRef}
+          value={periods.start}
           labelText="시작"
-          inputType="date"
-          inputName="date-start"
+          name="start"
           validator={checkValidDate}
+          changeDate={changePeriods.start}
         />
         <DateInputBox
-          value={end}
-          inputRef={endRef}
+          value={periods.end}
           labelText="마침"
-          inputType="date"
-          inputName="date-end"
+          name="end"
           validator={checkValidDate}
+          changeDate={changePeriods.end}
         />
       </div>
     </div>
