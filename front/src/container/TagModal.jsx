@@ -10,26 +10,36 @@ import colorManager from '../utils/color-manager';
 import accountManager from '../utils/account-manager';
 import styles from '../styles/TagModal.module.css';
 
+const makeSparkleTag = (tagId) => {
+  const scrollTarget = document.querySelector(`li[data-tagId="${tagId}"]`);
+  scrollTarget.scrollIntoView({ behavior: 'smooth' }); // 스크롤 이동
+
+  // 반짝이는 애니메이션 보여줌
+  const tagItem = scrollTarget.querySelector('div[data-type="tag"]');
+  tagItem.classList.add(styles.bling);
+  setTimeout(() => tagItem.classList.remove(styles.bling), 800);
+};
+
 const TagModal = ({ token, tags, updateTag, deleteTag, closeModal }) => {
   const onSubmit = async (name) => {
-    const tag = {
-      name,
-      color: colorManager.getRandomHex(),
-    };
+    if (name.length < 2) return;
 
-    const tagId = await accountManager.addTag(token, tag);
-    updateTag(tagId, tag);
+    // 같은 이름의 태그가 있는지 검사
+    let tag = Object.values(tags).find((_tag) => _tag.name === name);
+    if (tag == null) {
+      // 없으면 새롭게 추가
+      tag = { name, color: colorManager.getRandomHex() };
+      tag.tagId = await accountManager.addTag(token, tag);
+
+      updateTag(tag.tagId, tag);
+    }
+
+    makeSparkleTag(tag.tagId);
   };
 
   const onTagDelete = (tagId) => {
     deleteTag(tagId);
-    // 서버에서 태그 삭제 요청 시 모든 태스크에서 해당 태그를 지워주지 않으면 에러 발생
-    // 이 문제 해결 전까지 태그 삭제 요청 비활성화
-    // accountManager.deleteTag(token, tagId);
-  };
-
-  const validator = (text) => {
-    return !text.includes(' ');
+    accountManager.deleteTag(token, tagId);
   };
 
   return (
@@ -40,13 +50,14 @@ const TagModal = ({ token, tags, updateTag, deleteTag, closeModal }) => {
         </header>
         <ul className={styles.tags}>
           {Object.keys(tags).map((tagId) => (
-            <TagButton
-              key={tagId}
-              tagId={tagId}
-              name={tags[tagId].name}
-              color={colorManager.toName(tags[tagId].color)}
-              onDelete={onTagDelete}
-            />
+            <li key={tagId} data-tagId={tagId}>
+              <TagButton
+                tagId={tagId}
+                name={tags[tagId].name}
+                color={colorManager.toName(tags[tagId].color)}
+                onDelete={onTagDelete}
+              />
+            </li>
           ))}
         </ul>
         <footer>
@@ -54,7 +65,7 @@ const TagModal = ({ token, tags, updateTag, deleteTag, closeModal }) => {
             placeholder="새로운 태그 추가하기 (최대 15자)"
             onSubmit={onSubmit}
             styleName="tagModal"
-            validator={validator}
+            validator={(text) => !text.includes(' ')}
           />
         </footer>
         <div className={styles.buttonWrapper}>
