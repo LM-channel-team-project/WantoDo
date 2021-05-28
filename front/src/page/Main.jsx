@@ -8,14 +8,15 @@ import Navbar from '../container/Navbar';
 import TaskModal from '../container/TaskModal';
 import ProfileModal from '../components/ProfileModal';
 import TasksContainer from '../container/TasksContainer';
-import CalendarContainer from '../container/CalendarContainer';
 import SettingContainer from '../container/SettingContainer';
+import CalendarContainer from '../container/CalendarContainer';
 import TagModal from '../container/TagModal';
 import WithdrawalModal from '../container/WithdrawalModal';
 import accountManager from '../utils/account-manager';
 import DailyContainer from '../container/DailyContainer';
 import QuickModal from '../container/QuickModal';
 import AlertModal from '../container/AlertModal';
+import QuickAddLayout from '../container/QuickAddLayout';
 
 const Main = ({
   changeSignState,
@@ -58,17 +59,23 @@ const Main = ({
           openModal={(modal) => toggleModal(modal, 'open')}
         />
       )}
-      Left={() =>
-        left === 'tasks' ? (
-          <TasksContainer openDetailModal={openTaskModal} setAlert={setAlert} />
-        ) : (
-          <SettingContainer
-            openWidrawalModal={() => toggleModal(modals.withdrawal, 'open')}
-            openDetailModal={openTaskModal}
-            setAlert={setAlert}
-          />
-        )
-      }
+      Left={() => (
+        <QuickAddLayout
+          title={left === 'tasks' ? 'Todos' : 'Setting'}
+          openDetailModal={openTaskModal}
+          setAlert={setAlert}
+        >
+          {left === 'tasks' ? (
+            <TasksContainer openDetailModal={openTaskModal} />
+          ) : (
+            <SettingContainer
+              openWidrawalModal={() => toggleModal(modals.withdrawal, 'open')}
+              openDetailModal={openTaskModal}
+              setAlert={setAlert}
+            />
+          )}
+        </QuickAddLayout>
+      )}
       Right={() => <CalendarContainer />}
       Full={full && (() => <DailyContainer openModal={() => toggleModal(modals.quick, 'open')} />)}
     >

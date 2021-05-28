@@ -43,6 +43,14 @@
   color: white;
 }
 
+.footer {
+  position: relative;
+}
+
+.autoCompleteWrapper {
+  font-size: 1.2em;
+}
+
 .bling {
   animation: bling 200ms linear infinite alternate;
 }

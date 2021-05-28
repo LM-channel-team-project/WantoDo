@@ -35,6 +35,10 @@ function getMonths(style) {
   return months[style];
 }
 
+function getZeroAdded(num, digits = 1) {
+  return `${'0'.repeat(Number(digits) - String(num).length)}${num}`;
+}
+
 // Created by 오영롱(youngrongoh) on 2021/04/20
 class TimestampParser {
   parseMonthIndex = (num, style) => {
@@ -106,7 +110,7 @@ class TimestampParser {
   };
 
   categorize = (dateStr, option = {}) => {
-    const { separator, isDay, dayStyle, monthStyle } = option;
+    const { separator, isDay, dayStyle, monthStyle, isZeroAdded } = option;
     let dateObj = dateStr;
 
     if (separator) {
@@ -114,14 +118,18 @@ class TimestampParser {
 
       dateObj = dateStr.split(separator).reduce((obj, value, i) => {
         const copied = obj;
-        copied[units[i]] = Number(value);
+        const digits = units[i] === 'year' ? 4 : 2;
+        copied[units[i]] = isZeroAdded ? getZeroAdded(value, digits) : Number(value);
         return copied;
       }, {});
     } else {
+      const slicedYear = Number(dateStr.slice(0, 4));
+      const slicedMonth = Number(dateStr.slice(4, 6));
+      const slicedDate = Number(dateStr.slice(6, 8));
       dateObj = {
-        year: Number(dateStr.slice(0, 4)),
-        month: Number(dateStr.slice(4, 6)),
-        date: Number(dateStr.slice(6, 8)),
+        year: isZeroAdded ? getZeroAdded(slicedYear, 4) : slicedYear,
+        month: isZeroAdded ? getZeroAdded(slicedMonth, 2) : slicedMonth,
+        date: isZeroAdded ? getZeroAdded(slicedDate, 2) : slicedDate,
         secs: 0,
       };
     }
@@ -135,7 +143,7 @@ class TimestampParser {
 
     if (monthStyle) {
       const months = getMonths(monthStyle);
-      dateObj.month = months[Number(dateObj.month - 1)];
+      dateObj.month = months[Number(dateObj.month) - 1];
     }
 
     return dateObj;

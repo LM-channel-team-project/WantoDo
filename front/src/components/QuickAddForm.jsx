@@ -4,7 +4,6 @@ import Button from './Button';
 import IconButton from './IconButton';
 import Input from './Input';
 import styles from '../styles/QuickAddForm.module.css';
-import useInput from '../hooks/useInput';
 
 /**
  * Task 내용만 입력하여 Task를 빠르게 추가하는 폼 컴포넌트
@@ -17,37 +16,23 @@ import useInput from '../hooks/useInput';
  */
 const QuickAddForm = ({
   isDetailButton = false,
-  openDetailModal,
-  onSubmit: _onSubmit,
+  onDetailClick,
+  value,
+  onChange,
+  onSubmit,
   styleName,
   placeholder,
   validator,
-  setAlert,
 }) => {
-  const { value, onChange, reset } = useInput();
-
-  const onSubmit = (event) => {
-    event.preventDefault();
-
-    if (value === '') {
-      setAlert({ display: true, message: '내용을 입력 해주세요', confirm: '확인' });
-      return;
-    }
-    if (_onSubmit instanceof Function) _onSubmit(value);
-
-    reset();
-  };
-
-  const onDetailClick = () => {
+  const onClick = () => {
     // QuickAddForm 입력을 TaskModal로 전달하고 초기화
-    if (openDetailModal instanceof Function) openDetailModal({ task: { content: value } });
-    reset();
+    if (onDetailClick instanceof Function) onDetailClick({ task: { content: value } });
   };
 
   return (
     <form className={`${styles.form} ${styles[styleName]}`} onSubmit={onSubmit}>
       {isDetailButton && (
-        <IconButton Icon={FaPlus} styleName="QuickAddForm__icon" onClick={onDetailClick} />
+        <IconButton Icon={FaPlus} styleName="QuickAddForm__icon" onClick={onClick} />
       )}
       <Input
         value={value}
