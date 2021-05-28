@@ -148,7 +148,12 @@ const TaskForm = ({
         tags={tags}
         setTags={(changeTags) => {
           setTags((prev) => {
-            const updated = changeTags(prev);
+            let updated;
+            if (changeTags instanceof Function) {
+              updated = changeTags(prev);
+            } else {
+              updated = changeTags;
+            }
 
             const diffCount = getDiffCountOfTags(initialTags, updated);
             changeEdited(0, diffCount); // 처음 태그 정보와 차이 없는지 확인하여 수정 상태 변경
