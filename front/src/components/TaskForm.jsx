@@ -156,6 +156,7 @@ const TaskForm = ({
             return updated;
           });
         }}
+        setAlert={setAlert}
       />
     </form>
   );

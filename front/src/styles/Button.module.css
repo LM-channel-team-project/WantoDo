@@ -474,3 +474,18 @@
 .withdrawal_cancel_button:hover {
   background-color: colorGray;
 }
+
+.autoCompleteBox,
+.autoCompleteBox:hover {
+  width: 100%;
+  text-align: left;
+  border-radius: 0;
+  transition: unset;
+  padding: 0;
+  margin: 0;
+  background-color: transparent;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  transform: none;
+}
