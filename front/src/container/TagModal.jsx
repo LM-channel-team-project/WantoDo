@@ -29,7 +29,6 @@ const searchText = (list, text) =>
 
       if (tag.name.includes(text)) {
         arr.push(tag);
-        console.log(tag.name, text);
       }
       return arr;
     }, [])

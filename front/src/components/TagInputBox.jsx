@@ -51,6 +51,8 @@ const TagInputBox = ({ token, placeholder, tags = [], tagList, setTags, updateTa
   const { value, onChange, reset } = useInput();
   const { inputSize, flexInputSize } = useFlexInputSize(0);
 
+  const searchedTags = searchText(tagList, value);
+
   const inputId = generateId();
 
   let isMouseDown = false;
@@ -82,6 +84,7 @@ const TagInputBox = ({ token, placeholder, tags = [], tagList, setTags, updateTa
   const addTag = async (name) => {
     // 같은 이름의 태그가 있으면 그대로 사용
     let tag = Object.values(tagList).find((_tag) => _tag.name === name);
+
     if (tag == null) {
       // 같은 이름 없으면 새롭게 추가
       tag = { name, color: colorManager.getRandomHex() };
@@ -90,7 +93,7 @@ const TagInputBox = ({ token, placeholder, tags = [], tagList, setTags, updateTa
 
     // 태스크에 등록된 태그 중에 같은 태그 있는지 검사
     if (tags.length && tags.some((_tag) => _tag.name === name)) {
-      setAlert({ display: true, message: '이미 추가된 태그입니다.', confirm: '확인' });
+      setAlert({ display: true, message: '이미 추가된 태그입니다', confirm: '확인' });
       return;
     }
 
@@ -103,14 +106,6 @@ const TagInputBox = ({ token, placeholder, tags = [], tagList, setTags, updateTa
     if (value === '' || value.length < 2) return;
     if (event.key !== 'Enter') return;
     event.preventDefault();
-
-    addTag(value);
-    reset();
-    flexInputSize(0);
-  };
-
-  const onBlur = () => {
-    if (value === '' || value.length < 2) return;
 
     addTag(value);
     reset();
@@ -167,12 +162,11 @@ const TagInputBox = ({ token, placeholder, tags = [], tagList, setTags, updateTa
               onValueChange(event);
             }}
             onKeyDown={onKeyDown}
-            onBlur={onBlur}
             maxLength="15"
           />
-          {modal && (
+          {searchedTags.length > 0 && modal && (
             <AutoCompleteBox
-              list={searchText(tagList, value)}
+              list={searchedTags}
               onItemClick={(tag) => {
                 addTag(tag.name);
                 reset();

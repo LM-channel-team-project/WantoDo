@@ -6,7 +6,6 @@ import tagColors from '../styles/Tag.module.css';
 import styles from '../styles/AutoCompleteBox.module.css';
 
 const AutoCompleteBox = ({ list = [], onItemClick }) => {
-  console.log(list);
   return (
     <Modal styleName="autoCompleteBox">
       <ul className={styles.list}>
