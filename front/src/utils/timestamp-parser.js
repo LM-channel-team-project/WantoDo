@@ -66,6 +66,7 @@ class TimestampParser {
 
     const hours = converted.getHours();
     const mins = converted.getMinutes();
+    const secs = converted.getSeconds();
     const am = is12Hours && hours < 12;
 
     const convertedHours = is12Hours && (hours > 12 ? hours - 12 : hours);
@@ -78,6 +79,7 @@ class TimestampParser {
       if (isTime) {
         dateObj.hours = is12Hours ? convertedHours : hours;
         dateObj.mins = mins;
+        dateObj.secs = secs;
         if (is12Hours) dateObj.am = am;
       }
 
@@ -87,7 +89,7 @@ class TimestampParser {
     const dateArr = [year, month, date];
 
     if (isDay) dateArr.push(day);
-    if (isTime) dateArr.push(is12Hours ? convertedHours : hours, mins, am);
+    if (isTime) dateArr.push(is12Hours ? convertedHours : hours, mins, secs, am);
 
     if (type === 'array') return dateArr;
 
@@ -120,6 +122,7 @@ class TimestampParser {
         year: Number(dateStr.slice(0, 4)),
         month: Number(dateStr.slice(4, 6)),
         date: Number(dateStr.slice(6, 8)),
+        secs: 0,
       };
     }
 
@@ -147,7 +150,7 @@ class TimestampParser {
       dateObj = this.categorize(input, { separator });
     }
 
-    const { year, month, date, hours, mins, am } = dateObj;
+    const { year, month, date, hours, mins, secs, am } = dateObj;
 
     let convertedHours = hours;
 
@@ -157,12 +160,17 @@ class TimestampParser {
 
     let parsed;
     if (isTime) {
-      parsed = new Date(year, month - 1, date, convertedHours, mins).getTime();
+      parsed = new Date(year, month - 1, date, convertedHours, mins, secs).getTime();
     } else {
       parsed = new Date(year, month - 1, date, 8, 0).getTime();
     }
 
     return Number.isNaN(parsed) ? '' : parsed;
+  };
+
+  getTimestampBySecs = (timestamp) => {
+    const unit = 10 ** 3;
+    return Math.floor(new Date(timestamp).getTime() / unit) * unit;
   };
 }
 

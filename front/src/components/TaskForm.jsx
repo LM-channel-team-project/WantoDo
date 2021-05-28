@@ -2,13 +2,16 @@ import React, { useRef, useState } from 'react';
 import { connect } from 'react-redux';
 import { actionCreators } from '../store/store';
 import Button from './Button';
-import PeriodInputBox from './PeriodInputBox';
-import PrioritySelector from './PrioritySelector';
-import TagInputBox from './TagInputBox';
-import styles from '../styles/TaskForm.module.css';
 import Input from './Input';
+import PrioritySelector from './PrioritySelector';
+import PeriodInputBox from './PeriodInputBox';
+import TagInputBox from './TagInputBox';
 import accountManager from '../utils/account-manager';
+import timeparser from '../utils/timestamp-parser';
 import useInput from '../hooks/useInput';
+import styles from '../styles/TaskForm.module.css';
+
+const setTimeBySecs = (time) => timeparser.getTimestampBySecs(time);
 
 const TaskForm = ({
   addTask,
@@ -24,9 +27,12 @@ const TaskForm = ({
   const contentInput = useInput(task.content);
   const priorityRef = useRef();
 
-  const currentTime = Date.now();
-  const [start, setStart] = useState(task.periods ? task.periods.start : currentTime);
-  const [end, setEnd] = useState(task.periods ? task.periods.end : currentTime);
+  const currentTime = setTimeBySecs(Date.now());
+  const startTime = task.periods ? setTimeBySecs(task.periods.start) : currentTime;
+  const endTime = task.periods ? setTimeBySecs(task.periods.end) : currentTime;
+
+  const [start, setStart] = useState(startTime);
+  const [end, setEnd] = useState(endTime);
 
   const onTaskSubmit = async (event) => {
     event.preventDefault();
@@ -82,7 +88,11 @@ const TaskForm = ({
         </div>
       </div>
       <PrioritySelector inputRef={priorityRef} priority={task.level} inputName="level" />
-      <PeriodInputBox periods={{ start, end }} changePeriods={{ start: setStart, end: setEnd }} />
+      <PeriodInputBox
+        periods={{ start, end }}
+        changePeriods={{ start: setStart, end: setEnd }}
+        setAlert={setAlert}
+      />
       <TagInputBox tagList={tagList} token={token} tags={tags} setTags={setTags} />
     </form>
   );

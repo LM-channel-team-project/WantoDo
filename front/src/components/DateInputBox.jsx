@@ -14,21 +14,24 @@ const getDateObj = (timestamp) =>
     is12Hours: true,
   });
 
-const DateInputBox = ({ value: timestamp, labelText, name: inputName, changeDate }) => {
+const DateInputBox = ({ value: timestamp, labelText, name: inputName, changeDate, validator }) => {
   const [modal, setModal] = useState(false);
   const date = getDateObj(timestamp);
 
   const nowDate = new Date(timestamp);
   const lastDate = new Date(date.yaer, nowDate.setMonth(date.month), 0);
 
+  const getValidData = (compared, updated) => (validator(updated, inputName) ? updated : compared);
+
   const onChange = (event) => {
     const { name, value } = event.target;
 
     changeDate((prevTimestamp) => {
       const prev = getDateObj(prevTimestamp);
-
       const updated = { ...prev, [name]: value };
-      return timeparser.toTimestamp(updated, { is12Hours: true, isTime: true });
+
+      const newTimestamp = timeparser.toTimestamp(updated, { is12Hours: true, isTime: true });
+      return getValidData(prevTimestamp, newTimestamp);
     });
   };
 
@@ -62,21 +65,29 @@ const DateInputBox = ({ value: timestamp, labelText, name: inputName, changeDate
         break;
     }
 
-    const updated = { ...date, [name]: changed };
+    changeDate((prevTimestamp) => {
+      const prev = getDateObj(prevTimestamp);
+      const updated = { ...prev, [name]: changed };
 
-    changeDate(timeparser.toTimestamp(updated, { is12Hours: true, isTime: true }));
+      const newTimestamp = timeparser.toTimestamp(updated, { is12Hours: true, isTime: true });
+
+      return getValidData(prevTimestamp, newTimestamp);
+    });
   };
 
   const onDisivionKeyDown = (event) => {
     const { name } = event.target;
-    changeDate(
-      timeparser.toTimestamp({ ...date, [name]: !date.am }, { is12Hours: true, isTime: true }),
+    const newTimestamp = timeparser.toTimestamp(
+      { ...date, [name]: !date.am },
+      { is12Hours: true, isTime: true },
     );
+
+    changeDate((prevTimestamp) => getValidData(prevTimestamp, newTimestamp));
   };
 
   const onSelect = (dateStr) => {
-    const updated = timeparser.toTimestamp(dateStr, { separator: '-' });
-    changeDate(updated);
+    const newTimestamp = timeparser.toTimestamp(dateStr, { separator: '-' });
+    changeDate((prevTimestamp) => getValidData(prevTimestamp, newTimestamp));
     setModal(false);
   };
 
