@@ -1,0 +1,84 @@
+@value colors: 'styles/preset/color.css';
+@value size: 'styles/preset/size.css';
+@value colorGray from colors;
+@value font-large, weight-semibold from size;
+
+.calendar {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+}
+
+.header {
+  text-align: right;
+  padding: 0 1em;
+  margin-bottom: 1em;
+}
+
+.title {
+  padding: 0 1em;
+}
+
+.content {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  padding: 2em;
+}
+
+.month {
+  font-size: font-large;
+  font-weight: weight-semibold;
+  margin-right: 0.2em;
+}
+
+.year {
+  font-weight: 500;
+}
+
+.table {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+}
+
+.tableHead {
+  font-size: 1.8em;
+  text-align: left;
+  color: colorGray;
+  margin-bottom: 1.2em;
+}
+
+.tableRow {
+  height: 100%;
+  display: flex;
+}
+
+.tableHeadCell {
+  width: 100%;
+}
+
+.tableBody {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  flex-direction: column;
+}
+
+.tableCell {
+  width: 100%;
+  height: 100%;
+}
+
+.buttons {
+  position: absolute;
+  top: 40%;
+  left: 0;
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  transform: translateY(-50%);
+  padding: 0 0.5em;
+}

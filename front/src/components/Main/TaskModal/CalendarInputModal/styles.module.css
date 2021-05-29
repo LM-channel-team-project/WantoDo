@@ -1,0 +1,58 @@
+@value colors: 'styles/preset/color.css';
+@value size: 'styles/preset/size.css';
+@value colorGray from colors;
+@value weight-semibold from size;
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  text-align: center;
+  font-size: 0.8em;
+}
+
+.title {
+  width: 5em;
+  color: black;
+}
+
+.month,
+.year {
+  vertical-align: super;
+}
+
+.month {
+  font-size: 1.2em;
+  font-weight: weight-semibold;
+  margin-right: 0.2em;
+}
+
+.year {
+  font-weight: 500;
+}
+
+.table {
+  font-size: 0.8em;
+}
+
+.tableHeader {
+  color: colorGray;
+  text-align: center;
+}
+
+.tableHead {
+  width: 100%;
+}
+
+.tableBody {
+  text-align: center;
+}
+
+.tableRow {
+  display: flex;
+  height: 1.6em;
+}
+
+.tableCell {
+  width: 1.5em;
+}
