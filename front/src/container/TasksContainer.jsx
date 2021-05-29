@@ -1,12 +1,11 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import CategoryDivider from '../components/CategoryDivider';
-import QuickAddForm from '../components/QuickAddForm';
 import TaskList from '../components/TaskList';
 import { actionCreators } from '../store/store';
-import styles from '../styles/page/Main.module.css';
 import accountManager from '../utils/account-manager';
 import timeparser from '../utils/timestamp-parser';
+import styles from '../styles/page/Main.module.css';
 
 // 테스크를 날짜별로 분류하여 객체로 반환하는 함수
 function categorizeTasks(tasks) {
@@ -29,15 +28,7 @@ function categorizeTasks(tasks) {
   return cotegorized;
 }
 
-const TasksContainer = ({
-  tasks,
-  token,
-  updateTasks,
-  getTags,
-  openDetailModal,
-  addTask,
-  setAlert,
-}) => {
+const TasksContainer = ({ token, tasks, updateTasks, getTags, openDetailModal }) => {
   useEffect(() => {
     if (!token) return;
     const now = new Date();
@@ -58,16 +49,16 @@ const TasksContainer = ({
     const categorized = categorizeTasks(tasks);
 
     const render = Object.keys(categorized).map((day) => {
-      const dateObj = timeparser.categorize(day);
+      const dateObj = timeparser.categorize(day, { isZeroAdded: true });
+      const { year, month, date } = dateObj;
 
-      const month = timeparser.parseMonthIndex(dateObj.month - 1, 'eng');
-      const { date } = dateObj;
+      const monthText = timeparser.parseMonthIndex(month - 1, 'eng');
 
       return (
         <li key={day}>
-          <CategoryDivider styleName="taskContainer" date={Object.values(dateObj).join('-')}>
+          <CategoryDivider styleName="taskContainer" date={[year, month, date].join('-')}>
             <span className={styles.date}>{date}</span>
-            <span className={styles.month}>{month}</span>
+            <span className={styles.month}>{monthText}</span>
           </CategoryDivider>
           <TaskList tasks={categorized[day]} openModal={openDetailModal} />
         </li>
@@ -77,34 +68,7 @@ const TasksContainer = ({
     return render;
   };
 
-  const onSubmit = async (content) => {
-    const currentTime = Date.now();
-    const task = {
-      content,
-      periods: { start: currentTime, end: currentTime },
-    };
-
-    const taskId = await accountManager.addTask(token, task);
-    addTask(taskId, task);
-  };
-
-  return (
-    <div className={styles.container}>
-      <header className={styles.header}>
-        <h2 className={styles.title}>Todo</h2>
-      </header>
-      <ol className={styles.content}>{renderTaskLists()}</ol>
-      <footer className={styles.footer}>
-        <QuickAddForm
-          placeholder="나의 할 일 작성하기"
-          isDetailButton
-          openDetailModal={openDetailModal}
-          onSubmit={onSubmit}
-          setAlert={setAlert}
-        />
-      </footer>
-    </div>
-  );
+  return <ol>{renderTaskLists()}</ol>;
 };
 
 const mapStateToProps = ({ tasks, token }) => {
@@ -115,7 +79,6 @@ const mapDispatchToProps = (dispatch) => {
   return {
     updateTasks: (tasks) => dispatch(actionCreators.updateTasks(tasks)),
     getTags: (tags) => dispatch(actionCreators.getTags(tags)),
-    addTask: (taskId, task) => dispatch(actionCreators.addTask(taskId, task)),
   };
 };
 

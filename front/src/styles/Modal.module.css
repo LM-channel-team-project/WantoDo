@@ -1,7 +1,7 @@
 @value colors: './common/color.css';
 @value size: './common/size.css';
 @value box-shadow, modal-radius from size;
-@value colorDarkGray from colors;
+@value colorDarkGray, colorLightGray from colors;
 
 .background {
   position: absolute;
@@ -21,7 +21,7 @@
   position: absolute;
   display: flex;
   flex-direction: column;
-  font-size: 1rem;
+  font-size: 1em;
   box-shadow: box-shadow;
   border-radius: modal-radius;
   z-index: 8;
@@ -113,7 +113,7 @@
   background-color: white;
   padding: 0.6em;
   border-radius: 0.6em;
-  z-index: 10;
+  z-index: 12;
 }
 
 .modal.calendarInputModal__start {
@@ -122,4 +122,14 @@
 
 .modal.calendarInputModal__end {
   bottom: 100%;
+}
+
+.modal.autoCompleteBox {
+  left: -0.5em;
+  right: -0.5em;
+  top: 100%;
+  margin-top: 0.3em;
+  background-color: colorLightGray;
+  border-radius: 0.3em;
+  overflow: hidden;
 }

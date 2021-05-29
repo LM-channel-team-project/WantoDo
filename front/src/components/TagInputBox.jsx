@@ -1,13 +1,14 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
+import { actionCreators } from '../store/store';
 import TagButton from './TagButton';
 import Input from './Input';
+import AutoCompleteBox from '../container/AutoCompleteBox';
 import accountManager from '../utils/account-manager';
 import colorManager from '../utils/color-manager';
 import generateId from '../utils/id-generator';
 import useInput from '../hooks/useInput';
 import styles from '../styles/InputBox.module.css';
-import { actionCreators } from '../store/store';
 
 const useFlexInputSize = (intialSize) => {
   const [inputSize, setInputSize] = useState(intialSize);
@@ -23,6 +24,19 @@ const useFlexInputSize = (intialSize) => {
   return { inputSize, flexInputSize };
 };
 
+const searchText = (list, text) =>
+  Object.values(list)
+    .reduce((arr, tag) => {
+      if (text.length < 2) return [];
+
+      if (tag.name.includes(text)) {
+        arr.push(tag);
+      }
+
+      return arr;
+    }, [])
+    .sort((a, b) => a.name.length - b.name.length);
+
 /**
  * 재사용성을 높인 인풋 박스
  * @param {string} props.token - 사용자 id token 문자열
@@ -32,10 +46,15 @@ const useFlexInputSize = (intialSize) => {
  * @param {Function} props.setTags - 지역 태그 상태를 업데이트 하는 함수
  * @param {Function} props.updateTag - 전역 태그 상태에 태그를 하나 추가하는 함수
  */
-const TagInputBox = ({ token, placeholder, tags = [], tagList, setTags, updateTag }) => {
-  const inputId = generateId();
+const TagInputBox = ({ token, placeholder, tags = [], tagList, setTags, updateTag, setAlert }) => {
+  const [modal, setModal] = useState(false);
   const { value, onChange, reset } = useInput();
   const { inputSize, flexInputSize } = useFlexInputSize(0);
+
+  const searchedTags = searchText(tagList, value);
+
+  const inputId = generateId();
+
   let isMouseDown = false;
 
   const onTagMouseDown = (tagId) => {
@@ -63,25 +82,30 @@ const TagInputBox = ({ token, placeholder, tags = [], tagList, setTags, updateTa
   };
 
   const addTag = async (name) => {
-    const isMainTag = tags.length === 0;
-    const tag = { name, color: colorManager.getRandomHex(), isMainTag };
-    const tagId = await accountManager.addTag(token, tag);
-    setTags((previous) => [...previous, { tagId, ...tag }]);
-    updateTag(tagId, tag);
+    // 같은 이름의 태그가 있으면 그대로 사용
+    let tag = Object.values(tagList).find((_tag) => _tag.name === name);
+
+    if (tag == null) {
+      // 같은 이름 없으면 새롭게 추가
+      tag = { name, color: colorManager.getRandomHex() };
+      tag.tagId = await accountManager.addTag(token, tag);
+    }
+
+    // 태스크에 등록된 태그 중에 같은 태그 있는지 검사
+    if (tags.length && tags.some((_tag) => _tag.name === name)) {
+      setAlert({ display: true, message: '이미 추가된 태그입니다', confirm: '확인' });
+      return;
+    }
+
+    tag.isMainTag = tags.length === 0;
+    setTags((previous) => [...previous, tag]);
+    updateTag(tag.tagId, tag);
   };
 
   const onKeyDown = (event) => {
     if (value === '' || value.length < 2) return;
     if (event.key !== 'Enter') return;
     event.preventDefault();
-
-    addTag(value);
-    reset();
-    flexInputSize(0);
-  };
-
-  const onBlur = () => {
-    if (value === '' || value.length < 2) return;
 
     addTag(value);
     reset();
@@ -96,6 +120,7 @@ const TagInputBox = ({ token, placeholder, tags = [], tagList, setTags, updateTa
       (count, arr) => count + String(arr).length,
       0,
     );
+
     flexInputSize(length >= 3 ? 0.95 * length + korCount * 0.85 : 3);
     onChange(event);
   };
@@ -104,45 +129,64 @@ const TagInputBox = ({ token, placeholder, tags = [], tagList, setTags, updateTa
     setTags((previous) => {
       return [...previous].filter((tag) => tag.tagId !== id);
     });
-    // 태그 관리 플로우 결정 전까지 삭제 요청 비활성화
-    // accountManager.deleteTag(token, id);
-  };
-
-  const validator = (text) => {
-    return !text.includes(' ');
   };
 
   return (
-    <label className={styles.inputBox} htmlFor={inputId}>
-      <span className={styles.ModalNameTag}>태그</span>
-      <ul className={styles.list}>
-        {tags.map((tag) => (
-          <li key={tag.tagId} className={styles.tagItem}>
-            <TagButton
-              tagId={tag.tagId}
-              name={tag.name || tagList[tag.tagId].name}
-              color={tag.color || tagList[tag.tagId].color}
-              isMainTag={tag.isMainTag}
-              onMouseDown={onTagMouseDown}
-              onMouseUp={onTagMouseUp}
-              onDelete={onTagDelete}
+    <>
+      <label className={styles.inputBox} htmlFor={inputId}>
+        <span className={styles.ModalNameTag}>태그</span>
+        <ul className={styles.list}>
+          {tags.map((tag) => (
+            <li key={tag.tagId} className={styles.tagItem}>
+              <TagButton
+                tagId={tag.tagId}
+                name={tag.name || tagList[tag.tagId].name}
+                color={tag.color || tagList[tag.tagId].color}
+                isMainTag={tag.isMainTag}
+                onMouseDown={onTagMouseDown}
+                onMouseUp={onTagMouseUp}
+                onDelete={onTagDelete}
+              />
+            </li>
+          ))}
+        </ul>
+        <div className={styles.autoCompleteBox}>
+          <Input
+            styleName="tagInput"
+            value={value}
+            placeholder={placeholder}
+            validator={(text) => !text.includes(' ')}
+            size={inputSize || 3}
+            onChange={(event) => {
+              setModal(true);
+              onValueChange(event);
+            }}
+            onKeyDown={onKeyDown}
+            maxLength="15"
+          />
+          {searchedTags.length > 0 && modal && (
+            <AutoCompleteBox
+              list={searchedTags}
+              onItemClick={(tag) => {
+                addTag(tag.name);
+                reset();
+              }}
             />
-          </li>
-        ))}
-      </ul>
-      <Input
-        styleName="tagInput"
-        id={inputId}
-        value={value}
-        placeholder={placeholder}
-        validator={validator}
-        size={inputSize || 3}
-        onChange={onValueChange}
-        onKeyDown={onKeyDown}
-        onBlur={onBlur}
-        maxLength="15"
-      />
-    </label>
+          )}
+        </div>
+      </label>
+      {modal && (
+        <div
+          className={styles.modalBackground}
+          onClick={() => setModal(false)}
+          onKeyPress={() => {}}
+          tabIndex="0"
+          role="button"
+        >
+          <br className={styles.hidden} />
+        </div>
+      )}
+    </>
   );
 };
 

@@ -12,7 +12,10 @@ import colorManager from '../utils/color-manager';
 const Tag = ({ name, color = '', children, styleName }) => {
   const colorName = color.includes('#') ? colorManager.toName(color) : color;
   return (
-    <div className={`${styles.tag} ${styles[colorName || '']} ${styles[styleName]}`}>
+    <div
+      className={`${styles.tag} ${styles[colorName || '']} ${styles[styleName]}`}
+      data-type="tag"
+    >
       <span className={styles.name}>{name}</span>
       {children}
     </div>

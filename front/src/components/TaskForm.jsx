@@ -1,63 +1,94 @@
-import React, { useRef, useState } from 'react';
+import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { actionCreators } from '../store/store';
 import Button from './Button';
-import PeriodInputBox from './PeriodInputBox';
-import PrioritySelector from './PrioritySelector';
-import TagInputBox from './TagInputBox';
-import styles from '../styles/TaskForm.module.css';
 import Input from './Input';
+import PrioritySelector from './PrioritySelector';
+import PeriodInputBox from './PeriodInputBox';
+import TagInputBox from './TagInputBox';
 import accountManager from '../utils/account-manager';
+import timeparser from '../utils/timestamp-parser';
 import useInput from '../hooks/useInput';
+import styles from '../styles/TaskForm.module.css';
+
+const setTimeBySecs = (time) => timeparser.getTimestampBySecs(time);
+
+const currentTime = setTimeBySecs(Date.now());
+
+// 태그 객체로 이루어진 두 배열 비교하여 개수 반환
+const getDiffCountOfTags = (arr1, arr2) => {
+  const longer = Math.max(arr1.length, arr2.length);
+
+  let count = 0;
+  for (let i = 0; i < longer; i += 1) {
+    let tag1 = arr1[i];
+    let tag2 = arr2[i];
+    if (!tag1) tag1 = {};
+    if (!tag2) tag2 = {};
+
+    if (tag1.tagId !== tag2.tagId) count += 1;
+  }
+
+  return count;
+};
 
 const TaskForm = ({
   addTask,
   updateTask,
-  toggleTaskFormModal,
+  closeTaskModal,
   token,
   taskId,
   task,
   tagList,
+  onCancel,
   setAlert,
+  setEdited,
 }) => {
-  const [tags, setTags] = useState(task.tags || []);
-  const contentInput = useInput(task.content);
-  const priorityRef = useRef();
+  const intialStart = task.periods ? setTimeBySecs(task.periods.start) : currentTime;
+  const initialEnd = task.periods ? setTimeBySecs(task.periods.end) : currentTime;
+  const initialLevel = Number(task.level) || 0;
+  const initialTags = task.tags || [];
 
-  const currentTime = Date.now();
-  const [start, setStart] = useState(task.periods ? task.periods.start : currentTime);
-  const [end, setEnd] = useState(task.periods ? task.periods.end : currentTime);
+  // 입력 값 상태 관리
+  const { value: content, onChange: changeContent } = useInput(task.content);
+  const [start, setStart] = useState(intialStart);
+  const [end, setEnd] = useState(initialEnd);
+  const [tags, setTags] = useState(initialTags);
+  const [level, setLevel] = useState(initialLevel);
 
   const onTaskSubmit = async (event) => {
     event.preventDefault();
 
-    if (contentInput.value === '') {
-      // 경고창 표시
+    if (content === '') {
+      // 내용 입력 없으면 경고창 표시
       setAlert({ display: true, message: '내용을 입력 해주세요', confirm: '확인' });
       return;
     }
 
-    const collected = {
-      content: contentInput.value,
-      level: Number(priorityRef.current.value),
+    const updatedTask = {
+      content,
+      level,
       periods: { start, end },
       tags,
     };
 
-    // taskId가 없으면 등록, 있으면 수정
     if (taskId) {
-      updateTask(taskId, collected);
-      accountManager.updateTask(token, taskId, collected);
+      // taskId가 있으면 수정
+      updateTask(taskId, updatedTask);
+      accountManager.updateTask(token, taskId, updatedTask);
     } else {
-      const id = await accountManager.addTask(token, collected);
-      addTask(id, collected);
+      // taskId가 없으면 서버에 등록 후 상태 업데이트
+      const id = await accountManager.addTask(token, updatedTask);
+      addTask(id, updatedTask);
     }
 
-    toggleTaskFormModal();
+    closeTaskModal();
   };
 
-  const onCancelClick = () => {
-    toggleTaskFormModal();
+  // 초기 상태와 비교하여 수정 상태 변경
+  const changeEdited = (initial, current) => {
+    if (initial === current) setEdited(false);
+    else setEdited(true);
   };
 
   return (
@@ -66,14 +97,17 @@ const TaskForm = ({
         <div className={styles.content}>
           <Input
             className={styles.contentInput}
-            value={contentInput.value}
-            onChange={contentInput.onChange}
+            value={content}
+            onChange={(event) => {
+              changeEdited(event.target.value, task.content);
+              changeContent(event);
+            }}
             placeholder="오늘의 할 일을 적어주세요 (최대 50자)"
             maxLength="50"
           />
         </div>
         <div className={styles.buttons}>
-          <Button styleName="taskForm__cancel" onClick={onCancelClick}>
+          <Button styleName="taskForm__cancel" onClick={onCancel}>
             취소
           </Button>
           <Button type="submit" styleName="taskForm__done">
@@ -81,9 +115,54 @@ const TaskForm = ({
           </Button>
         </div>
       </div>
-      <PrioritySelector inputRef={priorityRef} priority={task.level} inputName="level" />
-      <PeriodInputBox periods={{ start, end }} changePeriods={{ start: setStart, end: setEnd }} />
-      <TagInputBox tagList={tagList} token={token} tags={tags} setTags={setTags} />
+      <PrioritySelector
+        priority={level}
+        changePriority={(updated) => {
+          changeEdited(initialLevel, updated);
+          setLevel(updated);
+        }}
+      />
+      <PeriodInputBox
+        periods={{ start, end }}
+        changePeriods={{
+          start: (changeTime) => {
+            setStart((prev) => {
+              const time = changeTime(prev);
+              changeEdited(intialStart, time);
+              return time;
+            });
+          },
+          end: (changeTime) => {
+            setEnd((prev) => {
+              const time = changeTime(prev);
+              changeEdited(initialEnd, time);
+              return time;
+            });
+          },
+        }}
+        setAlert={setAlert}
+      />
+      <TagInputBox
+        tagList={tagList}
+        token={token}
+        tags={tags}
+        setTags={(changeTags) => {
+          setTags((prev) => {
+            let updated;
+            if (changeTags instanceof Function) {
+              updated = changeTags(prev);
+            } else {
+              updated = changeTags;
+            }
+
+            const diffCount = getDiffCountOfTags(initialTags, updated);
+            changeEdited(0, diffCount); // 처음 태그 정보와 차이 없는지 확인하여 수정 상태 변경
+
+            return updated;
+          });
+        }}
+        setAlert={setAlert}
+      />
     </form>
   );
 };
@@ -96,7 +175,7 @@ const mapDispatchToProps = (dispatch) => {
   return {
     addTask: (taskId, task) => dispatch(actionCreators.addTask(taskId, task)),
     updateTask: (taskId, task) => dispatch(actionCreators.updateTask(taskId, task)),
-    toggleTaskFormModal: () => dispatch(actionCreators.toggleTaskFormModal()),
+    closeTaskModal: () => dispatch(actionCreators.toggleTaskFormModal()),
   };
 };
 

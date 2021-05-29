@@ -35,6 +35,10 @@ function getMonths(style) {
   return months[style];
 }
 
+function getZeroAdded(num, digits = 1) {
+  return `${'0'.repeat(Number(digits) - String(num).length)}${num}`;
+}
+
 // Created by 오영롱(youngrongoh) on 2021/04/20
 class TimestampParser {
   parseMonthIndex = (num, style) => {
@@ -66,6 +70,7 @@ class TimestampParser {
 
     const hours = converted.getHours();
     const mins = converted.getMinutes();
+    const secs = converted.getSeconds();
     const am = is12Hours && hours < 12;
 
     const convertedHours = is12Hours && (hours > 12 ? hours - 12 : hours);
@@ -78,6 +83,7 @@ class TimestampParser {
       if (isTime) {
         dateObj.hours = is12Hours ? convertedHours : hours;
         dateObj.mins = mins;
+        dateObj.secs = secs;
         if (is12Hours) dateObj.am = am;
       }
 
@@ -87,7 +93,7 @@ class TimestampParser {
     const dateArr = [year, month, date];
 
     if (isDay) dateArr.push(day);
-    if (isTime) dateArr.push(is12Hours ? convertedHours : hours, mins, am);
+    if (isTime) dateArr.push(is12Hours ? convertedHours : hours, mins, secs, am);
 
     if (type === 'array') return dateArr;
 
@@ -104,7 +110,7 @@ class TimestampParser {
   };
 
   categorize = (dateStr, option = {}) => {
-    const { separator, isDay, dayStyle, monthStyle } = option;
+    const { separator, isDay, dayStyle, monthStyle, isZeroAdded } = option;
     let dateObj = dateStr;
 
     if (separator) {
@@ -112,14 +118,19 @@ class TimestampParser {
 
       dateObj = dateStr.split(separator).reduce((obj, value, i) => {
         const copied = obj;
-        copied[units[i]] = Number(value);
+        const digits = units[i] === 'year' ? 4 : 2;
+        copied[units[i]] = isZeroAdded ? getZeroAdded(value, digits) : Number(value);
         return copied;
       }, {});
     } else {
+      const slicedYear = Number(dateStr.slice(0, 4));
+      const slicedMonth = Number(dateStr.slice(4, 6));
+      const slicedDate = Number(dateStr.slice(6, 8));
       dateObj = {
-        year: Number(dateStr.slice(0, 4)),
-        month: Number(dateStr.slice(4, 6)),
-        date: Number(dateStr.slice(6, 8)),
+        year: isZeroAdded ? getZeroAdded(slicedYear, 4) : slicedYear,
+        month: isZeroAdded ? getZeroAdded(slicedMonth, 2) : slicedMonth,
+        date: isZeroAdded ? getZeroAdded(slicedDate, 2) : slicedDate,
+        secs: 0,
       };
     }
 
@@ -132,7 +143,7 @@ class TimestampParser {
 
     if (monthStyle) {
       const months = getMonths(monthStyle);
-      dateObj.month = months[Number(dateObj.month - 1)];
+      dateObj.month = months[Number(dateObj.month) - 1];
     }
 
     return dateObj;
@@ -147,7 +158,7 @@ class TimestampParser {
       dateObj = this.categorize(input, { separator });
     }
 
-    const { year, month, date, hours, mins, am } = dateObj;
+    const { year, month, date, hours, mins, secs, am } = dateObj;
 
     let convertedHours = hours;
 
@@ -157,12 +168,17 @@ class TimestampParser {
 
     let parsed;
     if (isTime) {
-      parsed = new Date(year, month - 1, date, convertedHours, mins).getTime();
+      parsed = new Date(year, month - 1, date, convertedHours, mins, secs).getTime();
     } else {
       parsed = new Date(year, month - 1, date, 8, 0).getTime();
     }
 
     return Number.isNaN(parsed) ? '' : parsed;
+  };
+
+  getTimestampBySecs = (timestamp) => {
+    const unit = 10 ** 3;
+    return Math.floor(new Date(timestamp).getTime() / unit) * unit;
   };
 }
 

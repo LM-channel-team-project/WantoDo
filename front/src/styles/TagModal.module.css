@@ -42,3 +42,24 @@
   right: 1em;
   color: white;
 }
+
+.footer {
+  position: relative;
+}
+
+.autoCompleteWrapper {
+  font-size: 1.2em;
+}
+
+.bling {
+  animation: bling 200ms linear infinite alternate;
+}
+
+@keyframes bling {
+  0% {
+    background-color: #efff88;
+  }
+  100% {
+    background-color: #df88ff;
+  }
+}
