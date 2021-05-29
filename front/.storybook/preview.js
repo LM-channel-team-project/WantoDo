@@ -1,4 +1,4 @@
-import '../src/styles/common/reset.css';
+import '../src/styles/reset.css';
 import '../src/styles/index.css';
 
 export const parameters = {

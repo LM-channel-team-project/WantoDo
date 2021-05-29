@@ -186,7 +186,7 @@ class AccountManager {
       headers: { Authorization: token },
       data,
     });
-    console.log(response);
+
     return response.data.data.task.taskId;
   };
 

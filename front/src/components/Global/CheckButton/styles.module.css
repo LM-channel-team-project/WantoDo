@@ -1,0 +1,28 @@
+@value effect: 'styles/preset/effect.css';
+@value animation-duration-faster as faster from effect;
+
+/* Created by 오영롱(youngrongoh) on 2021/04/19 */
+#input-check {
+  display: none;
+}
+
+#input-check:checked ~ button .checkmark {
+  opacity: 1;
+}
+
+.checkmark {
+  position: absolute;
+  font-size: 1.5em;
+  font-weight: bolder;
+  top: -0.4em;
+  right: -0.3em;
+  opacity: 0;
+  transition: faster ease-in-out;
+}
+
+.box {
+  line-height: 0;
+  position: relative;
+  top: 7px;
+  margin-left: 5px;
+}

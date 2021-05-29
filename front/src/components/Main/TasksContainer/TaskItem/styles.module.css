@@ -1,0 +1,82 @@
+@value colors: 'styles/preset/color.css';
+@value size: 'styles/preset/size.css';
+@value colorGray, colorDarkGray, colorLightGray from colors;
+
+/* Created by 오영롱(youngrongoh) on 2021/04/20 */
+.task {
+  margin-bottom: 0.7em;
+  position: relative;
+}
+
+.task::before {
+  content: '';
+  position: absolute;
+  left: 3%;
+  top: 100%;
+  width: 96%;
+  border-bottom: 1px solid colorGray;
+}
+
+.elements {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.1em;
+}
+
+.checkcontent {
+  display: flex;
+  width: 40%;
+}
+
+.content {
+  line-break: all;
+  text-align: left;
+}
+
+.tags {
+  font-size: 0.6em;
+  width: 40%;
+}
+
+.tag {
+  display: inline-block;
+  margin-top: 0.2em;
+  margin-bottom: 0.2em;
+}
+
+.tag:not(:last-child) {
+  margin-right: 0.3em;
+}
+
+.period {
+  font-size: 0.8em;
+  margin-left: 2.5em;
+  margin-right: 3em;
+  padding: 3px;
+  position: relative;
+  top: -7px;
+  color: grey;
+}
+
+.iconbuttons {
+  display: flex;
+}
+
+/* check에 따른 상태변화 */
+.checked {
+  color: colorGray;
+  position: relative;
+  /* transition: 0.2s ease-in-out; */
+}
+
+.checked::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  width: 100%;
+  left: 0;
+  height: 1px;
+  background-color: colorGray;
+  transition: 0.2s ease-in-out;
+}
