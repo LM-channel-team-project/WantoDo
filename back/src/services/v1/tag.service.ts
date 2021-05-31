@@ -3,6 +3,7 @@ import { UserInfo } from '../../common/types';
 import { users } from '../../models/user.model';
 import { ITagDocument, tags } from '../../models/tag.model';
 import Exceptions from '../../exceptions';
+import { ITask, tasks } from '../../models/task.model';
 
 /**
  * @author 강성모(castleMo)
@@ -160,6 +161,21 @@ export const deleteTag = async (user: UserInfo, tagId: string) => {
 			platform: user.platform,
 		});
 
+		// 태그가 속한 task 찾아서 태그 지우기
+		await tasks
+			.updateMany(
+				{
+					userId: wantodoUser.userId,
+					'tags.tagId': tagId,
+				},
+				{
+					$pull: { tags: { tagId } },
+					updatedTimestamp: Math.floor(+new Date()),
+				},
+			)
+			.exec();
+
+		// 태그 지우기
 		await tags
 			.updateOne(
 				{

@@ -111,6 +111,8 @@ export const loginUser = async (user: UserInfo) => {
 			// 존재하지않으면 에러를 던져줌
 			if (!dbUser) throw new Error('');
 
+			console.log(dbUser.userId);
+
 			returnToUser = {
 				email: dbUser.email,
 				platform: dbUser.platform,
