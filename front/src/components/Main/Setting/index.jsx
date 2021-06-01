@@ -8,17 +8,17 @@ import styles from 'components/Main/styles.module.css';
 
 const SettingContainer = ({ settings, token, editSetting, openWidrawalModal }) => {
   const { theme, isNotification, beginningOfWeek } = settings;
-  const onToggleClick = (_, name, switchOn) => {
+  const onToggleClick = (_, name, switchOff) => {
     let value;
     switch (name) {
       case 'theme':
-        value = switchOn ? 'dark' : 'default';
+        value = switchOff ? 'dark' : 'default';
         break;
       case 'isNotification':
-        value = switchOn;
+        value = switchOff;
         break;
       case 'beginningOfWeek':
-        value = switchOn ? 'monday' : 'sunday';
+        value = switchOff ? 'monday' : 'sunday';
         break;
       default:
         throw new Error(`invalid name: ${name}`);
@@ -31,17 +31,17 @@ const SettingContainer = ({ settings, token, editSetting, openWidrawalModal }) =
     <ul className={styles.content}>
       <li className={styles.item}>
         <span>다크모드</span>
-        <ToggleSwitch name="theme" switchOn={theme === 'dark'} onClick={onToggleClick} />
+        <ToggleSwitch name="theme" switchOff={theme === 'dark'} onClick={onToggleClick} />
       </li>
       <li className={styles.item}>
         <span>알림 받기</span>
-        <ToggleSwitch name="isNotification" switchOn={isNotification} onClick={onToggleClick} />
+        <ToggleSwitch name="isNotification" switchOff={isNotification} onClick={onToggleClick} />
       </li>
       <li className={styles.item}>
         <span>한주의 시작</span>
         <ToggleSwitch
           name="beginningOfWeek"
-          switchOn={beginningOfWeek === 'monday'}
+          switchOff={beginningOfWeek === 'monday'}
           onClick={onToggleClick}
         />
       </li>
