@@ -1,0 +1,50 @@
+@value colorWhite from 'styles/preset/color.css';
+@value space-narrow as narrow, space-narrower as narrower, font-regular as regular, weight-semibold as semibold from 'styles/preset/size.css';
+
+.selector {
+  display: flex;
+  align-items: center;
+  padding: 0 0 0 10px;
+  display: inline-flex;
+}
+
+/* "중요도" 글씨 */
+.name {
+  margin: 0 6px;
+  font-size: 17spx;
+  font-weight: semibold;
+  color: colorWhite;
+}
+
+/* 중요도 선택 ul == container */
+.list {
+  margin: 15px 8px;
+}
+
+/* 중요도 선택 li */
+.item {
+  display: inline-block;
+}
+
+.item + .item {
+  margin-left: 0.5em;
+}
+
+.close {
+  color: yellow;
+  transform: rotate(45deg);
+  width: 23px;
+  height: 23px;
+}
+
+.close.lightOff {
+  color: black;
+}
+
+.close.lightOff:hover {
+  color: yellow;
+}
+
+.select {
+  display: none;
+}

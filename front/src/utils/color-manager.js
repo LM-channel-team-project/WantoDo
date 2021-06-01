@@ -6,6 +6,7 @@ class ColorManager {
     blue: '#ACE8FF',
     green: '#B9FFBD',
     purple: '#D4B4FF',
+    pink: '#FED9FF',
   };
 
   convert = (input = '') => {

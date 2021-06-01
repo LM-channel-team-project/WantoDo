@@ -1,0 +1,125 @@
+@value colorShadow, colorLightWhite, colorPurple from 'styles/preset/color.css';
+
+/* Created by 오영롱(youngrongoh) on 2021/04/23 */
+.delete {
+  display: inline-block;
+  vertical-align: sub;
+  font-size: 1.3em;
+  line-height: 0.8;
+  width: 0;
+  opacity: 0;
+  transition: 300ms ease;
+}
+
+.container {
+  position: relative;
+}
+
+.badge {
+  position: absolute;
+  top: -0.4em;
+  left: -0.4em;
+  width: 1em;
+  height: 1em;
+  border-radius: 50%;
+  box-shadow: 0.03em 0.03em 0.3em 0.1em rgba(56, 56, 56, 0.5);
+  border: 1px solid colorLightWhite;
+  overflow: hidden;
+  opacity: 0.5;
+}
+
+.badge.color {
+  opacity: 1;
+}
+
+.main {
+  width: 100%;
+  height: 100%;
+  background-color: colorPurple;
+  color: white;
+  font-weight: bold;
+  font-size: 0.6em;
+  text-align: center;
+  line-height: 1.7em;
+  border-radius: 50%;
+}
+
+.filter {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 1;
+  background-color: #fff;
+}
+
+.badge.color .filter {
+  opacity: 0;
+}
+
+/* 메인 태그 뱃지 애니메이션 */
+
+.filter.fadein {
+  animation: fade 1000ms linear;
+}
+
+.filter.fadeout {
+  animation: fade 300ms 700ms linear reverse forwards;
+}
+
+.badge.fadein {
+  animation: halfFade 800ms linear forwards;
+  animation: ping 1000ms ease;
+  opacity: 0.9;
+}
+
+.badge.fadeout {
+  animation: halfFade 1000ms linear reverse;
+}
+
+.tremble {
+  animation: tremble 20ms 100ms linear 35 alternate;
+}
+
+@keyframes halfFade {
+  0% {
+    opacity: 0.5;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes fade {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes tremble {
+  0% {
+    transform: translateX(2px);
+  }
+  100% {
+    transform: translateX(-2px);
+  }
+}
+
+@keyframes ping {
+  0% {
+    transform: translateY(0px) scale(1);
+  }
+  90% {
+    transform: translateY(3px) scale(0.8);
+  }
+  95% {
+    transform: translateY(-6px) scale(1.2);
+  }
+  100% {
+    transform: translateY(0px) scale(1);
+  }
+}
