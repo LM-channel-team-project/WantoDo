@@ -70,12 +70,15 @@ export const createTask = async (user: UserInfo, contents: string, options: ReqC
 				throw new Exceptions.MongoException(err);
 			});
 
+			console.log(options.reqTags);
+
 		const task = await tasks
 			.create({
 				userId: wantodoUser.userId,
 				taskId: uuidV4(),
 				contents,
 				...options,
+				tags: options.reqTags,
 			})
 			.catch((err) => {
 				throw new Exceptions.MongoException(err);
@@ -183,20 +186,22 @@ export const getTasks = async (user: UserInfo, options: ReqGetTasksOptions) => {
 			});
 
 		// return 시킬 Task 배열
-		const returnToTasks: ResTasks[] = [];
+		let returnToTasks: ResTasks[] = [];
 
 		taskList.forEach((task: ITask) => {
 			const returnTags: ResTags[] = [];
 			// task하나의 tag 배열을 돌면서 name과 color 추가
-			task.tags.forEach((value: ITag) => {
-				const tagIndex = tagList.findIndex((tag) => value.tagId === tag.tagId);
-				returnTags.push({
-					tagId: value.tagId,
-					isMainTag: value.isMainTag,
-					name: tagList[tagIndex].name,
-					color: tagList[tagIndex].color,
+			if (task.tags.length > 0 && tagList.length > 0) {
+				task.tags.forEach((value: ITag) => {
+					const tagIndex: number = tagList.findIndex((tag) => value.tagId === tag.tagId);
+					returnTags.push({
+						tagId: value.tagId,
+						isMainTag: value.isMainTag,
+						name: tagList[tagIndex].name,
+						color: tagList[tagIndex].color,
+					});
 				});
-			});
+			}
 
 			// return 시킬 task 배열에 push
 			returnToTasks.push({
