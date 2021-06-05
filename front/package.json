@@ -1,10 +1,35 @@
 {
-  "name": "front",
+  "name": "wantodo-front",
   "version": "1.0.0",
-  "description": "",
+  "description": "Achieve your wanted to do with WantoDo. Wandoto is Two in One Scheduling Service combined To Do list and Calendar.",
   "private": true,
-  "keywords": [],
-  "author": "WantoDo",
+  "keywords": [
+    "wantodo",
+    "todolist",
+    "calendar",
+    "schedule",
+    "todo"
+  ],
+  "author": "WantoDo Team",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/LM-channel-team-project/WantoDo"
+  },
+  "bugs": {
+    "email": "wantodo.official@gmail.com",
+    "url": "https://github.com/LM-channel-team-project/WantoDo/issues"
+  },
+  "license": "ISC",
+  "scripts": {
+    "start": "env-cmd -f env/.env react-scripts start",
+    "build": "react-scripts build",
+    "deploy": "netlify deploy",
+    "dev": "concurrently \"yarn dev:back\" \"yarn start\"",
+    "prod": "env-cmd -f env/.env.production react-scripts start",
+    "storybook": "start-storybook -s ./public -p 6006",
+    "build-storybook": "build-storybook",
+    "dev:back": "cd ../back; yarn local"
+  },
   "dependencies": {
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
@@ -19,14 +44,6 @@
     "redux": "^4.0.5",
     "web-vitals": "^1.0.1"
   },
-  "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject",
-    "storybook": "start-storybook -s ./public -p 6006",
-    "build-storybook": "build-storybook"
-  },
   "browserslist": {
     "production": [
       ">0.2%",
@@ -39,7 +56,6 @@
       "last 1 safari version"
     ]
   },
-  "license": "ISC",
   "devDependencies": {
     "@babel/core": "^7.14.0",
     "@storybook/addon-actions": "^6.2.9",
@@ -48,6 +64,8 @@
     "@storybook/preset-create-react-app": "^3.1.7",
     "@storybook/react": "^6.2.9",
     "babel-loader": "8.1.0",
+    "concurrently": "^6.0.1",
+    "env-cmd": "^10.1.0",
     "eslint": "^7.24.0",
     "eslint-config-airbnb": "^18.2.1",
     "eslint-config-prettier": "^8.1.0",
