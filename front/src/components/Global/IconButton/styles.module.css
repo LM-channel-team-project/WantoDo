@@ -1,0 +1,10 @@
+.icon {
+  font-size: 1em;
+  margin-left: 3px;
+  margin-right: 6px;
+}
+
+.loginbutton {
+  position: relative;
+  top: 1px;
+}

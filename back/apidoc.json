@@ -1,0 +1,20 @@
+{
+  "name": "Wantodo",
+  "version": "1.0.1",
+  "title": "Wantodo API",
+  "description": "Wantodo API documentation",
+  "url": "http://localhost:9090/api",
+  "sampleUrl": "http://localhost:9090/api",
+  "template": {
+    "forceLanguage": "en",
+    "withCompare": true,
+    "withGenerator": false,
+    "aloneDisplay": false
+  },
+  "order": [
+    "Accounts",
+    "Profiles",
+    "Tasks",
+    "Tags"
+  ]
+}

@@ -1,0 +1,28 @@
+.container {
+  position: relative;
+  display: flex;
+  height: 100%;
+  width: 100%;
+  background-color: white;
+}
+
+.side {
+  flex-basis: 1;
+}
+
+.main {
+  width: 100%;
+}
+
+.split {
+  display: flex;
+}
+
+.left {
+  width: 50%;
+}
+
+.right {
+  flex: 100%;
+  border-left: 10px solid lightgray;
+}

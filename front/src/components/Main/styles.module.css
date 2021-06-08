@@ -1,0 +1,40 @@
+/* TaskContainer와 CalendarContainer에서 임시 스타일링으로 사용 */
+.container {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.header {
+  padding: 1em;
+  font-size: 1.5em;
+}
+
+.content {
+  height: 100%;
+  overflow-y: auto;
+}
+
+.item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.8em;
+  margin-left: 25px;
+  margin-right: 25px;
+  font-size: 1.1em;
+}
+
+.footer {
+  margin: 1em;
+}
+
+.date {
+  font-size: 1.4em;
+}
+
+.month {
+  font-size: 1em;
+  color: #525153;
+}

@@ -1,0 +1,40 @@
+# Dependency directories
+**/node_modules/
+front/**/.pnp
+front/.pnp.js
+
+# Configs
+**/config/
+
+# testing
+front/coverage
+
+# production
+front/build
+
+# Logs
+**/logs
+**/*.log
+**/npm-debug.log*
+
+# Optional npm cache directory
+**/.npm
+
+# Editor
+**/.vscode
+**/.idea
+
+# Docs
+**/docs
+
+# misc
+**/dist/
+front/.DS_Store
+front/env
+
+front/npm-debug.log*
+front/yarn-debug.log*
+front/yarn-error.log*
+
+# Local Netlify folder
+.netlify

@@ -1,0 +1,70 @@
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  background-color: White;
+  text-align: center;
+  font-size: 1rem;
+  border-radius: 1em;
+}
+
+.title {
+  margin-bottom: 3em;
+}
+
+.sub__top {
+  font-size: 2em;
+}
+
+.sub__bottom {
+  font-size: 1em;
+}
+
+.logo {
+  font-size: 6em;
+  margin-bottom: 0.5em;
+}
+
+.login {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Register Page */
+.form {
+}
+
+.list {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  margin-bottom: 3em;
+}
+
+.profile {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 3em;
+}
+
+.profileBox {
+  display: inline-block;
+  position: relative;
+}
+
+.textBox {
+  display: flex;
+  flex-direction: column;
+  font-size: 1.1em;
+  color: #525153;
+}
+
+.buttons {
+  position: relative;
+  display: flex;
+  justify-content: center;
+}

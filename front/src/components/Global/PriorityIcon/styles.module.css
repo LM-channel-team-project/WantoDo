@@ -1,0 +1,37 @@
+/* Created by 오영롱(youngrongoh) on 2021/04/20 */
+.icon {
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+  font-size: 1.4em;
+  margin-left: 0.5em;
+}
+
+.star {
+  color: yellow;
+}
+
+.starLightOff {
+  color: black;
+}
+
+.starLightOff:hover {
+  color: yellow;
+}
+
+g.star {
+  fill: yellow;
+}
+
+g.starLightOff {
+  fill: black;
+}
+
+g.starLightOff:hover {
+  fill: yellow;
+}
+
+.hidden {
+  visibility: hidden;
+  opacity: 0;
+}
